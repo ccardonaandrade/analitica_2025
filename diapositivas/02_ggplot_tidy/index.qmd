@@ -1,0 +1,679 @@
+---
+title: Analítica de Datos
+author: Carlos Cardona Andrade
+subtitle: ggplot y tidyverse
+execute:
+  freeze: auto
+  echo: true
+  fig-width: 6
+  fig-height: 5
+format:
+  revealjs: 
+   theme: ../slides.scss
+   header-includes: |
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"/>
+   slide-number: true
+   show-slide-number: all
+   transition: fade
+   progress: true
+   multiplex: false
+   scrollable: false
+   preview-links: false
+   hide-inactive-cursor: true
+   highlight-style: printing
+   pause: true
+---
+     
+```{r}
+#| eval: true
+#| echo: false
+library(knitr)
+library(forcats)
+library(patchwork)
+library(lubridate)
+library(cowplot)
+library(tidyverse)
+library(kableExtra)
+
+```
+
+
+## ggplot {.medium}
+```{r, fig.width = 4, fig.asp = 0.45} 
+#| echo: false
+#| fig.align: 'center'
+aes_pos <- ggdraw() + 
+  geom_segment(data = data.frame(x = c(0, 0.5),
+                                 xend = c(1, 0.5),
+                                 y = c(0.5, 0),
+                                 yend = c(0.5, 1)),
+               aes(x = x, y = y, xend = xend, yend = yend),
+               arrow = arrow(length = grid::unit(12, "pt")), size = .75) +
+  draw_text("y", .5, 1, size = 12, vjust = 1, hjust = 2.5) +
+  draw_text("x", 1, .5, size = 12, vjust = 2, hjust = 1) + 
+  coord_cartesian(xlim = c(-.2, 1.2), ylim = c(-.2, 1.2))
+
+aes_color <- ggdraw() +
+  geom_tile(data = data.frame(x = 0.15 + .2333*(0:3)),
+            aes(x, y = .5, fill = factor(x)), width = .2, height = .6) 
+aes_shape <- ggdraw() +
+  geom_point(data = data.frame(x = (.5 + 0:3)/4),
+             aes(x, y = .5, shape = factor(x)), size = 8, fill = "grey80") +
+  scale_shape_manual(values = 21:24)
+
+aes_size <- ggdraw() +
+  geom_point(data = data.frame(x = (.5 + 0:3)/4),
+             aes(x, y = .5, size = factor(x)), shape = 21, fill = "grey80") +
+  scale_size_manual(values = c(2, 5, 8, 11))
+
+aes_lwd <- ggdraw() +
+  geom_segment(data = data.frame(x = rep(0.05, 4),
+                                 xend = rep(0.95, 4),
+                                 y = (1.5 + 0:3)/6,
+                                 yend = (1.5 + 0:3)/6,
+                                 size = 4:1),
+               aes(x = x, y = y, xend = xend, yend = yend, size = size)) +
+  scale_size_identity()
+
+aes_ltp <- ggdraw() +
+  geom_segment(data = data.frame(x = rep(0.05, 4),
+                                 xend = rep(0.95, 4),
+                                 y = (1.5 + 0:3)/6,
+                                 yend = (1.5 + 0:3)/6,
+                                 linetype = 4:1),
+               aes(x = x, y = y, xend = xend, yend = yend, linetype = linetype), size = 1) +
+  scale_linetype_identity()
+
+
+plot_grid(aes_pos, aes_shape, aes_size,
+          aes_color, aes_lwd, aes_ltp,
+          ncol = 3,
+          labels = c("position", "shape", "size", "color", "line width", "line type"),
+          label_x = 0.05, label_y = 0.95, hjust = 0, vjust = 1)
+```
+
+El paquete ggplot2 creado por [Hadley Wickham](http://hadley.nz/) es uno de los paquetes más populares de todo el mundo R. 
+  
+  - Está construido sobre una teoría de visualización profunda: i.e. [*The Grammar of Graphics*](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448) de Leland Wilkinson.
+
+## Elements of ggplot2 {.medium}
+
+Hay mucho que decir sobre la implementación de este enfoque de "gramática de gráficos" en ggplot2, pero los tres elementos clave son:
+
+1. La gráfica ("la visualización") está conectada a las variables ("los datos") a través de varios **mapeos estéticos** (aestethic mappings).
+
+2. Una vez el mapeo estético está definido, ustedes pueden representar sus datos en diferentes maneras al elegir diferentes **geoms** (i.e. "objetos geométricos" como puntos, líneas o barras).
+
+3. Los gráficos se contruyen por **capas** (layers).
+
+</br>
+
+Esto es un poco abstracto. Repasemos cada elemento por turno con algunos gráficos reales.
+
+## Gapminder Data {.medium}
+
+```{r}
+#| echo: true
+library(gapminder)
+```
+    
+## 1. Mapeo estético {.medium}
+
+```{r}
+#| echo: true
+#| fig.align: 'center'
+#| fig-width: 10
+#| fig-height: 5
+#| dpi: 320
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point()
+```
+
+
+## 1. Mapeo estético (cont.) {.medium}
+
+``` {r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "1"
+ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point()
+```
+
+Concentrémonos en la primera línea que contiene el llamado a la función `ggplot()`. La función acepta varios argumentos incluyendo:
+
+  - los datos que estamos usando (i.e. `data = top1000`).
+  - el mapeo estético (i.e. `mapping = aes(x = budget, y = rating)`).
+
+
+El mapeo estético acá es simple: sólo define un eje x (budget) y un eje y (rating).
+
+- Sin embargo, para tener una idea del poder y la flexibilidad que conlleva este enfoque, consideremos lo que sucede si agregamos más estética a la línea de la función...
+
+
+
+## 1. Mapeo estético (cont.) {.medium}
+
+```{r}
+#| echo: true
+#| fig.align: 'center'
+#| fig-width: 8
+#| fig-height: 4
+#| dpi: 320
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, size = pop, col = continent)) + 
+  geom_point(alpha = 0.3) ## "alpha" controls transparency. Takes a value between 0 and 1.
+```
+
+
+Noten que borramos la parte "mapping =" al llamar la función. La mayoría de la gnete sólo empieza con "aes(...)", ya que `ggplot2` sabe el orden de los argumentos.
+
+
+## 1. Mapeo estético (cont.) {.medium}
+
+También podemos especificar mapeo estético en la capa de la geometríca que queremos.
+```{r}
+#| echo: true
+#| fig.align: 'center'
+#| fig-width: 10
+#| fig-height: 5
+#| dpi: 320
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + ## Applicable to all geoms
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) ## Applicable to this geom only
+```
+
+## 1. Mapeo estético (cont.) {.medium}
+
+Oops. ¿Qué salió mal aquí?
+
+```{r}
+#| echo: true
+#| fig.align: 'center'
+#| fig-width: 8
+#| fig-height: 4
+#| dpi: 320
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(aes(size = "big", col="black"), alpha = 0.3)
+```
+
+<br/> **Respuesta: **Las características estéticas están asociadas a variables, no a descripciones!
+
+## 1. Mapeo estético (cont.) {.medium}
+
+En este punto, en lugar de repetir la misma primera línea de ggplot2, es más conveniente definir un gráfico intermedio que podamos reutilizar.
+
+```{r}
+#| echo: true
+#| fig.align: 'center'
+p <- ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp))
+p
+```
+
+## 2. Geoms {.medium}
+
+Una vez que las relaciones de sus variables hayan sido definidas por los mapeos estéticos, pueden usar y combinar diferentes geometrías para generar diferentes visualizaciones.
+
+```{r}
+#| echo: true
+#| fig.align: 'center'
+#| fig-width: 8
+#| fig-height: 4
+#| dpi: 320
+p + 
+  geom_point(alpha = 0.3)  +
+  geom_smooth(method = "loess")
+```
+
+
+## 2. Geoms {.medium}
+
+Los mapeos estéticos pueden aplicarse de manera diferente en cada geometría.
+
+```{r}
+#| echo: true
+#| fig.align: 'center'
+#| fig-width: 8
+#| fig-height: 4
+#| dpi: 320
+p + 
+  geom_point(aes(size = pop, col = continent), alpha = 0.3)  +
+  geom_smooth(method = "loess")
+```
+
+## 2. Geoms (cont) {.medium}
+
+El gráfico anterior proporciona una buena ilustración del poder (o efecto) que surge de asignar mapeos estéticos "globalmente" vs al interior de las capas geométricas individuales.
+
+- Comparar: ¿Qué sucede si ejecuta el fragmento de código a continuación?
+
+```{r}
+#| eval: false
+#| echo: true
+#| fig.align: 'center'
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, size = pop, col = continent)) +
+  geom_point(alpha = 0.3)  +
+  geom_smooth(method = "loess")
+```
+
+## 2. Geoms (cont) {.medium}
+
+De manera similar, tenga en cuenta que algunos geoms solo aceptan un subconjunto de asignaciones. Por ejemplo, `geom_density()` no sabe qué hacer con la asignación estética "y".
+
+```{r}
+#| echo: true
+#| error: true
+#| fig.align: 'center'
+p + geom_density()
+
+```
+
+## 2. Geoms (cont) {.medium}
+
+Podemos solucionar esto siendo más cuidadosos con cómo construimos la gráfica.
+
+```{r}
+#| echo: true
+#| fig.align: 'center'
+#| fig-width: 8
+#| fig-height: 4
+#| dpi: 320
+ggplot(data = gapminder) + ## i.e. No "global" aesthetic mappings"
+  geom_density(aes(x = gdpPercap, fill = continent), alpha=0.3)
+```
+
+## 3. Construir la gráfica por capas {.medium}
+
+Ya hemos visto cómo podemos encadenar (o "superponer") elementos de gráfico consecutivos utilizando el conector "+".
+
+  - El hecho de que podamos crear y luego reutilizar un objeto de gráfico intermedio (por ejemplo, "p") es un testimonio de esto.
+
+Pero vale la pena repetirlo: puede generar una complejidad y transformación realmente impresionantes de su visualización a través de este simple proceso de superposición.
+  - No tiene que transformar sus datos originales; ggplot2 se encarga de todo eso.
+  - Por ejemplo (vea la siguiente diapositiva para ver la figura).
+  
+## 3. Construir la gráfica por capas (cont) {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+p +
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) 
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig.align: 'center'
+p +
+  geom_point(aes(size = pop, col = continent), alpha = 0.3)
+
+```
+:::
+:::
+  
+## 3. Construir la gráfica por capas (cont) {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+p +
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) +
+  scale_color_brewer(name = "Continent", palette = "Set1")  ## Different colour scale
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig.align: 'center'
+p +
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) +
+  scale_color_brewer(name = "Continent", palette = "Set1")  ## Different colour scale
+```
+:::
+:::  
+  
+## 3. Construir la gráfica por capas (cont) {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+p +
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) +
+  scale_color_brewer(name = "Continent", palette = "Set1") + ## Different colour scale
+  scale_size(name = "Population", labels = scales::comma)  ## Different point (i.e. legend) scale
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig.align: 'center'
+p +
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) +
+  scale_color_brewer(name = "Continent", palette = "Set1") + ## Different colour scale
+  scale_size(name = "Population", labels = scales::comma)  ## Different point (i.e. legend) scale
+```
+:::
+:::
+ 
+## 3. Construir la gráfica por capas (cont) {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+p +
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) +
+  scale_color_brewer(name = "Continent", palette = "Set1") + ## Different colour scale
+  scale_size(name = "Population", labels = scales::comma) + ## Different point (i.e. legend) scale
+  scale_x_log10(labels = scales::dollar)  ## Switch to logarithmic scale on x-axis. Use dollar units.
+```
+:::
+
+::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| fig.align: 'center'
+p +
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) +
+  scale_color_brewer(name = "Continent", palette = "Set1") + ## Different colour scale
+  scale_size(name = "Population", labels = scales::comma) + ## Different point (i.e. legend) scale
+  scale_x_log10(labels = scales::dollar)  ## Switch to logarithmic scale on x-axis. Use dollar units.
+```
+:::
+::: 
+
+## 3. Construir la gráfica por capas (cont) {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+p +
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) +
+  scale_color_brewer(name = "Continent", palette = "Set1") + ## Different colour scale
+  scale_size(name = "Population", labels = scales::comma) + ## Different point (i.e. legend) scale
+  scale_x_log10(labels = scales::dollar) + ## Switch to logarithmic scale on x-axis. Use dollar units.
+  labs(x = "Log (GDP per capita)", y = "Life Expectancy")  ## Better axis titles
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig.align: 'center'
+p +
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) +
+  scale_color_brewer(name = "Continent", palette = "Set1") + ## Different colour scale
+  scale_size(name = "Population", labels = scales::comma) + ## Different point (i.e. legend) scale
+  scale_x_log10(labels = scales::dollar) + ## Switch to logarithmic scale on x-axis. Use dollar units.
+  labs(x = "Log (GDP per capita)", y = "Life Expectancy") ## Better axis titles
+```
+:::
+:::
+
+
+## 3. Construir la gráfica por capas (cont) {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+p +
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) +
+  scale_color_brewer(name = "Continent", palette = "Set1") + ## Different colour scale
+  scale_size(name = "Population", labels = scales::comma) + ## Different point (i.e. legend) scale
+  scale_x_log10(labels = scales::dollar) + ## Switch to logarithmic scale on x-axis. Use dollar units.
+  labs(x = "Log (GDP per capita)", y = "Life Expectancy") + ## Better axis titles
+  theme_minimal() ## Try a minimal (b&w) plot theme
+```
+:::
+
+::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| fig.align: 'center'
+p +
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) +
+  scale_color_brewer(name = "Continent", palette = "Set1") + ## Different colour scale
+  scale_size(name = "Population", labels = scales::comma) + ## Different point (i.e. legend) scale
+  scale_x_log10(labels = scales::dollar) + ## Switch to logarithmic scale on x-axis. Use dollar units.
+  labs(x = "Log (GDP per capita)", y = "Life Expectancy") + ## Better axis titles
+  theme_minimal() ## Try a minimal (b&w) plot theme
+```
+:::
+:::
+
+  
+## 3. Construir la gráfica por capas (cont) {.medium}
+
+```{r}
+#| echo: false
+#| fig.align: 'center'
+p2 <-
+  p +
+  geom_point(aes(size = pop, col = continent), alpha = 0.3) +
+  scale_color_brewer(name = "Continent", palette = "Set1") + ## Different colour scale
+  scale_size(name = "Population", labels = scales::comma) + ## Different point (i.e. legend) scale
+  scale_x_log10(labels = scales::dollar) + ## Switch to logarithmic scale on x-axis. Use dollar units.
+  labs(x = "Log (GDP per capita)", y = "Life Expectancy") + ## Better axis titles
+  theme_minimal() ## Try a minimal (b&w) plot theme
+p2 
+```
+
+
+# tidyverse
+
+
+## Los verbos del dlpyr
+
+::: {.cell}
+
+|                                                         |                                              |
+|---------------------------------------------------------|----------------------------------------------|
+| Extract rows with `filter()`                            | ![filter](img/filter.png){height=80px} |
+| Extract columns with `select()`                         | ![select](img/select.png){height=80px} |
+| Arrange/sort rows with `arrange()`                      | ![arrange](img/arrange.png){height=80px} |
+| Make new columns with `mutate()`                        | ![mutate](img/mutate.png){height=80px} |
+| Make group summaries with `group_by() |> summarize()`   | ![summarize](img/summarize.png){height=80px} |
+
+:::
+
+
+## `filter`
+
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| echo: false
+#| results: asis
+
+cat('<code>filter(.data = <span style="background-color: #FFDFD1; font-weight: bold;">DATA</span>, 
+<span style="background-color: #FFD0CF; font-weight: bold;">...</span>)</code>')
+```
+
+::::
+
+
+:::: {.column width="50%"}
+- <span style="background-color: #FFDFD1; font-weight: bold;">DATA</span> = Data frame to transform
+- <span style="background-color: #FFD0CF; font-weight: bold;">...</span> = One or more tests<br>.`filter()` returns each row for which the test is TRUE.
+
+::::
+::::
+
+## filter {.medium}
+
+De la base original:
+
+```{r}
+#| echo: false
+gapminder |> 
+  select(country, continent, year) |> 
+  head(5) |> 
+  mutate(year = as.character(year)) |> 
+  bind_rows(tibble(country = "...", continent = "...", year = "...")) |> 
+  knitr::kable(format = "html")
+```
+
+
+Podemos seleccionar
+
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+::: {.cell}
+```{r}
+#| echo: false
+#| results: asis
+
+cat('<code>filter(.data = <span style="background-color: #FFDFD1; font-weight: bold;">gapminder</span>, 
+<span style="background-color: #FFD0CF; font-weight: bold;">country == "Denmark"</span>)</code>')
+```
+:::
+
+::::
+
+
+:::: {.column width="50%"}
+```{r}
+#| echo: false
+gapminder |> 
+  select(country, continent, year) |> 
+  filter(country == "Denmark") |> 
+  head(6) |> 
+  knitr::kable(format = "html")
+```
+
+::::
+::::
+
+## Símbolos Lógicos
+
+::: {.tbl-classic .tbl-larger}
+
+| Test                   | Meaning                    | Test                   | Meaning                  |
+|:----------------------:|:---------------------------|:----------------------:|:--------------------------|
+| `x < y`                | Less than                  | `x %in% y`             | In (group membership)     |
+| `x > y`                | Greater than               | `is.na(x)`             | Is missing                |
+| `==`                   | Equal to                   | `!is.na(x)`            | Is not missing            |
+| `x <= y`               | Less than or equal to      |                        |                           |
+| `x >= y`               | Greater than or equal to   |                        |                           |
+| `x != y`               | Not equal to               |                        |                           |
+
+:::
+
+
+
+## Errores comunes {.medium}
+
+Dos de los errores más comunes son:
+
+  1. Usar "=" en vez de "=="
+  2. No usar las comillas cuando las variables son de tipo texto
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+
+- Incorrecto 
+
+```{r}
+#| echo: false
+#| results: asis
+cat('<code>filter(gapminder,<br>country <span style="color: #3f56b0;">=</span> "Canada")</code>')
+```
+
+```{r}
+#| echo: false
+#| results: asis
+cat('<code>filter(gapminder,<br>country == <span style="color: #3f56b0;">Canada</span>)</code>')
+```
+
+::::
+
+
+:::: {.column width="50%"}
+
+- Correcto
+
+```{r}
+#| echo: false
+#| results: asis
+cat('<code>filter(gapminder,<br>country <span style="color: #4db070;">==</span> "Canada")</code>')
+```
+
+
+```{r}
+#| echo: false
+#| results: asis
+cat('<code>filter(gapminder,<br>country == <span style="color: #4db070;">"Canada"</span>)</code>')
+```
+::::
+::::
+
+
+## filter {.medium}
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| echo: false
+#| results: asis
+
+cat('<code>filter(.data = <span style="background-color: #FFDFD1; font-weight: bold;">gapminder</span>, 
+<span style="background-color: #FFD0CF; font-weight: bold;">country == "Denmark", year > 2000</span>)</code>')
+```
+::::
+
+:::: {.column width="50%"}
+```{r}
+#| echo: false
+gapminder |> 
+  select(country, continent, year) |> 
+  filter(country == "Denmark", year > 2000) |> 
+  head(6) |> 
+  knitr::kable(format = "html")
+```
+::::
+::::
+
+Algunos operadores lógicos son:
+
+
+::: {.tbl-classic .tbl-larger}
+
+| Operator   | Meaning |
+|------------|---------|
+| a & b      |    y    |
+| a \| b      |    o    |
+|  !a`       | negación|
+:::
+
+
