@@ -1,0 +1,893 @@
+---
+title: Analítica de Datos
+author: Carlos Cardona Andrade
+subtitle: Introducción
+execute:
+  freeze: auto
+  echo: true
+  fig-width: 6
+  fig-height: 5
+format:
+  revealjs: 
+   theme: ../slides.scss
+   header-includes: |
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"/>
+   slide-number: true
+   show-slide-number: all
+   transition: fade
+   progress: true
+   multiplex: false
+   scrollable: false
+   preview-links: false
+   hide-inactive-cursor: true
+   highlight-style: printing
+   pause: true
+---
+     
+```{r}
+#| eval: true
+#| echo: false
+library(knitr)
+```
+
+
+## Información del curso {.medium}
+
+[Sobre el curso]{.hl .hl-blue}
+
+<i class="fa-solid fa-user icon"></i> Carlos Cardona Andrade
+
+<i class="fa-solid fa-envelope icon"></i> [carlos.cardonaa@javeriana.edu.co](mailto:carlos.cardonaa@javeriana.edu.co)
+
+<i class="fa-solid fa-clock icon"></i> 4:10pm - 6:40pm
+
+. . .
+
+<br>
+
+[Sobre ustedes]{.hl .hl-blue}
+
+::: {.altlist style="font-size:1.8rem;text-align:left"}
+- Nombre
+- Hobbie/Algo que les guste mucho hacer
+- Experiencia con lenguajes de programación
+:::
+
+
+## Evaluación {.medium}
+
+<br>
+<i class="fa-solid fa-home icon"></i> Quices y Talleres: 30\% 
+<br>
+<br>
+
+. . .
+
+<i class="fa-solid fa-file-pen icon"></i> 2 Parciales: 30\% 
+<br>
+<br>
+
+. . .
+
+<i class="fa-solid fa-person-chalkboard icon"></i>  Trabajo Final: 40\% [(Trabajo Escrito y Presentación)]{.grey600 style="font-size:1.5rem;"} 
+
+## Descripción del curso {.medium}
+
+::: {.secfont style="font-size:2.3rem;text-align:center;"}
+"Una imagen vale más que mil palabras"
+:::
+
+En este curso, los estudiantes aprenderán a trabajar con datos de manera efectiva frente a la incertidumbre, desarrollando habilidades para recolectar, analizar y utilizar datos con el propósito de realizar inferencias y conclusiones sobre fenómenos del mundo real. 
+
+A lo largo del curso, se adquirirá experiencia práctica utilizando el software R, una herramienta fundamental para el análisis y visualización de datos.
+
+
+## Objetivos de la clase {.medium}
+
+::: {.fragment}
+- ~~Volverse expertos en R~~
+:::
+
+::: {.fragment}
+- Usar R para [resumir]{.hl .hl-blue}
+ conjuntos de datos numérica y visualmente
+:::
+
+::: {.fragment}
+- Ganar un entendimiento básico sobre los principios de [visualización de datos]{.hl .hl-blue}
+:::
+
+::: {.fragment}
+- Aplicar [métodos de estimación]{.hl .hl-blue} y [pruebas estadísticas]{.hl .hl-blue} para analizar variables individuales o la relación entre dos variables con el fin de comprender fenómenos naturales y tomar decisiones basadas en datos
+:::
+
+
+# ¿Por qué R?
+
+## ¿Por qué R?
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/R_jobs.png")
+```
+
+## Visualización de Datos en R 
+
+```{r}
+#| echo: false
+
+library(tidyverse)
+library(gapminder)
+library(countrycode)
+library(ggimage)
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+
+# Damos un nombre a la base de datos "gapminder"
+gapminder<-gapminder
+
+gapminder<-filter(gapminder, year == max(year))
+gapminder$iso2c<-countryname(gapminder$country, destination = 'iso2c')
+
+
+selected_countries <- gapminder %>%
+filter(country %in% c('United States', 'China', 'Colombia', 'Brazil','Nigeria',  'Finland', 'Iran', 'India'))
+
+
+selected_countries$iso2c<-countryname(selected_countries$country, destination = 'iso2c')
+```
+
+
+
+```{r}
+#| code-fold: true
+#| code-summary: "Código de la gráfica"
+#| echo: true
+#| fig-width: 10
+#| fig-height: 4.5
+selected_countries %>% ggplot(aes(x= reorder(country, lifeExp),y=lifeExp))+ 
+geom_flag(y = -5, aes(image = iso2c)) +geom_bar(stat = "identity", color="black", fill = "maroon", width=0.6) + 
+labs(title = "Life Expectancy for Several Countries ",
+subtitle = "Source: GAPMINDER, 2007 ",
+x = "Country",
+y = "Life Expectancy")+ coord_flip() +
+expand_limits(y = -5) +
+  theme_minimal()
+```
+
+
+## Visualización de Datos en R 
+
+
+```{r}
+#| code-fold: true
+#| code-summary: "Código de la gráfica"
+#| echo: true
+#| fig-width: 10
+#| fig-height: 4.5
+
+
+ggplot(gapminder, aes(x = continent, y = lifeExp)) +
+geom_boxplot(fill = "lightblue", color = "black") +
+geom_jitter(width = 0.2, size = 2, color = "maroon")+
+labs(
+title = "Life Expectancy by Continent",
+subtitle = "Source: GAPMINDER, 2007",
+x = "Continent",
+y = "Life Expectancy"
+) + theme_minimal()
+```
+
+
+## Visualización de Datos en R 
+
+```{r}
+#| echo: false
+world <- ne_countries(scale = "medium", returnclass = "sf")
+# Rename the variable using rename()
+gapminder <- gapminder %>%
+rename(iso_a2 = iso2c)
+join<-left_join(world,gapminder, by="iso_a2")
+```
+
+
+```{r}
+#| code-fold: true
+#| code-summary: "Código del mapa"
+#| echo: true
+#| fig-width: 10
+#| fig-height: 4.5
+ggplot(data = join) +
+  geom_sf(aes(fill = lifeExp)) +
+  scale_fill_viridis_c(option = "plasma", trans = "sqrt")+
+  labs(fill = "Life Expectancy",title = "Life Expectancy by Country",
+       subtitle = "Source: GAPMINDER, 2007") + theme_bw() +  
+  theme(panel.grid.major = element_blank(),
+        panel.border = element_blank(),
+        title =element_text(size=14),
+        axis.ticks.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank(),
+        legend.background = element_rect(fill = "white"),
+        legend.title=element_text(size=10),
+        legend.key = element_rect( fill = "white"),
+        legend.position = c(0.15, 0.45),
+        legend.key.size = unit(0.6, 'cm'),
+        legend.text=element_text(size=10),
+        legend.spacing.y = unit(0.1, "cm")) 
+```
+
+
+## Visualización de Datos en R 
+
+
+```{r}
+#| code-fold: true
+#| code-summary: "Código del mapa"
+#| echo: true
+#| fig-width: 10
+#| fig-height: 4.5
+#| fig-align: center
+library(gganimate)
+library(magick)
+
+gapminder <- gapminder::gapminder
+
+continents <- c("Europe", "Americas")
+anim <-gapminder %>% 
+  filter(continent %in% continents) %>%
+  ggplot( aes(log(gdpPercap), lifeExp, col = continent)) +
+  geom_point() + theme_minimal() +
+  ggtitle("Life Expectancy versus Ferility: the Americas and Europe {frame_time}") + 
+  transition_time(year)
+
+animate(anim)
+
+```
+
+## Visualización de Datos en R 
+
+```{r}
+#| code-fold: true
+#| code-summary: "Código del mapa"
+#| echo: true
+#| fig-width: 10
+#| fig-height: 4.5
+library(leaflet)
+leaflet() %>%
+addTiles() %>%  # Add default OpenStreetMap map tiles
+addMarkers(lng=-74.06454, lat=4.63006, popup="Universidad Javeriana")
+```
+
+
+## Aprendiendo R
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/tweet_R.png")
+```
+
+::: {.fragment .fade-in}
+[El tuit es de 2017! Ahora también existe ChatGPT y demás IA websites]{.bubble .bubble-bottom-left .absolute top="40%" right="0%" style="--bubcol: var(--bubcol-red);max-width:350px;font-size:1.2rem;"}
+:::
+
+## Sean pacientes con R y con ustedes mismos
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/jake_sucking.png")
+```
+::::
+
+:::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+#| fig-cap: "<a href='https://www.nytimes.com/2017/04/28/opinion/its-great-to-suck-at-surfing.html'>Karen Rinaldi, (It's Great to) Suck at Something</a>"
+knitr::include_graphics("img/newyorktimes.png")
+```
+::::
+
+:::::
+
+
+# Intro a R
+
+
+## R and RStudio {.smaller}
+
+
+::: columns
+::: {.column width="50%"}
+![](img/r-logo.png){fig-alt="R logo" fig-align="center"}
+
+- <i class="fa-brands fa-r-project"></i> es un **lenguaje de programación** de código abierto.
+- <i class="fa-brands fa-r-project"></i> también es un entorno para análisis estadístico y visualización de datos.
+- Es fácilmente extensible con *paquetes*.
+:::
+
+::: {.column .fragment width="50%"}
+![](img/rstudio-logo.png){fig-alt="RStudio logo"}
+
+-   RStudio es una interfaz conveniente para R llamada **IDE** (integrated development environment), e.g. *"I write R code in the RStudio IDE"*
+-   RStudio no es un requisito para programar con R, pero es muy utilizado por programadores de R y científicos de datos
+:::
+:::
+
+
+## R vs. RStudio
+
+[![](img/r_vs_rstudio.png){fig-alt="On the left: a car engine. On the right: a car dashboard. The engine is labelled R. The dashboard is labelled RStudio." fig-align="center" width="1001"}](https://moderndive.com/1-getting-started.html)
+
+::: aside
+Source: [Modern Dive](https://moderndive.com/1-getting-started.html).
+:::
+
+
+## Instalación y pasos a seguir {.medium}
+
+1. Descargar [R](https://www.r-project.org/).
+
+2. Descargar [RStudio](https://www.rstudio.com/products/rstudio/download/preview/).
+
+3. ¿Tienen la versión más reciente de R?
+```{r}
+#| echo: true
+  version$version.string
+```
+
+
+4. ¿Tienen la versión más reciente de RStudio? (La [versión previa](https://www.rstudio.com/products/rstudio/download/preview/) también sirve.)
+
+```R
+RStudio.Version()$version
+# Requiere la versión interactiva pero debería mostrar algo como "[1] ‘2023.3.0.386’"
+```
+
+## Un tour por RStudio
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/rstudio_inicial.png")
+```
+
+## La consola {.medium}
+
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "80%"
+knitr::include_graphics("img/consola.png")
+```
+
+
+::: {.altlist style="font-size:1.8rem;text-align:center"}
+- <i class="fa-brands fa-r-project"></i> está esperando sus instrucciones
+- Escriban algún código acá, opriman enter, y <i class="fa-brands fa-r-project"></i> ejecutará el código
+:::
+
+
+
+## La consola {.medium}
+
+Por ejemplo, escriban el siguiente código en la consola:
+
+```{r}
+#| echo: true
+2+2
+```
+
+. . .
+
+<i class="fa-brands fa-r-project"></i> posee una calculadora poderosa y reconoce todas las operaciones estándar de aritmética:
+
+```{r}
+#| echo: true
+1+2 ## Adición
+6-7 ## Resta
+5/2 ## División
+2^3 ## Exponencial
+2+4*1^3 ## Order estándar de precedencia (`*` antes de `+`, etc.)
+```
+
+
+## La consola {.medium}
+
+El problema con escribir líneas de código en la consola es que son efímeras. Si quieren ejecutar esto otra vez, tienen que volver a escribirlo.
+
+Es mejor tener todo en un editor!
+
+
+## R Script (Editor) {.medium}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "80%"
+knitr::include_graphics("img/rscript_menu.png")
+```
+
+
+## El interfaz completo de RStudio {.medium}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "80%"
+knitr::include_graphics("img/rstudio_layout.png")
+```
+
+
+## Algunos fundamentos básicos de R {.medium} 
+
+1. Todo es un objeto.
+
+2. Todo objeto tiene un nombre.
+
+3. Todo se opera usando funciones.
+
+4. Las funciones existen dentro de paquetes (i.e. "libraries"), aunque ustedes pueden escribir sus propias funciones.
+
+. . .
+
+<br/>Puntos 1. y 2. pueden ser resumidos como un enfoque de [programación orientada a objetos](https://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos) (OOP).Esto puede sonar super abstracto ahora, pero veremos *muchos* ejemplos en las próximas semanas que harán todo más claro.
+
+
+## 1. Todo en R es un Objeto {.medium}
+
+El operador `<-` asigna el resultado del lado derecho a una variable con el nombre en el lado izquierdo
+
+```{r}
+#| echo: true
+a <- 5+5
+a
+```
+. . .
+
+Usen `c()` (combinar/concatenar) para crear [vectores]{.marker-hl}: 
+  
+```{r}
+#| echo: true
+my_numbers <- c(1, 2, 3, 1, 3, 5, 25)
+my_numbers
+```
+
+. . .
+
+Los objetos se almacenan en el espacio de trabajo o [entorno]{.marker-hl}
+
+. . .
+
+**Nota:** un atajo para escribir el operador `<-` es `Alt` + `-`
+
+
+## 2. Todo en R tiene un nombre {.medium}
+
+Te refieres a las cosas por su nombre: variables (como `x` o `y`), datos cargados (como `mis_datos`), y funciones que usas.
+
+- **Palabras reservadas**  
+  Algunas palabras no se pueden usar como nombres. Algunos ejemplos:  
+  - `FALSE`, `TRUE`, `NA`, `NaN`  
+  - Palabras clave de programación: `for`, `else`, `function`, etc.  
+  - Funciones básicas: `q()`, `c()`, `mean()`, `pi`, etc.
+  
+. . .
+
+
+- **Sensibilidad a mayúsculas y minúsculas**  
+  Los nombres son sensibles a mayúsculas
+  
+  `my_data` ≠ `My_data`
+  
+
+## Buenas prácticas para nombrar {.medium}
+
+- Sean concisos, consistentes e informativos  
+- Usen minúsculas y separen palabras con guión bajo, como en el estilo [tidyverse](https://style.tidyverse.org/syntax.html) 
+- No usen espacios al nombrar variables.
+
+```r
+# Good
+day_one
+day_1
+
+# Bad
+DayOne
+first_day_of_the_month
+djm1
+```
+
+## 3. Todo se opera usando funciones {.medium}
+
+- Una [función]{.marker-hl} es un objeto que realiza acciones. Toma un objeto(s), los procesa, y devuelve objetos.
+
+```{r}
+#| echo: true
+mean(my_numbers)
+```
+
+. . .
+
+- Las funciones usan [argumentos]{.marker-hl} para funcionar. Pueden ser datos (`my_numbers`) o instrucciones (`title = "Título"`).  
+  
+. . .
+
+- Puedes asignar el resultado de una función a un objeto:  
+  
+```{r}
+#| echo: true
+my_summary <- summary(my_numbers)
+my_summary
+```
+
+## 4. Las funciones existen dentro de paquetes {.medium}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "80%"
+knitr::include_graphics("img/packages-base.png")
+```
+
+## 4. Las funciones existen dentro de paquetes {.medium}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "80%"
+knitr::include_graphics("img/packages-packages.png")
+```
+
+
+## Usando paquetes {.medium}
+
+
+::: columns
+::: {.column width="50%"}
+```r
+install.packages("name")
+```
+
+- Esta función descarga archivos a su computador
+
+- El nombre del paquete debe ir entre comillas
+
+- Hagan esto una vez por computador
+:::
+
+::: {.column .fragment width="50%"}
+```r
+library(name)
+```
+
+- Carga el paquete a su sesión
+
+- El nombre del paquete **no** va en comillas
+
+- Hagan esto una vez por sesión en RStudio
+:::
+:::
+
+::: {.absolute bottom="10%" left="10%" width="800px" .textbox .fragment .fade-up style="font-size:1.7rem;padding:0.5rem 1rem;" .altlist}
+Uno de los errores más comunes del curso pasado fue instalar el mismo paquete varias veces. ¡Solo se necesita una vez!
+:::
+
+## Usando paquetes {.medium}
+
+```{r}
+#| echo: false
+#| eval: true
+# Unload the tidyverse namespace explicitly
+unloadNamespace("ggimage")
+unloadNamespace("gganimate")
+unloadNamespace("ggplotify")
+unloadNamespace("ggfun")
+unloadNamespace("ggplot2")
+unloadNamespace("tidyr")
+unloadNamespace("dplyr")
+unloadNamespace("tidyverse")
+```
+
+
+Si utilizo la función `ggplot` del paquete `tidyverse`, <i class="fa-brands fa-r-project"></i> no podrá ejecutar el código:
+
+```{r}
+#| eval: true
+#| echo: true
+#| error: true
+df <- data.frame(value = my_numbers)
+
+# Create a plot
+ggplot(df, aes(x = value)) +
+  geom_histogram(binwidth = 1, fill = "lightblue", color = "black") +
+  labs(title = "Histogram", x = "Value", y = "Frequency")
+```
+
+
+
+## Usando paquetes {.medium}
+
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| eval: false
+#| echo: true
+#| fig-align: center
+#| fig-pos: right
+#| code-line-numbers: "1|1-11"
+
+library(tidyverse)
+
+# Create a plot
+ggplot(df, aes(x = value)) +
+  geom_histogram(binwidth = 1,
+                 fill = "lightblue",
+                 color = "black") +
+  labs(title = "Histogram",
+       x = "Value",
+       y = "Frequency")+
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: center
+#| fig-pos: right
+
+library(tidyverse)
+
+# Create a plot
+ggplot(df, aes(x = value)) +
+  geom_histogram(binwidth = 1,
+                 fill = "lightblue",
+                 color = "black") +
+  labs(title = "Histogram",
+       x = "Value",
+       y = "Frequency")+
+  theme_minimal()
+```
+:::
+:::
+
+
+
+
+## El Tidyverse {.medium}
+
+
+::: columns
+::: {.column width="50%"}
+"El tidyverse es una colección de paquetes de R para ciencia de datos, unidos por una filosofía común de datos ordenados y una gramática consistente que facilita su uso conjunto."
+
+[El tidyverse hace que la ciencia de datos sea más rápida, fácil y divertida.]{.hl .hl-blue}
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "80%"
+knitr::include_graphics("img/tidyverse.png")
+```
+:::
+:::
+
+
+## El Tidyverse {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+Es mucho mejor executar esta línea:
+
+```r
+install.packages("tidyverse")
+```
+Que descargar múltiples paquetes así:
+
+```r
+install.packages("ggplot2")
+install.packages("dplyr")
+install.packages("tidyr")
+install.packages("readr")
+install.packages("purrr")
+install.packages("tibble")
+install.packages("stringr")
+install.packages("forcats")
+install.packages("lubridate")
+```
+:::
+
+::: {.column .fragment width="50%"}
+
+Aplica lo mismo para cuando vamos a cargar los paquetes!
+
+```r
+library(tidyverse)
+```
+Qué tedio escribir todas estas líneas muchas veces!
+
+```r
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(readr)
+library(purrr)
+library(tibble)
+library(stringr)
+library(forcats)
+library(lubridate)
+```
+:::
+:::
+
+## Tipos de Objetos en R {.medium}
+
+- Matriz:
+Consiste en filas y columnas de números.
+
+```{r}
+#| eval: true
+#| echo: true
+matrix <- matrix(1:9, nrow = 3, ncol = 3)
+print(matrix)
+```
+
+. . .
+
+- Data frame (el más común):
+Es una tabla rectangular con filas (observaciones) y columnas (variables).
+Las columnas pueden tener diferentes clases (caracteres, números, etc.).
+
+```{r}
+#| eval: true
+#| echo: true
+library(socviz)
+titanic
+```
+
+## Tipos de Objetos en R {.medium}
+
+
+- En este conjunto de datos `titanic`, dos de las columnas son numéricas y dos no lo son. 
+- Pueden acceder a las filas y columnas de varias maneras. Por ejemplo, el operador `$` te permite seleccionar una columna específica de un data frame por su nombre:
+
+
+```{r}
+#| eval: true
+#| echo: true
+titanic$percent
+```
+
+. . .
+
+
+O también usando notación de matrices:
+
+```{r}
+#| eval: true
+#| echo: true
+titanic[,4]
+```
+
+
+
+## Tipos de datos 
+
+<br>
+
+::: {.tbl-classic .tbl-larger}
+
+
+| **Tipo**       | **Descripción**       | **Ejemplo**                                         |
+|----------------|-----------------------|-----------------------------------------------------|
+| **Integer**    | Números enteros       | `c(1, 2, 3, 4)`                                    |
+| **Double**     | Números decimales     | `c(1, 2.4, 3.14, 4)`                               |
+| **Character**  | Texto                 | `c("1", "blue", "fun", "monster")`                  |
+| **Logical**    | Verdadero o falso     | `c(TRUE, FALSE, TRUE, FALSE)`                       |
+| **Factor**     | Categoría             | `c("Strongly disagree", "Agree", "Neutral")`        |
+: {tbl-colwidths="[15,25,60]"}
+:::
+
+## Acceder a Datos en R {.medium}
+
+- Datos disponibles en paquetes.
+  - Por ejemplo, los datos `titanic` del paquete `socviz`
+  - El conjunto de datos `gapminder` del paquete con el mismo nombre
+  - Sin embargo, estos datos ya tienen organizados para que graficarlos sea sencillo
+  
+. . .
+
+- Datos externos en otros formatos
+  - Importar y limpiar datos puede ser tedioso, pero es esencial para el análisis
+  - `tidyverse` incluye paquetes para leer datos que vienen de otros formatos
+
+## Importando datos a R {.medium}
+
+::: {.tbl-classic .tbl-larger .center-text}
+
+
+| Image                                      | Description                            | Code                                      |
+|--------------------------------------------|----------------------------------------|-------------------------------------------|
+| ![readr](img/readr.png){height=80px}       | Work with plain text data              | `my_data <- read_csv("file.csv")`         |
+| ![readxl](img/readxl.png){height=80px}     | Work with Excel files                  | `my_data <- read_excel("file.xlsx")`     |
+| ![haven](img/haven.png){height=80px}      | Work with Stata, SPSS, and SAS data    | `my_data <- read_stata("file.dta")`      |
+        |
+: {tbl-colwidths="[10,40,50]"}
+:::
+
+
+## Axes {.medium}
+
+`Quiero ver` el color de esto
+
+[feedback]{.marker-hl}
+
+[inevitable]{.hl .hl-blue}
+
+[reported]{.hl .hl-dred}
+
+## Axes {.medium}
+
+[Continuous]{.secfont}
+
+```{r axescont}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "1,2|3,4,5,6"
+ggplot(aes(x = life_expectancy, y = poverty_rate)) +
+  geom_point() +
+  scale_x_continuous(limits = c(40, 100),
+                     breaks = seq(40, 100, 20),
+                     labels = scales::number_format(suffix = "years")) +
+  scale_y_continuous(labels = scales::percent)
+```
+
+[Dates]{.secfont}
+
+```{r axesdate}
+#| echo: true
+#| eval: false
+ggplot(aes(x = year, y = poverty_rate)) +
+  geom_line() +
+  scale_x_date(limits = c(as.Date("2020-01-01"), as.Date("2024-01-01")),
+                breaks = date_breaks = "2 years",
+                labels = date_labels = "%Y")
+```
+
+[Others]{.secfont}
+
+[scale_x_discrete(), scale_x_log10(), scale_x_reverse(), scale_x_sqrt(), ...]{.secfont style="font-size:1.5rem;"}
+
+
+     
