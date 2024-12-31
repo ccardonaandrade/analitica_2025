@@ -403,10 +403,46 @@ Carlos Cardona Andrade
 </div>
 
 </section>
-<section id="ggplot" class="slide level2 medium">
-<h2>ggplot</h2>
+<section id="plan-para-hoy" class="slide level2">
+<h2>Plan para hoy</h2>
+<ol type="1">
+<li><p><a href="#/tidy">tidy data</a></p></li>
+<li><p><a href="#/ggplot">ggplot</a></p></li>
+<li><p><a href="#/dplyr">dplyr</a></p></li>
+</ol>
+</section>
+<section>
+<section id="tidy" class="title-slide slide level1 center">
+<h1>tidy data</h1>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-discovered-preview-image r-stretch quarto-figure-center" width="384"><p>El paquete ggplot2 creado por <a href="http://hadley.nz/">Hadley Wickham</a> es uno de los paquetes más populares de todo el mundo R.</p>
+</section>
+<section id="qué-es-tidy-data" class="slide level2 medium">
+<h2>Qué es “tidy” data?</h2>
+<ul>
+<li>Recursos:
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html">Paquete tidyr</a></li>
+<li><a href="https://vita.had.co.nz/papers/tidy-data.pdf">Paper original</a> (Hadley Wickham, 2014 JSS)</li>
+</ul></li>
+<li>Puntos clave:
+<ol type="1">
+<li>Cada variable forma una columna.</li>
+<li>Cada observación forma una fila.</li>
+<li>Cada tipo de unidad de observación forma una tabla.</li>
+</ol></li>
+</ul>
+</section></section>
+<section>
+<section id="ggplot" class="title-slide slide level1 center">
+<h1>ggplot</h1>
+<center>
+<img data-src="img/ggplot-logo.png" class="quarto-discovered-preview-image" width="250">
+</center>
+</section>
+<section id="el-paquete-ggplot" class="slide level2 medium">
+<h2>El paquete ggplot</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-2-1.png" width="384" class="r-stretch quarto-figure-center"><p>El paquete ggplot2 creado por <a href="http://hadley.nz/">Hadley Wickham</a> es uno de los paquetes más populares de todo el mundo R.</p>
 <ul>
 <li>Está construido sobre una teoría de visualización profunda: i.e.&nbsp;<a href="https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448"><em>The Grammar of Graphics</em></a> de Leland Wilkinson.</li>
 </ul>
@@ -696,164 +732,13 @@ Caused by error in `compute_geom_1()`:
 <section id="construir-la-gráfica-por-capas-cont-6" class="slide level2 medium">
 <h2>3. Construir la gráfica por capas (cont)</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="576" class="r-stretch quarto-figure-center"></section></section>
 <section>
-<section id="tidyverse" class="title-slide slide level1 center">
-<h1>tidyverse</h1>
-
-</section>
-<section id="los-verbos-del-dlpyr" class="slide level2">
-<h2>Los verbos del dlpyr</h2>
-<div class="cell">
-<table>
-<colgroup>
-<col style="width: 55%">
-<col style="width: 44%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Extract rows with <code>filter()</code></td>
-<td><img data-src="img/filter.png" height="80" alt="filter"></td>
-</tr>
-<tr class="even">
-<td>Extract columns with <code>select()</code></td>
-<td><img data-src="img/select.png" height="80" alt="select"></td>
-</tr>
-<tr class="odd">
-<td>Arrange/sort rows with <code>arrange()</code></td>
-<td><img data-src="img/arrange.png" height="80" alt="arrange"></td>
-</tr>
-<tr class="even">
-<td>Make new columns with <code>mutate()</code></td>
-<td><img data-src="img/mutate.png" height="80" alt="mutate"></td>
-</tr>
-<tr class="odd">
-<td>Make group summaries with <code>group_by() |&gt; summarize()</code></td>
-<td><img data-src="img/summarize.png" height="80" alt="summarize"></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="filter" class="slide level2">
-<h2><code>filter</code></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><code>filter(.data = <span style="background-color: #FFDFD1; font-weight: bold;">DATA</span>, <span style="background-color: #FFD0CF; font-weight: bold;">…</span>)</code></p>
-</div><div class="column" style="width:50%;">
-<ul>
-<li><span style="background-color: #FFDFD1; font-weight: bold;">DATA</span> = Data frame to transform</li>
-<li><span style="background-color: #FFD0CF; font-weight: bold;">…</span> = One or more tests<br>.<code>filter()</code> returns each row for which the test is TRUE.</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="filter-1" class="slide level2 medium">
-<h2>filter</h2>
-<p>De la base original:</p>
-<div class="cell">
-<div class="cell-output-display">
-<table data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">country</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">continent</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">year</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Afghanistan</td>
-<td style="text-align: left;">Asia</td>
-<td style="text-align: left;">1952</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Afghanistan</td>
-<td style="text-align: left;">Asia</td>
-<td style="text-align: left;">1957</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Afghanistan</td>
-<td style="text-align: left;">Asia</td>
-<td style="text-align: left;">1962</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Afghanistan</td>
-<td style="text-align: left;">Asia</td>
-<td style="text-align: left;">1967</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Afghanistan</td>
-<td style="text-align: left;">Asia</td>
-<td style="text-align: left;">1972</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">...</td>
-<td style="text-align: left;">...</td>
-<td style="text-align: left;">...</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-<p>Podemos seleccionar</p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="cell">
-<p><code>filter(.data = <span style="background-color: #FFDFD1; font-weight: bold;">gapminder</span>, <span style="background-color: #FFD0CF; font-weight: bold;">country == “Denmark”</span>)</code></p>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<table data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">country</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">continent</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">year</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Denmark</td>
-<td style="text-align: left;">Europe</td>
-<td style="text-align: right;">1952</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Denmark</td>
-<td style="text-align: left;">Europe</td>
-<td style="text-align: right;">1957</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Denmark</td>
-<td style="text-align: left;">Europe</td>
-<td style="text-align: right;">1962</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Denmark</td>
-<td style="text-align: left;">Europe</td>
-<td style="text-align: right;">1967</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Denmark</td>
-<td style="text-align: left;">Europe</td>
-<td style="text-align: right;">1972</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Denmark</td>
-<td style="text-align: left;">Europe</td>
-<td style="text-align: right;">1977</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-</div>
-</div>
+<section id="dplyr" class="title-slide slide level1 center">
+<h1>dplyr</h1>
+<center>
+<img data-src="img/dplyr.png" width="250">
+</center>
 </section>
 <section id="símbolos-lógicos" class="slide level2">
 <h2>Símbolos Lógicos</h2>
@@ -914,6 +799,181 @@ Caused by error in `compute_geom_1()`:
 </table>
 </div>
 </section>
+<section id="los-verbos-del-dlpyr" class="slide level2">
+<h2>Los verbos del dlpyr</h2>
+<div class="cell">
+<table>
+<colgroup>
+<col style="width: 55%">
+<col style="width: 44%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Extraer filas con <code>filter()</code></td>
+<td><img data-src="img/filter.png" height="80" alt="filter"></td>
+</tr>
+<tr class="even">
+<td>Extraer columnas con <code>select()</code></td>
+<td><img data-src="img/select.png" height="80" alt="select"></td>
+</tr>
+<tr class="odd">
+<td>Ordenar filas con <code>arrange()</code></td>
+<td><img data-src="img/arrange.png" height="80" alt="arrange"></td>
+</tr>
+<tr class="even">
+<td>Crea nuevas columnas con <code>mutate()</code></td>
+<td><img data-src="img/mutate.png" height="80" alt="mutate"></td>
+</tr>
+<tr class="odd">
+<td>Resumir variables por grupo con <code>group_by() |&gt; summarize()</code></td>
+<td><img data-src="img/summarize.png" height="80" alt="summarize"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="la-sintaxis-común" class="slide level2 medium">
+<h2>La sintaxis común</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><code><span style="background-color: #EFB3FF; font-weight: bold;">VERB</span>(<span style="background-color: #FFDFD1; font-weight: bold;">DATA</span>, <span style="background-color: #FFD0CF; font-weight: bold;">…</span>)</code></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><b><span style="background: #EFB3FF">VERB</span></b> = función/verbo de dplyr</li>
+<li><b><span style="background: #FFDFD1">DATA</span></b> = los datos a transformar</li>
+<li><b><span style="background: #FFD0CF">…</span></b> = la operación que haga el verbo</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="dplyrfilter" class="slide level2 medium">
+<h2>1) dplyr::filter</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><code>filter(data = <span style="background-color: #FFDFD1; font-weight: bold;">DATA</span>, <span style="background-color: #FFD0CF; font-weight: bold;">…</span>)</code></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><span style="background-color: #FFDFD1; font-weight: bold;">DATA</span> = los datos a transformar</li>
+<li><span style="background-color: #FFD0CF; font-weight: bold;">…</span> = Una o más condiciones. <br><code>filter()</code> selecciona cada fila para cual la condición es verdadera</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="dplyrfilter-1" class="slide level2 medium">
+<h2>1) dplyr::filter</h2>
+<p>Podemos encadenar múltiples comandos de filtro con el pipe (), o simplemente separarlos dentro de un solo comando de filtro usando comas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">filter</span>( </span>
+<span id="cb20-3"><a href="#cb20-3"></a>    species <span class="sc">==</span> <span class="st">"Human"</span>, </span>
+<span id="cb20-4"><a href="#cb20-4"></a>    height <span class="sc">&gt;=</span> <span class="dv">190</span></span>
+<span id="cb20-5"><a href="#cb20-5"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 x 14
+  name      height  mass hair_color skin_color eye_color birth_year sex   gender
+  &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+1 Darth Va~    202   136 none       white      yellow          41.9 male  mascu~
+2 Qui-Gon ~    193    89 brown      fair       blue            92   male  mascu~
+3 Dooku        193    80 white      fair       brown          102   male  mascu~
+4 Bail Pre~    191    NA black      tan        brown           67   male  mascu~
+# i 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="otros-operadores-lógidos" class="slide level2 medium">
+<h2>Otros operadores lógidos</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><code>a &amp; b</code> significa <code>a</code> y <code>b</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">filter</span>( species <span class="sc">==</span> <span class="st">"Human"</span> <span class="sc">&amp;</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a>            height <span class="sc">&gt;=</span> <span class="dv">190</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 x 3
+  name                species height
+  &lt;chr&gt;               &lt;chr&gt;    &lt;int&gt;
+1 Darth Vader         Human      202
+2 Qui-Gon Jinn        Human      193
+3 Dooku               Human      193
+4 Bail Prestor Organa Human      191</code></pre>
+</div>
+</div>
+</div><div class="column fragment" style="width:50%;">
+<p><code>a | b</code> significa <code>a</code> o <code>b</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">filter</span>( species <span class="sc">==</span> <span class="st">"Human"</span> <span class="sc">|</span> </span>
+<span id="cb24-3"><a href="#cb24-3"></a>            height <span class="sc">&gt;=</span> <span class="dv">190</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 54 x 3
+   name               species height
+   &lt;chr&gt;              &lt;chr&gt;    &lt;int&gt;
+ 1 Luke Skywalker     Human      172
+ 2 Darth Vader        Human      202
+ 3 Leia Organa        Human      150
+ 4 Owen Lars          Human      178
+ 5 Beru Whitesun Lars Human      165
+ 6 Biggs Darklighter  Human      183
+ 7 Obi-Wan Kenobi     Human      182
+ 8 Anakin Skywalker   Human      188
+ 9 Wilhuff Tarkin     Human      180
+10 Chewbacca          Wookiee    228
+# i 44 more rows</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="dplyrfilter-cont." class="slide level2 medium">
+<h2>1) dplyr::filter <em>cont.</em></h2>
+<p>Las <a href="https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular">expresiones regulares</a> también funcionan dentro del comando.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"Skywalker"</span>, name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 x 14
+  name      height  mass hair_color skin_color eye_color birth_year sex   gender
+  &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+1 Luke Sky~    172    77 blond      fair       blue            19   male  mascu~
+2 Anakin S~    188    84 blond      fair       blue            41.9 male  mascu~
+3 Shmi Sky~    163    NA black      fair       brown           72   fema~ femin~
+# i 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="dplyrfilter-cont.-1" class="slide level2 medium">
+<h2>1) dplyr::filter <em>cont.</em></h2>
+<p>Un uso muy común de <code>filter</code> es identificar (o eliminar) casos con valores faltantes (missings).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(height))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 x 14
+  name      height  mass hair_color skin_color eye_color birth_year sex   gender
+  &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+1 Arvel Cr~     NA    NA brown      fair       brown             NA male  mascu~
+2 Finn          NA    NA black      dark       dark              NA male  mascu~
+3 Rey           NA    NA brown      light      hazel             NA fema~ femin~
+4 Poe Dame~     NA    NA brown      light      brown             NA male  mascu~
+5 BB8           NA    NA none       none       black             NA none  mascu~
+6 Captain ~     NA    NA none       none       unknown           NA fema~ femin~
+# i 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Para eliminar valores faltantes, simplemente usen la negación: <code>filter(!is.na(height))</code>. Inténtenlo ustedes.</p>
+</div>
+</section>
 <section id="errores-comunes" class="slide level2 medium">
 <h2>Errores comunes</h2>
 <p>Dos de los errores más comunes son:</p>
@@ -923,82 +983,382 @@ Caused by error in `compute_geom_1()`:
 </ol>
 <div class="columns">
 <div class="column" style="width:50%;">
-<ul>
-<li>Incorrecto</li>
-</ul>
-<p><code>filter(gapminder,<br>country <span style="color: #3f56b0;">=</span> “Canada”)</code></p>
-<p><code>filter(gapminder,<br>country == <span style="color: #3f56b0;">Canada</span>)</code></p>
+<h3 id="incorrecto">Incorrecto</h3>
+<p><code>filter(starwars,<br>species <span style="color: #3f56b0;">=</span> “Human”)</code></p>
+<p><code>filter(starwars,<br>species == <span style="color: #3f56b0;">Human</span>)</code></p>
 </div><div class="column" style="width:50%;">
-<ul>
-<li>Correcto</li>
-</ul>
-<p><code>filter(gapminder,<br>country <span style="color: #4db070;">==</span> “Canada”)</code></p>
-<p><code>filter(gapminder,<br>country == <span style="color: #4db070;">“Canada”</span>)</code></p>
+<h3 id="correcto">Correcto</h3>
+<p><code>filter(starwars,<br>species <span style="color: #4db070;">==</span> “Human”)</code></p>
+<p><code>filter(starwars,<br>species == <span style="color: #4db070;">“Human”</span>)</code></p>
 </div>
 </div>
 </section>
-<section id="filter-2" class="slide level2 medium">
-<h2>filter</h2>
+<section id="errores-comunes-1" class="slide level2 medium">
+<h2>Errores comunes</h2>
+<p>Otros errores comunes son:</p>
+<ol start="3" type="1">
+<li>Tratar de agregar las condiciones sin comas o conectores lógidos</li>
+<li>Usar las comas cuando se pueden usar los conectores lógicos</li>
+</ol>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><code>filter(.data = <span style="background-color: #FFDFD1; font-weight: bold;">gapminder</span>, <span style="background-color: #FFD0CF; font-weight: bold;">country == “Denmark”, year &gt; 2000</span>)</code></p>
+<h3 id="incorrecto-1">Incorrecto</h3>
+<p><code>filter(starwars,<br> <span style="color: #3f56b0;">170 &lt; height &lt; 190</span> )</code></p>
+<p><code>filter(starwars,<br> <span style="color: #3f56b0;">name = “Anakin Skywalker”, name = “Rey”, name = “Finn” </span>)</code></p>
 </div><div class="column" style="width:50%;">
+<h3 id="correcto-1">Correcto</h3>
+<p><code>filter(starwars,<br> <span style="color: #4db070;">height &gt; 170, height &lt; 190</span>)</code></p>
+<p><code>filter(starwars,<br> <span style="color: #4db070;">name %in% c(“Anakin Skywalker”, “Rey”, “Finn”) </span>)</code></p>
+</div>
+</div>
+</section>
+<section id="dplyrarrange" class="slide level2 medium">
+<h2>2) dplyr::arrange</h2>
 <div class="cell">
-<div class="cell-output-display">
-<table data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">country</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">continent</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">year</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Denmark</td>
-<td style="text-align: left;">Europe</td>
-<td style="text-align: right;">2002</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Denmark</td>
-<td style="text-align: left;">Europe</td>
-<td style="text-align: right;">2007</td>
-</tr>
-</tbody>
-</table>
-
-
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">arrange</span>(birth_year) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 x 14
+   name     height  mass hair_color skin_color eye_color birth_year sex   gender
+   &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+ 1 Wicket ~     88  20   brown      brown      brown            8   male  mascu~
+ 2 IG-88       200 140   none       metal      red             15   none  mascu~
+ 3 Luke Sk~    172  77   blond      fair       blue            19   male  mascu~
+ 4 Leia Or~    150  49   brown      light      brown           19   fema~ femin~
+ 5 Wedge A~    170  77   brown      fair       hazel           21   male  mascu~
+ 6 Plo Koon    188  80   none       orange     black           22   male  mascu~
+ 7 Biggs D~    183  84   black      light      brown           24   male  mascu~
+ 8 Han Solo    180  80   brown      fair       brown           29   male  mascu~
+ 9 Lando C~    177  79   black      dark       brown           31   male  mascu~
+10 Boba Fe~    183  78.2 black      fair       brown           31.5 male  mascu~
+# i 77 more rows
+# i 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 </div>
 </div>
+<div class="fragment">
+<p><br><em>Nota:</em> Si se organiza una variable basado en caracteres, se ordenarán alfabéticamente. Intenten ordenando según la variable “name”.</p>
+</div>
+</section>
+<section id="dplyrarrange-cont." class="slide level2 medium">
+<h2>2) dplyr::arrange <em>cont.</em></h2>
+<p>También podemos organizar los elementos en orden descendente utilizando <code>arrange(desc())</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(birth_year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 x 14
+   name     height  mass hair_color skin_color eye_color birth_year sex   gender
+   &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+ 1 Yoda         66    17 white      green      brown            896 male  mascu~
+ 2 Jabba D~    175  1358 &lt;NA&gt;       green-tan~ orange           600 herm~ mascu~
+ 3 Chewbac~    228   112 brown      unknown    blue             200 male  mascu~
+ 4 C-3PO       167    75 &lt;NA&gt;       gold       yellow           112 none  mascu~
+ 5 Dooku       193    80 white      fair       brown            102 male  mascu~
+ 6 Qui-Gon~    193    89 brown      fair       blue              92 male  mascu~
+ 7 Ki-Adi-~    198    82 white      pale       yellow            92 male  mascu~
+ 8 Finis V~    170    NA blond      fair       blue              91 male  mascu~
+ 9 Palpati~    170    75 grey       pale       yellow            82 male  mascu~
+10 Cliegg ~    183    NA brown      fair       blue              82 male  mascu~
+# i 77 more rows
+# i 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 </div>
 </div>
-<p>Algunos operadores lógicos son:</p>
-<div class="tbl-classic tbl-larger">
-<table>
-<thead>
-<tr class="header">
-<th>Operator</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>a &amp; b</td>
-<td>y</td>
-</tr>
-<tr class="even">
-<td>a | b</td>
-<td>o</td>
-</tr>
-<tr class="odd">
-<td>!a`</td>
-<td>negación</td>
-</tr>
-</tbody>
-</table>
+</section>
+<section id="dplyrselect" class="slide level2 medium">
+<h2>3) dplyr::select</h2>
+<p>Utilicen comas para seleccionar varias columnas de una base de datos (usen “first:last” para columnas consecutivas). Anulen la selección de una columna con “-”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">select</span>(name<span class="sc">:</span>skin_color, species, <span class="sc">-</span>height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 x 5
+   name                mass hair_color    skin_color  species
+   &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;       &lt;chr&gt;  
+ 1 Luke Skywalker        77 blond         fair        Human  
+ 2 C-3PO                 75 &lt;NA&gt;          gold        Droid  
+ 3 R2-D2                 32 &lt;NA&gt;          white, blue Droid  
+ 4 Darth Vader          136 none          white       Human  
+ 5 Leia Organa           49 brown         light       Human  
+ 6 Owen Lars            120 brown, grey   light       Human  
+ 7 Beru Whitesun Lars    75 brown         light       Human  
+ 8 R5-D4                 32 &lt;NA&gt;          white, red  Droid  
+ 9 Biggs Darklighter     84 black         light       Human  
+10 Obi-Wan Kenobi        77 auburn, white fair        Human  
+# i 77 more rows</code></pre>
 </div>
+</div>
+</section>
+<section id="dplyrselect-cont." class="slide level2 medium">
+<h2>3) dplyr::select <em>cont.</em></h2>
+<p>También puede cambiar el nombre de algunas (o todas) de las variables seleccionadas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">select</span>(<span class="at">alias=</span>name, <span class="at">crib=</span>homeworld, <span class="at">sex=</span>gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 x 3
+   alias              crib     sex      
+   &lt;chr&gt;              &lt;chr&gt;    &lt;chr&gt;    
+ 1 Luke Skywalker     Tatooine masculine
+ 2 C-3PO              Tatooine masculine
+ 3 R2-D2              Naboo    masculine
+ 4 Darth Vader        Tatooine masculine
+ 5 Leia Organa        Alderaan feminine 
+ 6 Owen Lars          Tatooine masculine
+ 7 Beru Whitesun Lars Tatooine feminine 
+ 8 R5-D4              Tatooine masculine
+ 9 Biggs Darklighter  Tatooine masculine
+10 Obi-Wan Kenobi     Stewjon  masculine
+# i 77 more rows</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Si solo desean cambiar el nombre de las columnas sin seleccionarlas, pueden utilizar. <code>rename</code>. Prueben esto ahora reemplazando <code>select(...)</code> en el fragmento de código anterior por <code>rename(...)</code>.</p>
+</div>
+</section>
+<section id="dplyrselect-cont.-1" class="slide level2 medium">
+<h2>3) dplyr::select <em>cont.</em></h2>
+<p>La opción <code>select(contains(PATTERN))</code> proporciona un buen atajo en casos relevantes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">select</span>(name, <span class="fu">contains</span>(<span class="st">"color"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 x 4
+   name               hair_color    skin_color  eye_color
+   &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;       &lt;chr&gt;    
+ 1 Luke Skywalker     blond         fair        blue     
+ 2 C-3PO              &lt;NA&gt;          gold        yellow   
+ 3 R2-D2              &lt;NA&gt;          white, blue red      
+ 4 Darth Vader        none          white       yellow   
+ 5 Leia Organa        brown         light       brown    
+ 6 Owen Lars          brown, grey   light       blue     
+ 7 Beru Whitesun Lars brown         light       blue     
+ 8 R5-D4              &lt;NA&gt;          white, red  red      
+ 9 Biggs Darklighter  black         light       brown    
+10 Obi-Wan Kenobi     auburn, white fair        blue-gray
+# i 77 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="dplyrselect-cont.-2" class="slide level2 medium">
+<h2>3) dplyr::select <em>cont.</em></h2>
+<p>La opción <code>select(..., everything())</code> es otro atajo útil si solo desea traer algunas variables al “frente” de la base de datos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">select</span>(species, homeworld, <span class="fu">everything</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 14
+  species homeworld name           height  mass hair_color skin_color  eye_color
+  &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;           &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;    
+1 Human   Tatooine  Luke Skywalker    172    77 blond      fair        blue     
+2 Droid   Tatooine  C-3PO             167    75 &lt;NA&gt;       gold        yellow   
+3 Droid   Naboo     R2-D2              96    32 &lt;NA&gt;       white, blue red      
+4 Human   Tatooine  Darth Vader       202   136 none       white       yellow   
+5 Human   Alderaan  Leia Organa       150    49 brown      light       brown    
+# i 6 more variables: birth_year &lt;dbl&gt;, sex &lt;chr&gt;, gender &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="dplyrmutate" class="slide level2 medium">
+<h2>4) dplyr::mutate</h2>
+<p>Pueden crear nuevas columnas desde cero o (más comúnmente) como transformaciones de columnas existentes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb42-2"><a href="#cb42-2"></a>  <span class="fu">select</span>(name, birth_year) <span class="sc">|&gt;</span></span>
+<span id="cb42-3"><a href="#cb42-3"></a>  <span class="fu">mutate</span>(<span class="at">dog_years =</span> birth_year <span class="sc">*</span> <span class="dv">7</span>) <span class="sc">|&gt;</span></span>
+<span id="cb42-4"><a href="#cb42-4"></a>  <span class="fu">mutate</span>(<span class="at">comment =</span> <span class="fu">paste0</span>(name, <span class="st">" is "</span>, dog_years, <span class="st">" in dog years."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 x 4
+   name               birth_year dog_years comment                              
+   &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                                
+ 1 Luke Skywalker           19        133  Luke Skywalker is 133 in dog years.  
+ 2 C-3PO                   112        784  C-3PO is 784 in dog years.           
+ 3 R2-D2                    33        231  R2-D2 is 231 in dog years.           
+ 4 Darth Vader              41.9      293. Darth Vader is 293.3 in dog years.   
+ 5 Leia Organa              19        133  Leia Organa is 133 in dog years.     
+ 6 Owen Lars                52        364  Owen Lars is 364 in dog years.       
+ 7 Beru Whitesun Lars       47        329  Beru Whitesun Lars is 329 in dog yea~
+ 8 R5-D4                    NA         NA  R5-D4 is NA in dog years.            
+ 9 Biggs Darklighter        24        168  Biggs Darklighter is 168 in dog year~
+10 Obi-Wan Kenobi           57        399  Obi-Wan Kenobi is 399 in dog years.  
+# i 77 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="dplyrmutate-cont." class="slide level2 medium">
+<h2>4) dplyr::mutate <em>cont.</em></h2>
+<p><em>Nota:</em> <code>mutate</code> tiene en cuenta el orden, por lo que puedes encadenar múltiples cambios en un sólo uso del comando.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">select</span>(name, birth_year) <span class="sc">|&gt;</span></span>
+<span id="cb44-3"><a href="#cb44-3"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb44-4"><a href="#cb44-4"></a>    <span class="at">dog_years =</span> birth_year <span class="sc">*</span> <span class="dv">7</span>, <span class="do">## Separate with a comma</span></span>
+<span id="cb44-5"><a href="#cb44-5"></a>    <span class="at">comment =</span> <span class="fu">paste0</span>(name, <span class="st">" is "</span>, dog_years, <span class="st">" in dog years."</span>)</span>
+<span id="cb44-6"><a href="#cb44-6"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 x 4
+   name               birth_year dog_years comment                              
+   &lt;chr&gt;                   &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                                
+ 1 Luke Skywalker           19        133  Luke Skywalker is 133 in dog years.  
+ 2 C-3PO                   112        784  C-3PO is 784 in dog years.           
+ 3 R2-D2                    33        231  R2-D2 is 231 in dog years.           
+ 4 Darth Vader              41.9      293. Darth Vader is 293.3 in dog years.   
+ 5 Leia Organa              19        133  Leia Organa is 133 in dog years.     
+ 6 Owen Lars                52        364  Owen Lars is 364 in dog years.       
+ 7 Beru Whitesun Lars       47        329  Beru Whitesun Lars is 329 in dog yea~
+ 8 R5-D4                    NA         NA  R5-D4 is NA in dog years.            
+ 9 Biggs Darklighter        24        168  Biggs Darklighter is 168 in dog year~
+10 Obi-Wan Kenobi           57        399  Obi-Wan Kenobi is 399 in dog years.  
+# i 77 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="ifelse" class="slide level2 medium">
+<h2>ifelse</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><code>ifelse(<span style="background-color: #FFC0DC; font-weight: bold;">TEST</span>, <span style="background-color: #FFDFD1; font-weight: bold;">VALUE_IF_TRUE</span>, <span style="background-color: #CBB5FF; font-weight: bold;">VALUE_IF_FALSE</span>)</code></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><b><span style="background: #FFC0DC">TEST</span></b> = Una condición lógica</li>
+<li><b><span style="background: #FFDFD1">VALUE_IF_TRUE</span></b> = Lo que pasa si la condición se cumple</li>
+<li><b><span style="background: #CBB5FF">VALUE_IF_FALSE</span></b> = Lo que pasa si la condición <strong>no</strong> se cumple</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="dplyrmutate-cont.-1" class="slide level2 medium">
+<h2>4) dplyr::mutate <em>cont.</em></h2>
+<p>Los operadores lógicos y condicionales también funcionan bien con <code>mutate</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">select</span>(name, height) <span class="sc">|&gt;</span></span>
+<span id="cb46-3"><a href="#cb46-3"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Luke Skywalker"</span>, <span class="st">"Anakin Skywalker"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb46-4"><a href="#cb46-4"></a>  <span class="fu">mutate</span>(<span class="at">tall1 =</span> height <span class="sc">&gt;</span> <span class="dv">180</span>) <span class="sc">|&gt;</span></span>
+<span id="cb46-5"><a href="#cb46-5"></a>  <span class="fu">mutate</span>(<span class="at">tall2 =</span> <span class="fu">ifelse</span>(height <span class="sc">&gt;</span> <span class="dv">180</span>, <span class="st">"Tall"</span>, <span class="st">"Short"</span>)) <span class="do">## Same effect, but can choose labels</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 x 4
+  name             height tall1 tall2
+  &lt;chr&gt;             &lt;int&gt; &lt;lgl&gt; &lt;chr&gt;
+1 Luke Skywalker      172 FALSE Short
+2 Anakin Skywalker    188 TRUE  Tall </code></pre>
+</div>
+</div>
+</section>
+<section id="dplyrmutate-cont.-2" class="slide level2 medium">
+<h2>4) dplyr::mutate <em>cont.</em></h2>
+<p>Por último, la combinación de <code>mutate</code> con la función <code>across</code> les permite trabajar fácilmente en un subconjunto de variables. Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48" data-code-line-numbers="3|1,2,3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb48-2"><a href="#cb48-2"></a>  <span class="fu">select</span>(name<span class="sc">:</span>eye_color) <span class="sc">|&gt;</span> </span>
+<span id="cb48-3"><a href="#cb48-3"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), toupper)) <span class="sc">|&gt;</span></span>
+<span id="cb48-4"><a href="#cb48-4"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 6
+  name           height  mass hair_color skin_color  eye_color
+  &lt;chr&gt;           &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;    
+1 LUKE SKYWALKER    172    77 BLOND      FAIR        BLUE     
+2 C-3PO             167    75 &lt;NA&gt;       GOLD        YELLOW   
+3 R2-D2              96    32 &lt;NA&gt;       WHITE, BLUE RED      
+4 DARTH VADER       202   136 NONE       WHITE       YELLOW   
+5 LEIA ORGANA       150    49 BROWN      LIGHT       BROWN    </code></pre>
+</div>
+</div>
+</section>
+<section id="dplyrsummarise" class="slide level2 medium">
+<h2>5) dplyr::summarise</h2>
+<p>Particularmente útil en combinación con el comando <code>group_by</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb50-2"><a href="#cb50-2"></a>  <span class="fu">group_by</span>(species, gender) <span class="sc">|&gt;</span> </span>
+<span id="cb50-3"><a href="#cb50-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 42 x 3
+# Groups:   species [38]
+   species   gender    mean_height
+   &lt;chr&gt;     &lt;chr&gt;           &lt;dbl&gt;
+ 1 Aleena    masculine          79
+ 2 Besalisk  masculine         198
+ 3 Cerean    masculine         198
+ 4 Chagrian  masculine         196
+ 5 Clawdite  feminine          168
+ 6 Droid     feminine           96
+ 7 Droid     masculine         140
+ 8 Dug       masculine         112
+ 9 Ewok      masculine          88
+10 Geonosian masculine         183
+# i 32 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="dplyrsummarise-cont." class="slide level2 medium">
+<h2>5) dplyr::summarise <em>cont.</em></h2>
+<p>Tengan en cuenta que incluir “na.rm = TRUE” (o su alias “na.rm = T”) suele ser una buena idea con estas funcioes. De lo contrario, cualquier valor faltante se propagará también al valor resumido.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="do">## Probably not what we want</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb52-3"><a href="#cb52-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 x 1
+  mean_height
+        &lt;dbl&gt;
+1          NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="do">## Much better</span></span>
+<span id="cb54-2"><a href="#cb54-2"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb54-3"><a href="#cb54-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 x 1
+  mean_height
+        &lt;dbl&gt;
+1        175.</code></pre>
+</div>
+</div>
+</section>
+<section id="dplyrsummarise-cont.-1" class="slide level2 medium">
+<h2>5) dplyr::summarise <em>cont.</em></h2>
+<p>El mismo flujo de trabajo basado en <code>across</code> que vimos con <code>mutate</code> unas diapositivas atrás también funciona con <code>summarise</code>. Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56" data-code-line-numbers="3|1,2,3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb56-2"><a href="#cb56-2"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-3"><a href="#cb56-3"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean, <span class="at">na.rm=</span>T)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-4"><a href="#cb56-4"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 4
+  species  height  mass birth_year
+  &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+1 Aleena       79    15        NaN
+2 Besalisk    198   102        NaN
+3 Cerean      198    82         92
+4 Chagrian    196   NaN        NaN
+5 Clawdite    168    55        NaN</code></pre>
+</div>
+</div>
+</section>
+<section id="otros-verbos-del-dplys" class="slide level2 medium">
+<h2>Otros verbos del dplys</h2>
+<p><code>slice</code>: Selecciona filas por posición en lugar de filtrar por valores.</p>
+<ul>
+<li>Por ejemplo: <code>starwars %&gt;% slice(c(1, 5))</code></li>
+</ul>
+<div class="fragment">
+<p><code>pull</code>: Extrae una columna de un data frame como un vector o un escalar.</p>
+<ul>
+<li>Por ejemplo: <code>starwars %&gt;% filter(gender=="female") %&gt;% pull(height)</code></li>
+</ul>
+</div>
+<div class="fragment">
+<p><code>count</code> y <code>distinct</code>: Cuenta y aísla observaciones únicas.</p>
+<ul>
+<li>Por ejemplo: <code>starwars %&gt;% count(species)</code> o <code>starwars %&gt;% distinct(species)</code></li>
+<li>También se puede usar una combinación de <code>mutate</code>, <code>group_by</code> y <code>n()</code>, por ejemplo: <code>starwars %&gt;% group_by(species) %&gt;% mutate(num = n())</code>.</li>
+</ul>
 <div class="footer footer-default">
 
+</div>
 </div>
 </section></section>
     </div>

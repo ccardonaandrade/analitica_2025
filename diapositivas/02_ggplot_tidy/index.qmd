@@ -38,7 +38,38 @@ library(kableExtra)
 ```
 
 
-## ggplot {.medium}
+## Plan para hoy
+
+1. [tidy data](#tidy)
+
+
+2. [ggplot](#ggplot)
+
+
+3. [dplyr](#dplyr)
+
+
+# tidy data {#tidy}
+
+## Qué es "tidy" data? {.medium}
+
+- Recursos:
+    - [Paquete tidyr](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)
+    - [Paper original](https://vita.had.co.nz/papers/tidy-data.pdf) (Hadley Wickham, 2014 JSS)
+
+
+- Puntos clave:
+    1. Cada variable forma una columna.
+    2. Cada observación forma una fila.
+    3. Cada tipo de unidad de observación forma una tabla.
+
+# ggplot {#ggplot}
+
+<center>
+![](img/ggplot-logo.png){width=250}
+</center>
+
+## El paquete ggplot {.medium}
 ```{r, fig.width = 4, fig.asp = 0.45} 
 #| echo: false
 #| fig.align: 'center'
@@ -484,94 +515,11 @@ p2
 ```
 
 
-# tidyverse
+# dplyr {#dplyr}
 
-
-## Los verbos del dlpyr
-
-::: {.cell}
-
-|                                                         |                                              |
-|---------------------------------------------------------|----------------------------------------------|
-| Extract rows with `filter()`                            | ![filter](img/filter.png){height=80px} |
-| Extract columns with `select()`                         | ![select](img/select.png){height=80px} |
-| Arrange/sort rows with `arrange()`                      | ![arrange](img/arrange.png){height=80px} |
-| Make new columns with `mutate()`                        | ![mutate](img/mutate.png){height=80px} |
-| Make group summaries with `group_by() |> summarize()`   | ![summarize](img/summarize.png){height=80px} |
-
-:::
-
-
-## `filter`
-
-
-::::: {.columns}
-
-:::: {.column width="50%"}
-```{r}
-#| echo: false
-#| results: asis
-
-cat('<code>filter(.data = <span style="background-color: #FFDFD1; font-weight: bold;">DATA</span>, 
-<span style="background-color: #FFD0CF; font-weight: bold;">...</span>)</code>')
-```
-
-::::
-
-
-:::: {.column width="50%"}
-- <span style="background-color: #FFDFD1; font-weight: bold;">DATA</span> = Data frame to transform
-- <span style="background-color: #FFD0CF; font-weight: bold;">...</span> = One or more tests<br>.`filter()` returns each row for which the test is TRUE.
-
-::::
-::::
-
-## filter {.medium}
-
-De la base original:
-
-```{r}
-#| echo: false
-gapminder |> 
-  select(country, continent, year) |> 
-  head(5) |> 
-  mutate(year = as.character(year)) |> 
-  bind_rows(tibble(country = "...", continent = "...", year = "...")) |> 
-  knitr::kable(format = "html")
-```
-
-
-Podemos seleccionar
-
-
-::::: {.columns}
-
-:::: {.column width="50%"}
-::: {.cell}
-```{r}
-#| echo: false
-#| results: asis
-
-cat('<code>filter(.data = <span style="background-color: #FFDFD1; font-weight: bold;">gapminder</span>, 
-<span style="background-color: #FFD0CF; font-weight: bold;">country == "Denmark"</span>)</code>')
-```
-:::
-
-::::
-
-
-:::: {.column width="50%"}
-```{r}
-#| echo: false
-gapminder |> 
-  select(country, continent, year) |> 
-  filter(country == "Denmark") |> 
-  head(6) |> 
-  knitr::kable(format = "html")
-```
-
-::::
-::::
+<center>
+![](img/dplyr.png){width=250}
+</center>
 
 ## Símbolos Lógicos
 
@@ -589,6 +537,161 @@ gapminder |>
 :::
 
 
+## Los verbos del dlpyr
+
+::: {.cell}
+
+|                                                         |                                              |
+|---------------------------------------------------------|----------------------------------------------|
+| Extraer filas con `filter()`                            | ![filter](img/filter.png){height=80px} |
+| Extraer columnas con `select()`                         | ![select](img/select.png){height=80px} |
+| Ordenar filas con `arrange()`                      | ![arrange](img/arrange.png){height=80px} |
+| Crea nuevas columnas con `mutate()`                        | ![mutate](img/mutate.png){height=80px} |
+| Resumir variables por grupo con `group_by() |> summarize()`   | ![summarize](img/summarize.png){height=80px} |
+
+:::
+
+
+## La sintaxis común {.medium}
+
+<br>
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| echo: false
+#| results: asis
+
+cat('<code><span style="background-color: #EFB3FF; font-weight: bold;">VERB</span>(<span style="background-color: #FFDFD1; font-weight: bold;">DATA</span>, 
+<span style="background-color: #FFD0CF; font-weight: bold;">...</span>)</code>')
+
+```
+
+::::
+
+
+:::: {.column width="50%"}
+- <b><span style="background: #EFB3FF">VERB</span></b> = función/verbo de dplyr 
+- <b><span style="background: #FFDFD1">DATA</span></b> = los datos a transformar
+- <b><span style="background: #FFD0CF">...</span></b> = la operación que haga el verbo
+::::
+::::
+
+
+## 1) dplyr::filter {.medium}
+
+<br>
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| echo: false
+#| results: asis
+
+cat('<code>filter(data = <span style="background-color: #FFDFD1; font-weight: bold;">DATA</span>, 
+<span style="background-color: #FFD0CF; font-weight: bold;">...</span>)</code>')
+```
+
+::::
+
+
+:::: {.column width="50%"}
+- <span style="background-color: #FFDFD1; font-weight: bold;">DATA</span> = los datos a transformar
+- <span style="background-color: #FFD0CF; font-weight: bold;">...</span> = Una o más condiciones. <br>`filter()` selecciona cada fila para cual la condición es verdadera
+
+::::
+::::
+
+## 1) dplyr::filter {.medium}
+
+Podemos encadenar múltiples comandos de filtro con el pipe (), o simplemente separarlos dentro de un solo comando de filtro usando comas.
+
+```{r}
+#| echo: true
+starwars |> 
+  filter( 
+    species == "Human", 
+    height >= 190
+    )
+```
+
+
+## Otros operadores lógidos {.medium}
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+`a & b` significa `a` y `b`
+
+```{r}
+#| echo: true
+#| eval: false
+starwars |> 
+  filter( species == "Human" &
+            height >= 190)
+```
+
+```{r}
+#| echo: false
+starwars |> 
+  select(name, species, height) |>
+  filter( species == "Human" & height >= 190) 
+```
+::::
+
+:::: {.column .fragment width="50%"}
+`a | b` significa `a` o `b`
+
+```{r}
+#| echo: true
+#| eval: false
+starwars |> 
+  filter( species == "Human" | 
+            height >= 190)
+```
+
+```{r}
+#| echo: false
+starwars |> 
+  select(name, species, height) |>
+  filter( species == "Human" | height >= 190) 
+```
+::::
+
+:::::
+
+
+## 1) dplyr::filter *cont.* {.medium}
+
+Las [expresiones regulares](https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular) también funcionan dentro del comando.
+
+```{r}
+#| echo: true
+starwars |> 
+  filter(grepl("Skywalker", name))
+```
+
+## 1) dplyr::filter *cont.* {.medium}
+
+Un uso muy común de `filter` es identificar (o eliminar) casos con valores faltantes (missings). 
+
+```{r}
+#| echo: true
+starwars |>
+  filter(is.na(height))
+```
+
+. . .
+
+Para eliminar valores faltantes, simplemente usen la negación: `filter(!is.na(height))`. Inténtenlo ustedes.
+
+
+
+
+
+
 
 ## Errores comunes {.medium}
 
@@ -601,18 +704,18 @@ Dos de los errores más comunes son:
 
 :::: {.column width="50%"}
 
-- Incorrecto 
+### Incorrecto 
 
 ```{r}
 #| echo: false
 #| results: asis
-cat('<code>filter(gapminder,<br>country <span style="color: #3f56b0;">=</span> "Canada")</code>')
+cat('<code>filter(starwars,<br>species  <span style="color: #3f56b0;">=</span> "Human")</code>')
 ```
 
 ```{r}
 #| echo: false
 #| results: asis
-cat('<code>filter(gapminder,<br>country == <span style="color: #3f56b0;">Canada</span>)</code>')
+cat('<code>filter(starwars,<br>species == <span style="color: #3f56b0;">Human</span>)</code>')
 ```
 
 ::::
@@ -620,25 +723,171 @@ cat('<code>filter(gapminder,<br>country == <span style="color: #3f56b0;">Canada<
 
 :::: {.column width="50%"}
 
-- Correcto
+### Correcto
 
 ```{r}
 #| echo: false
 #| results: asis
-cat('<code>filter(gapminder,<br>country <span style="color: #4db070;">==</span> "Canada")</code>')
+cat('<code>filter(starwars,<br>species <span style="color: #4db070;">==</span> "Human")</code>')
 ```
 
 
 ```{r}
 #| echo: false
 #| results: asis
-cat('<code>filter(gapminder,<br>country == <span style="color: #4db070;">"Canada"</span>)</code>')
+cat('<code>filter(starwars,<br>species == <span style="color: #4db070;">"Human"</span>)</code>')
 ```
 ::::
 ::::
 
 
-## filter {.medium}
+## Errores comunes {.medium}
+
+Otros errores comunes son:
+
+  3. Tratar de agregar las condiciones sin comas o conectores lógidos
+  4. Usar las comas cuando se pueden usar los conectores lógicos
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+
+### Incorrecto
+
+```{r}
+#| echo: false
+#| results: asis
+cat('<code>filter(starwars,<br> <span style="color: #3f56b0;">170 < height < 190</span> )</code>')
+```
+
+```{r}
+#| echo: false
+#| results: asis
+cat('<code>filter(starwars,<br> <span style="color: #3f56b0;">name = "Anakin Skywalker", name = "Rey", name = "Finn" </span>)</code>')
+```
+
+::::
+
+
+:::: {.column width="50%"}
+
+### Correcto
+
+```{r}
+#| echo: false
+#| results: asis
+cat('<code>filter(starwars,<br> <span style="color: #4db070;">height > 170, height < 190</span>)</code>')
+```
+
+
+```{r}
+#| echo: false
+#| results: asis
+cat('<code>filter(starwars,<br> <span style="color: #4db070;">name %in% c("Anakin Skywalker", "Rey", "Finn") </span>)</code>')
+```
+::::
+::::
+
+## 2) dplyr::arrange {.medium}
+
+```{r}
+#| echo: true
+starwars |> 
+  arrange(birth_year) 
+```
+. . .
+
+<br/>*Nota:* Si se organiza una variable basado en caracteres, se ordenarán alfabéticamente. Intenten ordenando según la variable "name".
+
+## 2) dplyr::arrange *cont.* {.medium}
+
+También podemos organizar los elementos en orden descendente utilizando `arrange(desc())`.
+
+```{r}
+#| echo: true
+starwars |>
+  arrange(desc(birth_year))
+```
+
+
+
+## 3) dplyr::select {.medium}
+
+Utilicen comas para seleccionar varias columnas de una base de datos (usen "first:last" para columnas consecutivas). Anulen la selección de una columna con "-".
+
+```{r}
+#| echo: true
+starwars |> 
+  select(name:skin_color, species, -height)
+```
+
+## 3) dplyr::select *cont.* {.medium}
+
+También puede cambiar el nombre de algunas (o todas) de las variables seleccionadas.
+
+```{r}
+#| echo: true
+starwars |>
+  select(alias=name, crib=homeworld, sex=gender)
+```
+
+. . .
+
+Si solo desean cambiar el nombre de las columnas sin seleccionarlas, pueden utilizar. `rename`. Prueben esto ahora reemplazando `select(...)` en el fragmento de código anterior por `rename(...)`.
+
+
+## 3) dplyr::select *cont.*  {.medium}
+
+La opción `select(contains(PATTERN))` proporciona un buen atajo en casos relevantes.
+
+```{r}
+#| echo: true
+starwars |> 
+  select(name, contains("color"))
+```
+
+## 3) dplyr::select *cont.* {.medium}
+
+La opción `select(..., everything())` es otro atajo útil si solo desea traer algunas variables al "frente" de la base de datos.
+
+```{r}
+#| echo: true
+starwars |> 
+  select(species, homeworld, everything()) |>
+  head(5)
+```
+
+
+
+## 4) dplyr::mutate {.medium}
+
+Pueden crear nuevas columnas desde cero o (más comúnmente) como transformaciones de columnas existentes.
+
+```{r}
+#| echo: true
+starwars |> 
+  select(name, birth_year) |>
+  mutate(dog_years = birth_year * 7) |>
+  mutate(comment = paste0(name, " is ", dog_years, " in dog years."))
+```
+
+
+## 4) dplyr::mutate *cont.* {.medium}
+
+*Nota:* `mutate` tiene en cuenta el orden, por lo que puedes encadenar múltiples cambios en un sólo uso del comando.
+
+```{r}
+#| echo: true
+starwars |> 
+  select(name, birth_year) |>
+  mutate(
+    dog_years = birth_year * 7, ## Separate with a comma
+    comment = paste0(name, " is ", dog_years, " in dog years.")
+    )
+```
+
+
+## ifelse {.medium}
 
 ::::: {.columns}
 
@@ -647,33 +896,110 @@ cat('<code>filter(gapminder,<br>country == <span style="color: #4db070;">"Canada
 #| echo: false
 #| results: asis
 
-cat('<code>filter(.data = <span style="background-color: #FFDFD1; font-weight: bold;">gapminder</span>, 
-<span style="background-color: #FFD0CF; font-weight: bold;">country == "Denmark", year > 2000</span>)</code>')
+cat('<code>ifelse(<span style="background-color: #FFC0DC; font-weight: bold;">TEST</span>, 
+<span style="background-color: #FFDFD1; font-weight: bold;">VALUE_IF_TRUE</span>, 
+<span style="background-color: #CBB5FF; font-weight: bold;">VALUE_IF_FALSE</span>)</code>')
+
 ```
+
 ::::
+
 
 :::: {.column width="50%"}
+- <b><span style="background: #FFC0DC">TEST</span></b> = Una condición lógica
+- <b><span style="background: #FFDFD1">VALUE_IF_TRUE</span></b> = Lo que pasa si la condición se cumple
+- <b><span style="background: #CBB5FF">VALUE_IF_FALSE</span></b> = Lo que pasa si la condición **no** se cumple
+::::
+::::
+
+
+## 4) dplyr::mutate *cont.* {.medium}
+
+Los operadores lógicos y condicionales también funcionan bien con `mutate`.
+
 ```{r}
-#| echo: false
-gapminder |> 
-  select(country, continent, year) |> 
-  filter(country == "Denmark", year > 2000) |> 
-  head(6) |> 
-  knitr::kable(format = "html")
+#| echo: true
+starwars |> 
+  select(name, height) |>
+  filter(name %in% c("Luke Skywalker", "Anakin Skywalker")) |> 
+  mutate(tall1 = height > 180) |>
+  mutate(tall2 = ifelse(height > 180, "Tall", "Short")) ## Same effect, but can choose labels
 ```
-::::
-::::
-
-Algunos operadores lógicos son:
 
 
-::: {.tbl-classic .tbl-larger}
+## 4) dplyr::mutate *cont.* {.medium}
 
-| Operator   | Meaning |
-|------------|---------|
-| a & b      |    y    |
-| a \| b      |    o    |
-|  !a`       | negación|
-:::
+Por último, la combinación de `mutate` con la  función `across` les permite trabajar fácilmente en un subconjunto de variables. Por ejemplo:
 
+```{r}
+#| echo: true
+#| code-line-numbers: "3|1,2,3,4"
+starwars |> 
+  select(name:eye_color) |> 
+  mutate(across(where(is.character), toupper)) |>
+  head(5)
+```
+
+## 5) dplyr::summarise {.medium}
+
+Particularmente útil en combinación con el comando `group_by`.
+
+```{r}
+#| echo: true
+starwars |> 
+  group_by(species, gender) |> 
+  summarise(mean_height = mean(height, na.rm = TRUE))
+```
+
+
+## 5) dplyr::summarise *cont.* {.medium}
+
+Tengan en cuenta que incluir "na.rm = TRUE" (o su alias "na.rm = T") suele ser una buena idea con estas funcioes. De lo contrario, cualquier valor faltante se propagará también al valor resumido.
+
+
+```{r}
+#| echo: true
+## Probably not what we want
+starwars |> 
+  summarise(mean_height = mean(height))
+## Much better
+starwars |> 
+  summarise(mean_height = mean(height, na.rm = TRUE))
+```
+
+
+## 5) dplyr::summarise *cont.* {.medium}
+
+El mismo flujo de trabajo basado en `across` que vimos con `mutate` unas diapositivas atrás también funciona con `summarise`. Por ejemplo:
+
+```{r}
+#| echo: true
+#| code-line-numbers: "3|1,2,3,4"
+starwars %>% 
+  group_by(species) %>% 
+  summarise(across(where(is.numeric), mean, na.rm=T)) %>%
+  head(5)
+```
+
+
+## Otros verbos del dplys {.medium}
+
+
+`slice`: Selecciona filas por posición en lugar de filtrar por valores.
+
+- Por ejemplo: `starwars %>% slice(c(1, 5))`
+
+. . .
+
+
+`pull`: Extrae una columna de un data frame como un vector o un escalar.
+
+- Por ejemplo: `starwars %>% filter(gender=="female") %>% pull(height)`
+
+. . .
+
+`count` y `distinct`: Cuenta y aísla observaciones únicas.
+
+- Por ejemplo: `starwars %>% count(species)` o `starwars %>% distinct(species)`
+- También se puede usar una combinación de `mutate`, `group_by` y `n()`, por ejemplo: `starwars %>% group_by(species) %>% mutate(num = n())`.
 
