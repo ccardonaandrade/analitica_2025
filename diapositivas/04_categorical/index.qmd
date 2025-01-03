@@ -1,0 +1,503 @@
+---
+title: Analítica de Datos
+author: Carlos Cardona Andrade
+subtitle: Explorando datos categóricos
+execute:
+  freeze: auto
+  echo: true
+  fig-width: 6
+  fig-height: 5
+format:
+  revealjs: 
+   theme: ../slides.scss
+   header-includes: |
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"/>
+   slide-number: true
+   show-slide-number: all
+   transition: fade
+   progress: true
+   multiplex: false
+   scrollable: false
+   preview-links: false
+   hide-inactive-cursor: true
+   highlight-style: printing
+   pause: true
+---
+     
+```{r}
+#| eval: true
+#| echo: false
+library(knitr)
+library(forcats)
+library(patchwork)
+library(lubridate)
+library(cowplot)
+library(tidyverse)
+library(kableExtra)
+library(openintro)
+library(janitor)
+library(ggrepel)
+
+```
+
+
+## Plan para hoy
+
+1. [tidy data](#tidy)
+
+
+2. [ggplot](#ggplot)
+
+
+3. [dplyr](#dplyr)
+
+
+# Fundamentos sobre los datos
+
+## Tipos de variables
+
+```{r}
+#| echo: false
+#| fig-align: center
+
+par_og <- par(no.readonly = TRUE) # save original par
+par(mar = rep(0, 4))
+plot(c(-0.15, 1.3), 0:1, type = "n", axes = FALSE)
+
+text(0.6, 0.9, "Variables")
+rect(0.4, 0.8, 0.8, 1)
+
+text(0.25, 0.5, "Numéricas")
+rect(0.1, 0.4, 0.4, 0.6)
+arrows(0.45, 0.78, 0.34, 0.62, length = 0.08)
+
+text(0.9, 0.5, "Categóricas")
+rect(0.73, 0.4, 1.07, 0.6)
+arrows(0.76, 0.78, 0.85, 0.62, length = 0.08)
+
+text(0, 0.1, "Discretas")
+rect(-0.17, 0, 0.17, 0.2)
+arrows(0.13, 0.38, 0.05, 0.22, length = 0.08)
+
+text(0.39, 0.1, "Continuas")
+rect(0.25, 0, 0.53, 0.2)
+arrows(0.35, 0.38, 0.4, 0.22, length = 0.08)
+
+text(0.77, 0.105, "Ordinales")
+rect(0.64, 0, 0.9, 0.2)
+arrows(0.82, 0.38, 0.77, 0.22, length = 0.08)
+
+text(1.12, 0.1, "Nominales")
+rect(0.99, 0, 1.25, 0.2)
+arrows(1.02, 0.38, 1.1, 0.22, length = 0.08)
+par(par_og) # restore original par
+```
+   
+   
+## Tipos de variables {.medium}
+
+```{r}
+#| echo: false
+
+email50 |> 
+  select(spam, num_char, line_breaks, format, number) |>
+  mutate(spam =ifelse(spam==1, "yes", "no" ),
+         format = ifelse(format==1, "html", "text")) |>
+  head(10)
+```
+
+
+
+::: {.incremental}
+
+- spam $\rightarrow$ [categórica]{.marker-hl}
+
+- num_char $\rightarrow$ [numérica]{.marker-hl}
+
+- line_breaks $\rightarrow$ [numérica]{.marker-hl}
+
+- format $\rightarrow$ [categórica/nominal]{.marker-hl}
+
+- number $\rightarrow$ [categórica/ordinal]{.marker-hl}
+:::
+
+
+```{r}
+#| echo: false
+loans <- loans_full_schema |>
+  mutate(application_type = as.character(application_type)) |>
+  filter(application_type != "") |>
+  mutate(
+    homeownership = tolower(homeownership),
+    homeownership = fct_relevel(homeownership, "rent", "mortgage", "own"),
+    application_type = fct_relevel(application_type, "joint", "individual")
+  )
+
+loans_individual_rent <- loans |>
+  filter(
+    application_type == "individual",
+    homeownership == "rent"
+  ) |>
+  nrow()
+```
+
+## Tablas de Contingencia
+
+
+```{r}
+#| echo: false
+#| fig-align: center
+
+loans |>
+  count(application_type, homeownership) |>
+  pivot_wider(names_from = homeownership, values_from = n) |>
+  select(application_type, rent, mortgage, own) |>
+  adorn_totals(where = c("row", "col")) |>
+  kbl(linesep = "", booktabs = TRUE) |>
+  kable_styling(
+    bootstrap_options = c("striped", "condensed"),
+    latex_options = c("striped")
+  ) |>
+  add_header_above(c(" " = 1, "homeownership" = 3, " " = 1)) |>
+  column_spec(1, width = "8em") |>
+  column_spec(2:5, width = "5em")
+```
+
+## Gráfico de barras
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| fig-width: 5
+#| code-line-numbers: "1|2|3,4|5"
+
+ggplot(loans, aes(x = homeownership)) +
+  geom_bar(fill = "darkblue") +
+  labs(x = "Homeownership",
+       y = "Count") +
+  theme_minimal()
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-width: 5
+
+ggplot(loans, aes(x = homeownership)) +
+  geom_bar(fill = "darkblue") +
+  labs(x = "Homeownership", y = "Count") +
+  theme_minimal()
+```
+:::
+:::
+
+
+## Gráfico de barras
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| fig-width: 5
+#| code-line-numbers: "1,2,3|4,5|6|7,8|9"
+
+loans |>
+  count(homeownership) |>
+  mutate(proportion = n / sum(n)) |>
+  ggplot(aes(x = homeownership,
+             y = proportion)) +
+  geom_col(fill = "darkblue") +
+  labs(x = "Homeownership",
+       y = "Proportion") +
+  theme_minimal()
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-width: 5
+
+loans |>
+  count(homeownership) |>
+  mutate(proportion = n / sum(n)) |>
+  ggplot(aes(x = homeownership, y = proportion)) +
+  geom_col(fill = "darkblue") +
+  labs(x = "Homeownership", y = "Proportion") +
+  theme_minimal()
+```
+:::
+:::
+
+## Gráfico de barras
+
+```{r}
+#| echo: false
+#| fig-subcap:
+#|   - Counts of homeownership.
+#|   - Proportions of homeownership.
+#| fig-width: 5
+#| layout-ncol: 2
+ggplot(loans, aes(x = homeownership)) +
+  geom_bar(fill = "darkblue") +
+  labs(x = "Homeownership", y = "Count") +
+  theme_minimal()
+
+loans |>
+  count(homeownership) |>
+  mutate(proportion = n / sum(n)) |>
+  ggplot(aes(x = homeownership, y = proportion)) +
+  geom_col(fill = "darkblue") +
+  labs(x = "Homeownership", y = "Proportion") +
+  theme_minimal()
+```
+
+
+## Gráficos de torta
+
+
+```{r}
+#| echo: false
+#| fig-subcap: 
+#|   - Pie chart
+#|   - Bar plot
+#| layout: [[46, -6, 46]]
+#| fig-width: 5
+#| out-width: 100%
+loans |>
+  mutate(homeownership = fct_infreq(homeownership)) |>
+  count(homeownership) |>
+  mutate(text_y = cumsum(n) - n / 2) |>
+  ggplot(aes(x = "", fill = homeownership, y = n)) +
+  geom_col(position = position_stack(reverse = TRUE), show.legend = FALSE) +
+  geom_text_repel(aes(x = 1, label = homeownership, y = text_y)) +
+  coord_polar("y", start = 0) +
+  scale_fill_openintro("hot") +
+  theme_void() +
+  labs(title = "Homeownership")
+
+loans |>
+  mutate(homeownership = fct_infreq(homeownership)) |>
+  ggplot(aes(x = homeownership, fill = homeownership)) +
+  geom_bar(show.legend = FALSE) +
+  scale_fill_openintro("hot") +
+  labs(x = "Homeownership", y = "Count") +
+  theme_minimal()
+```
+
+
+## Gráficos de torta
+
+```{r}
+#| echo: false
+#| fig-subcap: 
+#|   - Pie chart
+#|   - Bar plot
+#| layout: [[46, -6, 46]]
+#| fig-width: 5
+#| out-width: 100%
+loans |>
+  count(grade) |>
+  mutate(text_y = cumsum(n) - n / 2) |>
+  ggplot(aes(x = "", fill = grade, y = n)) +
+  geom_col(position = position_stack(reverse = TRUE), show.legend = FALSE) +
+  geom_text_repel(
+    aes(x = 1.4, label = grade, y = text_y), nudge_x = 0.3, segment.size = 0.5
+  ) +
+  coord_polar(theta = "y") +
+  scale_fill_openintro("cool") +
+  theme_void() +
+  labs(title = "Loan grade")
+
+loans |>
+  ggplot(aes(x = grade, fill = grade)) +
+  geom_bar(show.legend = FALSE) +
+  scale_fill_openintro("cool") +
+  labs(x = "Loan grade", y = "Count") + 
+  theme_minimal()
+```
+
+
+## Gráfico de barras conjunto
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| fig-width: 5
+#| code-line-numbers: "1,2|3|4,5|6,7,8"
+
+ggplot(loans, aes(x = homeownership,
+                  fill = application_type)) +
+  geom_bar() +
+  scale_fill_manual(values = c("darkred",
+                               "gold")) +
+  labs(x = "Homeownership",
+       y = "Count",
+       fill = "Application type") +
+  theme_minimal()
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-width: 5
+
+ggplot(loans, aes(x = homeownership,
+                  fill = application_type)) +
+  geom_bar() +
+  scale_fill_manual(values = c("darkred",
+                               "gold")) +
+  labs(x = "Homeownership",
+       y = "Count",
+       fill = "Application type") +
+  theme_minimal()
+```
+:::
+:::
+
+
+## Gráfico de barras conjunto
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| fig-width: 5
+#| code-line-numbers: "3|1,2,3,4,5,6,7,8,9"
+
+ggplot(loans, aes(x = homeownership,
+                  fill = application_type)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values = c("darkred",
+                               "gold")) +
+  labs(x = "Homeownership",
+       y = "Count",
+       fill = "Application type") +
+  theme_minimal()
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-width: 5
+
+ggplot(loans, aes(x = homeownership,
+                  fill = application_type)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values = c("darkred",
+                               "gold")) +
+  labs(x = "Homeownership",
+       y = "Count",
+       fill = "Application type") +
+  theme_minimal()
+```
+:::
+:::
+
+
+## Gráfico de barras conjunto
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| fig-width: 5
+#| code-line-numbers: "3|1,2,3,4,5,6,7,8,9"
+
+ggplot(loans, aes(x = homeownership,
+                  fill = application_type)) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = c("darkred",
+                               "gold")) +
+  labs(x = "Homeownership",
+       y = "Count",
+       fill = "Application type") +
+  theme_minimal()
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-width: 5
+
+ggplot(loans, aes(x = homeownership,
+                  fill = application_type)) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = c("darkred",
+                               "gold")) +
+  labs(x = "Homeownership",
+       y = "Count",
+       fill = "Application type") +
+  theme_minimal()
+```
+:::
+:::
+
+
+## Explorando dos variables categóricas
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 2.5
+#| fig-height: 2.5
+#| layout: [[50, 50], [-22, 56, -22]]
+ggplot(loans, aes(x = homeownership,
+                  fill = application_type)) +
+  geom_bar(show.legend = FALSE) +
+  scale_fill_manual(values = c("darkred",
+                               "gold")) +
+  labs(x = "Homeownership",
+       y = "Count",
+       fill = "Application type") +
+  theme_minimal()
+
+ggplot(loans, aes(x = homeownership,
+                  fill = application_type)) +
+  geom_bar(position = "fill", show.legend = FALSE) +
+  scale_fill_manual(values = c("darkred",
+                               "gold")) +
+  labs(x = "Homeownership",
+       y = "Count",
+       fill = "Application type") +
+  theme_minimal()
+
+ggplot(loans, aes(x = homeownership,
+                  fill = application_type)) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = c("darkred",
+                               "gold")) +
+  labs(x = "Homeownership",
+       y = "Count",
+       fill = "Application type") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+
