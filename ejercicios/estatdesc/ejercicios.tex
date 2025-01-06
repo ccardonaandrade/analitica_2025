@@ -1,0 +1,118 @@
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amssymb}
+\usepackage{tabularx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{amsfonts}
+\usepackage{graphics}
+\usepackage{graphpap}
+\usepackage{latexsym}
+\usepackage{makeidx}
+\usepackage{enumerate}
+\usepackage{rotating}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{indentfirst}
+%\usepackage[nofiglist,notablist,tablesfirst,nomarkers]{endfloat} % figuras al final
+\usepackage[margin=3cm]{geometry}
+\usepackage{hyperref}
+\date{\vspace{-5ex}}
+\begin{document}
+
+\title{{\bf Ejercicios}} 
+\author{Analítica de Datos  \\
+	Pontificia Universidad Javeriana}
+
+
+\maketitle
+
+
+\section{Medidas de Tendencia Central}
+\begin{enumerate}
+	\item Encuentre la media, la mediana y la moda para los valores se la siguiente distribución de frecuencias:
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|c|c|} \hline
+			X & $f$\\ \hline
+			8 & 1 \\
+			7 & 1\\
+			6 & 2\\
+			5 & 5\\
+			4 & 2\\
+			3 & 2\\ \hline
+		\end{tabular}
+	\end{table}
+	\item Una muestra de $n=5$ valores tiene una media de $\bar{X}=13$. Si un valor de $X=3$ se substrae de la muestra, cuál es el nuevo valor de la media?
+	\item Una muestra de $n=7$ valores tiene una media de $\bar{X}=9$. Si un valor de $X=9$ es añadido a la muestra, cuál es el nuevo valor de la media?
+	\item Una muestra de $N=7$ valores tiene una media de $\bar{X}=8$. Uno de los valores de la población cambia de X=20 a X=5. ¿Cuál es el nuevo valor de la media poblacional?
+	\item Una muestra de $n=7$ valores tiene una media de $\bar{X}=5$. Luego de que un nuevo valor es añadido a la muestra, la nueva media es $\bar{X}=6$. ¿Cuál es el valor que se añadió?
+	\item Una muestra de $n=9$ valores tiene una media de $\bar{X}=20$. Uno de los valores cambia y la nueva media es $\bar{X}=22$. Si el valor cambiado era X=5 originalmente, cuál es su nuevo valor?
+
+	\item Un supervisor quiere comparar el desempeño de dos vendedores en su equipo. Para cada vendedor se tiene el número de ventas de los últimos 16 meses $(n=16)$. Él número de ventas es el siguiente:
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{lcccccccccc}
+			Vendedor 1:& 6 & 7&  11&  4&  19&  17&  2&  5&  9&  13 \\
+			& 6&  23&  11&  4&  6&  1&  &  &  &     \\
+			Vendedor 2:&  10&  9&  6&  6&  1&   11&  8&  6&  3&  2 \\
+			& 11& 1&  12&  7&  10&  9 & & & & 
+		\end{tabular}
+	\end{table}
+	\begin{enumerate}
+		\item Calcule el número de ventas promedio para cada vendedor. Basado en las dos medias, ¿cuál vendedor tuvo un mejor desempeño?
+		\item Calcule la mediana para cada vendedor. Basado en las dos medianas, ¿cuál vendedor tuvo un mejor desempeño?
+		\item Calcule la moda para cada vendedor. Basado en las dos modas, ¿cuál vendedor tuvo un mejor desempeño?
+	\end{enumerate}
+	
+\end{enumerate}
+
+
+\section{Medidas de Dispersión}
+\begin{enumerate}
+	\item Para la siguiente muestra de $N=6$ valores: \\
+	\begin{center}
+		3 1 4 3 3 4
+	\end{center}
+	\begin{enumerate}
+		\item Dibuje un histograma mostrando la distribución de la muestra.
+		\item ¿Entre cuáles valores debería encontrarse la desviación estándar?
+		\item Calcule la varianza y la desviación estándar. 
+	\end{enumerate}
+	\item Para la siguiente muestra de $N=6$ valores: \\
+	\begin{center}
+		11 0 2 9 9 5
+	\end{center}
+	\begin{enumerate}
+		\item Calcule el rango y la desviación estándar.
+		\item Sume 2 a todos los valores y calcule nuevamente el rango y la desviación estándar. Describa cómo cambian las medidas de dispersión al sumar una constante a todos los valores.
+	\end{enumerate}
+	\item 
+	\begin{enumerate}
+		\item Después de sumarle 3 a cada valor en
+		una muestra, la media es $\bar{X}=83$ y
+		la desviación estándar es $s_X=8$. ¿Cuáles eran la
+		los valores de la media y la desviación estándar para
+		la muestra original?
+		\item Después de multiplicar por 4 cada valor en
+		una muestra, la media es $\bar{X}=48$ y
+		la desviación estándar es $s_X=12$. ¿Cuáles eran la
+		los valores de la media y la desviación estándar para
+		la muestra original?
+	\end{enumerate}
+	
+	\item Para la siguiente muestra de $n=4$ valores: 82, 88, 82 y 86:
+	\begin{enumerate}
+		\item Se simplifican los valores restándoles a todos el valor 80 obteniendo la muestra 2,8,2 y 6. Ahora, calcule la media y la desviación estándar.
+		\item Usando los valores obtenidos en el literal anterior, ¿cuáles son los valores de la media y la desviación estándar para la muestra original?
+	\end{enumerate}
+\item Una muestra de alumnos tiene una estatura media de 160 cm con una desviación estándar de 16 cm. Estos mismos alumnos, tienen un peso medio de 70 kg con una desviación estándar de 14 kg. ¿Cuál de las 2 variables presenta mayor variabilidad relativa?
+\end{enumerate}
+
+
+
+\end{document}

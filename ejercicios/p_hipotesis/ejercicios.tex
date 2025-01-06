@@ -1,0 +1,106 @@
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[margin=3cm]{geometry}
+\usepackage{tikz}
+
+\title{{\bf Ejercicios}} 
+\author{Analítica de Datos  \\
+	Pontificia Universidad Javeriana}
+\date{}
+\begin{document}
+
+\maketitle
+
+\section{Ejercicio Resuelto}
+\begin{itemize}
+    \item Cuando las ventas medias, por establecimiento autorizado, de una marca de relojes caen por debajo de las 170000 unidades mensuales, se considera razón suficiente para lanzar una campaña publicitaria que active las ventas de esta marca. Para conocer la evolución de las ventas, el departamento de marketing realiza una encuesta a 51 establecimientos autorizados, seleccionados aleatoriamente, que facilitan la cifra de ventas del último mes en relojes de esta marca. A partir de estas cifras se obtienen los siguientes resultados: media = 169411,8 unidades., desviación estándar = 32827,5 unidades. Suponiendo que las ventas mensuales por establecimiento se distribuyen normalmente; con un nivel de significancia del 5\% y en vista a la situación reflejada en los datos. ¿Se considerará oportuno lanzar una nueva campaña publicitaria?
+    \item {\bf Solución:} Lo primero es plantear las dos hipótesis a evaluar. La idea es examinar si, al partir de los 51 establecimientos muestreados, esta media muestral demuestra que las ventas medias están por debajo de la media poblacional. La hipótesis nula establece que las ventas no han cambiado mientras que, la alterna afirma que efectivamente las ventas han disminuido.
+    
+    $$H_0: \mu = 170000$$ 
+    $$H_1: \mu < 170000$$
+    
+    El segundo paso es calcular el error estándar:
+    $$s_{\bar{X}}=\dfrac{32827.5}{\sqrt{51}}=4596.76$$
+    
+    Luego hallo el $Z$ de la prueba:
+    $$Z=\dfrac{\bar{X}-\mu}{\sigma_{\bar{X}}}=\dfrac{169411,8-170000}{4596.76}=-0.12$$
+    
+    Finalmente, para tomar la decisión, comparo el $Z$ de la prueba con el $Z_{\alpha}$ a una cola con un nivel de significancia del 5\% el cual es -1.64.
+    $$Z=-0.12>Z_{\alpha}=-1.64$$
+    Como se observa en la gráfica de la distribución, el $Z$ de la prueba es mayor al $Z$ crítico, es decir, se ubica por fuera de la región crítica. De igual manera, el p-value para -0.12 es $p=0.452$ que es mayor al nivel de significancia $\alpha=0.05$, lo cual corrobora la decisión de no rechazar la $H_0$. Dado que no se rechazó la hipótesis que las ventas son menores para esta muestra, no hay suficiente información para considerar oportuna la decisión de lanzar una nueva campaña publicitaria. 
+    \begin{center}
+
+			\begin{tikzpicture}
+			% define normal distribution function 'normaltwo'
+			\def\normaltwo{\x,{4*1/exp(((\x-3)^2)/2)}}
+			
+			% input y parameter
+			\def\x{0}
+			\def\y{1.2}
+			\def\w{2.5}
+			\def\q{6}
+			
+			
+			% this line calculates f(y)
+			\def\fx{4*1/exp(((\x-3)^2)/2)}
+			\def\fy{4*1/exp(((\y-3)^2)/2)}
+			\def\fz{4*1/exp(((\z-3)^2)/2)}
+			\def\fw{4*1/exp(((\w-3)^2)/2)}
+			\def\fq{4*1/exp(((\q-3)^2)/2)}
+			% Shade orange area underneath curve.
+			\fill [fill=red!60] (\x,0) -- plot[domain=\x:\y] (\normaltwo) -- ({\y},0) -- cycle;
+
+
+		
+			% Draw and label normal distribution function
+			\draw[color=blue,domain=0:6] plot (\normaltwo) node[right] {};
+			
+			% Add dashed line dropping down from normal.
+			\draw[dashed] ({\x},{\fx}) -- ({\x},0) node[below] {};
+			\draw[dashed] ({\y},{\fy}) -- ({\y},0) node[below] {$-1.64$};
+			\draw[dashed] ({\w},{\fw}) -- ({\w},0) node[below] {$-0.12$};
+			\draw[dashed] ({\q},{\fq}) -- ({\q},0) node[below] {};
+			% Optional: Add axis labels
+			\draw (-.2,2.5) node[left] {$f_Z$};
+			\draw (3,-.5) node[below] {$Z$};
+			
+			% Optional: Add axes
+			\draw[->] (0,0) -- (6.2,0) node[right] {};
+			\draw[->] (0,0) -- (0,5) node[above] {};
+			
+			\end{tikzpicture}
+\end{center}
+
+
+\end{itemize}
+
+\section{Ejercicios de pruebas de hipótesis}
+
+\begin{enumerate}
+\item Un analista financiero afirma que el rendimiento promedio semanal de un fondo de inversión específico se distribuye normalmente con una media de 22\% y una desviación estándar de 6\%. Una firma de inversiones, sin embargo, sospecha que el rendimiento promedio es mayor, por lo que realiza un estudio con una muestra de 64 semanas del mismo fondo, obteniendo un rendimiento promedio del 25\%. Utilizando un nivel de significancia del 5\%, verifique si la afirmación del analista financiero es realmente cierta. {\bf $H_0: \mu=22 \quad H_A: \mu > 22$ $Z=4>Z_{\alpha} \rightarrow$ Rechazo $H_0$}
+
+\item Un informe financiero indica que el costo promedio de envío de un producto entre Bogotá y Medellín es, como máximo, de 120 mil pesos, con una desviación estándar de 40 mil pesos. Un gerente de operaciones, sin embargo, sospecha que el costo promedio es mayor, por lo que toma una muestra de 100 envíos recientes y encuentra que la media de los costos es de 128 mil pesos. ¿Se puede aceptar, con un nivel de significancia al 1\% la afirmación del informe? {\bf $H_0: \mu=120 \quad H_A: \mu > 120$ $Z=2>Z_{\alpha} \rightarrow$ Rechazo $H_0$}
+
+
+\item Una cadena de supermercados afirma que el gasto promedio mensual de sus clientes es de 500 mil pesos, con una desviación estándar de 80 mil pesos. Un analista sospecha que el gasto promedio ha cambiado, por lo que toma una muestra aleatoria de 64 clientes y encuentra que la media de los gastos es de 490 mil pesos. Utilizando un nivel de significancia del 5\%, ¿puede el analista concluir que el gasto promedio mensual ha cambiado? {\bf $H_0: \mu=500 \quad H_A: \mu \neq 500$ $Z=-1<Z_{\dfrac{\alpha}{2}} \rightarrow$ No rechazo $H_0$}
+
+\item Una empresa de tecnología afirma que el tiempo promedio de respuesta de su servicio al cliente es de 15 minutos, con una desviación estándar de 5 minutos. Un nuevo gerente, preocupado por la eficiencia del servicio, sospecha que el tiempo promedio de respuesta ha cambiado y realiza una auditoría interna. Para esto, toma una muestra aleatoria de 50 interacciones con el servicio al cliente y encuentra que la media del tiempo de respuesta es de 13.5 minutos.
+
+\begin{enumerate}
+\item Utilizando un nivel de significancia del 1\%, ¿puede el gerente afirmar que el tiempo de respuesta ha cambiado?  {\bf $H_0: \mu=15 \quad H_A: \mu \neq 500$ $Z=-2.12<-2.58=Z_{\dfrac{\alpha}{2}} \rightarrow$ No rechazo $H_0$}
+\item Suponga que, después de realizar la prueba de hipótesis, el gerente decide repetir el análisis utilizando un nivel de significancia más común del 5\%. ¿Cuál sería la implicación de esta decisión? Discute el posible error tipo I que podría ocurrir en este contexto. {\bf Solución:} Supongamos que, en realidad, el tiempo promedio de respuesta sigue siendo 15 minutos, y la auditoría del gerente estaba motivada por una variación aleatoria en la muestra. Si en lugar de usar $\alpha = 0.01$, el gerente hubiera usado un nivel de significancia mayor, como 5\% ($\alpha = 0.05$), el valor crítico sería $\pm 1.96$. En ese caso, $Z = -2.12$ estaría fuera de este intervalo, y la hipótesis nula se rechazaría incorrectamente. Esta situación representa un error tipo I, donde se rechaza la hipótesis nula verdadera.
+
+\end{enumerate}
+
+\item Calcule la significancia observada (p-value) de cada prueba:
+\begin{enumerate}
+	\item $H_0: \mu=54.7 \quad H_A: \mu<54.7 \quad z=-1.72$ {\bf (solución: p-value=0.0427)}
+	\item $H_0: \mu=195 \quad H_A: \mu \neq195 \quad z=-2.07$ {\bf (solución: p-value=0.0384)}
+	\item $H_0: \mu=-45 \quad H_A: \mu>-45 \quad z=2.54$ {\bf (solución: p-value=0.0055)}
+\end{enumerate}
+  
+\end{enumerate}
+
+
+\end{document}
