@@ -8,6 +8,19 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
 
 *Nota: las diapositivas se ven mejor en el HTML que es el formato original.*
 
+1. Introducción
+2. ggplot y tidyverse
+3. Explorando datos numéricos
+4. Explorando datos categóricos
+5. Distribución muestral e intervalos de confianza
+6. Pruebas de hipótesis
+7. Intro al Modelo de Regresión Lineal
+8. Más sobre Regresión Lineal
+9. Muestre y encuestas
+10. Experimentos
+11. Regresión Logística
+12. Análisis de Texto
+
 ## Libros 
 
 - [OpenIntro Statistics, 4<sup>th</sup> ed.](https://www.openintro.org/book/os/)
