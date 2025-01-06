@@ -44,183 +44,189 @@ anchorcolor = black]{hyperref}
 \newcolumntype{d}[1]{D{.}{.}{#1}}
 
 \begin{document}
-
-\title{
-	\texttt{\textbf{Analítica de Datos}}\\[1em]
-	\large Syllabus 2025 - I
-}
-\author{Pontifica Universidad Javeriana}
-%\date{}  % Toggle commenting to test
-\date{\vspace{-5ex}}
-
-\maketitle
-
-\section*{Clase}
-
-\begin{table}[!h]
-	\ra{1.2}
-	\begin{tabular}{@{\extracolsep{5pt}} l l @{}}
- \faClockO & Lunes 4:10pm--6:45pm \\ 
- \faUser & Carlos Cardona Andrade \\
- 	\faPaperPlaneO & \href{mailto:carlos.cardonaa@javeriana.edu.co}{carlos.cardonaa@javeriana.edu.co} \\
-  \faChevronRight & \href{https://github.com/ccardonaandrade/analitica_2025}{https://github.com/ccardonaandrade/analitica\_2025} \\
-  \faBook & \href{https://www.openintro.org/book/os/}{OpenIntro Statistics, 4\textsuperscript{th} ed.}\\
-  \faBook & \href{https://openintro-ims.netlify.app/}{Introduction to Modern Statistics, 2\textsuperscript{th} ed.} \\
-   \faBook & \href{https://r4ds.hadley.nz/}{R for Data Science, 2\textsuperscript{th} ed.} \\
-      \faBook & \href{https://socviz.co/}{Data Visualization: A practical introduction} \\
-	\end{tabular}
-\end{table}
-
-
-
-
-\section*{Resumen}
-
-\paragraph{Descripción:} La gestión empresarial moderna exige una toma de decisiones basada en datos, superando las limitaciones de métodos puramente intuitivos o experienciales. Este curso introduce la estadística como herramienta fundamental para transformar datos en decisiones empresariales efectivas.
-Los estudiantes desarrollarán competencias en:
-
-\begin{itemize}
-\item Recopilación y procesamiento sistemático de datos
-\item Análisis exploratorio y técnicas de inferencia estadística
-\item Modelización e interpretación de resultados
-\item Evaluación crítica de argumentos basados en datos
-\end{itemize}
-
-
-El curso enfatiza la aplicación práctica de la estadística en contextos empresariales, investigación científica y políticas públicas. Como señaló S. Wilks (1950), 'El pensamiento estadístico será una cualificación tan esencial para la ciudadanía eficiente como la capacidad de leer y escribir'
-
-El aprendizaje de la programación estadística es inherente a la práctica del análisis de datos. Por ello, a lo largo de este curso también enseñaremos el lenguaje de programación estadística \texttt{{R}}.
-
-\paragraph{Prerrequisitos:} Este curso no asume ningún conocimiento previo en estadística o programación. Además, sólo se requiere aritmética básica.
-
-
-\section*{Recomendaciones}
-
-\begin{enumerate}
-	\item \textbf{Sean amable}.
-	\item \textbf{Asuman la responsabilidad} de su propia educación e intenten \textbf{aprender} tanto como puedan.
-	\item \textbf{Hagan tu propio trabajo}.
-	\item Desarrollen su \textbf{intuición}---\textit{por ejemplo}, ¿por qué la regresión funciona en una situación y falla en otra?
-	\item \textbf{Aprendan \texttt{R}}. Luchen mientras lo intentas---y utilicen \textbf{Google} para resolver sus dudas.
-	\item Asiste a las \textbf{horas de oficina}.\footnote{Dos artículos relacionados de NPR sobre horas de oficina: \href{https://www.npr.org/2019/10/05/678815966/college-students-how-to-make-office-hours-less-scary}{\textit{Estudiantes universitarios: Cómo hacer que las horas de oficina sean menos intimidantes}} y \href{https://www.npr.org/2019/10/02/766568824/uncovering-a-huge-mystery-of-college-office-hours}{\textit{Descubriendo un gran misterio de la universidad: Las horas de oficina}}.}
-	\item \textbf{Pidan ayuda temprano}---no esperen hasta el final del semestre.
-\end{enumerate}
-
-\section*{Software}
-
-\paragraph{R:} Usaremos el lenguaje de programación estadística \href{https://www.r-project.org/}{\textbf{\texttt{R}}}, y utilizaremos \href{https://www.rstudio.com}{\textbf{\texttt{RStudio}}} para interactuar con \texttt{R}.
-
-\paragraph{Aprender R:} requerirá tiempo y esfuerzo, pero es una herramienta poderosa y versátil valorada por muchos empleadores. Dediquen el esfuerzo y tiempo necesarios, y serán recompensado. Los computadores en la universidad ya tienen instalado \texttt{R}, pero recomiendo enfáticamente que instalen \texttt{R} y \texttt{RStudio} en su propio computador.
-
-Si están preocupados por aprender \texttt{R}---o quieren aprender más rápido---les sugiero que consulten los siguientes recursos en línea, gratuitos.
-\begin{itemize}
-	\item \href{https://www.datacamp.com/courses/free-introduction-to-r}{\textit{Introducción a R} de DataCamp}
-	\item \href{https://www.teamleada.com/courses/r-bootcamp}{\textit{R Bootcamp} de TeamLeada}
-	\item \href{https://www.computerworld.com/article/2497143/business-intelligence-beginner-s-guide-to-r-introduction.html}{\textit{Guía para principiantes en R} de Computerworld}
-\end{itemize}
-El equipo de \texttt{RStudio} ha preparado un excelente \href{https://education.rstudio.com/learn/beginner/}{material de aprendizaje}.
-
-
-\section*{Quices, talleres y parciales}
-
-\paragraph{Lab:} This course includes a lab, which is integral to learning the material in (and passing) this course. For now, we are requesting that you attend the lab for which you registered. The lab includes both general econometrics instruction and computing tips necessary to complete the homework assignments---linking the lecture material to \texttt{R}---as well as topics which the lecture may not be cover. \textbf{The lab is the best way you can get quick feedback and help in this course.} The GEs will also post a video for you to watch before the remote lab meeting/call.
-
-See above for lab times.
-
-\paragraph{Problem Sets}
-\begin{itemize}
-  \item You will \textbf{turn in assignments online via Canvas}.
-  \item Assignments will be due approximately every 1--2 weeks.
-  \item Assignments \textbf{must be in your own words}. \textbf{Do not copy}.
-  \item See below for \textbf{late policy}.
-\end{itemize}
-Feel free to work together on the assignments. Unless explicitly stated, \textbf{each student is required to write and submit independent answers}. This means that word-for-word copies will not be accepted and will be viewed as academic dishonesty. In other words: You must place answers \textbf{in your own words}. \textbf{Copying from other people (even if you worked with them) or from previous assignments is considered cheating.}
-
-\paragraph{Late policy}
-\begin{itemize}
-  \item We accept assignments \textbf{up to 48 hours late}, but we \textbf{subtract 2 percentage points for each hour it is late.}
-  \item For example, you turn in an assignment 12 hours late and would have received 85\%. We subtract 12$\times$2$=$24 percentage points, meaning you will receive 85\%$-$24\%=61\%.
-  \item No exceptions.
-\end{itemize}
-
-\paragraph{Exams}
-\begin{itemize}
-  \item We will give the \textbf{``in-class'' midterm online on February 11, 2021 from 10:15am--11:45am}.
-  \item We will give the \textbf{final exam on Tuesday, March 16, 2021 from 8am--10am}.
-\end{itemize}
-We will not offer early exams. Each exam will be accompanied by a more open-ended project.
-
-\section*{Evaluación}
-
-Las notas para esta clase se asignarán en función de las siguientes tareas: tareas aproximadamente quincenales, dos exámenes parciales, y un proyecto final. La nota final se determinará según los siguientes pesos para cada una de las actividades:
-
-\begin{table}[!h]
-  \ra{1.2}
-  \centering
-  \begin{tabular}{@{\extracolsep{2cm}}ll@{}}
-    \textbf{Quices y Talleres}         & 30\% \\
-    \textbf{Parcial I}  & 15\% \\
-    \textbf{Parcial II}  & 15\% \\
-    \textbf{Proyecto Final}    & 40\%
-  \end{tabular}
-\end{table}
-
-\section*{Libros y otras lecturas}
-
-Este curso busca destacar la amplia gama de recursos educativos gratuitos disponibles en línea y fomentar una mentalidad proactiva y autodidacta, esencial para el aprendizaje efectivo de la programación.
-
-\paragraph{Libros de Estadística:} Hay dos libros de estadística recomendados para este curso:
-
-\begin{enumerate}
-  \item \href{https://www.openintro.org/book/os/}{\textbf{OpenIntro Statistics}} de Diez, Cetinkaya-Rundel y Barr (\textbf{OIS})
-  \item \href{https://openintro-ims.netlify.app/}{\textbf{Introduction to Modern Statistics, 2\textsuperscript{th} ed.}} de Cetinkaya-Rundel y Hardin (\textbf{IME})
-\end{enumerate}
-
-Ambos libros los encuentran gratis en línea. Estos textos ofrecen otra perspectiva complementaria sobre el material que cubrimos en las clases. El cronograma del curso (más abajo) incluye lecturas sugeridas para cada tema. Recomiendo que lean las lecturas asignadas previo a cada clase.
-
-\paragraph{Libros de R:} Para aprender \texttt{R}, seguiremos los siguientes textos que también son gratuitos:
-
-\begin{enumerate}
-\item \href{https://r4ds.hadley.nz/}{\textbf{R for Data Science, 2\textsuperscript{th} ed.}} de Grolemund y Wickham (\textbf{R4DS})
-\item \href{http://socviz.co/}{\textbf{Data Visualization: A practical introduction}} de Healy (\textbf{DV})
-\end{enumerate}
-
-¿Quieren profundizar más? Consulten \href{http://adv-r.had.co.nz/}{\textbf{Advanced \textit{R}}}.
-
-
-
-\section*{Cronograma tentativo del curso}
-
-La tabla a continuación presenta el plan actual para el esquema del curso y las lecturas asignadas de los libros de texto. Ocasionalmente, asignaremos artículos para que los leas para la clase, el laboratorio o como parte de tus tareas. Publicaré estos artículos en Canvas. Como sugiere el título de esta sección, el cronograma y los temas pueden estar sujetos a cambios.
-
-\begin{table}[htb]
-  \centering
-  \caption*{\textbf{Cronograma tentativo}}
-  \ra{1.5}
-  \begin{tabular}{@{\extracolsep{1cm}} c c l l @{}}
-    \toprule
-    \textbf{Clase} & \textbf{Fecha} & \textbf{Tema} & \textbf{Lectura sugerida}  \\ \toprule
-    \texttt{01} & 27/01 & Intro \& Preliminares & ItE 1--6 \\
-    \texttt{02} & 03/02 & Tidyverse \& ggplot & ItE 1--6; MM 2 \\
-    \texttt{03} & 10/02 & Explorando datos categóricos & ItE 1--6; MM 2 \\
-    \texttt{04} & 17/02 & Explorando datos numéricos & ItE 1--7 \\
-    \texttt{05} & 24/02 & Intro a la Estadística inferencial & ItE 7 \\
-    \texttt{06} & 03/03 & Inferencia para datos categóricos & ItE 7 \\
-    \texttt{07} & 10/03 & Inferencia para datos numéricos \\ \midrule
-    \texttt{08} & 17/03 & \textbf{Parcial I} & ItE pp. 68--75  \\ \midrule
-     & 24/03 & Festivo & ItE 11  \\
-    \texttt{09} & 31/03 & Muestreo y Encuestas & ItE 11  \\
-    \texttt{10} & 07/04 & Experimentos & ItE 12 \\ 
-     & 14/04 & Semana Santa & \\ 
-    \texttt{11} & 21/04 & Intro a Regresión Lineal & ItE 12 \& 13 \\ \midrule
-    \texttt{12} & 28/04 & \textbf{Parcial II} & ItE pp. 68--75  \\ \midrule
-    \texttt{13} & 05/05 & Más de Regresión Lineal & ItE 9; MM 3 \\
-    \texttt{14} & 12/05 & Regresión Logística & ItE 9; MM 3 \\
-     \texttt{15} & 19/05 & Análisis de Texto & ItE 9; MM 3 \\
-    \texttt{16} & 26/05 & \textbf{Presentación Trabajo Final} & ItE pp. 68--75  \\ 
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-
+	
+	\title{
+		\texttt{\textbf{Analítica de Datos}}\\[1em]
+		\large Syllabus 2025 - I
+	}
+	\author{Pontifica Universidad Javeriana}
+	%\date{}  % Toggle commenting to test
+	\date{\vspace{-5ex}}
+	
+	\maketitle
+	
+	\section*{Clase}
+	
+	\begin{table}[!h]
+		\ra{1.2}
+		\begin{tabular}{@{\extracolsep{5pt}} l l @{}}
+			\faClockO & Lunes 4:10pm--6:45pm \\ 
+			\faUser & Carlos Cardona Andrade \\
+			\faPaperPlaneO & \href{mailto:carlos.cardonaa@javeriana.edu.co}{carlos.cardonaa@javeriana.edu.co} \\
+			\faChevronRight & \href{https://github.com/ccardonaandrade/analitica_2025}{https://github.com/ccardonaandrade/analitica\_2025} \\
+			\faBook & \href{https://www.openintro.org/book/os/}{OpenIntro Statistics, 4\textsuperscript{th} ed.}\\
+			\faBook & \href{https://openintro-ims.netlify.app/}{Introduction to Modern Statistics, 2\textsuperscript{th} ed.} \\
+			\faBook & \href{https://r4ds.hadley.nz/}{R for Data Science, 2\textsuperscript{th} ed.} \\
+			\faBook & \href{https://socviz.co/}{Data Visualization: A practical introduction} \\
+		\end{tabular}
+	\end{table}
+	
+	
+	
+	
+	\section*{Resumen}
+	
+	\paragraph{Descripción:} La gestión empresarial moderna exige una toma de decisiones basada en datos, superando las limitaciones de métodos puramente intuitivos o experienciales. Este curso introduce la estadística como herramienta fundamental para transformar datos en decisiones empresariales efectivas.
+	Los estudiantes desarrollarán competencias en:
+	
+	\begin{itemize}
+		\item Recopilación y procesamiento sistemático de datos
+		\item Análisis exploratorio y técnicas de inferencia estadística
+		\item Modelización e interpretación de resultados
+		\item Evaluación crítica de argumentos basados en datos
+	\end{itemize}
+	
+	
+	El curso enfatiza la aplicación práctica de la estadística en contextos empresariales, investigación científica y políticas públicas. Como señaló S. Wilks (1950), 'El pensamiento estadístico será una cualificación tan esencial para la ciudadanía eficiente como la capacidad de leer y escribir'
+	
+	El aprendizaje de la programación estadística es inherente a la práctica del análisis de datos. Por ello, a lo largo de este curso también enseñaremos el lenguaje de programación estadística \texttt{{R}}.
+	
+	\paragraph{Prerrequisitos:} Este curso no asume ningún conocimiento previo en estadística o programación. Además, sólo se requiere aritmética básica.
+	
+	
+	\section*{Recomendaciones}
+	
+	\begin{enumerate}
+		\item \textbf{Sean amable}.
+		\item \textbf{Asuman la responsabilidad} de su propia educación e intenten \textbf{aprender} tanto como puedan.
+		\item \textbf{Hagan tu propio trabajo}.
+		\item Desarrollen su \textbf{intuición}---\textit{por ejemplo}, ¿por qué la regresión funciona en una situación y falla en otra?
+		\item \textbf{Aprendan \texttt{R}}. Luchen mientras lo intentas---y utilicen \textbf{Google} para resolver sus dudas.
+		\item Asiste a las \textbf{horas de oficina}.\footnote{Dos artículos relacionados de NPR sobre horas de oficina: \href{https://www.npr.org/2019/10/05/678815966/college-students-how-to-make-office-hours-less-scary}{\textit{Estudiantes universitarios: Cómo hacer que las horas de oficina sean menos intimidantes}} y \href{https://www.npr.org/2019/10/02/766568824/uncovering-a-huge-mystery-of-college-office-hours}{\textit{Descubriendo un gran misterio de la universidad: Las horas de oficina}}.}
+		\item \textbf{Pidan ayuda temprano}---no esperen hasta el final del semestre.
+	\end{enumerate}
+	
+	\section*{Software}
+	
+	\paragraph{R:} Usaremos el lenguaje de programación estadística \href{https://www.r-project.org/}{\textbf{\texttt{R}}}, y utilizaremos \href{https://www.rstudio.com}{\textbf{\texttt{RStudio}}} para interactuar con \texttt{R}.
+	
+	\paragraph{Aprender R:} requerirá tiempo y esfuerzo, pero es una herramienta poderosa y versátil valorada por muchos empleadores. Dediquen el esfuerzo y tiempo necesarios, y serán recompensado. Los computadores en la universidad ya tienen instalado \texttt{R}, pero recomiendo enfáticamente que instalen \texttt{R} y \texttt{RStudio} en su propio computador.
+	
+	Si están preocupados por aprender \texttt{R}---o quieren aprender más rápido---les sugiero que consulten los siguientes recursos en línea, gratuitos.
+	\begin{itemize}
+		\item \href{https://www.datacamp.com/courses/free-introduction-to-r}{\textit{Introducción a R} de DataCamp}
+		\item \href{https://www.teamleada.com/courses/r-bootcamp}{\textit{R Bootcamp} de TeamLeada}
+		\item \href{https://www.computerworld.com/article/2497143/business-intelligence-beginner-s-guide-to-r-introduction.html}{\textit{Guía para principiantes en R} de Computerworld}
+	\end{itemize}
+	El equipo de \texttt{RStudio} ha preparado un excelente \href{https://education.rstudio.com/learn/beginner/}{material de aprendizaje}.
+	
+	
+	\section*{Quices, talleres y parciales}
+	
+	\paragraph{Talleres:} Este curso incluye varios talleres que son fundamentales para aprender el material y aprobar este curso. Cada taller incluye tanto instrucción general de estadística como consejos de programación necesarios para completar los ejercicios—vinculando el material de la clase con \texttt{R}—así como temas que pueden no ser cubiertos en la clase. Los talleres son la mejor manera de recibir retroalimentación rápida y ayuda en este curso. 
+	
+	\begin{itemize}
+		\item Deben \textbf{enviar los códigos de los talleres a por correo electrónico}.
+		\item Habrá talleres aproximadamente cada 2 semanas.
+		\item Las soluciones \textbf{deben estar escritas con sus propias palabras}. \textbf{No copien}.
+		\item Consulten abajo la \textbf{política de entrega tardía}.
+	\end{itemize}
+	Los talleres y el proyecto final se entregan en parejas. A menos que se indique explícitamente lo contrario, \textbf{cada grupo debe escribir y enviar respuestas de forma independiente}. Esto significa que no se aceptarán copias literales y serán consideradas como deshonestidad académica. En otras palabras: deben escribir las respuestas \textbf{con sus propias palabras}. \textbf{Copiar de otras personas o de talleres anteriores se considera trampa.}
+	
+	\paragraph{Política de entregas tardías}
+	\begin{itemize}
+		\item Acepto tareas \textbf{hasta 24 horas tarde}, pero \textbf{se restarán puntos dependiendo del número de horas de retraso.}
+		\item Por ejemplo, si entregas una tarea 12 horas tarde y habrías recibido 85\%, restamos 12$\times$2$=$24 puntos porcentuales, lo que significa que recibirás 85\%$-$24\%=61\%.
+		\item No hay excepciones.
+	\end{itemize}
+	
+	\paragraph{Exámenes}
+	\begin{itemize}
+		\item El primer \textbf{examen parcial se realizará el 17 de marzo de 2025}.
+		\item El segundo \textbf{examen final se realizará el 28 de abril de 2025}.
+	\end{itemize}
+	
+	\section*{Evaluación}
+	
+	Las notas para esta clase se asignarán en función de las siguientes tareas: tareas aproximadamente quincenales, dos exámenes parciales, y un proyecto final. La nota final se determinará según los siguientes pesos para cada una de las actividades:
+	
+	\begin{table}[!h]
+		\ra{1.2}
+		\centering
+		\begin{tabular}{@{\extracolsep{2cm}}ll@{}}
+			\textbf{Quices y Talleres}         & 30\% \\
+			\textbf{Parcial I}  & 15\% \\
+			\textbf{Parcial II}  & 15\% \\
+			\textbf{Proyecto Final}    & 40\%
+		\end{tabular}
+	\end{table}
+	
+	\section*{Libros y otras lecturas}
+	
+	Este curso busca destacar la amplia gama de recursos educativos gratuitos disponibles en línea y fomentar una mentalidad proactiva y autodidacta, esencial para el aprendizaje efectivo de la programación. Todos los libros los encuentran gratis en línea. Estos textos ofrecen otra perspectiva complementaria sobre el material que cubrimos en las clases. El cronograma del curso (más abajo) incluye lecturas sugeridas para cada tema. Recomiendo que lean las lecturas asignadas previo a cada clase.
+	
+	\paragraph{Libros de Estadística:} Hay dos libros de estadística recomendados para este curso:
+	
+	\begin{enumerate}
+		\item \href{https://www.openintro.org/book/os/}{\textbf{OpenIntro Statistics}} de Diez, Cetinkaya-Rundel y Barr (\textbf{OIS})
+		\item \href{https://openintro-ims.netlify.app/}{\textbf{Introduction to Modern Statistics, 2\textsuperscript{th} ed.}} de Cetinkaya-Rundel y Hardin (\textbf{IME})
+	\end{enumerate}
+	
+	
+	\paragraph{Libros de R:} Para aprender \texttt{R}, seguiremos los siguientes textos que también son gratuitos:
+	
+	\begin{enumerate}
+		\item \href{https://r4ds.hadley.nz/}{\textbf{R for Data Science, 2\textsuperscript{th} ed.}} de Grolemund y Wickham (\textbf{R4DS})
+		\item \href{http://socviz.co/}{\textbf{Data Visualization: A practical introduction}} de Healy (\textbf{DV})
+	\end{enumerate}
+	
+	¿Quieren profundizar más? Consulten \href{http://adv-r.had.co.nz/}{\textbf{Advanced \textit{R}}}.
+	
+	
+	
+	
+	\section*{Cronograma tentativo del curso}
+	
+	La tabla a continuación presenta el plan actual para el esquema del curso y las lecturas asignadas de los libros de texto. Ocasionalmente, asignaremos artículos para que los leas para la clase, el laboratorio o como parte de tus tareas. Publicaré estos artículos en Canvas. Como sugiere el título de esta sección, el cronograma y los temas pueden estar sujetos a cambios.
+	
+	\begin{table}[htb]
+		\centering
+		\caption*{\textbf{Cronograma tentativo}}
+		\ra{1.5}
+		\begin{tabular}{@{\extracolsep{1cm}} c c l l @{}}
+			\toprule
+			\textbf{Clase} & \textbf{Fecha} & \textbf{Tema} & \textbf{Lectura sugerida}  \\ \toprule
+			\texttt{01} & 27/01 & Intro \& Preliminares & DV 2 \\
+			\texttt{02} & 03/02 & Tidyverse \& ggplot & R4DS 1--3 \\
+			\texttt{03} & 10/02 & Explorando datos categóricos & IME 4 \\
+			\texttt{04} & 17/02 & Explorando datos numéricos & IME 5
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			\\
+			\texttt{05} & 24/02 & Intro a la Estadística inferencial & ItE 7 \\
+			\texttt{06} & 03/03 & Inferencia para datos categóricos & ItE 7 \\
+			\texttt{07} & 10/03 & Inferencia para datos numéricos \\ \midrule
+			\texttt{08} & 17/03 & \textbf{Parcial I} & ItE pp. 68--75  \\ \midrule
+			& 24/03 & Festivo & ItE 11  \\
+			\texttt{09} & 31/03 & Muestreo y Encuestas & ItE 11  \\
+			\texttt{10} & 07/04 & Experimentos & ItE 12 \\ 
+			& 14/04 & Semana Santa & \\ 
+			\texttt{11} & 21/04 & Intro a Regresión Lineal & ItE 12 \& 13 \\ \midrule
+			\texttt{12} & 28/04 & \textbf{Parcial II} & ItE pp. 68--75  \\ \midrule
+			\texttt{13} & 05/05 & Más de Regresión Lineal & ItE 9; MM 3 \\
+			\texttt{14} & 12/05 & Regresión Logística & ItE 9; MM 3 \\
+			\texttt{15} & 19/05 & Análisis de Texto & ItE 9; MM 3 \\
+			\texttt{16} & 26/05 & \textbf{Presentación Trabajo Final} & ItE pp. 68--75  \\ 
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	
 \end{document}
