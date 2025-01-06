@@ -53,21 +53,428 @@ library(kableExtra)
 
 ## Qué es "tidy" data? {.medium}
 
-- Recursos:
-    - [Paquete tidyr](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)
-    - [Paper original](https://vita.had.co.nz/papers/tidy-data.pdf) (Hadley Wickham, 2014 JSS)
-
-
 - Puntos clave:
     1. Cada variable forma una columna.
     2. Cada observación forma una fila.
     3. Cada tipo de unidad de observación forma una tabla.
+    
+![](img/tidydata.png){width=250}
+
+## ¿Por qué tidy data? {.medium}
+
+- Un conjunto de datos en forma tidy facilita la selección de variables, la agrupación, el resumen y la visualización.
+
+. . .
+
+- Algunas herramientas y paquetes en el tidyverse como dplyr o ggplot2 requieren que los datos se organicen de esa manera
+
+. . .
+
+El problema: la mayoría de los datos que obtengan no estarán “ordenados” desde el principio $\rightarrow$ tendrá que remodelarlos
+
+. . .
+
+- Algunos Recursos:
+    - [Paquete tidyr](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)
+    - [Paper original](https://vita.had.co.nz/papers/tidy-data.pdf) (Hadley Wickham, 2014 JSS)
+    
+    
+## gapminder data {.medium}
+
+```{r}
+#| echo: true
+library(gapminder)
+gapminder
+```
+    
+## gapminder -- dimensiones {.medium}
+
+-   Número de filas:
+
+```{r}
+nrow(gapminder)
+```
+
+. . .
+
+-   Número de columnas:
+
+```{r}
+ncol(gapminder)
+```
+
+## gapminder -- primer vistazo {.medium}
+
+::: panel-tabset
+## `glimpse()`
+
+```{r}
+glimpse(gapminder)
+```
+
+## `names()`
+
+```{r}
+names(gapminder)
+```
+
+## `head()`
+
+```{r}
+head(gapminder)
+```
+:::
+
+## tibble vs. data frame {.medium}
+
+::: incremental
+-   **tibble**: una versión opinada del `R` data frame
+-   Todos los tibbles son data frames, pero no todos los data frames son tibbles.
+-   Dos diferencias principales entre un tibble y un data frame:
+    -   Impresión
+    -   Selección más estricta
+:::
+
+## Impresión {.medium}
+
+::: panel-tabset
+## `tibble`
+
+Muestra las 10 primeras filas y todas las columnas que cuadren en la pantalla. Adicionalmente, muestra el tipo de variable para cada columna.
+
+```{r}
+gapminder
+```
+
+## `data.frame`
+
+Intentará mostrar todos los datos, o fracasará intentando si el conjunto de datos es muy grande
+
+```{r}
+cars
+```
+:::
+
+## Selección más estricta {.medium}
+
+::: panel-tabset
+## `tibble`
+
+Warning + `NULL` si no encuentra la variable.
+
+```{r}
+#| warning: true
+gapminder$apple
+```
+
+## `data.frame`
+
+Sólo `NULL` si no encuentra la variable.
+
+```{r}
+#| label: data-frame-subset
+
+cars$apple
+```
+:::
+
+## El operador pipe en acción {.medium}
+
+- El operador **pipe** (`|>`) es una herramienta para pasar información de un proceso al otro
+
+- Las dos siguientes líneas de código hacen lo mismo:
+
+```{r}
+#| eval: false
+gapminder |> filter(year == 2007) |>  group_by(continent)  |> summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) |> arrange(desc(mean_gpdpercapita))
+arrange(summarize(group_by(filter(gapminder, year == 2007), continent), mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)), desc(mean_gpdpercapita))
+```
+
+. . . 
+
+- La primera línea se lee de izquierda a derecha, exactamente como uno pensaría los procesos
+
+- La segunda línea invierte totalmente este orden lógico (¡la operación final viene primero!)
+
+
+## El operador pipe en acción {.smaller}
+
+```{r}
+#| label: pipe-1
+
+gapminder # <1>
+```
+
+1.  Toma el data frame gapminder
+
+## El operador pipe en acción {.smaller}
+
+```{r}
+#| label: pipe-2
+
+gapminder |>               # <1>
+  filter(year == 2007)     # <2>
+```
+
+1.  Toma el data frame gapminder,
+2.  **y luego** selecciona las observaciones en el año 2007
+
+## El operador pipe en acción {.smaller}
+
+```{r}
+#| label: pipe-3
+
+gapminder |>                 # <1>
+  filter(year == 2002) |>    # <2>
+  group_by(continent)        # <3>
+```
+
+1.  Toma el data frame gapminder,
+2.  **y luego** selecciona las observaciones en el año 2002,
+3.  **y luego** agrupa por continente
+
+## El operador pipe en acción {.smaller}
+
+```{r}
+#| label: pipe-4
+
+gapminder |>                # <1>
+  filter(year == 2007) |>   # <2>
+  group_by(continent)  |>   # <3>
+  summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) # <4>
+```
+
+1.  Toma el data frame gapminder,
+2.  **y luego** selecciona las observaciones en el año 2007,
+3.  **y luego** agrupa por continente,
+4.  **y luego** calcula el GDP per cápita para cada continente
+
+## El operador pipe en acción {.smaller}
+
+```{r}
+#| label: pipe-5
+
+gapminder |>                 # <1>
+  filter(year == 2007) |>    # <2>
+  group_by(continent)  |>    # <3>
+  summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) |> # <4>
+  arrange(desc(mean_gpdpercapita)) # <5>
+```
+
+1.  Toma el data frame gapminder,
+2.  **y luego** selecciona las observaciones en el año 2007,
+3.  **y luego** agrupa por continente,
+4.  **y luego** calcula el GDP per cápita para cada continente,
+5.  **y luego** organiza de manera descendente del GDP per cápita promedio.
+
+## Algunas consideraciones sobre `|>` {.medium}
+
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| eval: false
+gapminder |> filter(year == 2007) |>  group_by(continent)  |> summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) |> arrange(desc(mean_gpdpercapita))
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: false
+gapminder |>                 
+  filter(year == 2007) |>    
+  group_by(continent)  |>    
+  summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) |> 
+  arrange(desc(mean_gpdpercapita)) 
+```
+:::
+:::
+
+
+- Usar espacio vertical no cuesta nada y genera un código mucho más legible y fácil de escribir que amontonar cosas horizontalmente
+
+. . . 
+
+- Otra manera de denotar el pipe operator es `%>%`. Hay diferencias entre ambos pero van más allá del propósito del curso
+
+- Revisen [|> vs. %>%](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/) si quieren profundizar en el tema 
+
+## Un poco más sobre la asignación {.medium}
+
+Creemos un data frame para usar como ejemlo:
+
+```{r}
+#| message: false
+
+library(tidyverse)
+df <- tibble(x = c(1, 2, 3, 4, 5), y = c("a", "a", "b", "c", "c"))
+df
+```
+
+## Un poco más sobre la asignación {.medium}
+
+::: columns
+::: {.column .fragment width="50%"}
+> **Haga algo y muéstrelo**
+
+```{r}
+df |>
+  mutate(x = x * 2)
+df
+```
+:::
+
+::: {.column .fragment width="50%"}
+> **Haga algo y guarde el resultado**
+
+```{r}
+df <- df |>
+  mutate(x = x * 2)
+df
+```
+:::
+:::
+
+## Un poco más sobre la asignación {.medium}
+
+::: columns
+::: {.column .fragment width="50%"}
+> **Haga algo, guarde el resultado, modifique el original**
+
+```{r}
+#| code-line-numbers: "5-7"
+
+df <- tibble(
+  x = c(1, 2, 3, 4, 5), 
+  y = c("a", "a", "b", "c", "c")
+)
+df <- df |>
+  mutate(x = x * 2)
+df
+```
+:::
+
+::: {.column .fragment width="50%"}
+> **Haga algo, guarde el resultado, *no* modifique el original**
+
+```{r}
+#| code-line-numbers: "5-7"
+
+df <- tibble(
+  x = c(1, 2, 3, 4, 5), 
+  y = c("a", "a", "b", "c", "c")
+)
+df_new <- df |>
+  mutate(x = x * 2)
+df_new
+```
+:::
+:::
+
+## Un poco más sobre la asignación {.medium}
+
+::: columns
+::: {.column .fragment width="50%"}
+> **Haga algo, guarde el resultado, modifique el original *cuando no debería***
+
+```{r}
+#| code-line-numbers: "5-8"
+
+df <- tibble(
+  x = c(1, 2, 3, 4, 5), 
+  y = c("a", "a", "b", "c", "c")
+)
+df <- df |>
+  group_by(y) |>
+  summarize(mean_x = mean(x))
+df
+```
+:::
+
+::: {.column .fragment width="50%"}
+> **Haga algo, guarde el resultado, *no* modifique el original *cuando no debería***
+
+```{r}
+#| code-line-numbers: "5-8"
+
+df <- tibble(
+  x = c(1, 2, 3, 4, 5), 
+  y = c("a", "a", "b", "c", "c")
+)
+df_summary <- df |>
+  group_by(y) |>
+  summarize(mean_x = mean(x))
+df_summary
+```
+:::
+:::
+
+## Un poco más sobre la asignación {.medium}
+
+::: columns
+::: {.column .fragment width="50%"}
+> **Haga algo, guarde el resultado, modifique el**\
+> ***data frame original***
+
+```{r}
+#| code-line-numbers: "5-7"
+
+df <- tibble(
+  x = c(1, 2, 3, 4, 5), 
+  y = c("a", "a", "b", "c", "c")
+)
+df <- df |>
+  mutate(z = x + 2)
+df
+```
+:::
+
+::: {.column .fragment width="50%"}
+> **Haga algo, guarde el resultado, modifique la**\
+> ***columna original***
+
+```{r}
+#| code-line-numbers: "5-7"
+
+df <- tibble(
+  x = c(1, 2, 3, 4, 5), 
+  y = c("a", "a", "b", "c", "c")
+)
+df <- df |>
+  mutate(x = x + 2)
+df
+```
+:::
+:::
+
+
 
 # ggplot {#ggplot}
 
 <center>
 ![](img/ggplot-logo.png){width=250}
 </center>
+
+## ggplot2 {.medium}
+
+Es el principal paquete para visualizar datos en `tidyverse`
+
+
+::: columns
+::: {.column width="50%"}
+[ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/)
+
+```{=html}
+<iframe width=600 height=375 src="https://ggplot2.tidyverse.org/" title="dplyr home page"></iframe>
+```
+:::
+
+::: {.column width="50%"}
+[Cheat sheet](https://rstudio.github.io/cheatsheets/html/data-visualization.html)
+
+[![](img/ggplot-cheat-sheet.png)](https://rstudio.github.io/cheatsheets/html/data-visualization.html)
+:::
+:::
 
 ## El paquete ggplot {.medium}
 ```{r, fig.width = 4, fig.asp = 0.45} 
@@ -141,12 +548,7 @@ Hay mucho que decir sobre la implementación de este enfoque de "gramática de g
 
 Esto es un poco abstracto. Repasemos cada elemento por turno con algunos gráficos reales.
 
-## Gapminder Data {.medium}
 
-```{r}
-#| echo: true
-library(gapminder)
-```
     
 ## 1. Mapeo estético {.medium}
 
@@ -520,6 +922,27 @@ p2
 <center>
 ![](img/dplyr.png){width=250}
 </center>
+
+## dplyr {.medium}
+
+Es el principal paquete para transformar datos en `tidyverse`
+
+
+::: columns
+::: {.column width="50%"}
+[dplyr.tidyverse.org](https://dplyr.tidyverse.org)
+
+```{=html}
+<iframe width=600 height=375 src="https://dplyr.tidyverse.org/" title="dplyr home page"></iframe>
+```
+:::
+
+::: {.column width="50%"}
+[Cheat sheet](https://rstudio.github.io/cheatsheets/html/data-transformation.html)
+
+[![](img/dplyr-cheat-sheet.png)](https://rstudio.github.io/cheatsheets/html/data-transformation.html)
+:::
+:::
 
 ## Símbolos Lógicos
 

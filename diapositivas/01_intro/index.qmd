@@ -30,6 +30,23 @@ format:
 library(knitr)
 ```
 
+## Plan para hoy
+
+1. [Sobre el curso](#curso)
+
+2. [Intro a R](#introR)
+
+3. [Todo en R es un objeto](#objeto)
+
+4. [Todo en R tiene un nombre](#nombre)
+
+5. [Todo se opera usando funciones](#funciones)
+
+6. [Las funciones existen en paquetes](#paquetes)
+
+7. [R y los datos](#Rdata)
+
+# Sobre el curso {#curso}
 
 ## Información del curso {.medium}
 
@@ -38,6 +55,10 @@ library(knitr)
 <i class="fa-solid fa-user icon"></i> Carlos Cardona Andrade
 
 <i class="fa-solid fa-envelope icon"></i> [carlos.cardonaa@javeriana.edu.co](mailto:carlos.cardonaa@javeriana.edu.co)
+
+<i class="fa-solid fa-globe icon"></i> [https://github.com/ccardonaandrade/analitica\_2025](https://github.com/ccardonaandrade/analitica\_2025){target="_blank"}
+
+<i class="fa-solid fa-calendar icon"></i> Lunes
 
 <i class="fa-solid fa-clock icon"></i> 4:10pm - 6:40pm
 
@@ -63,7 +84,8 @@ library(knitr)
 
 . . .
 
-<i class="fa-solid fa-file-pen icon"></i> 2 Parciales: 30\% 
+<i class="fa-solid fa-file-pen icon"></i> 2 Parciales: 30\%
+[(15% cada uno)]{.grey600 style="font-size:1.5rem;"}
 <br>
 <br>
 
@@ -76,6 +98,8 @@ library(knitr)
 ::: {.secfont style="font-size:2.3rem;text-align:center;"}
 "Una imagen vale más que mil palabras"
 :::
+
+. . .
 
 En este curso, los estudiantes aprenderán a trabajar con datos de manera efectiva frente a la incertidumbre, desarrollando habilidades para recolectar, analizar y utilizar datos con el propósito de realizar inferencias y conclusiones sobre fenómenos del mundo real. 
 
@@ -104,6 +128,18 @@ A lo largo del curso, se adquirirá experiencia práctica utilizando el software
 
 # ¿Por qué R?
 
+## ¿Por qué R? {.medium}
+
+1. R es gratuito y de código abierto, lo que les ahorra dinero a ustedes y a la universidad 💰💵💰
+
+2. Los empleadores del sector privado y público prefieren R sobre otros softwares como Stata 
+
+3. R es muy flexible y potente, adaptable a casi cualquier tarea, como limpieza de datos, análisis de datos espaciales, machine learning, web scraping, etc
+
+4. R no impone limitaciones en la cantidad de observaciones, variables, memoria o poder de procesamiento
+
+5.  Yo 💖 R
+
 ## ¿Por qué R?
 
 ```{r}
@@ -114,7 +150,7 @@ A lo largo del curso, se adquirirá experiencia práctica utilizando el software
 knitr::include_graphics("img/R_jobs.png")
 ```
 
-## Visualización de Datos en R 
+## R + gráficos
 
 ```{r}
 #| echo: false
@@ -126,46 +162,45 @@ library(ggimage)
 library(rnaturalearth)
 library(rnaturalearthdata)
 
-
+rm(gapminder)
 # Damos un nombre a la base de datos "gapminder"
 gapminder<-gapminder
 
 gapminder<-filter(gapminder, year == max(year))
-gapminder$iso2c<-countryname(gapminder$country, destination = 'iso2c')
-
+gapminder$iso2c<-tolower(countryname(gapminder$country, destination = 'iso2c'))
 
 selected_countries <- gapminder %>%
-filter(country %in% c('United States', 'China', 'Colombia', 'Brazil','Nigeria',  'Finland', 'Iran', 'India'))
+  filter(country %in% c('United States', 'China', 'Colombia', 'Brazil','Nigeria',  'Finland', 'Iran', 'India'))
 
+selected_countries$flag_url <- paste0("https://flagcdn.com/w40/", selected_countries$iso2c, ".png")   
 
-selected_countries$iso2c<-countryname(selected_countries$country, destination = 'iso2c')
 ```
 
 
 
 ```{r}
 #| code-fold: true
-#| code-summary: "Código de la gráfica"
+#| code-summary: "código de la gráfica"
 #| echo: true
 #| fig-width: 10
 #| fig-height: 4.5
-selected_countries %>% ggplot(aes(x= reorder(country, lifeExp),y=lifeExp))+ 
-geom_flag(y = -5, aes(image = iso2c)) +geom_bar(stat = "identity", color="black", fill = "maroon", width=0.6) + 
-labs(title = "Life Expectancy for Several Countries ",
-subtitle = "Source: GAPMINDER, 2007 ",
-x = "Country",
-y = "Life Expectancy")+ coord_flip() +
-expand_limits(y = -5) +
+ggplot(selected_countries, aes(x = reorder(country, lifeExp), y = lifeExp)) +
+  geom_col(fill = "maroon", color = "black", width = 0.6) +
+  geom_image(y = - 5, aes(x = country, y = lifeExp + 1, image = flag_url), size = 0.1) +  # Flags right above country names
+  labs(title = "Life Expectancy for Selected Countries",
+       subtitle = "Source: Gapminder, 2007",
+       x = "Country",
+       y = "Life Expectancy")+ coord_flip() +
+  expand_limits(y = -5) +
   theme_minimal()
 ```
 
 
-## Visualización de Datos en R 
-
+## R + gráficos
 
 ```{r}
 #| code-fold: true
-#| code-summary: "Código de la gráfica"
+#| code-summary: "código de la gráfica"
 #| echo: true
 #| fig-width: 10
 #| fig-height: 4.5
@@ -183,21 +218,52 @@ y = "Life Expectancy"
 ```
 
 
-## Visualización de Datos en R 
+## R + animaciones
+
+
+```{r}
+#| code-fold: true
+#| code-summary: "código de la animación"
+#| echo: true
+#| fig-width: 10
+#| fig-height: 4.5
+#| fig-align: center
+library(gganimate)
+library(magick)
+
+gapminder <- gapminder::gapminder
+
+continents <- c("Europe", "Americas")
+anim <-gapminder %>% 
+  filter(continent %in% continents) %>%
+  ggplot( aes(log(gdpPercap), lifeExp, col = continent)) +
+  geom_point() + theme_minimal() +
+  ggtitle("Life Expectancy versus Ferility: the Americas and Europe {frame_time}") + 
+  transition_time(year)
+
+animate(anim)
+
+```
+
+## R + mapas
 
 ```{r}
 #| echo: false
 world <- ne_countries(scale = "medium", returnclass = "sf")
 # Rename the variable using rename()
+gapminder <- gapminder::gapminder
+gapminder<-filter(gapminder, year == max(year))
+gapminder$iso2c<-tolower(countryname(gapminder$country, destination = 'iso2c'))
 gapminder <- gapminder %>%
-rename(iso_a2 = iso2c)
+  mutate(iso2c = toupper(iso2c)) %>%
+  rename(iso_a2 = iso2c)
 join<-left_join(world,gapminder, by="iso_a2")
 ```
 
 
 ```{r}
 #| code-fold: true
-#| code-summary: "Código del mapa"
+#| code-summary: "código del mapa"
 #| echo: true
 #| fig-width: 10
 #| fig-height: 4.5
@@ -223,38 +289,11 @@ ggplot(data = join) +
 ```
 
 
-## Visualización de Datos en R 
-
-
-```{r}
-#| code-fold: true
-#| code-summary: "Código del mapa"
-#| echo: true
-#| fig-width: 10
-#| fig-height: 4.5
-#| fig-align: center
-library(gganimate)
-library(magick)
-
-gapminder <- gapminder::gapminder
-
-continents <- c("Europe", "Americas")
-anim <-gapminder %>% 
-  filter(continent %in% continents) %>%
-  ggplot( aes(log(gdpPercap), lifeExp, col = continent)) +
-  geom_point() + theme_minimal() +
-  ggtitle("Life Expectancy versus Ferility: the Americas and Europe {frame_time}") + 
-  transition_time(year)
-
-animate(anim)
-
-```
-
-## Visualización de Datos en R 
+## R + mapas
 
 ```{r}
 #| code-fold: true
-#| code-summary: "Código del mapa"
+#| code-summary: "código del mapa"
 #| echo: true
 #| fig-width: 10
 #| fig-height: 4.5
@@ -307,31 +346,31 @@ knitr::include_graphics("img/newyorktimes.png")
 :::::
 
 
-# Intro a R
+# Intro a R {#introR}
 
 
-## R and RStudio {.smaller}
+## R y R Studio {.smaller}
 
 
 ::: columns
 ::: {.column width="50%"}
 ![](img/r-logo.png){fig-alt="R logo" fig-align="center"}
 
-- <i class="fa-brands fa-r-project"></i> es un **lenguaje de programación** de código abierto.
-- <i class="fa-brands fa-r-project"></i> también es un entorno para análisis estadístico y visualización de datos.
-- Es fácilmente extensible con *paquetes*.
+- <i class="fa-brands fa-r-project"></i> es un **lenguaje de programación** de código abierto
+- <i class="fa-brands fa-r-project"></i> también es un entorno para análisis estadístico y visualización de datos
+- Es fácilmente extensible con *paquetes*
 :::
 
 ::: {.column .fragment width="50%"}
 ![](img/rstudio-logo.png){fig-alt="RStudio logo"}
 
--   RStudio es una interfaz conveniente para R llamada **IDE** (integrated development environment), e.g. *"I write R code in the RStudio IDE"*
--   RStudio no es un requisito para programar con R, pero es muy utilizado por programadores de R y científicos de datos
+- R Studio es una interfaz conveniente para R llamada **IDE** (integrated development environment), e.g. *"I write R code in the R Studio IDE"*
+- R Studio no es un requisito para programar con R, pero es muy utilizado por programadores de R y científicos de datos
 :::
 :::
 
 
-## R vs. RStudio
+## R vs. R Studio
 
 [![](img/r_vs_rstudio.png){fig-alt="On the left: a car engine. On the right: a car dashboard. The engine is labelled R. The dashboard is labelled RStudio." fig-align="center" width="1001"}](https://moderndive.com/1-getting-started.html)
 
@@ -342,9 +381,9 @@ Source: [Modern Dive](https://moderndive.com/1-getting-started.html).
 
 ## Instalación y pasos a seguir {.medium}
 
-1. Descargar [R](https://www.r-project.org/).
+1. Descargar [R](https://www.r-project.org/){target="_blank"}
 
-2. Descargar [RStudio](https://www.rstudio.com/products/rstudio/download/preview/).
+2. Descargar [R Studio](https://www.rstudio.com/products/rstudio/download/preview/){target="_blank"}
 
 3. ¿Tienen la versión más reciente de R?
 ```{r}
@@ -353,14 +392,14 @@ Source: [Modern Dive](https://moderndive.com/1-getting-started.html).
 ```
 
 
-4. ¿Tienen la versión más reciente de RStudio? (La [versión previa](https://www.rstudio.com/products/rstudio/download/preview/) también sirve.)
+4. ¿Tienen la versión más reciente de R Studio? (La [versión previa](https://www.rstudio.com/products/rstudio/download/preview/) también sirve.)
 
 ```R
 RStudio.Version()$version
 # Requiere la versión interactiva pero debería mostrar algo como "[1] ‘2023.3.0.386’"
 ```
 
-## Un tour por RStudio
+## Un tour por R Studio
 
 ```{r}
 #| eval: true
@@ -370,7 +409,7 @@ RStudio.Version()$version
 knitr::include_graphics("img/rstudio_inicial.png")
 ```
 
-## La consola {.medium}
+## La Consola {.medium}
 
 
 ```{r}
@@ -389,7 +428,7 @@ knitr::include_graphics("img/consola.png")
 
 
 
-## La consola {.medium}
+## La Consola {.medium}
 
 Por ejemplo, escriban el siguiente código en la consola:
 
@@ -404,19 +443,27 @@ Por ejemplo, escriban el siguiente código en la consola:
 
 ```{r}
 #| echo: true
-1+2 ## Adición
-6-7 ## Resta
-5/2 ## División
-2^3 ## Exponencial
-2+4*1^3 ## Order estándar de precedencia (`*` antes de `+`, etc.)
+1+2 # Adición
+6-7 # Resta
+5/2 # División
+2^3 # Exponencial
+2+4*1^3 # Order estándar de precedencia (`*` antes de `+`, etc.)
 ```
 
 
-## La consola {.medium}
+## La Consola vs. R Script {.medium}
 
-El problema con escribir líneas de código en la consola es que son efímeras. Si quieren ejecutar esto otra vez, tienen que volver a escribirlo.
+El problema de escribir código en la consola es que es efímero: una vez ejecutado, se pierde. Si quieren volver a usarlo, tienen que escribirlo de nuevo.
 
-Es mejor tener todo en un editor!
+. . .
+
+$\rightarrow$ Solución: Usar un R script (`.R`)
+
+ - Permite guardar, editar y reutilizar el código fácilmente
+ 
+ - Facilita la reproducibilidad y el trabajo en equipo
+ 
+ - Se ejecuta línea por línea o en bloques con `Ctrl + Enter`
 
 
 ## R Script (Editor) {.medium}
@@ -430,7 +477,75 @@ knitr::include_graphics("img/rscript_menu.png")
 ```
 
 
-## El interfaz completo de RStudio {.medium}
+## R Script (Editor) {.medium}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "80%"
+knitr::include_graphics("img/rscript_sample.png")
+```
+
+## R Script (Editor) {.medium}
+
+- Uso de `#` para comentarios: Todo lo que sigue a `#` no se ejecuta.
+
+- Importancia: Mejoran la legibilidad y facilitan la colaboración
+
+- Buenas prácticas:
+  - Sean claros y concisos
+  - No comenten lo obvio
+  - Usen varias líneas si es necesario
+  
+. . .
+
+```{r}
+#| eval: true
+#| echo: true
+# An example for coding:
+x <- c(1,2,3) # This is a vector
+mean(x) # Computing the mean for Table 1
+```
+
+. . .
+
+Crear una [guía de estilo](http://adv-r.had.co.nz/Style.html){target="_blank"} para el código garantiza consistencia y facilita el trabajo en equipo. También es posible crear [plantillas](https://timfarewell.co.uk/my-r-script-header-template/){target="_blank"} para estandarizar aún más.
+
+## R Script (Editor) {.medium}
+
+Para mantener el código **organizado** y facilitar la calificación, es **obligatorio** seguir esta plantilla en sus R Scripts:
+
+```{r}
+#| eval: false
+#| echo: true
+## ------------------------------
+## Taller 1
+##
+## Autor: Carlos Cardona Andrade
+##
+## Fecha: Jan 27 - 2025
+## ------------------------------
+
+## establecemos el directorio de trabajo:
+
+setwd("C:/Users/ccardonaandrade/Google Drive/")    
+
+## ---------------------------
+
+## cargamos todos los paquetes que usaremos en la sesión:
+
+library(tidyverse)
+library(data.table)
+
+## ---------------------------
+
+### Ejercicio 1
+
+### Ejercicio 2
+```
+
+## El interfaz completo de R Studio {.medium}
 
 ```{r}
 #| eval: true
@@ -443,71 +558,136 @@ knitr::include_graphics("img/rstudio_layout.png")
 
 ## Algunos fundamentos básicos de R {.medium} 
 
-1. Todo es un objeto.
+1. Todo es un objeto
 
-2. Todo objeto tiene un nombre.
+2. Todo objeto tiene un nombre
 
-3. Todo se opera usando funciones.
+3. Todo se opera usando funciones
 
-4. Las funciones existen dentro de paquetes (i.e. "libraries"), aunque ustedes pueden escribir sus propias funciones.
+4. Las funciones existen dentro de paquetes (i.e. "libraries"), aunque ustedes pueden escribir sus propias funciones
 
 . . .
 
-<br/>Puntos 1. y 2. pueden ser resumidos como un enfoque de [programación orientada a objetos](https://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos) (OOP).Esto puede sonar super abstracto ahora, pero veremos *muchos* ejemplos en las próximas semanas que harán todo más claro.
+<br/>Puntos 1. y 2. pueden ser resumidos como un enfoque de [programación orientada a objetos](https://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos){target="_blank"} (OOP). Esto puede sonar super abstracto ahora, pero veremos *muchos* ejemplos en las próximas semanas que harán todo más claro.
 
 
-## 1. Todo en R es un Objeto {.medium}
+# Todo en R es un objeto {#objeto}
 
-El operador `<-` asigna el resultado del lado derecho a una variable con el nombre en el lado izquierdo
+## La asignación de un objeto {.medium}
+
+Los operadores `<-` y `=` asignan el resultado del lado derecho a una variable con el nombre en el lado izquierdo
 
 ```{r}
 #| echo: true
 a <- 5+5
 a
 ```
-. . .
-
-Usen `c()` (combinar/concatenar) para crear [vectores]{.marker-hl}: 
-  
-```{r}
-#| echo: true
-my_numbers <- c(1, 2, 3, 1, 3, 5, 25)
-my_numbers
-```
 
 . . .
 
-Los objetos se almacenan en el espacio de trabajo o [entorno]{.marker-hl}
-
-. . .
+### ¿Qué operador de asignación usar?
+La mayoría de los usuarios de <i class="fa-brands fa-r-project"></i> (¿puristas?) parecen preferir `<-`, ya que `=` también tiene un papel específico en la evaluación dentro de las funciones.
 
 **Nota:** un atajo para escribir el operador `<-` es `Alt` + `-`
 
 
-## 2. Todo en R tiene un nombre {.medium}
+## Tipos de Objetos en R {.medium}
 
-Te refieres a las cosas por su nombre: variables (como `x` o `y`), datos cargados (como `mis_datos`), y funciones que usas.
+- [Vectores]{.marker-hl}:
+Usen `c()` (combinar/concatenar) para crearlos 
+```{r}
+#| eval: true
+#| echo: true
+my_numbers <- c(1, 2, 3, 1, 3, 5, 25)
+countries <- c("Brasil", "India", "Colombia")
+```
 
-- **Palabras reservadas**  
-  Algunas palabras no se pueden usar como nombres. Algunos ejemplos:  
-  - `FALSE`, `TRUE`, `NA`, `NaN`  
-  - Palabras clave de programación: `for`, `else`, `function`, etc.  
-  - Funciones básicas: `q()`, `c()`, `mean()`, `pi`, etc.
-  
 . . .
 
+- [Matrices]{.marker-hl}:
+Consiste en filas y columnas de números
+
+```{r}
+#| eval: true
+#| echo: true
+matrix <- matrix(1:9, nrow = 3, ncol = 3)
+print(matrix)
+```
+
+
+## Tipos de Objetos en R {.medium}
+
+- [Data frame]{.marker-hl}:
+Es una tabla rectangular con filas (observaciones) y columnas (variables).
+Las columnas pueden tener diferentes clases (caracteres, números, etc.)
+
+```{r}
+#| eval: true
+#| echo: true
+d <- data.frame(x = 1:2, y = 3:4) 
+d
+```
+
+. . .
+
+- Otro tipo de objeto que es importante es el [tibble](https://tibble.tidyverse.org/), el cual se asimila a un data frame pero con unas propiedades especiales
+
+- Aprenderán la diferencia a medida que avance el curso
+
+
+
+
+## Entorno de trabajo {.medium}
+
+Los objetos se almacenan en el espacio de trabajo o [entorno]{.marker-hl}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "80%"
+knitr::include_graphics("img/environment.png")
+```
+
+
+# Todo en R tiene un nombre {#nombre}
+
+## Todo en R tiene un nombre {.medium}
+
+- Los objetos tienen nombres que se usan para examinarlos, usarlos o modificarlos
+
+- Los objetos con nombre incluyen: 
+
+  - variables (como `x` o `y`)
+  - vectores (`my_numbers`)
+  - datos cargados (`my_data`)
+  - y funciones
+
+- En <i class="fa-brands fa-r-project"></i>, gran parte del trabajo consiste en crear, referirse y modificar objetos con nombre
+
+. . .
 
 - **Sensibilidad a mayúsculas y minúsculas**  
-  Los nombres son sensibles a mayúsculas
-  
+
   `my_data` ≠ `My_data`
   
 
-## Buenas prácticas para nombrar {.medium}
+## Palabras reservadas {.medium}
+
+Algunas palabras están reservadas y no pueden usarse como nombres de objetos. Algunos ejemplos:  
+
+  - `FALSE`, `TRUE`, `NA`, `NaN`  
+  - Palabras clave de programación: `for`, `else`, `function`, etc  
+  - Funciones básicas: `q()`, `c()`, `mean()`, `pi`, etc
+  - [Acá](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html){target="_blank"} encuentran todas las palabras reservadas
+
+  
+
+## Buenas prácticas para nombrar objetos {.medium}
 
 - Sean concisos, consistentes e informativos  
-- Usen minúsculas y separen palabras con guión bajo, como en el estilo [tidyverse](https://style.tidyverse.org/syntax.html) 
-- No usen espacios al nombrar variables.
+- Usen minúsculas y separen palabras con guión bajo, como en el estilo [tidyverse](https://style.tidyverse.org/syntax.html){target="_blank"} 
+- Eviten espacios en los nombres de variables
 
 ```r
 # Good
@@ -519,10 +699,11 @@ DayOne
 first_day_of_the_month
 djm1
 ```
+# Todo se opera usando funciones {#funciones}
 
-## 3. Todo se opera usando funciones {.medium}
+## ¿Qué es una función? {.medium}
 
-- Una [función]{.marker-hl} es un objeto que realiza acciones. Toma un objeto(s), los procesa, y devuelve objetos.
+- Una [función]{.marker-hl} es un objeto que realiza acciones. Toma un objeto(s), los procesa, y devuelve objetos
 
 ```{r}
 #| echo: true
@@ -531,11 +712,11 @@ mean(my_numbers)
 
 . . .
 
-- Las funciones usan [argumentos]{.marker-hl} para funcionar. Pueden ser datos (`my_numbers`) o instrucciones (`title = "Título"`).  
+- Las funciones usan [argumentos]{.marker-hl} para funcionar. Pueden ser datos (`my_numbers`) o instrucciones (`title = "Life Expectancy"`)  
   
 . . .
 
-- Puedes asignar el resultado de una función a un objeto:  
+- Pueden asignar el resultado de una función a un objeto:  
   
 ```{r}
 #| echo: true
@@ -543,7 +724,9 @@ my_summary <- summary(my_numbers)
 my_summary
 ```
 
-## 4. Las funciones existen dentro de paquetes {.medium}
+# Las funciones existen dentro de paquetes {#paquetes}
+
+## Base R y los paquetes  {.medium}
 
 ```{r}
 #| eval: true
@@ -553,7 +736,7 @@ my_summary
 knitr::include_graphics("img/packages-base.png")
 ```
 
-## 4. Las funciones existen dentro de paquetes {.medium}
+## Base R y los paquetes  {.medium}
 
 ```{r}
 #| eval: true
@@ -589,7 +772,7 @@ library(name)
 
 - El nombre del paquete **no** va en comillas
 
-- Hagan esto una vez por sesión en RStudio
+- Hagan esto una vez por sesión en R Studio
 :::
 :::
 
@@ -624,8 +807,13 @@ df <- data.frame(value = my_numbers)
 
 # Create a plot
 ggplot(df, aes(x = value)) +
-  geom_histogram(binwidth = 1, fill = "lightblue", color = "black") +
-  labs(title = "Histogram", x = "Value", y = "Frequency")
+  geom_histogram(binwidth = 1,
+                 fill = "lightblue",
+                 color = "black") +
+  labs(title = "Histogram",
+       x = "Value",
+       y = "Frequency")+
+  theme_minimal()
 ```
 
 
@@ -751,24 +939,15 @@ library(lubridate)
 :::
 :::
 
-## Tipos de Objetos en R {.medium}
 
-- Matriz:
-Consiste en filas y columnas de números.
+# R y los datos {#Rdata}
 
-```{r}
-#| eval: true
-#| echo: true
-matrix <- matrix(1:9, nrow = 3, ncol = 3)
-print(matrix)
-```
+## Acceder a Datos en R {.medium}
 
-. . .
-
-- Data frame (el más común):
-Es una tabla rectangular con filas (observaciones) y columnas (variables).
-Las columnas pueden tener diferentes clases (caracteres, números, etc.).
-
+1. La primera manera es utilizando conjuntos de datos disponibles en paquetes:
+  - Por ejemplo, los datos `titanic` del paquete `socviz`
+  - El conjunto de datos `gapminder` del paquete con el mismo nombre
+  
 ```{r}
 #| eval: true
 #| echo: true
@@ -776,33 +955,13 @@ library(socviz)
 titanic
 ```
 
-## Tipos de Objetos en R {.medium}
+. . . 
+
+- En este conjunto de datos `titanic`, dos de las columnas son numéricas y dos no lo son
 
 
-- En este conjunto de datos `titanic`, dos de las columnas son numéricas y dos no lo son. 
-- Pueden acceder a las filas y columnas de varias maneras. Por ejemplo, el operador `$` te permite seleccionar una columna específica de un data frame por su nombre:
+## Tipos de Variables en R {.medium}
 
-
-```{r}
-#| eval: true
-#| echo: true
-titanic$percent
-```
-
-. . .
-
-
-O también usando notación de matrices:
-
-```{r}
-#| eval: true
-#| echo: true
-titanic[,4]
-```
-
-
-
-## Tipos de datos 
 
 <br>
 
@@ -819,17 +978,94 @@ titanic[,4]
 : {tbl-colwidths="[15,25,60]"}
 :::
 
-## Acceder a Datos en R {.medium}
 
-- Datos disponibles en paquetes.
-  - Por ejemplo, los datos `titanic` del paquete `socviz`
-  - El conjunto de datos `gapminder` del paquete con el mismo nombre
-  - Sin embargo, estos datos ya tienen organizados para que graficarlos sea sencillo
-  
+## Indexación {.medium}
+
+
+Pueden acceder a las filas y columnas de varias maneras. Una es usar la notación de matrices para llamar una variable, recordando que `data.frame[fila,columna]`: 
+
+
+```{r}
+#| eval: true
+#| echo: true
+titanic[,4]
+```
+
 . . .
 
-- Datos externos en otros formatos
-  - Importar y limpiar datos puede ser tedioso, pero es esencial para el análisis
+También para llamar observaciones particulares:
+
+
+```{r}
+#| eval: true
+#| echo: true
+titanic[2,2]
+```
+
+. . .
+
+O conjuntos de observaciones particulares:
+
+```{r}
+#| eval: true
+#| echo: true
+titanic[1:3,2]
+```
+
+
+## Indexación {.medium}
+
+Otra manera es usando el operador `$` que permite seleccionar una columna específica de un data frame por su nombre:
+
+
+```{r}
+#| eval: true
+#| echo: true
+titanic$percent
+```
+
+. . .
+
+Se puede combinar la notación con `$` y la de matrices:
+
+```{r}
+#| eval: true
+#| echo: true
+titanic$sex[2]
+```
+
+. . .
+
+<br>
+<center>
+[Les recomiendo usar esta. Es mucho más inuitiva]{.hl .hl-dred}
+<center>
+
+## Viewer {.medium}
+
+Darle click a un objeto en el entorno o usar la función `View()` abre una ventana interactiva mostrándonos los datos:
+
+```{r}
+#| eval: false
+#| echo: true
+data_titanic <- titanic
+View(data_titanic)
+```
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "50%"
+knitr::include_graphics("img/titanic_viewer.png")
+```
+
+
+
+## Accediendo a datos en R {.medium}
+
+2. La segunda manera es accediento a datos externos en otros formatos:
+  - Importar y limpiar datos puede ser tedioso, pero es esencial para el análisis estadístico
   - `tidyverse` incluye paquetes para leer datos que vienen de otros formatos
 
 ## Importando datos a R {.medium}
@@ -839,55 +1075,40 @@ titanic[,4]
 
 | Image                                      | Description                            | Code                                      |
 |--------------------------------------------|----------------------------------------|-------------------------------------------|
-| ![readr](img/readr.png){height=80px}       | Work with plain text data              | `my_data <- read_csv("file.csv")`         |
-| ![readxl](img/readxl.png){height=80px}     | Work with Excel files                  | `my_data <- read_excel("file.xlsx")`     |
-| ![haven](img/haven.png){height=80px}      | Work with Stata, SPSS, and SAS data    | `my_data <- read_stata("file.dta")`      |
+| ![readr](img/readr.png){height=80px}       | Para trabajar con datos en texto plano              | `my_data <- read_csv("file.csv")`         |
+| ![readxl](img/readxl.png){height=80px}     | Para trabajar con archivos en Excel                  | `my_data <- read_excel("file.xlsx")`     |
+| ![haven](img/haven.png){height=80px}      | Para trabajar con archivos de Stata, SPSS, y SAS    | `my_data <- read_stata("file.dta")`      |
         |
 : {tbl-colwidths="[10,40,50]"}
 :::
 
 
-## Axes {.medium}
+## Eliminando objetos {.medium}
 
-`Quiero ver` el color de esto
+Usen `rm()` para eliminar un objeto o varios objetos de su entorno de trabajo
 
-[feedback]{.marker-hl}
-
-[inevitable]{.hl .hl-blue}
-
-[reported]{.hl .hl-dred}
-
-## Axes {.medium}
-
-[Continuous]{.secfont}
-
-```{r axescont}
-#| echo: true
-#| eval: false
-#| code-line-numbers: "1,2|3,4,5,6"
-ggplot(aes(x = life_expectancy, y = poverty_rate)) +
-  geom_point() +
-  scale_x_continuous(limits = c(40, 100),
-                     breaks = seq(40, 100, 20),
-                     labels = scales::number_format(suffix = "years")) +
-  scale_y_continuous(labels = scales::percent)
+```{r}
+b <- "hello"
+c <- "world"
+rm(b, c)
 ```
 
-[Dates]{.secfont}
+. . .
 
-```{r axesdate}
-#| echo: true
-#| eval: false
-ggplot(aes(x = year, y = poverty_rate)) +
-  geom_line() +
-  scale_x_date(limits = c(as.Date("2020-01-01"), as.Date("2024-01-01")),
-                breaks = date_breaks = "2 years",
-                labels = date_labels = "%Y")
-```
+También pueden usar `rm(list = ls())` para eliminar todos los objetos de tu entorno de trabajo (excepto los paquetes), pero esto no es recomendable.
 
-[Others]{.secfont}
+. . .
 
-[scale_x_discrete(), scale_x_log10(), scale_x_reverse(), scale_x_sqrt(), ...]{.secfont style="font-size:1.5rem;"}
+Es mejor simplemente iniciar una nueva sesión de R.
 
 
-     
+## Eliminando objetos {.medium}
+
+
+También habrán notado que R Studio tiene botones prácticos para limpiar el entorno de trabajo y eliminar gráficos individuales. Solo busca estos íconos en los paneles correspondientes:
+
+
+![](img/broom.png){fig-align="center" width=200 height=80}
+
+
+
