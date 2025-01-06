@@ -1,6 +1,6 @@
 # Analítica de Datos - 2025
 
-[`Clases`](#clases) | [`Libros`](#libros) | [`Proyecto Final`](#proyectofinal) | [`Detalles`](#detalles)   
+[`Clases`](#clases) | [`Libros`](#libros) | [`Proyecto Final`](#proyecto-final) | [`Detalles`](#detalles)   
 
 Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/51e6ac9dd7cfc8ae96a8ce3692ed1692daf790eb/syllabus/syllabus.pdf) para información específica sobre el curso.
 
