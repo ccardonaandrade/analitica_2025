@@ -732,12 +732,12 @@ Carlos Cardona Andrade
 </section>
 <section id="asimetría-en-los-histogramas" class="slide level2 medium">
 <h2>Asimetría en los Histogramas</h2>
-<h3 id="distribuciones-sesgadas-a-la-izquierda---simétrica-y-sesgada-la-derecha">Distribuciones sesgadas a la izquierda (-), simétrica y sesgada la derecha (+)</h3>
+<h3 id="distribución-sesgada-a-la-izquierda---simétrica-y-sesgada-a-la-derecha">distribución sesgada a la izquierda (-), simétrica y sesgada a la derecha (+)</h3>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="moda-en-los-histogramas" class="slide level2 medium">
 <h2>Moda en los Histogramas</h2>
-<h3 id="un-ejemplo-de-distribuciones-unimodales-bimodales-y-multimodales">Un ejemplo de distribuciones unimodales, bimodales y multimodales</h3>
+<h3 id="un-ejemplo-de-distribución-unimodal-bimodal-y-multimodal">Un ejemplo de distribución unimodal, bimodal y multimodal</h3>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="ejemplo-con-la-expectativa-de-vida" class="slide level2">
@@ -1019,6 +1019,364 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-33-1.png" style="width:100.0%"></p>
 </figure>
 </div>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="medidas-de-dispersión" class="title-slide slide level1 center">
+<h1>Medidas de dispersión</h1>
+
+</section>
+<section id="la-desviación-estándar" class="slide level2 medium">
+<h2>La desviación estándar</h2>
+<p>Describe la forma en que los valores de una variable se dispersan a lo largo de la distribución en relación a la media.</p>
+<p>Se calcula siguiendo la fórmula: <span class="math display">\[s_x=\sqrt{\dfrac{\sum{(x-\bar{x})^2}}{n-1}} \]</span></p>
+</section>
+<section id="la-desviación-estándar-1" class="slide level2 medium">
+<h2>La desviación estándar</h2>
+<p><span class="math display">\[x = 1, 9 , 5, 8, 7\]</span></p>
+<p>La media es <span class="math inline">\(\bar{x}=6\)</span>.</p>
+<p>La <span class="marker-hl">desviación</span> es la distancia de un valor a la media. El siguiente paso es calcular la desviación de cada valor:</p>
+<p><span class="math display">\[
+\begin{aligned}
+1 - \bar{x} &amp;= 7 - 6 = -5 \\
+9 - \bar{x} &amp;= 9 - 6 = 3 \\
+&amp;\vdots \\
+7 - \bar{x} &amp;= 7 - 6 = 1  \\
+\end{aligned}
+\]</span></p>
+</section>
+<section id="la-desviación-estándar-2" class="slide level2 medium">
+<h2>La desviación estándar</h2>
+<p>Si calculamos el cuadrado de estas desviaciones y luego calculamos su promedio hallaremos la <span class="marker-hl">varianza muestral</span>:</p>
+<p><span class="math display">\[s^2=\dfrac{(-5)^2+(3)^2+(-1)^2+(2)^2+(1)^2}{5-1}=10\]</span></p>
+<div class="fragment">
+<p>Dividimos por <span class="math inline">\(n-1\)</span> para que la varianza muestral sea más confiable y útil, según ciertas propiedades estadísticas.</p>
+</div>
+<div class="fragment">
+<p>La desviación estándar se define como la raíz cuadrada de la varianza:</p>
+<p><span class="math display">\[s_x=\sqrt{10}=3.16\]</span></p>
+</div>
+</section>
+<section id="algunas-características-de-la-desviación-estándar" class="slide level2 medium">
+<h2>Algunas características de la desviación estándar</h2>
+<ul>
+<li><p>Sumar la misma constante a cada valor, NO modifica la desviación estándar</p></li>
+<li><p>Multiplicar cada valor por la misma constante, aumenta la desviación estándar en la misma proporción</p></li>
+<li><p>A diferencia de la varianza, la desviación estándar está en las mismas unidades que la variable original</p></li>
+</ul>
+</section>
+<section id="la-desviación-estándar-vs-la-distribución-de-los-datos" class="slide level2 medium">
+<h2>La desviación estándar vs la distribución de los datos</h2>
+<div style="margin-top: 50px;">
+
+</div>
+<div class="columns">
+<div class="column" style="width:33.3%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-34-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33.3%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-35-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33.3%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-36-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Noten que las 3 muestras tienen la misma media: <span class="math inline">\(\bar{x}=15.5\)</span></p></li>
+<li><p>Las desvaciones estándar son <span style="color: #ebc034;">S=3.33</span>, <span style="color: #3489eb;">S=0.92</span> and <span style="color: #3ba342;">S=4.56</span>.</p></li>
+</ul>
+</section>
+<section id="la-regla-68-y-95" class="slide level2 medium">
+<h2>La regla 68% y 95%</h2>
+<ul>
+<li><p>Aproximadamente el 68% de las observaciones estarán dentro de 1 desviación estándar de la media.</p></li>
+<li><p>Aproximadamente el 95% estarán dentro de 2 desviaciones estándar de la media.</p></li>
+<li><p>Ambas reglas funcionan <strong>muy bien</strong> para datos con forma de campana y <strong>razonablemente bien</strong> para datos unimodales y no muy sesgados, pero no para todos los datos.</p></li>
+</ul>
+</section>
+<section id="la-regla-68-y-95-1" class="slide level2 medium">
+<h2>La regla 68% y 95%</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-37-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 2
+  continent proportion_1SD
+  &lt;fct&gt;              &lt;dbl&gt;
+1 Africa             0.691
+2 Americas           0.683
+3 Asia               0.641
+4 Europe             0.742
+5 Oceania            0.625</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="la-regla-68-y-95-2" class="slide level2 medium">
+<h2>La regla 68% y 95%</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-39-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 2
+  continent proportion_2SD
+  &lt;fct&gt;              &lt;dbl&gt;
+1 Africa             0.947
+2 Americas           0.947
+3 Asia               0.972
+4 Europe             0.958
+5 Oceania            1    </code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="la-desviación-estándar-en-r" class="slide level2 medium">
+<h2>La desviación estándar en R</h2>
+<p>La desviación estándar se calcula con la función <code>sd</code>:</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>gapminder <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb24-4"><a href="#cb24-4"></a>    <span class="at">mean_lExp =</span> <span class="fu">mean</span>(lifeExp),</span>
+<span id="cb24-5"><a href="#cb24-5"></a>    <span class="at">sd_lExp =</span> <span class="fu">sd</span>(lifeExp)</span>
+<span id="cb24-6"><a href="#cb24-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 3
+  continent mean_lExp sd_lExp
+  &lt;fct&gt;         &lt;dbl&gt;   &lt;dbl&gt;
+1 Africa         48.9    9.15
+2 Americas       64.7    9.35
+3 Asia           60.1   11.9 
+4 Europe         71.9    5.43
+5 Oceania        74.3    3.80</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-42-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="diagramas-de-dispersión" class="title-slide slide level1 center">
+<h1>Diagramas de dispersión</h1>
+
+</section>
+<section id="diagramas-de-dispersión-1" class="slide level2 medium">
+<h2>Diagramas de dispersión</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-43-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>Los gráficos de dispersión nos ayudan a visualizar y examinar la relación entre dos variables numéricas</li>
+<li>Discutiremos dos medidas cuantitativas de esta relación:
+<ol type="1">
+<li>la covarianza</li>
+<li>la correlación</li>
+</ol></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="el-gráfico-de-dispersión-en-r" class="slide level2 medium">
+<h2>El gráfico de dispersión en R</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26" data-code-line-numbers="2|1,2,3,4,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">ggplot</span>(gapminder)<span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>gdpPercap, <span class="at">y=</span>lifeExp)) <span class="sc">+</span> </span>
+<span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per cápita"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4"></a>       <span class="at">y =</span> <span class="st">"Life Expectancy"</span>) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-45-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="el-gráfico-de-dispersión-en-r-1" class="slide level2 medium">
+<h2>El gráfico de dispersión en R</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="2|1,2,3,4,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">ggplot</span>(gapminder)<span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdpPercap), <span class="at">y=</span>lifeExp)) <span class="sc">+</span> </span>
+<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"log(GDP per cápita)"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4"></a>       <span class="at">y =</span> <span class="st">"Life Expectancy"</span>) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-47-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="el-gráfico-de-dispersión-en-r-2" class="slide level2 medium">
+<h2>El gráfico de dispersión en R</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28" data-code-line-numbers="2|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">ggplot</span>(gapminder)<span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdpPercap), <span class="at">y=</span>lifeExp, <span class="at">color =</span> continent)) <span class="sc">+</span> </span>
+<span id="cb28-3"><a href="#cb28-3"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"log(GDP per cápita)"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4"></a>         <span class="at">y =</span> <span class="st">"Life Expectancy"</span>) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a>    <span class="fu">scale_color_brewer</span>(<span class="at">name =</span> <span class="st">"Continent"</span>, <span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-49-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="covarianza" class="slide level2 medium">
+<h2>Covarianza</h2>
+<ul>
+<li><p>La covarianza mide qué tan fuerte es la relación (lineal) de <em>dos variables numéricas</em>.</p></li>
+<li><p>La covarianza muestra:</p></li>
+</ul>
+<p><span class="math display">\[cov(X,Y)=\dfrac{\sum_{i=1}^{n}(X_i-\bar{X})(Y_i-\bar{Y})}{n-1}\]</span></p>
+<ul>
+<li>Solamente mide la “dirección” de la relación.</li>
+</ul>
+</section>
+<section id="interpretación-de-la-covarianza" class="slide level2 medium">
+<h2>Interpretación de la covarianza</h2>
+<ul>
+<li>La covarianza entre dos variables:
+<ul>
+<li><span class="math inline">\(cov(X,Y)&gt;0 \rightarrow\)</span> <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> se mueven en la misma dirección.</li>
+<li><span class="math inline">\(cov(X,Y)&lt;0 \rightarrow\)</span> <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> se mueven en dirección opuesta.</li>
+<li><span class="math inline">\(cov(X,Y)=0 \rightarrow\)</span> <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son independientes.</li>
+</ul></li>
+<li>El defecto de la covarianza es que no indica la intensidad de la relación entre las dos variables</li>
+</ul>
+</section>
+<section id="correlación" class="slide level2 medium">
+<h2>Correlación</h2>
+<ul>
+<li>La correlación mide la dirección y la fuerza de la relación lineal entre dos variables numéricas.</li>
+</ul>
+<p><span class="math display">\[r=\dfrac{cov(X,Y)}{S_xS_y}\]</span></p>
+</section>
+<section id="características-de-la-correlación" class="slide level2 medium">
+<h2>Características de la correlación</h2>
+<ul>
+<li><span class="math inline">\(-1&lt; r &lt; 1\)</span></li>
+<li><span class="math inline">\(r\)</span> no cambia cuando se cambian las unidades de medida de <span class="math inline">\(X\)</span>, <span class="math inline">\(Y\)</span> o ambas.</li>
+<li><span class="math inline">\(r\)</span> no tiene unidad de medida</li>
+<li>Más cerca a -1, más fuerte <code>la relación lineal negativa</code>.</li>
+<li>Más cerca a 1, más fuerte <code>la relación lineal positiva</code>.</li>
+<li>Más cerca a 0, más dÃ©bil <code>la relación lineal</code>.</li>
+</ul>
+</section>
+<section id="el-gráfico-de-dispersión-en-r-3" class="slide level2 medium">
+<h2>El gráfico de dispersión en R</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-50-1.png" width="576"></p>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 2
+  continent  corr
+  &lt;fct&gt;     &lt;dbl&gt;
+1 Africa    0.426
+2 Americas  0.558
+3 Asia      0.382
+4 Europe    0.781
+5 Oceania   0.956</code></pre>
 </div>
 </div>
 </div>

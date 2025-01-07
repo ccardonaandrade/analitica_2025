@@ -42,18 +42,23 @@ library(kableExtra)
 
 1. [tidy data](#tidy)
 
+2. [tibble vs. data frame](#tibble)
 
-2. [ggplot](#ggplot)
+3. [El operador pipe](#pipe)
+
+4. [ggplot](#ggplot)
 
 
-3. [dplyr](#dplyr)
+5. [dplyr](#dplyr)
+
+6. [Modificando un data frame](#dataframe)
 
 
 # tidy data {#tidy}
 
-## Qué es "tidy" data? {.medium}
+## ¿Qué es "tidy" data? {.medium}
 
-- Puntos clave:
+- Las 3 características claves son:
     1. Cada variable forma una columna.
     2. Cada observación forma una fila.
     3. Cada tipo de unidad de observación forma una tabla.
@@ -62,24 +67,46 @@ library(kableExtra)
 
 ## ¿Por qué tidy data? {.medium}
 
-- Un conjunto de datos en forma tidy facilita la selección de variables, la agrupación, el resumen y la visualización.
+- Un conjunto de datos en forma *tidy*[^1] facilita la selección de variables, la agrupación, el resumen y la visualización
 
 . . .
 
-- Algunas herramientas y paquetes en el tidyverse como dplyr o ggplot2 requieren que los datos se organicen de esa manera
+- Algunas herramientas y paquetes en el `tidyverse` como dplyr o ggplot2 requieren que los datos se organicen de esa manera
 
 . . .
 
-El problema: la mayoría de los datos que obtengan no estarán “ordenados” desde el principio $\rightarrow$ tendrá que remodelarlos
+El problema: la mayoría de los datos que obtengan no estarán “ordenados” desde el principio $\rightarrow$ tendrán que remodelarlos
 
-. . .
 
-- Algunos Recursos:
-    - [Paquete tidyr](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html)
-    - [Paper original](https://vita.had.co.nz/papers/tidy-data.pdf) (Hadley Wickham, 2014 JSS)
+[^1]: Algunos recursos si quieren profundizar en este tema son el paquete [tidyr](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html){target="_blank"} y el [paper original](https://vita.had.co.nz/papers/tidy-data.pdf){target="_blank"} (Hadley Wickham, 2014 JSS).
+
     
     
-## gapminder data {.medium}
+## Los paquetes de hoy {.medium}
+
+- Como vimos la clase pasada, el paquete `tidyverse` es fundamental para la visualización y transformación de datos.
+
+```{r}
+#| warning: true
+# install.packages("tidyverse") En caso de no tenerlo aún instalado!
+library(tidyverse)
+```
+
+. . . 
+
+- `gapminder` es otro paquete que usaremos en la clase de hoy:
+
+```{r}
+#| eval: false
+install.packages("gapminder")
+library(gapminder)
+```
+
+
+    
+## El conjunto de datos gapminder {.medium}
+
+Como vamos a graficar el conjunto de datos de [gapminder](https://github.com/jennybc/gapminder){target="_blank"}, es útil saber que contiene datos de panel sobre la esperanza de vida, el tamaño de la población y el PIB per cápita para 142 países desde la década de 1950.
 
 ```{r}
 #| echo: true
@@ -105,6 +132,8 @@ ncol(gapminder)
 
 ## gapminder -- primer vistazo {.medium}
 
+Las siguientes 3 funciones son útiles para evaluar el contenido de una base de datos.
+
 ::: panel-tabset
 ## `glimpse()`
 
@@ -125,22 +154,27 @@ head(gapminder)
 ```
 :::
 
+# tibble vs. data frame {#tibble}
+
 ## tibble vs. data frame {.medium}
 
+-   Un [tibble]{.marker-hl}[^2] es una estructura de datos basada en un data frame con algunas mejores que facilitan su uso
+
 ::: incremental
--   **tibble**: una versión opinada del `R` data frame
--   Todos los tibbles son data frames, pero no todos los data frames son tibbles.
+-   [Todos los tibbles son data frames, pero no todos los data frames son tibbles]{.hl .hl-dred}
 -   Dos diferencias principales entre un tibble y un data frame:
     -   Impresión
     -   Selección más estricta
 :::
+
+[^2]: El [capítulo 10](https://r4ds.had.co.nz/tibbles.html){target="_blank"} de la primera edición de R4DS es una buena referencia para profundizar en el tema.
 
 ## Impresión {.medium}
 
 ::: panel-tabset
 ## `tibble`
 
-Muestra las 10 primeras filas y todas las columnas que cuadren en la pantalla. Adicionalmente, muestra el tipo de variable para cada columna.
+Muestra las 10 primeras filas y todas las columnas que quepan en la pantalla. Adicionalmente, muestra el tipo de variable para cada columna.
 
 ```{r}
 gapminder
@@ -177,6 +211,8 @@ Sólo `NULL` si no encuentra la variable.
 cars$apple
 ```
 :::
+
+# El operador pipe {#pipe}
 
 ## El operador pipe en acción {.medium}
 
@@ -247,7 +283,7 @@ gapminder |>                # <1>
 1.  Toma el data frame gapminder,
 2.  **y luego** selecciona las observaciones en el año 2007,
 3.  **y luego** agrupa por continente,
-4.  **y luego** calcula el GDP per cápita para cada continente
+4.  **y luego** calcula el GDP per cápita promedio para cada continente
 
 ## El operador pipe en acción {.smaller}
 
@@ -265,7 +301,7 @@ gapminder |>                 # <1>
 2.  **y luego** selecciona las observaciones en el año 2007,
 3.  **y luego** agrupa por continente,
 4.  **y luego** calcula el GDP per cápita para cada continente,
-5.  **y luego** organiza de manera descendente del GDP per cápita promedio.
+5.  **y luego** organiza de manera descendente basado en el GDP per cápita promedio.
 
 ## Algunas consideraciones sobre `|>` {.medium}
 
@@ -297,155 +333,7 @@ gapminder |>
 
 - Otra manera de denotar el pipe operator es `%>%`. Hay diferencias entre ambos pero van más allá del propósito del curso
 
-- Revisen [|> vs. %>%](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/) si quieren profundizar en el tema 
-
-## Un poco más sobre la asignación {.medium}
-
-Creemos un data frame para usar como ejemlo:
-
-```{r}
-#| message: false
-
-library(tidyverse)
-df <- tibble(x = c(1, 2, 3, 4, 5), y = c("a", "a", "b", "c", "c"))
-df
-```
-
-## Un poco más sobre la asignación {.medium}
-
-::: columns
-::: {.column .fragment width="50%"}
-> **Haga algo y muéstrelo**
-
-```{r}
-df |>
-  mutate(x = x * 2)
-df
-```
-:::
-
-::: {.column .fragment width="50%"}
-> **Haga algo y guarde el resultado**
-
-```{r}
-df <- df |>
-  mutate(x = x * 2)
-df
-```
-:::
-:::
-
-## Un poco más sobre la asignación {.medium}
-
-::: columns
-::: {.column .fragment width="50%"}
-> **Haga algo, guarde el resultado, modifique el original**
-
-```{r}
-#| code-line-numbers: "5-7"
-
-df <- tibble(
-  x = c(1, 2, 3, 4, 5), 
-  y = c("a", "a", "b", "c", "c")
-)
-df <- df |>
-  mutate(x = x * 2)
-df
-```
-:::
-
-::: {.column .fragment width="50%"}
-> **Haga algo, guarde el resultado, *no* modifique el original**
-
-```{r}
-#| code-line-numbers: "5-7"
-
-df <- tibble(
-  x = c(1, 2, 3, 4, 5), 
-  y = c("a", "a", "b", "c", "c")
-)
-df_new <- df |>
-  mutate(x = x * 2)
-df_new
-```
-:::
-:::
-
-## Un poco más sobre la asignación {.medium}
-
-::: columns
-::: {.column .fragment width="50%"}
-> **Haga algo, guarde el resultado, modifique el original *cuando no debería***
-
-```{r}
-#| code-line-numbers: "5-8"
-
-df <- tibble(
-  x = c(1, 2, 3, 4, 5), 
-  y = c("a", "a", "b", "c", "c")
-)
-df <- df |>
-  group_by(y) |>
-  summarize(mean_x = mean(x))
-df
-```
-:::
-
-::: {.column .fragment width="50%"}
-> **Haga algo, guarde el resultado, *no* modifique el original *cuando no debería***
-
-```{r}
-#| code-line-numbers: "5-8"
-
-df <- tibble(
-  x = c(1, 2, 3, 4, 5), 
-  y = c("a", "a", "b", "c", "c")
-)
-df_summary <- df |>
-  group_by(y) |>
-  summarize(mean_x = mean(x))
-df_summary
-```
-:::
-:::
-
-## Un poco más sobre la asignación {.medium}
-
-::: columns
-::: {.column .fragment width="50%"}
-> **Haga algo, guarde el resultado, modifique el**\
-> ***data frame original***
-
-```{r}
-#| code-line-numbers: "5-7"
-
-df <- tibble(
-  x = c(1, 2, 3, 4, 5), 
-  y = c("a", "a", "b", "c", "c")
-)
-df <- df |>
-  mutate(z = x + 2)
-df
-```
-:::
-
-::: {.column .fragment width="50%"}
-> **Haga algo, guarde el resultado, modifique la**\
-> ***columna original***
-
-```{r}
-#| code-line-numbers: "5-7"
-
-df <- tibble(
-  x = c(1, 2, 3, 4, 5), 
-  y = c("a", "a", "b", "c", "c")
-)
-df <- df |>
-  mutate(x = x + 2)
-df
-```
-:::
-:::
+- Revisen el post [|> vs. %>%](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/){target="_blank"} si quieren profundizar en el tema 
 
 
 
@@ -462,7 +350,7 @@ Es el principal paquete para visualizar datos en `tidyverse`
 
 ::: columns
 ::: {.column width="50%"}
-[ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/)
+[ggplot2.tidyverse.org](https://ggplot2.tidyverse.org/){target="_blank"}
 
 ```{=html}
 <iframe width=600 height=375 src="https://ggplot2.tidyverse.org/" title="dplyr home page"></iframe>
@@ -470,9 +358,9 @@ Es el principal paquete para visualizar datos en `tidyverse`
 :::
 
 ::: {.column width="50%"}
-[Cheat sheet](https://rstudio.github.io/cheatsheets/html/data-visualization.html)
+[Cheat sheet](https://rstudio.github.io/cheatsheets/html/data-visualization.html){target="_blank"}
 
-[![](img/ggplot-cheat-sheet.png)](https://rstudio.github.io/cheatsheets/html/data-visualization.html)
+[![](img/ggplot-cheat-sheet.png)](https://rstudio.github.io/cheatsheets/html/data-visualization.html){target="_blank"}
 :::
 :::
 
@@ -530,23 +418,23 @@ plot_grid(aes_pos, aes_shape, aes_size,
           label_x = 0.05, label_y = 0.95, hjust = 0, vjust = 1)
 ```
 
-El paquete ggplot2 creado por [Hadley Wickham](http://hadley.nz/) es uno de los paquetes más populares de todo el mundo R. 
+El paquete ggplot2 creado por [Hadley Wickham](http://hadley.nz/){target="_blank"} es uno de los paquetes más populares de todo el mundo R. 
   
-  - Está construido sobre una teoría de visualización profunda: i.e. [*The Grammar of Graphics*](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448) de Leland Wilkinson.
+  - Está construido sobre una teoría de visualización profunda: i.e. [*The Grammar of Graphics*](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448){target="_blank"} de Leland Wilkinson
 
 ## Elements of ggplot2 {.medium}
 
 Hay mucho que decir sobre la implementación de este enfoque de "gramática de gráficos" en ggplot2, pero los tres elementos clave son:
 
-1. La gráfica ("la visualización") está conectada a las variables ("los datos") a través de varios **mapeos estéticos** (aestethic mappings).
+1. La gráfica está conectada a las variables ("los datos") a través de varios [mapeos estéticos]{.hl .hl-blue} (aestethic mappings).
 
-2. Una vez el mapeo estético está definido, ustedes pueden representar sus datos en diferentes maneras al elegir diferentes **geoms** (i.e. "objetos geométricos" como puntos, líneas o barras).
+2. Una vez el mapeo estético está definido, ustedes pueden representar sus datos en diferentes maneras al elegir diferentes [objetos geométricos]{.hl .hl-blue} (i.e. "geoms" como puntos, líneas o barras).
 
-3. Los gráficos se contruyen por **capas** (layers).
+3. Los gráficos se contruyen por [capas]{.hl .hl-blue}.
 
 </br>
 
-Esto es un poco abstracto. Repasemos cada elemento por turno con algunos gráficos reales.
+Esto es un poco abstracto. Repasemos cada elemento uno por uno con algunos gráficos reales.
 
 
     
@@ -563,7 +451,7 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
 ```
 
 
-## 1. Mapeo estético (cont.) {.medium}
+## 1. Mapeo estético {.medium}
 
 ``` {r}
 #| eval: false
@@ -575,17 +463,17 @@ ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp)) +
 
 Concentrémonos en la primera línea que contiene el llamado a la función `ggplot()`. La función acepta varios argumentos incluyendo:
 
-  - los datos que estamos usando (i.e. `data = top1000`).
-  - el mapeo estético (i.e. `mapping = aes(x = budget, y = rating)`).
+  - los datos que estamos usando (i.e. `data = gapminder`).
+  - el mapeo estético (i.e. `mapping = aes(x = gdpPercap, y = lifeExp)`).
 
 
-El mapeo estético acá es simple: sólo define un eje x (budget) y un eje y (rating).
+El mapeo estético acá es simple: sólo define un eje x (gdpPercap) y un eje y (lifeExp).
 
 - Sin embargo, para tener una idea del poder y la flexibilidad que conlleva este enfoque, consideremos lo que sucede si agregamos más estética a la línea de la función...
 
 
 
-## 1. Mapeo estético (cont.) {.medium}
+## 1. Mapeo estético {.medium}
 
 ```{r}
 #| echo: true
@@ -598,12 +486,14 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, size = pop, col = conti
 ```
 
 
-Noten que borramos la parte "mapping =" al llamar la función. La mayoría de la gnete sólo empieza con "aes(...)", ya que `ggplot2` sabe el orden de los argumentos.
+Noten que borramos la parte "mapping =" al llamar la función. La mayoría de la gente sólo empieza con "aes(...)", ya que `ggplot2` sabe el orden de los argumentos.
 
 
-## 1. Mapeo estético (cont.) {.medium}
+## 1. Mapeo estético {.medium}
 
-También podemos especificar mapeo estético en la capa de la geometríca que queremos.
+También podemos especificar el mapeo estético en la línea del objeto geométrico que queremos.
+
+
 ```{r}
 #| echo: true
 #| fig.align: 'center'
@@ -614,9 +504,9 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + ## Applicable to all
   geom_point(aes(size = pop, col = continent), alpha = 0.3) ## Applicable to this geom only
 ```
 
-## 1. Mapeo estético (cont.) {.medium}
+## 1. Mapeo estético {.medium}
 
-Oops. ¿Qué salió mal aquí?
+¿Qué salió mal aquí?
 
 ```{r}
 #| echo: true
@@ -625,14 +515,16 @@ Oops. ¿Qué salió mal aquí?
 #| fig-height: 4
 #| dpi: 320
 ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
-  geom_point(aes(size = "big", col="black"), alpha = 0.3)
+  geom_point(aes(size = "big", col="blue"), alpha = 0.3)
 ```
+
+. . .
 
 <br/> **Respuesta: **Las características estéticas están asociadas a variables, no a descripciones!
 
-## 1. Mapeo estético (cont.) {.medium}
+## 1. Mapeo estético {.medium}
 
-En este punto, en lugar de repetir la misma primera línea de ggplot2, es más conveniente definir un gráfico intermedio que podamos reutilizar.
+En este punto, en lugar de repetir la misma primera línea del código, es más conveniente definir un gráfico intermedio que podamos reutilizar.
 
 ```{r}
 #| echo: true
@@ -641,9 +533,9 @@ p <- ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp))
 p
 ```
 
-## 2. Geoms {.medium}
+## 2. Objetos Geométricos {.medium}
 
-Una vez que las relaciones de sus variables hayan sido definidas por los mapeos estéticos, pueden usar y combinar diferentes geometrías para generar diferentes visualizaciones.
+Una vez que las relaciones de sus variables hayan sido definidas por los mapeos estéticos, pueden usar y combinar diferentes objetos geométricos para generar diferentes visualizaciones.
 
 ```{r}
 #| echo: true
@@ -657,7 +549,7 @@ p +
 ```
 
 
-## 2. Geoms {.medium}
+## 2. Objetos Geométricos {.medium}
 
 Los mapeos estéticos pueden aplicarse de manera diferente en cada geometría.
 
@@ -672,11 +564,11 @@ p +
   geom_smooth(method = "loess")
 ```
 
-## 2. Geoms (cont) {.medium}
+## 2. Objetos Geométricos {.medium}
 
 El gráfico anterior proporciona una buena ilustración del poder (o efecto) que surge de asignar mapeos estéticos "globalmente" vs al interior de las capas geométricas individuales.
 
-- Comparar: ¿Qué sucede si ejecuta el fragmento de código a continuación?
+- Comparen: ¿Qué sucede si ejecutan la línea de código a continuación?
 
 ```{r}
 #| eval: false
@@ -687,21 +579,20 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, size = pop, col = conti
   geom_smooth(method = "loess")
 ```
 
-## 2. Geoms (cont) {.medium}
+## 2. Objetos Geométricos {.medium}
 
-De manera similar, tenga en cuenta que algunos geoms solo aceptan un subconjunto de asignaciones. Por ejemplo, `geom_density()` no sabe qué hacer con la asignación estética "y".
+De igual manera, tengan en cuenta que algunos objetos geométricos solo aceptan un subconjunto de asignaciones. Por ejemplo, `geom_density()` no sabe qué hacer con la asignación estética "y".
 
 ```{r}
 #| echo: true
 #| error: true
 #| fig.align: 'center'
 p + geom_density()
-
 ```
 
-## 2. Geoms (cont) {.medium}
+## 2. Objetos Geométricos {.medium}
 
-Podemos solucionar esto siendo más cuidadosos con cómo construimos la gráfica.
+Podemos solucionar este error siendo más cuidadosos con cómo construimos la gráfica.
 
 ```{r}
 #| echo: true
@@ -715,15 +606,19 @@ ggplot(data = gapminder) + ## i.e. No "global" aesthetic mappings"
 
 ## 3. Construir la gráfica por capas {.medium}
 
-Ya hemos visto cómo podemos encadenar (o "superponer") elementos de gráfico consecutivos utilizando el conector "+".
+Ya hemos visto cómo podemos encadenar (o "superponer") elementos consecutivos del gráfico  utilizando el conector `+`.
 
-  - El hecho de que podamos crear y luego reutilizar un objeto de gráfico intermedio (por ejemplo, "p") es un testimonio de esto.
-
-Pero vale la pena repetirlo: puede generar una complejidad y transformación realmente impresionantes de su visualización a través de este simple proceso de superposición.
-  - No tiene que transformar sus datos originales; ggplot2 se encarga de todo eso.
-  - Por ejemplo (vea la siguiente diapositiva para ver la figura).
+  - El que podamos crear y luego reutilizar un objeto intermedio del gráfico (por ejemplo, "p") es una prueba de esto
   
-## 3. Construir la gráfica por capas (cont) {.medium}
+. . .
+
+[Mediante este sencillo proceso de capas, pueden lograr visualizaciones con una complejidad realmente impresionantes.]{.hl .hl-dred}
+
+  - No tienen que transformar sus datos originales; ggplot2 se encarga de todo eso
+  
+  - Las siguientes diapositivas les darán un ejemplo de esto...
+  
+## 3. Construir la gráfica por capas {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -748,7 +643,7 @@ p +
 :::
 :::
   
-## 3. Construir la gráfica por capas (cont) {.medium}
+## 3. Construir la gráfica por capas {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -774,7 +669,7 @@ p +
 :::
 :::  
   
-## 3. Construir la gráfica por capas (cont) {.medium}
+## 3. Construir la gráfica por capas {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -802,7 +697,7 @@ p +
 :::
 :::
  
-## 3. Construir la gráfica por capas (cont) {.medium}
+## 3. Construir la gráfica por capas  {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -832,7 +727,7 @@ p +
 :::
 ::: 
 
-## 3. Construir la gráfica por capas (cont) {.medium}
+## 3. Construir la gráfica por capas {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -865,7 +760,7 @@ p +
 :::
 
 
-## 3. Construir la gráfica por capas (cont) {.medium}
+## 3. Construir la gráfica por capas {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -900,7 +795,7 @@ p +
 :::
 
   
-## 3. Construir la gráfica por capas (cont) {.medium}
+## 3. Construir la gráfica por capas {.medium}
 
 ```{r}
 #| echo: false
@@ -930,7 +825,7 @@ Es el principal paquete para transformar datos en `tidyverse`
 
 ::: columns
 ::: {.column width="50%"}
-[dplyr.tidyverse.org](https://dplyr.tidyverse.org)
+[dplyr.tidyverse.org](https://dplyr.tidyverse.org){target="_blank"}
 
 ```{=html}
 <iframe width=600 height=375 src="https://dplyr.tidyverse.org/" title="dplyr home page"></iframe>
@@ -938,9 +833,9 @@ Es el principal paquete para transformar datos en `tidyverse`
 :::
 
 ::: {.column width="50%"}
-[Cheat sheet](https://rstudio.github.io/cheatsheets/html/data-transformation.html)
+[Cheat sheet](https://rstudio.github.io/cheatsheets/html/data-transformation.html){target="_blank"}
 
-[![](img/dplyr-cheat-sheet.png)](https://rstudio.github.io/cheatsheets/html/data-transformation.html)
+[![](img/dplyr-cheat-sheet.png)](https://rstudio.github.io/cheatsheets/html/data-transformation.html){target="_blank"}
 :::
 :::
 
@@ -950,17 +845,17 @@ Es el principal paquete para transformar datos en `tidyverse`
 
 | Test                   | Meaning                    | Test                   | Meaning                  |
 |:----------------------:|:---------------------------|:----------------------:|:--------------------------|
-| `x < y`                | Less than                  | `x %in% y`             | In (group membership)     |
-| `x > y`                | Greater than               | `is.na(x)`             | Is missing                |
-| `==`                   | Equal to                   | `!is.na(x)`            | Is not missing            |
-| `x <= y`               | Less than or equal to      |                        |                           |
-| `x >= y`               | Greater than or equal to   |                        |                           |
-| `x != y`               | Not equal to               |                        |                           |
+| `x < y`                | Menor que                  | `x %in% y`             | En (miembro de un grupo)     |
+| `x > y`                | Mayor que               | `is.na(x)`             | Es missing                |
+| `==`                   | Igual a                   | `!is.na(x)`            | No es missing            |
+| `x <= y`               | Menor o igual a      |                        |                           |
+| `x >= y`               | Mayor o igual a   |                        |                           |
+| `x != y`               | Diferente a               |                        |                           |
 
 :::
 
 
-## Los verbos del dlpyr
+## Los verbos del dplyr 
 
 ::: {.cell}
 
@@ -1013,7 +908,7 @@ cat('<code><span style="background-color: #EFB3FF; font-weight: bold;">VERB</spa
 #| echo: false
 #| results: asis
 
-cat('<code>filter(data = <span style="background-color: #FFDFD1; font-weight: bold;">DATA</span>, 
+cat('<code>filter(.data = <span style="background-color: #FFDFD1; font-weight: bold;">DATA</span>, 
 <span style="background-color: #FFD0CF; font-weight: bold;">...</span>)</code>')
 ```
 
@@ -1029,7 +924,7 @@ cat('<code>filter(data = <span style="background-color: #FFDFD1; font-weight: bo
 
 ## 1) dplyr::filter {.medium}
 
-Podemos encadenar múltiples comandos de filtro con el pipe (), o simplemente separarlos dentro de un solo comando de filtro usando comas.
+Podemos encadenar múltiples comandos de filtro con el pipe (`|>`), o simplemente separarlos dentro de un solo comando de filtro usando comas.
 
 ```{r}
 #| echo: true
@@ -1041,7 +936,7 @@ starwars |>
 ```
 
 
-## Otros operadores lógidos {.medium}
+## Otros operadores lógicos {.medium}
 
 ::::: {.columns}
 
@@ -1086,9 +981,9 @@ starwars |>
 :::::
 
 
-## 1) dplyr::filter *cont.* {.medium}
+## 1) dplyr::filter  {.medium}
 
-Las [expresiones regulares](https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular) también funcionan dentro del comando.
+Las [expresiones regulares](https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular){target="_blank"} también funcionan dentro de la función.
 
 ```{r}
 #| echo: true
@@ -1096,7 +991,7 @@ starwars |>
   filter(grepl("Skywalker", name))
 ```
 
-## 1) dplyr::filter *cont.* {.medium}
+## 1) dplyr::filter  {.medium}
 
 Un uso muy común de `filter` es identificar (o eliminar) casos con valores faltantes (missings). 
 
@@ -1109,10 +1004,6 @@ starwars |>
 . . .
 
 Para eliminar valores faltantes, simplemente usen la negación: `filter(!is.na(height))`. Inténtenlo ustedes.
-
-
-
-
 
 
 
@@ -1168,7 +1059,7 @@ cat('<code>filter(starwars,<br>species == <span style="color: #4db070;">"Human"<
 
 Otros errores comunes son:
 
-  3. Tratar de agregar las condiciones sin comas o conectores lógidos
+  3. Tratar de agregar las condiciones sin comas o conectores lógicos
   4. Usar las comas cuando se pueden usar los conectores lógicos
 
 ::::: {.columns}
@@ -1220,9 +1111,9 @@ starwars |>
 ```
 . . .
 
-<br/>*Nota:* Si se organiza una variable basado en caracteres, se ordenarán alfabéticamente. Intenten ordenando según la variable "name".
+<br/>*Nota:* Si se organiza una variable basado en caracteres, se ordenarán alfabéticamente. Intenten ordenando los datos según la variable "name".
 
-## 2) dplyr::arrange *cont.* {.medium}
+## 2) dplyr::arrange {.medium}
 
 También podemos organizar los elementos en orden descendente utilizando `arrange(desc())`.
 
@@ -1244,9 +1135,9 @@ starwars |>
   select(name:skin_color, species, -height)
 ```
 
-## 3) dplyr::select *cont.* {.medium}
+## 3) dplyr::select {.medium}
 
-También puede cambiar el nombre de algunas (o todas) de las variables seleccionadas.
+También pueden cambiar el nombre de algunas (o todas) de las variables seleccionadas.
 
 ```{r}
 #| echo: true
@@ -1256,10 +1147,10 @@ starwars |>
 
 . . .
 
-Si solo desean cambiar el nombre de las columnas sin seleccionarlas, pueden utilizar. `rename`. Prueben esto ahora reemplazando `select(...)` en el fragmento de código anterior por `rename(...)`.
+Si solo desean cambiar el nombre de las columnas sin seleccionarlas, pueden utilizar `rename`. Prueben esto ahora reemplazando `select(...)` en el fragmento de código anterior por `rename(...)`.
 
 
-## 3) dplyr::select *cont.*  {.medium}
+## 3) dplyr::select  {.medium}
 
 La opción `select(contains(PATTERN))` proporciona un buen atajo en casos relevantes.
 
@@ -1269,9 +1160,9 @@ starwars |>
   select(name, contains("color"))
 ```
 
-## 3) dplyr::select *cont.* {.medium}
+## 3) dplyr::select  {.medium}
 
-La opción `select(..., everything())` es otro atajo útil si solo desea traer algunas variables al "frente" de la base de datos.
+La opción `select(..., everything())` es otro atajo útil si solo desean traer algunas variables al "frente" de la base de datos.
 
 ```{r}
 #| echo: true
@@ -1295,9 +1186,9 @@ starwars |>
 ```
 
 
-## 4) dplyr::mutate *cont.* {.medium}
+## 4) dplyr::mutate {.medium}
 
-*Nota:* `mutate` tiene en cuenta el orden, por lo que puedes encadenar múltiples cambios en un sólo uso del comando.
+*Nota:* `mutate` tiene en cuenta el orden, por lo que pueden encadenar múltiples cambios en un sólo uso de la función.
 
 ```{r}
 #| echo: true
@@ -1336,7 +1227,7 @@ cat('<code>ifelse(<span style="background-color: #FFC0DC; font-weight: bold;">TE
 ::::
 
 
-## 4) dplyr::mutate *cont.* {.medium}
+## 4) dplyr::mutate  {.medium}
 
 Los operadores lógicos y condicionales también funcionan bien con `mutate`.
 
@@ -1350,7 +1241,7 @@ starwars |>
 ```
 
 
-## 4) dplyr::mutate *cont.* {.medium}
+## 4) dplyr::mutate {.medium}
 
 Por último, la combinación de `mutate` con la  función `across` les permite trabajar fácilmente en un subconjunto de variables. Por ejemplo:
 
@@ -1375,9 +1266,9 @@ starwars |>
 ```
 
 
-## 5) dplyr::summarise *cont.* {.medium}
+## 5) dplyr::summarise  {.medium}
 
-Tengan en cuenta que incluir "na.rm = TRUE" (o su alias "na.rm = T") suele ser una buena idea con estas funcioes. De lo contrario, cualquier valor faltante se propagará también al valor resumido.
+Tengan en cuenta que incluir `na.rm = TRUE` (o su alias `na.rm = T`) suele ser una buena idea con estas funciones. De lo contrario, cualquier valor faltante se propagará también al valor resumido.
 
 
 ```{r}
@@ -1391,38 +1282,226 @@ starwars |>
 ```
 
 
-## 5) dplyr::summarise *cont.* {.medium}
+## 5) dplyr::summarise {.medium}
 
-El mismo flujo de trabajo basado en `across` que vimos con `mutate` unas diapositivas atrás también funciona con `summarise`. Por ejemplo:
+El mismo flujo de código basado en `across` que vimos con `mutate` unas diapositivas atrás también funciona con `summarise`. Por ejemplo:
 
 ```{r}
 #| echo: true
 #| code-line-numbers: "3|1,2,3,4"
-starwars %>% 
-  group_by(species) %>% 
-  summarise(across(where(is.numeric), mean, na.rm=T)) %>%
+starwars |> 
+  group_by(species) |> 
+  summarise(across(where(is.numeric), mean, na.rm=T)) |>
   head(5)
 ```
 
 
-## Otros verbos del dplys {.medium}
+## Otros verbos del dplyr {.medium}
 
 
 `slice`: Selecciona filas por posición en lugar de filtrar por valores.
 
-- Por ejemplo: `starwars %>% slice(c(1, 5))`
+```{r}
+starwars |>
+  slice(c(1, 5))
+```
 
 . . .
 
 
 `pull`: Extrae una columna de un data frame como un vector o un escalar.
 
-- Por ejemplo: `starwars %>% filter(gender=="female") %>% pull(height)`
+```{r}
+starwars |> 
+  filter(sex == "female") |>
+  pull(height)
+```
 
-. . .
 
-`count` y `distinct`: Cuenta y aísla observaciones únicas.
 
-- Por ejemplo: `starwars %>% count(species)` o `starwars %>% distinct(species)`
-- También se puede usar una combinación de `mutate`, `group_by` y `n()`, por ejemplo: `starwars %>% group_by(species) %>% mutate(num = n())`.
+## Otros verbos del dplyr {.medium}
+
+`count` y `distinct`: Cuentan y aíslan observaciones únicas.
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+starwars |>
+  count(species)
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+starwars |>
+  distinct(species)
+```
+:::
+:::
+
+## Otros verbos del dplyr {.medium}
+
+- También se puede usar una combinación de `mutate`, `group_by` y `n()`
+
+```{r}
+starwars |>
+  select(name, species) |>
+  group_by(species) |>
+  mutate(num = n()) |>
+  head(10)
+```
+
+
+# Modificando un data frame {#dataframe}
+
+## Cómo y cuándo modificar un data frame {.medium}
+
+Creemos un data frame para usar como ejemlo:
+
+```{r}
+#| message: false
+
+library(tidyverse)
+df <- tibble(x = c(1, 2, 3, 4, 5), y = c("a", "a", "b", "c", "c"))
+df
+```
+
+## Cómo y cuándo modificar un data frame {.medium}
+
+::: columns
+::: {.column .fragment width="50%"}
+> **Haga algo y muéstrelo**
+
+```{r}
+df |>
+  mutate(x = x * 2)
+df
+```
+:::
+
+::: {.column .fragment width="50%"}
+> **Haga algo y guarde el resultado**
+
+```{r}
+df <- df |>
+  mutate(x = x * 2)
+df
+```
+:::
+:::
+
+## Cómo y cuándo modificar un data frame {.medium}
+
+::: columns
+::: {.column .fragment width="50%"}
+> **Haga algo, guarde el resultado, modifique el original**
+
+```{r}
+#| code-line-numbers: "5-7"
+
+df <- tibble(
+  x = c(1, 2, 3, 4, 5), 
+  y = c("a", "a", "b", "c", "c")
+)
+df <- df |>
+  mutate(x = x * 2)
+df
+```
+:::
+
+::: {.column .fragment width="50%"}
+> **Haga algo, guarde el resultado, *no* modifique el original**
+
+```{r}
+#| code-line-numbers: "5-7"
+
+df <- tibble(
+  x = c(1, 2, 3, 4, 5), 
+  y = c("a", "a", "b", "c", "c")
+)
+df_new <- df |>
+  mutate(x = x * 2)
+df_new
+```
+:::
+:::
+
+## Cómo y cuándo modificar un data frame {.medium}
+
+::: columns
+::: {.column .fragment width="50%"}
+> **Haga algo, guarde el resultado, modifique el original *cuando no debería***
+
+```{r}
+#| code-line-numbers: "5-8"
+
+df <- tibble(
+  x = c(1, 2, 3, 4, 5), 
+  y = c("a", "a", "b", "c", "c")
+)
+df <- df |>
+  group_by(y) |>
+  summarize(mean_x = mean(x))
+df
+```
+:::
+
+::: {.column .fragment width="50%"}
+> **Haga algo, guarde el resultado, *no* modifique el original *cuando no debería***
+
+```{r}
+#| code-line-numbers: "5-8"
+
+df <- tibble(
+  x = c(1, 2, 3, 4, 5), 
+  y = c("a", "a", "b", "c", "c")
+)
+df_summary <- df |>
+  group_by(y) |>
+  summarize(mean_x = mean(x))
+df_summary
+```
+:::
+:::
+
+## Cómo y cuándo modificar un data frame {.medium}
+
+::: columns
+::: {.column .fragment width="50%"}
+> **Haga algo, guarde el resultado, modifique el**\
+> ***data frame original***
+
+```{r}
+#| code-line-numbers: "5-7"
+
+df <- tibble(
+  x = c(1, 2, 3, 4, 5), 
+  y = c("a", "a", "b", "c", "c")
+)
+df <- df |>
+  mutate(z = x + 2)
+df
+```
+:::
+
+::: {.column .fragment width="50%"}
+> **Haga algo, guarde el resultado, modifique la**\
+> ***columna original***
+
+```{r}
+#| code-line-numbers: "5-7"
+
+df <- tibble(
+  x = c(1, 2, 3, 4, 5), 
+  y = c("a", "a", "b", "c", "c")
+)
+df <- df |>
+  mutate(x = x + 2)
+df
+```
+:::
+:::
+
 

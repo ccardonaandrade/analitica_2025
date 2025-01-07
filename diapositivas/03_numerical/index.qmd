@@ -499,7 +499,7 @@ Regla general: **cuantas más observaciones haya, más barras se deben usar.**
 
 ## Asimetría en los Histogramas {.medium}
 
-### Distribuciones sesgadas a la izquierda (-), simétrica y sesgada la derecha (+)
+### distribución sesgada a la izquierda (-), simétrica y sesgada a la derecha (+)
 
 
 ```{r}
@@ -536,7 +536,7 @@ p1+p2+p3
 
 ## Moda en los Histogramas {.medium}
 
-### Un ejemplo de distribuciones unimodales, bimodales y multimodales
+### Un ejemplo de distribución unimodal, bimodal y multimodal
 
 ```{r}
 #| echo: false
@@ -963,3 +963,510 @@ ggplot(gapminder) +
 ::::
 
 :::::
+
+# Medidas de dispersión
+
+## La desviación estándar {.medium}
+
+Describe la forma en que los valores de una variable se dispersan a lo largo de la distribución en relación a la media.
+
+Se calcula siguiendo la fórmula:
+$$s_x=\sqrt{\dfrac{\sum{(x-\bar{x})^2}}{n-1}} $$
+
+## La desviación estándar {.medium}
+
+$$x = 1, 9 , 5, 8, 7$$
+
+La media es $\bar{x}=6$. 
+
+La [desviación]{.marker-hl} es la distancia de un valor a la media. El siguiente paso es calcular la desviación de cada valor:
+
+$$
+\begin{aligned}
+1 - \bar{x} &= 7 - 6 = -5 \\
+9 - \bar{x} &= 9 - 6 = 3 \\
+&\vdots \\
+7 - \bar{x} &= 7 - 6 = 1  \\
+\end{aligned}
+$$
+
+## La desviación estándar {.medium}
+
+Si calculamos el cuadrado de estas desviaciones y luego calculamos su promedio hallaremos la [varianza muestral]{.marker-hl}:
+
+$$s^2=\dfrac{(-5)^2+(3)^2+(-1)^2+(2)^2+(1)^2}{5-1}=10$$
+
+. . .
+
+Dividimos por $n-1$ para que la varianza muestral sea más confiable y útil, según ciertas propiedades estadísticas.
+
+. . . 
+
+La desviación estándar se define como la raíz cuadrada de la varianza:
+
+$$s_x=\sqrt{10}=3.16$$
+
+## Algunas características de la desviación estándar {.medium}
+
+- Sumar la misma constante a cada valor, NO modifica la desviación estándar
+
+- Multiplicar cada valor por la misma constante, aumenta la desviación estándar en la misma proporción
+
+- A diferencia de la varianza, la desviación estándar está en las mismas unidades que la variable original
+
+## La desviación estándar vs la distribución de los datos {.medium}
+
+<div style="margin-top: 50px;"></div>
+
+
+::: columns
+::: {.column width="33.3%"}
+```{r}
+#| echo: false
+#| fig.align: 'center'
+numbersA <- c(11,12,13,16,16,17,18,21)
+# Generate the histogram
+hist(numbersA, breaks = c(10:22),
+     main = "Datos A = 11,12,13,16,16,17,18,21", xlab = "X", ylab = "",
+     col = "#ebc034", border = "black", ylim = c(0, 3),
+     cex.main = 2.5,  # Increase title size (default is 1)
+     cex.axis = 1.8,  # Increase axis numbers size
+     cex.lab = 2.2)   # Increase axis label size (default is 1)
+abline(v = 15.5, col = "purple", lty = 2, lwd = 2) # lty=2 for dashed line, lwd=2 for line width
+
+
+```
+
+:::
+
+::: {.column width="33.3%"}
+```{r}
+#| echo: false
+#| fig.align: 'center'
+numbersB <- c(14,15,15,15,16,16,16,17)
+# Generate the histogram
+hist(numbersB, breaks = c(10:22),
+     main = "Datos B = 14,15,15,15,16,16,16,17", xlab = "X", ylab = "",
+     col = "#3489eb", border = "black", ylim = c(0, 3),
+     cex.main = 2.5,  # Increase title size (default is 1)
+     cex.axis = 1.8,  # Increase axis numbers size
+     cex.lab = 2.2)   # Increase axis label size (default is 1)
+abline(v = 15.5, col = "purple", lty = 2, lwd = 2) # lty=2 for dashed line, lwd=2 for line width
+
+```
+:::
+
+::: {.column width="33.3%"}
+```{r}
+#| echo: false
+#| fig.align: 'center'
+numbersC <- c(11,11,11,12,19,20,20,20)
+# Generate the histogram
+hist(numbersC, breaks = c(10:22),
+     main = "Datos C = 11,11,11,12,19,20,20,20", xlab = "X", ylab = "",
+     col = "#3ba342", border = "black", ylim = c(0, 3),
+     cex.main = 2.5,  # Increase title size (default is 1)
+     cex.axis = 1.8,  # Increase axis numbers size
+     cex.lab = 2.2)   # Increase axis label size (default is 1)
+abline(v = 15.5, col = "purple", lty = 2, lwd = 2) # lty=2 for dashed line, lwd=2 for line width
+
+```
+:::
+:::
+
+- Noten que las 3 muestras tienen la misma media: $\bar{x}=15.5$
+
+- Las desvaciones estándar son <span style="color: #ebc034;">S=3.33</span>, <span style="color: #3489eb;">S=0.92</span> and <span style="color: #3ba342;">S=4.56</span>.
+
+
+## La regla 68% y 95% {.medium}
+
+- Aproximadamente el 68% de las observaciones estarán dentro de 1 desviación estándar de la media.
+
+- Aproximadamente el 95% estarán dentro de 2 desviaciones estándar de la media.
+
+- Ambas reglas funcionan **muy bien** para datos con forma de campana y **razonablemente bien** para datos unimodales y no muy sesgados, pero no para todos los datos.
+
+## La regla 68% y 95% {.medium}
+
+::: columns
+::: {.column width="60%"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 7
+
+# Compute mean and standard deviation for each continent
+mean_median_values <- gapminder |>
+  group_by(continent) |>
+  summarise(
+    mean_lifeExp = mean(lifeExp),
+    sd_lifeExp = sd(lifeExp)
+  )
+
+# Create a dataset for the polygons (±1 SD around the mean)
+polygon_data <- mean_median_values |>
+  mutate(
+    x_min = mean_lifeExp - sd_lifeExp,
+    x_max = mean_lifeExp + sd_lifeExp,
+    y_min = 0,
+    y_max = 100  # Adjust based on the histogram's scale
+  )
+
+# Plot histogram with polygon and mean line
+ggplot(gapminder) +
+  geom_histogram(aes(x = lifeExp), bins = 20, fill = "lightblue", color = "darkblue") +
+  geom_rect(
+    data = polygon_data,
+    aes(xmin = x_min, xmax = x_max, ymin = y_min, ymax = y_max, fill = continent),
+    alpha = 0.2
+  ) +
+  geom_vline(
+    data = mean_median_values, 
+    aes(xintercept = mean_lifeExp, color = "Mean"),
+    linetype = "dashed", size = 1
+  ) +
+  scale_fill_manual(values = c("Africa" = "red", "Americas" = "red", 
+                               "Asia" = "red", "Europe" = "red", "Oceania" = "red")) +
+  scale_color_manual(values = c("Mean" = "darkred")) +
+  labs(y = "Count", x = "Life Expectancy (years)") +
+  theme_minimal() +
+  facet_wrap(~continent, ncol = 1) +
+  guides(fill = "none", color = guide_legend(title = NULL)) +  # Remove legend title
+  theme(legend.position = "none")  # Removes all legends
+
+```
+
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 7
+
+# Unir la información de la media y la desviación estándar con el dataset original
+gapminder_with_stats <- gapminder |>
+  left_join(mean_median_values, by = "continent") |>
+  mutate(
+    within_1SD = lifeExp >= (mean_lifeExp - sd_lifeExp) & lifeExp <= (mean_lifeExp + sd_lifeExp)
+  )
+
+# Calcular la proporción de observaciones dentro de 1 SD por continente
+proportion_1SD <- gapminder_with_stats |>
+  group_by(continent) |>
+  summarise(proportion_1SD = mean(within_1SD))
+
+proportion_1SD
+```
+:::
+:::
+
+
+
+## La regla 68% y 95% {.medium}
+
+::: columns
+::: {.column width="60%"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 7
+
+
+# Create a dataset for the polygons (±1 SD around the mean)
+polygon_data <- mean_median_values |>
+  mutate(
+    x_min = mean_lifeExp - 2*sd_lifeExp,
+    x_max = mean_lifeExp + 2*sd_lifeExp,
+    y_min = 0,
+    y_max = 100  # Adjust based on the histogram's scale
+  )
+
+# Plot histogram with polygon and mean line
+ggplot(gapminder) +
+  geom_histogram(aes(x = lifeExp), bins = 20, fill = "lightblue", color = "darkblue") +
+  geom_rect(
+    data = polygon_data,
+    aes(xmin = x_min, xmax = x_max, ymin = y_min, ymax = y_max, fill = continent),
+    alpha = 0.2
+  ) +
+  geom_vline(
+    data = mean_median_values, 
+    aes(xintercept = mean_lifeExp, color = "Mean"),
+    linetype = "dashed", size = 1
+  ) +
+  scale_fill_manual(values = c("Africa" = "red", "Americas" = "red", 
+                               "Asia" = "red", "Europe" = "red", "Oceania" = "red")) +
+  scale_color_manual(values = c("Mean" = "darkred")) +
+  labs(y = "Count", x = "Life Expectancy (years)") +
+  theme_minimal() +
+  facet_wrap(~continent, ncol = 1) +
+  guides(fill = "none", color = guide_legend(title = NULL)) +  # Remove legend title
+  theme(legend.position = "none")  # Removes all legends
+
+```
+
+:::
+
+::: {.column width="40%"}
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 7
+
+# Unir la información de la media y la desviación estándar con el dataset original
+gapminder_with_stats <- gapminder_with_stats |>
+  mutate(
+    within_2SD = lifeExp >= (mean_lifeExp - 2*sd_lifeExp) & lifeExp <= (mean_lifeExp + 2*sd_lifeExp)
+  )
+
+# Calcular la proporción de observaciones dentro de 1 SD por continente
+proportion_2SD <- gapminder_with_stats |>
+  group_by(continent) |>
+  summarise(proportion_2SD = mean(within_2SD))
+
+proportion_2SD
+```
+:::
+:::
+
+
+## La desviación estándar en R {.medium}
+
+La desviación estándar se calcula con la función `sd`: 
+
+::: columns
+::: {.column width="40%"}
+
+```{r}
+#| echo: true
+gapminder |>
+  group_by(continent) |>
+  summarise(
+    mean_lExp = mean(lifeExp),
+    sd_lExp = sd(lifeExp)
+  )
+```
+
+:::
+
+::: {.column width="60%"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 7
+ggplot(gapminder) +
+  geom_histogram(aes(x = lifeExp), bins = 20, fill = "lightblue", color = "darkblue") +
+  geom_vline(
+    data = mean_median_values, 
+    aes(xintercept = mean_lifeExp, color = "Mean"),
+    linetype = "dashed", size = 1
+  ) +
+  scale_color_manual(values = c("Mean" = "darkred")) +
+  labs(y = "Count", x = "Life Expectancy (years)") +
+  theme_minimal() +
+  facet_wrap(~continent, ncol = 1) +
+  theme(legend.position = "none")  # Removes all legends
+```
+:::
+:::
+
+# Diagramas de dispersión
+
+## Diagramas de dispersión {.medium}
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig.align: 'center'
+ggplot(gapminder)+
+  geom_point(aes(x=log(gdpPercap), y=lifeExp)) + 
+  labs(x = "log(GDP per cápita)",
+       y = "Life Expectancy") +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+- Los gráficos de dispersión nos ayudan a visualizar y examinar la relación entre dos variables numéricas 
+- Discutiremos dos medidas cuantitativas de esta relación:
+    1. la covarianza
+    2. la correlación
+:::
+:::
+
+## El gráfico de dispersión en R {.medium}
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "2|1,2,3,4,5"
+ggplot(gapminder)+
+  geom_point(aes(x=gdpPercap, y=lifeExp)) + 
+  labs(x = "GDP per cápita",
+       y = "Life Expectancy") +
+  theme_minimal()
+```
+
+::::
+
+:::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 100%
+ggplot(gapminder)+
+  geom_point(aes(x=gdpPercap, y=lifeExp)) + 
+  labs(x = "log(GDP per cápita)",
+       y = "Life Expectancy") +
+  theme_minimal()
+```
+::::
+
+::::
+
+
+## El gráfico de dispersión en R {.medium}
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "2|1,2,3,4,5"
+ggplot(gapminder)+
+  geom_point(aes(x=log(gdpPercap), y=lifeExp)) + 
+  labs(x = "log(GDP per cápita)",
+       y = "Life Expectancy") +
+  theme_minimal()
+```
+
+::::
+
+:::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 100%
+ggplot(gapminder)+
+  geom_point(aes(x=log(gdpPercap), y=lifeExp)) + 
+  labs(x = "log(GDP per cápita)",
+       y = "Life Expectancy") +
+  theme_minimal()
+```
+::::
+
+::::
+
+
+## El gráfico de dispersión en R {.medium}
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "2|5"
+ggplot(gapminder)+
+    geom_point(aes(x=log(gdpPercap), y=lifeExp, color = continent)) + 
+    labs(x = "log(GDP per cápita)",
+         y = "Life Expectancy") +
+    scale_color_brewer(name = "Continent", palette = "Dark2") +
+    theme_minimal()
+```
+
+::::
+
+:::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 100%
+ggplot(gapminder)+
+    geom_point(aes(x=log(gdpPercap), y=lifeExp, color = continent)) + 
+    labs(x = "log(GDP per cápita)",
+         y = "Life Expectancy") +
+    scale_color_brewer(name = "Continent", palette = "Dark2") +
+    theme_minimal()
+```
+::::
+
+::::
+
+## Covarianza {.medium}
+
+- La covarianza mide qué tan fuerte es la relación (lineal) de *dos variables numéricas*.
+
+- La covarianza muestra:
+
+$$cov(X,Y)=\dfrac{\sum_{i=1}^{n}(X_i-\bar{X})(Y_i-\bar{Y})}{n-1}$$
+
+- Solamente mide la "dirección" de la relación.
+
+## Interpretación de la covarianza {.medium}
+
+- La covarianza entre dos variables:
+  - $cov(X,Y)>0 \rightarrow$ $X$ y $Y$ se mueven en la misma dirección.
+  - $cov(X,Y)<0 \rightarrow$ $X$ y $Y$ se mueven en dirección opuesta.
+  - $cov(X,Y)=0 \rightarrow$ $X$ y $Y$ son independientes.
+- El defecto de la covarianza es que no indica la intensidad de la relación entre las dos variables
+
+## Correlación {.medium}
+
+- La correlación mide la dirección y la fuerza de la relación lineal entre dos variables numéricas.
+
+$$r=\dfrac{cov(X,Y)}{S_xS_y}$$
+
+## Características de la correlación {.medium}
+
+- $-1< r < 1$
+- $r$ no cambia cuando se cambian las unidades de medida de $X$, $Y$ o ambas.
+- $r$ no tiene unidad de medida
+- Más cerca a -1, más fuerte `la relación lineal negativa`.
+- Más cerca a 1, más fuerte `la relación lineal positiva`.
+- Más cerca a 0, más dÃ©bil `la relación lineal`.
+
+
+## El gráfico de dispersión en R {.medium}
+
+::::: {.columns}
+
+:::: {.column width="60%"}
+```{r}
+#| echo: false
+ggplot(gapminder)+
+    geom_point(aes(x=log(gdpPercap), y=lifeExp, color = continent)) + 
+    labs(x = "log(GDP per cápita)",
+         y = "Life Expectancy") +
+    scale_color_brewer(name = "Continent", palette = "Dark2") +
+    theme_minimal()
+```
+
+::::
+
+:::: {.column  width="40%"}
+
+```{r}
+#| echo: false
+gapminder |> 
+  group_by(continent) |>
+  summarise(
+    corr = cor(lifeExp, gdpPercap)
+    )
+```
+::::
+
+::::

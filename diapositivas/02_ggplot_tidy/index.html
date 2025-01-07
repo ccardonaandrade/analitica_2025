@@ -407,8 +407,11 @@ Carlos Cardona Andrade
 <h2>Plan para hoy</h2>
 <ol type="1">
 <li><p><a href="#/tidy">tidy data</a></p></li>
+<li><p><a href="#/tibble">tibble vs.&nbsp;data frame</a></p></li>
+<li><p><a href="#/pipe">El operador pipe</a></p></li>
 <li><p><a href="#/ggplot">ggplot</a></p></li>
 <li><p><a href="#/dplyr">dplyr</a></p></li>
+<li><p><a href="#/dataframe">Modificando un data frame</a></p></li>
 </ol>
 </section>
 <section>
@@ -417,9 +420,9 @@ Carlos Cardona Andrade
 
 </section>
 <section id="qué-es-tidy-data" class="slide level2 medium">
-<h2>Qué es “tidy” data?</h2>
+<h2>¿Qué es “tidy” data?</h2>
 <ul>
-<li>Puntos clave:
+<li>Las 3 características claves son:
 <ol type="1">
 <li>Cada variable forma una columna.</li>
 <li>Cada observación forma una fila.</li>
@@ -431,31 +434,42 @@ Carlos Cardona Andrade
 <section id="por-qué-tidy-data" class="slide level2 medium">
 <h2>¿Por qué tidy data?</h2>
 <ul>
-<li>Un conjunto de datos en forma tidy facilita la selección de variables, la agrupación, el resumen y la visualización.</li>
+<li>Un conjunto de datos en forma <em>tidy</em><sup>1</sup> facilita la selección de variables, la agrupación, el resumen y la visualización</li>
 </ul>
 <div class="fragment">
 <ul>
-<li>Algunas herramientas y paquetes en el tidyverse como dplyr o ggplot2 requieren que los datos se organicen de esa manera</li>
+<li>Algunas herramientas y paquetes en el <code>tidyverse</code> como dplyr o ggplot2 requieren que los datos se organicen de esa manera</li>
 </ul>
 </div>
 <div class="fragment">
-<p>El problema: la mayoría de los datos que obtengan no estarán “ordenados” desde el principio <span class="math inline">\(\rightarrow\)</span> tendrá que remodelarlos</p>
+<p>El problema: la mayoría de los datos que obtengan no estarán “ordenados” desde el principio <span class="math inline">\(\rightarrow\)</span> tendrán que remodelarlos</p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Algunos recursos si quieren profundizar en este tema son el paquete <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html" target="_blank">tidyr</a> y el <a href="https://vita.had.co.nz/papers/tidy-data.pdf" target="_blank">paper original</a> (Hadley Wickham, 2014 JSS).</p></li></ol></aside></section>
+<section id="los-paquetes-de-hoy" class="slide level2 medium">
+<h2>Los paquetes de hoy</h2>
+<ul>
+<li>Como vimos la clase pasada, el paquete <code>tidyverse</code> es fundamental para la visualización y transformación de datos.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># install.packages("tidyverse") En caso de no tenerlo aún instalado!</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <ul>
-<li>Algunos Recursos:
-<ul>
-<li><a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html">Paquete tidyr</a></li>
-<li><a href="https://vita.had.co.nz/papers/tidy-data.pdf">Paper original</a> (Hadley Wickham, 2014 JSS)</li>
-</ul></li>
+<li><code>gapminder</code> es otro paquete que usaremos en la clase de hoy:</li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">install.packages</span>(<span class="st">"gapminder"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section>
-<section id="gapminder-data" class="slide level2 medium">
-<h2>gapminder data</h2>
+<section id="el-conjunto-de-datos-gapminder" class="slide level2 medium">
+<h2>El conjunto de datos gapminder</h2>
+<p>Como vamos a graficar el conjunto de datos de <a href="https://github.com/jennybc/gapminder" target="_blank">gapminder</a>, es útil saber que contiene datos de panel sobre la esperanza de vida, el tamaño de la población y el PIB per cápita para 142 países desde la década de 1950.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(gapminder)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>gapminder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>gapminder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,704 x 6
    country     continent  year lifeExp      pop gdpPercap
@@ -480,7 +494,7 @@ Carlos Cardona Andrade
 <li>Número de filas:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">nrow</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">nrow</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1704</code></pre>
 </div>
@@ -490,7 +504,7 @@ Carlos Cardona Andrade
 <li>Número de columnas:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ncol</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ncol</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6</code></pre>
 </div>
@@ -499,12 +513,13 @@ Carlos Cardona Andrade
 </section>
 <section id="gapminder-primer-vistazo" class="slide level2 medium">
 <h2>gapminder – primer vistazo</h2>
+<p>Las siguientes 3 funciones son útiles para evaluar el contenido de una base de datos.</p>
 <div class="panel-tabset">
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1"><code>glimpse()</code></a></li><li><a href="#tabset-1-2"><code>names()</code></a></li><li><a href="#tabset-1-3"><code>head()</code></a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">glimpse</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">glimpse</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 1,704
 Columns: 6
@@ -519,7 +534,7 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 </div>
 <div id="tabset-1-2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">names</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">names</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "country"   "continent" "year"      "lifeExp"   "pop"       "gdpPercap"</code></pre>
 </div>
@@ -527,7 +542,7 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 </div>
 <div id="tabset-1-3">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">head</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">head</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 x 6
   country     continent  year lifeExp      pop gdpPercap
@@ -543,13 +558,20 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 </div>
 </div>
 </div>
+</section></section>
+<section>
+<section id="tibble" class="title-slide slide level1 center">
+<h1>tibble vs.&nbsp;data frame</h1>
+
 </section>
 <section id="tibble-vs.-data-frame" class="slide level2 medium">
 <h2>tibble vs.&nbsp;data frame</h2>
+<ul>
+<li>Un <span class="marker-hl">tibble</span><sup>1</sup> es una estructura de datos basada en un data frame con algunas mejores que facilitan su uso</li>
+</ul>
 <div>
 <ul>
-<li class="fragment"><strong>tibble</strong>: una versión opinada del <code>R</code> data frame</li>
-<li class="fragment">Todos los tibbles son data frames, pero no todos los data frames son tibbles.</li>
+<li class="fragment"><span class="hl hl-dred">Todos los tibbles son data frames, pero no todos los data frames son tibbles</span></li>
 <li class="fragment">Dos diferencias principales entre un tibble y un data frame:
 <ul>
 <li class="fragment">Impresión</li>
@@ -557,16 +579,16 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 </ul></li>
 </ul>
 </div>
-</section>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>El <a href="https://r4ds.had.co.nz/tibbles.html" target="_blank">capítulo 10</a> de la primera edición de R4DS es una buena referencia para profundizar en el tema.</p></li></ol></aside></section>
 <section id="impresión" class="slide level2 medium">
 <h2>Impresión</h2>
 <div class="panel-tabset">
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1"><code>tibble</code></a></li><li><a href="#tabset-2-2"><code>data.frame</code></a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1">
-<p>Muestra las 10 primeras filas y todas las columnas que cuadren en la pantalla. Adicionalmente, muestra el tipo de variable para cada columna.</p>
+<p>Muestra las 10 primeras filas y todas las columnas que quepan en la pantalla. Adicionalmente, muestra el tipo de variable para cada columna.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>gapminder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>gapminder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,704 x 6
    country     continent  year lifeExp      pop gdpPercap
@@ -588,7 +610,7 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 <div id="tabset-2-2">
 <p>Intentará mostrar todos los datos, o fracasará intentando si el conjunto de datos es muy grande</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>cars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>cars</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   speed dist
 1      4    2
@@ -655,7 +677,7 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 <div id="tabset-3-1">
 <p>Warning + <code>NULL</code> si no encuentra la variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>gapminder<span class="sc">$</span>apple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>gapminder<span class="sc">$</span>apple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Unknown or uninitialised column: `apple`.</code></pre>
 </div>
@@ -667,7 +689,7 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 <div id="tabset-3-2">
 <p>Sólo <code>NULL</code> si no encuentra la variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>cars<span class="sc">$</span>apple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>cars<span class="sc">$</span>apple</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NULL</code></pre>
 </div>
@@ -675,6 +697,11 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 </div>
 </div>
 </div>
+</section></section>
+<section>
+<section id="pipe" class="title-slide slide level1 center">
+<h1>El operador pipe</h1>
+
 </section>
 <section id="el-operador-pipe-en-acción" class="slide level2 medium">
 <h2>El operador pipe en acción</h2>
@@ -683,8 +710,8 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 <li><p>Las dos siguientes líneas de código hacen lo mismo:</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>gapminder <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span>  <span class="fu">group_by</span>(continent)  <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean_gpdpercapita =</span> <span class="fu">mean</span>(gdpPercap, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_gpdpercapita))</span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">arrange</span>(<span class="fu">summarize</span>(<span class="fu">group_by</span>(<span class="fu">filter</span>(gapminder, year <span class="sc">==</span> <span class="dv">2007</span>), continent), <span class="at">mean_gpdpercapita =</span> <span class="fu">mean</span>(gdpPercap, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="fu">desc</span>(mean_gpdpercapita))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>gapminder <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span>  <span class="fu">group_by</span>(continent)  <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean_gpdpercapita =</span> <span class="fu">mean</span>(gdpPercap, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_gpdpercapita))</span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="fu">arrange</span>(<span class="fu">summarize</span>(<span class="fu">group_by</span>(<span class="fu">filter</span>(gapminder, year <span class="sc">==</span> <span class="dv">2007</span>), continent), <span class="at">mean_gpdpercapita =</span> <span class="fu">mean</span>(gdpPercap, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)), <span class="fu">desc</span>(mean_gpdpercapita))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <ul>
@@ -696,12 +723,12 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 <section id="el-operador-pipe-en-acción-1" class="slide level2 smaller">
 <h2>El operador pipe en acción</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-5-1" class="code-annotation-target"><a href="#annotated-cell-5-1"></a>gapminder</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-7-1" class="code-annotation-target"><a href="#annotated-cell-7-1"></a>gapminder</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="1" data-code-annotation="1">Toma el data frame gapminder</span>
+<span data-code-lines="1" data-code-cell="annotated-cell-7" data-code-annotation="1">Toma el data frame gapminder</span>
 </dd>
 </dl>
 </div>
@@ -726,17 +753,17 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 <section id="el-operador-pipe-en-acción-2" class="slide level2 smaller">
 <h2>El operador pipe en acción</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-6-1" class="code-annotation-target"><a href="#annotated-cell-6-1"></a>gapminder <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-6-2" class="code-annotation-target"><a href="#annotated-cell-6-2"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-8"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-8-1" class="code-annotation-target"><a href="#annotated-cell-8-1"></a>gapminder <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-8-2" class="code-annotation-target"><a href="#annotated-cell-8-2"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="1" data-code-annotation="1">Toma el data frame gapminder,</span>
+<span data-code-lines="1" data-code-cell="annotated-cell-8" data-code-annotation="1">Toma el data frame gapminder,</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="2" data-code-annotation="2"><strong>y luego</strong> selecciona las observaciones en el año 2007</span>
+<span data-code-lines="2" data-code-cell="annotated-cell-8" data-code-annotation="2"><strong>y luego</strong> selecciona las observaciones en el año 2007</span>
 </dd>
 </dl>
 </div>
@@ -761,22 +788,22 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 <section id="el-operador-pipe-en-acción-3" class="slide level2 smaller">
 <h2>El operador pipe en acción</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-7-1" class="code-annotation-target"><a href="#annotated-cell-7-1"></a>gapminder <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-7-2" class="code-annotation-target"><a href="#annotated-cell-7-2"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2002</span>) <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3"></a>  <span class="fu">group_by</span>(continent)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-9"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-9-1" class="code-annotation-target"><a href="#annotated-cell-9-1"></a>gapminder <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-9-2" class="code-annotation-target"><a href="#annotated-cell-9-2"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2002</span>) <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-9-3" class="code-annotation-target"><a href="#annotated-cell-9-3"></a>  <span class="fu">group_by</span>(continent)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="1" data-code-annotation="1">Toma el data frame gapminder,</span>
+<span data-code-lines="1" data-code-cell="annotated-cell-9" data-code-annotation="1">Toma el data frame gapminder,</span>
 </dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="2" data-code-annotation="2"><strong>y luego</strong> selecciona las observaciones en el año 2002,</span>
+<span data-code-lines="2" data-code-cell="annotated-cell-9" data-code-annotation="2"><strong>y luego</strong> selecciona las observaciones en el año 2002,</span>
 </dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="3" data-code-annotation="3"><strong>y luego</strong> agrupa por continente</span>
+<span data-code-lines="3" data-code-cell="annotated-cell-9" data-code-annotation="3"><strong>y luego</strong> agrupa por continente</span>
 </dd>
 </dl>
 </div>
@@ -802,27 +829,27 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 <section id="el-operador-pipe-en-acción-4" class="slide level2 smaller">
 <h2>El operador pipe en acción</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-8"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-8-1" class="code-annotation-target"><a href="#annotated-cell-8-1"></a>gapminder <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-8-2" class="code-annotation-target"><a href="#annotated-cell-8-2"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-8-3" class="code-annotation-target"><a href="#annotated-cell-8-3"></a>  <span class="fu">group_by</span>(continent)  <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-8-4" class="code-annotation-target"><a href="#annotated-cell-8-4"></a>  <span class="fu">summarize</span>(<span class="at">mean_gpdpercapita =</span> <span class="fu">mean</span>(gdpPercap, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-10"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-10-1" class="code-annotation-target"><a href="#annotated-cell-10-1"></a>gapminder <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-10-2" class="code-annotation-target"><a href="#annotated-cell-10-2"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-10-3" class="code-annotation-target"><a href="#annotated-cell-10-3"></a>  <span class="fu">group_by</span>(continent)  <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-10-4" class="code-annotation-target"><a href="#annotated-cell-10-4"></a>  <span class="fu">summarize</span>(<span class="at">mean_gpdpercapita =</span> <span class="fu">mean</span>(gdpPercap, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-8" data-code-lines="1" data-code-annotation="1">Toma el data frame gapminder,</span>
+<span data-code-lines="1" data-code-cell="annotated-cell-10" data-code-annotation="1">Toma el data frame gapminder,</span>
 </dd>
-<dt data-target-cell="annotated-cell-8" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-8" data-code-lines="2" data-code-annotation="2"><strong>y luego</strong> selecciona las observaciones en el año 2007,</span>
+<span data-code-lines="2" data-code-cell="annotated-cell-10" data-code-annotation="2"><strong>y luego</strong> selecciona las observaciones en el año 2007,</span>
 </dd>
-<dt data-target-cell="annotated-cell-8" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-8" data-code-lines="3" data-code-annotation="3"><strong>y luego</strong> agrupa por continente,</span>
+<span data-code-lines="3" data-code-cell="annotated-cell-10" data-code-annotation="3"><strong>y luego</strong> agrupa por continente,</span>
 </dd>
-<dt data-target-cell="annotated-cell-8" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-8" data-code-lines="4" data-code-annotation="4"><strong>y luego</strong> calcula el GDP per cápita para cada continente</span>
+<span data-code-lines="4" data-code-cell="annotated-cell-10" data-code-annotation="4"><strong>y luego</strong> calcula el GDP per cápita promedio para cada continente</span>
 </dd>
 </dl>
 </div>
@@ -841,32 +868,32 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 <section id="el-operador-pipe-en-acción-5" class="slide level2 smaller">
 <h2>El operador pipe en acción</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-9"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-9-1" class="code-annotation-target"><a href="#annotated-cell-9-1"></a>gapminder <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-9-2" class="code-annotation-target"><a href="#annotated-cell-9-2"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-9-3" class="code-annotation-target"><a href="#annotated-cell-9-3"></a>  <span class="fu">group_by</span>(continent)  <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-9-4" class="code-annotation-target"><a href="#annotated-cell-9-4"></a>  <span class="fu">summarize</span>(<span class="at">mean_gpdpercapita =</span> <span class="fu">mean</span>(gdpPercap, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="5" onclick="event.preventDefault();" href="">5</a><span id="annotated-cell-9-5" class="code-annotation-target"><a href="#annotated-cell-9-5"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_gpdpercapita))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-11"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><a class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-11-1" class="code-annotation-target"><a href="#annotated-cell-11-1"></a>gapminder <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-11-2" class="code-annotation-target"><a href="#annotated-cell-11-2"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="3" onclick="event.preventDefault();" href="">3</a><span id="annotated-cell-11-3" class="code-annotation-target"><a href="#annotated-cell-11-3"></a>  <span class="fu">group_by</span>(continent)  <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="4" onclick="event.preventDefault();" href="">4</a><span id="annotated-cell-11-4" class="code-annotation-target"><a href="#annotated-cell-11-4"></a>  <span class="fu">summarize</span>(<span class="at">mean_gpdpercapita =</span> <span class="fu">mean</span>(gdpPercap, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="5" onclick="event.preventDefault();" href="">5</a><span id="annotated-cell-11-5" class="code-annotation-target"><a href="#annotated-cell-11-5"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_gpdpercapita))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="1" data-code-annotation="1">Toma el data frame gapminder,</span>
+<span data-code-lines="1" data-code-cell="annotated-cell-11" data-code-annotation="1">Toma el data frame gapminder,</span>
 </dd>
-<dt data-target-cell="annotated-cell-9" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="2" data-code-annotation="2"><strong>y luego</strong> selecciona las observaciones en el año 2007,</span>
+<span data-code-lines="2" data-code-cell="annotated-cell-11" data-code-annotation="2"><strong>y luego</strong> selecciona las observaciones en el año 2007,</span>
 </dd>
-<dt data-target-cell="annotated-cell-9" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="3" data-code-annotation="3"><strong>y luego</strong> agrupa por continente,</span>
+<span data-code-lines="3" data-code-cell="annotated-cell-11" data-code-annotation="3"><strong>y luego</strong> agrupa por continente,</span>
 </dd>
-<dt data-target-cell="annotated-cell-9" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="4" data-code-annotation="4"><strong>y luego</strong> calcula el GDP per cápita para cada continente,</span>
+<span data-code-lines="4" data-code-cell="annotated-cell-11" data-code-annotation="4"><strong>y luego</strong> calcula el GDP per cápita para cada continente,</span>
 </dd>
-<dt data-target-cell="annotated-cell-9" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="5" data-code-annotation="5"><strong>y luego</strong> organiza de manera descendente del GDP per cápita promedio.</span>
+<span data-code-lines="5" data-code-cell="annotated-cell-11" data-code-annotation="5"><strong>y luego</strong> organiza de manera descendente basado en el GDP per cápita promedio.</span>
 </dd>
 </dl>
 </div>
@@ -887,15 +914,15 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>gapminder <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span>  <span class="fu">group_by</span>(continent)  <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean_gpdpercapita =</span> <span class="fu">mean</span>(gdpPercap, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_gpdpercapita))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>gapminder <span class="sc">|&gt;</span> <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span>  <span class="fu">group_by</span>(continent)  <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean_gpdpercapita =</span> <span class="fu">mean</span>(gdpPercap, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_gpdpercapita))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>gapminder <span class="sc">|&gt;</span>                 </span>
-<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span>    </span>
-<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">group_by</span>(continent)  <span class="sc">|&gt;</span>    </span>
-<span id="cb29-4"><a href="#cb29-4"></a>  <span class="fu">summarize</span>(<span class="at">mean_gpdpercapita =</span> <span class="fu">mean</span>(gdpPercap, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb29-5"><a href="#cb29-5"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_gpdpercapita)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>gapminder <span class="sc">|&gt;</span>                 </span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2007</span>) <span class="sc">|&gt;</span>    </span>
+<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">group_by</span>(continent)  <span class="sc">|&gt;</span>    </span>
+<span id="cb31-4"><a href="#cb31-4"></a>  <span class="fu">summarize</span>(<span class="at">mean_gpdpercapita =</span> <span class="fu">mean</span>(gdpPercap, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb31-5"><a href="#cb31-5"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_gpdpercapita)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -905,237 +932,8 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 <div class="fragment">
 <ul>
 <li><p>Otra manera de denotar el pipe operator es <code>%&gt;%</code>. Hay diferencias entre ambos pero van más allá del propósito del curso</p></li>
-<li><p>Revisen <a href="https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/">|&gt; vs.&nbsp;%&gt;%</a> si quieren profundizar en el tema</p></li>
+<li><p>Revisen el post <a href="https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/" target="_blank">|&gt; vs.&nbsp;%&gt;%</a> si quieren profundizar en el tema</p></li>
 </ul>
-</div>
-</section>
-<section id="un-poco-más-sobre-la-asignación" class="slide level2 medium">
-<h2>Un poco más sobre la asignación</h2>
-<p>Creemos un data frame para usar como ejemlo:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb30-2"><a href="#cb30-2"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>))</span>
-<span id="cb30-3"><a href="#cb30-3"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 2
-      x y    
-  &lt;dbl&gt; &lt;chr&gt;
-1     1 a    
-2     2 a    
-3     3 b    
-4     4 c    
-5     5 c    </code></pre>
-</div>
-</div>
-</section>
-<section id="un-poco-más-sobre-la-asignación-1" class="slide level2 medium">
-<h2>Un poco más sobre la asignación</h2>
-<div class="columns">
-<div class="column fragment" style="width:50%;">
-<blockquote>
-<p><strong>Haga algo y muéstrelo</strong></p>
-</blockquote>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>df <span class="sc">|&gt;</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> x <span class="sc">*</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 2
-      x y    
-  &lt;dbl&gt; &lt;chr&gt;
-1     2 a    
-2     4 a    
-3     6 b    
-4     8 c    
-5    10 c    </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 2
-      x y    
-  &lt;dbl&gt; &lt;chr&gt;
-1     1 a    
-2     2 a    
-3     3 b    
-4     4 c    
-5     5 c    </code></pre>
-</div>
-</div>
-</div><div class="column fragment" style="width:50%;">
-<blockquote>
-<p><strong>Haga algo y guarde el resultado</strong></p>
-</blockquote>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> x <span class="sc">*</span> <span class="dv">2</span>)</span>
-<span id="cb36-3"><a href="#cb36-3"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 2
-      x y    
-  &lt;dbl&gt; &lt;chr&gt;
-1     2 a    
-2     4 a    
-3     6 b    
-4     8 c    
-5    10 c    </code></pre>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="un-poco-más-sobre-la-asignación-2" class="slide level2 medium">
-<h2>Un poco más sobre la asignación</h2>
-<div class="columns">
-<div class="column fragment" style="width:50%;">
-<blockquote>
-<p><strong>Haga algo, guarde el resultado, modifique el original</strong></p>
-</blockquote>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38" data-code-line-numbers="5-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb38-2"><a href="#cb38-2"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), </span>
-<span id="cb38-3"><a href="#cb38-3"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>)</span>
-<span id="cb38-4"><a href="#cb38-4"></a>)</span>
-<span id="cb38-5"><a href="#cb38-5"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb38-6"><a href="#cb38-6"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> x <span class="sc">*</span> <span class="dv">2</span>)</span>
-<span id="cb38-7"><a href="#cb38-7"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 2
-      x y    
-  &lt;dbl&gt; &lt;chr&gt;
-1     2 a    
-2     4 a    
-3     6 b    
-4     8 c    
-5    10 c    </code></pre>
-</div>
-</div>
-</div><div class="column fragment" style="width:50%;">
-<blockquote>
-<p><strong>Haga algo, guarde el resultado, <em>no</em> modifique el original</strong></p>
-</blockquote>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb40" data-code-line-numbers="5-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb40-2"><a href="#cb40-2"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), </span>
-<span id="cb40-3"><a href="#cb40-3"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>)</span>
-<span id="cb40-4"><a href="#cb40-4"></a>)</span>
-<span id="cb40-5"><a href="#cb40-5"></a>df_new <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb40-6"><a href="#cb40-6"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> x <span class="sc">*</span> <span class="dv">2</span>)</span>
-<span id="cb40-7"><a href="#cb40-7"></a>df_new</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 2
-      x y    
-  &lt;dbl&gt; &lt;chr&gt;
-1     2 a    
-2     4 a    
-3     6 b    
-4     8 c    
-5    10 c    </code></pre>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="un-poco-más-sobre-la-asignación-3" class="slide level2 medium">
-<h2>Un poco más sobre la asignación</h2>
-<div class="columns">
-<div class="column fragment" style="width:50%;">
-<blockquote>
-<p><strong>Haga algo, guarde el resultado, modifique el original <em>cuando no debería</em></strong></p>
-</blockquote>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb42" data-code-line-numbers="5-8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb42-2"><a href="#cb42-2"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), </span>
-<span id="cb42-3"><a href="#cb42-3"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>)</span>
-<span id="cb42-4"><a href="#cb42-4"></a>)</span>
-<span id="cb42-5"><a href="#cb42-5"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb42-6"><a href="#cb42-6"></a>  <span class="fu">group_by</span>(y) <span class="sc">|&gt;</span></span>
-<span id="cb42-7"><a href="#cb42-7"></a>  <span class="fu">summarize</span>(<span class="at">mean_x =</span> <span class="fu">mean</span>(x))</span>
-<span id="cb42-8"><a href="#cb42-8"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 x 2
-  y     mean_x
-  &lt;chr&gt;  &lt;dbl&gt;
-1 a        1.5
-2 b        3  
-3 c        4.5</code></pre>
-</div>
-</div>
-</div><div class="column fragment" style="width:50%;">
-<blockquote>
-<p><strong>Haga algo, guarde el resultado, <em>no</em> modifique el original <em>cuando no debería</em></strong></p>
-</blockquote>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb44" data-code-line-numbers="5-8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb44-2"><a href="#cb44-2"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), </span>
-<span id="cb44-3"><a href="#cb44-3"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>)</span>
-<span id="cb44-4"><a href="#cb44-4"></a>)</span>
-<span id="cb44-5"><a href="#cb44-5"></a>df_summary <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb44-6"><a href="#cb44-6"></a>  <span class="fu">group_by</span>(y) <span class="sc">|&gt;</span></span>
-<span id="cb44-7"><a href="#cb44-7"></a>  <span class="fu">summarize</span>(<span class="at">mean_x =</span> <span class="fu">mean</span>(x))</span>
-<span id="cb44-8"><a href="#cb44-8"></a>df_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 x 2
-  y     mean_x
-  &lt;chr&gt;  &lt;dbl&gt;
-1 a        1.5
-2 b        3  
-3 c        4.5</code></pre>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="un-poco-más-sobre-la-asignación-4" class="slide level2 medium">
-<h2>Un poco más sobre la asignación</h2>
-<div class="columns">
-<div class="column fragment" style="width:50%;">
-<blockquote>
-<p><strong>Haga algo, guarde el resultado, modifique el</strong><br>
-<strong><em>data frame original</em></strong></p>
-</blockquote>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb46" data-code-line-numbers="5-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb46-2"><a href="#cb46-2"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), </span>
-<span id="cb46-3"><a href="#cb46-3"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>)</span>
-<span id="cb46-4"><a href="#cb46-4"></a>)</span>
-<span id="cb46-5"><a href="#cb46-5"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb46-6"><a href="#cb46-6"></a>  <span class="fu">mutate</span>(<span class="at">z =</span> x <span class="sc">+</span> <span class="dv">2</span>)</span>
-<span id="cb46-7"><a href="#cb46-7"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 3
-      x y         z
-  &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
-1     1 a         3
-2     2 a         4
-3     3 b         5
-4     4 c         6
-5     5 c         7</code></pre>
-</div>
-</div>
-</div><div class="column fragment" style="width:50%;">
-<blockquote>
-<p><strong>Haga algo, guarde el resultado, modifique la</strong><br>
-<strong><em>columna original</em></strong></p>
-</blockquote>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb48" data-code-line-numbers="5-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb48-2"><a href="#cb48-2"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), </span>
-<span id="cb48-3"><a href="#cb48-3"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>)</span>
-<span id="cb48-4"><a href="#cb48-4"></a>)</span>
-<span id="cb48-5"><a href="#cb48-5"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
-<span id="cb48-6"><a href="#cb48-6"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> x <span class="sc">+</span> <span class="dv">2</span>)</span>
-<span id="cb48-7"><a href="#cb48-7"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 2
-      x y    
-  &lt;dbl&gt; &lt;chr&gt;
-1     3 a    
-2     4 a    
-3     5 b    
-4     6 c    
-5     7 c    </code></pre>
-</div>
-</div>
-</div>
 </div>
 </section></section>
 <section>
@@ -1150,13 +948,13 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 <p>Es el principal paquete para visualizar datos en <code>tidyverse</code></p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><a href="https://ggplot2.tidyverse.org/">ggplot2.tidyverse.org</a></p>
+<p><a href="https://ggplot2.tidyverse.org/" target="_blank">ggplot2.tidyverse.org</a></p>
 <iframe width="600" height="375" src="https://ggplot2.tidyverse.org/" title="dplyr home page"></iframe>
 </div><div class="column" style="width:50%;">
-<p><a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html">Cheat sheet</a></p>
+<p><a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html" target="_blank">Cheat sheet</a></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html"><img data-src="img/ggplot-cheat-sheet.png"></a></p>
+<p><a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html" target="_blank"><img data-src="img/ggplot-cheat-sheet.png"></a></p>
 </figure>
 </div>
 </div>
@@ -1165,120 +963,122 @@ $ gdpPercap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.11
 <section id="el-paquete-ggplot" class="slide level2 medium">
 <h2>El paquete ggplot</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-29-1.png" width="384" class="r-stretch quarto-figure-center"><p>El paquete ggplot2 creado por <a href="http://hadley.nz/">Hadley Wickham</a> es uno de los paquetes más populares de todo el mundo R.</p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" width="384" class="r-stretch quarto-figure-center"><p>El paquete ggplot2 creado por <a href="http://hadley.nz/" target="_blank">Hadley Wickham</a> es uno de los paquetes más populares de todo el mundo R.</p>
 <ul>
-<li>Está construido sobre una teoría de visualización profunda: i.e.&nbsp;<a href="https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448"><em>The Grammar of Graphics</em></a> de Leland Wilkinson.</li>
+<li>Está construido sobre una teoría de visualización profunda: i.e.&nbsp;<a href="https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448" target="_blank"><em>The Grammar of Graphics</em></a> de Leland Wilkinson</li>
 </ul>
 </section>
 <section id="elements-of-ggplot2" class="slide level2 medium">
 <h2>Elements of ggplot2</h2>
 <p>Hay mucho que decir sobre la implementación de este enfoque de “gramática de gráficos” en ggplot2, pero los tres elementos clave son:</p>
 <ol type="1">
-<li><p>La gráfica (“la visualización”) está conectada a las variables (“los datos”) a través de varios <strong>mapeos estéticos</strong> (aestethic mappings).</p></li>
-<li><p>Una vez el mapeo estético está definido, ustedes pueden representar sus datos en diferentes maneras al elegir diferentes <strong>geoms</strong> (i.e.&nbsp;“objetos geométricos” como puntos, líneas o barras).</p></li>
-<li><p>Los gráficos se contruyen por <strong>capas</strong> (layers).</p></li>
+<li><p>La gráfica está conectada a las variables (“los datos”) a través de varios <span class="hl hl-blue">mapeos estéticos</span> (aestethic mappings).</p></li>
+<li><p>Una vez el mapeo estético está definido, ustedes pueden representar sus datos en diferentes maneras al elegir diferentes <span class="hl hl-blue">objetos geométricos</span> (i.e.&nbsp;“geoms” como puntos, líneas o barras).</p></li>
+<li><p>Los gráficos se contruyen por <span class="hl hl-blue">capas</span>.</p></li>
 </ol>
 <p><br></p>
-<p>Esto es un poco abstracto. Repasemos cada elemento por turno con algunos gráficos reales.</p>
+<p>Esto es un poco abstracto. Repasemos cada elemento uno por uno con algunos gráficos reales.</p>
 </section>
 <section id="mapeo-estético" class="slide level2 medium">
 <h2>1. Mapeo estético</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span> </span>
-<span id="cb50-2"><a href="#cb50-2"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span> </span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="index_files/figure-revealjs/unnamed-chunk-30-1.png" width="3200" class="r-stretch quarto-figure-center"></section>
-<section id="mapeo-estético-cont." class="slide level2 medium">
-<h2>1. Mapeo estético (cont.)</h2>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="3200" class="r-stretch quarto-figure-center"></section>
+<section id="mapeo-estético-1" class="slide level2 medium">
+<h2>1. Mapeo estético</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span> </span>
-<span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span> </span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Concentrémonos en la primera línea que contiene el llamado a la función <code>ggplot()</code>. La función acepta varios argumentos incluyendo:</p>
 <ul>
-<li>los datos que estamos usando (i.e.&nbsp;<code>data = top1000</code>).</li>
-<li>el mapeo estético (i.e.&nbsp;<code>mapping = aes(x = budget, y = rating)</code>).</li>
+<li>los datos que estamos usando (i.e.&nbsp;<code>data = gapminder</code>).</li>
+<li>el mapeo estético (i.e.&nbsp;<code>mapping = aes(x = gdpPercap, y = lifeExp)</code>).</li>
 </ul>
-<p>El mapeo estético acá es simple: sólo define un eje x (budget) y un eje y (rating).</p>
+<p>El mapeo estético acá es simple: sólo define un eje x (gdpPercap) y un eje y (lifeExp).</p>
 <ul>
 <li>Sin embargo, para tener una idea del poder y la flexibilidad que conlleva este enfoque, consideremos lo que sucede si agregamos más estética a la línea de la función…</li>
 </ul>
 </section>
-<section id="mapeo-estético-cont.-1" class="slide level2 medium">
-<h2>1. Mapeo estético (cont.)</h2>
+<section id="mapeo-estético-2" class="slide level2 medium">
+<h2>1. Mapeo estético</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp, <span class="at">size =</span> pop, <span class="at">col =</span> continent)) <span class="sc">+</span> </span>
-<span id="cb52-2"><a href="#cb52-2"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="do">## "alpha" controls transparency. Takes a value between 0 and 1.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp, <span class="at">size =</span> pop, <span class="at">col =</span> continent)) <span class="sc">+</span> </span>
+<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="do">## "alpha" controls transparency. Takes a value between 0 and 1.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="index_files/figure-revealjs/unnamed-chunk-32-1.png" width="2560" class="r-stretch quarto-figure-center"><p>Noten que borramos la parte “mapping =” al llamar la función. La mayoría de la gnete sólo empieza con “aes(…)”, ya que <code>ggplot2</code> sabe el orden de los argumentos.</p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="2560" class="r-stretch quarto-figure-center"><p>Noten que borramos la parte “mapping =” al llamar la función. La mayoría de la gente sólo empieza con “aes(…)”, ya que <code>ggplot2</code> sabe el orden de los argumentos.</p>
 </section>
-<section id="mapeo-estético-cont.-2" class="slide level2 medium">
-<h2>1. Mapeo estético (cont.)</h2>
-<p>También podemos especificar mapeo estético en la capa de la geometríca que queremos.</p>
+<section id="mapeo-estético-3" class="slide level2 medium">
+<h2>1. Mapeo estético</h2>
+<p>También podemos especificar el mapeo estético en la línea del objeto geométrico que queremos.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span> <span class="do">## Applicable to all geoms</span></span>
-<span id="cb53-2"><a href="#cb53-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="do">## Applicable to this geom only</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span> <span class="do">## Applicable to all geoms</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="do">## Applicable to this geom only</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="index_files/figure-revealjs/unnamed-chunk-33-1.png" width="3200" class="r-stretch quarto-figure-center"></section>
-<section id="mapeo-estético-cont.-3" class="slide level2 medium">
-<h2>1. Mapeo estético (cont.)</h2>
-<p>Oops. ¿Qué salió mal aquí?</p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-26-1.png" width="3200" class="r-stretch quarto-figure-center"></section>
+<section id="mapeo-estético-4" class="slide level2 medium">
+<h2>1. Mapeo estético</h2>
+<p>¿Qué salió mal aquí?</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span> </span>
-<span id="cb54-2"><a href="#cb54-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> <span class="st">"big"</span>, <span class="at">col=</span><span class="st">"black"</span>), <span class="at">alpha =</span> <span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)) <span class="sc">+</span> </span>
+<span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> <span class="st">"big"</span>, <span class="at">col=</span><span class="st">"blue"</span>), <span class="at">alpha =</span> <span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="index_files/figure-revealjs/unnamed-chunk-34-1.png" width="2560" class="r-stretch quarto-figure-center"><p><br> <strong>Respuesta: </strong>Las características estéticas están asociadas a variables, no a descripciones!</p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="2560" class="r-stretch quarto-figure-center"><div class="fragment">
+<p><br> <strong>Respuesta: </strong>Las características estéticas están asociadas a variables, no a descripciones!</p>
+</div>
 </section>
-<section id="mapeo-estético-cont.-4" class="slide level2 medium">
-<h2>1. Mapeo estético (cont.)</h2>
-<p>En este punto, en lugar de repetir la misma primera línea de ggplot2, es más conveniente definir un gráfico intermedio que podamos reutilizar.</p>
+<section id="mapeo-estético-5" class="slide level2 medium">
+<h2>1. Mapeo estético</h2>
+<p>En este punto, en lugar de repetir la misma primera línea del código, es más conveniente definir un gráfico intermedio que podamos reutilizar.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp))</span>
-<span id="cb55-2"><a href="#cb55-2"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp))</span>
+<span id="cb37-2"><a href="#cb37-2"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="index_files/figure-revealjs/unnamed-chunk-35-1.png" width="576" class="r-stretch quarto-figure-center"></section>
-<section id="geoms" class="slide level2 medium">
-<h2>2. Geoms</h2>
-<p>Una vez que las relaciones de sus variables hayan sido definidas por los mapeos estéticos, pueden usar y combinar diferentes geometrías para generar diferentes visualizaciones.</p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="objetos-geométricos" class="slide level2 medium">
+<h2>2. Objetos Geométricos</h2>
+<p>Una vez que las relaciones de sus variables hayan sido definidas por los mapeos estéticos, pueden usar y combinar diferentes objetos geométricos para generar diferentes visualizaciones.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>p <span class="sc">+</span> </span>
-<span id="cb56-2"><a href="#cb56-2"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>)  <span class="sc">+</span></span>
-<span id="cb56-3"><a href="#cb56-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>p <span class="sc">+</span> </span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>)  <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="index_files/figure-revealjs/unnamed-chunk-36-1.png" width="2560" class="r-stretch quarto-figure-center"></section>
-<section id="geoms-1" class="slide level2 medium">
-<h2>2. Geoms</h2>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-29-1.png" width="2560" class="r-stretch quarto-figure-center"></section>
+<section id="objetos-geométricos-1" class="slide level2 medium">
+<h2>2. Objetos Geométricos</h2>
 <p>Los mapeos estéticos pueden aplicarse de manera diferente en cada geometría.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>p <span class="sc">+</span> </span>
-<span id="cb57-2"><a href="#cb57-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>)  <span class="sc">+</span></span>
-<span id="cb57-3"><a href="#cb57-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>p <span class="sc">+</span> </span>
+<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>)  <span class="sc">+</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="index_files/figure-revealjs/unnamed-chunk-37-1.png" width="2560" class="r-stretch quarto-figure-center"></section>
-<section id="geoms-cont" class="slide level2 medium">
-<h2>2. Geoms (cont)</h2>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-30-1.png" width="2560" class="r-stretch quarto-figure-center"></section>
+<section id="objetos-geométricos-2" class="slide level2 medium">
+<h2>2. Objetos Geométricos</h2>
 <p>El gráfico anterior proporciona una buena ilustración del poder (o efecto) que surge de asignar mapeos estéticos “globalmente” vs al interior de las capas geométricas individuales.</p>
 <ul>
-<li>Comparar: ¿Qué sucede si ejecuta el fragmento de código a continuación?</li>
+<li>Comparen: ¿Qué sucede si ejecutan la línea de código a continuación?</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp, <span class="at">size =</span> pop, <span class="at">col =</span> continent)) <span class="sc">+</span></span>
-<span id="cb58-2"><a href="#cb58-2"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>)  <span class="sc">+</span></span>
-<span id="cb58-3"><a href="#cb58-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp, <span class="at">size =</span> pop, <span class="at">col =</span> continent)) <span class="sc">+</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>)  <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="geoms-cont-1" class="slide level2 medium">
-<h2>2. Geoms (cont)</h2>
-<p>De manera similar, tenga en cuenta que algunos geoms solo aceptan un subconjunto de asignaciones. Por ejemplo, <code>geom_density()</code> no sabe qué hacer con la asignación estética “y”.</p>
+<section id="objetos-geométricos-3" class="slide level2 medium">
+<h2>2. Objetos Geométricos</h2>
+<p>De igual manera, tengan en cuenta que algunos objetos geométricos solo aceptan un subconjunto de asignaciones. Por ejemplo, <code>geom_density()</code> no sabe qué hacer con la asignación estética “y”.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a>p <span class="sc">+</span> <span class="fu">geom_density</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>p <span class="sc">+</span> <span class="fu">geom_density</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in `geom_density()`:
 ! Problem while setting up geom.
@@ -1288,37 +1088,43 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="geoms-cont-2" class="slide level2 medium">
-<h2>2. Geoms (cont)</h2>
-<p>Podemos solucionar esto siendo más cuidadosos con cómo construimos la gráfica.</p>
+<section id="objetos-geométricos-4" class="slide level2 medium">
+<h2>2. Objetos Geométricos</h2>
+<p>Podemos solucionar este error siendo más cuidadosos con cómo construimos la gráfica.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder) <span class="sc">+</span> <span class="do">## i.e. No "global" aesthetic mappings"</span></span>
-<span id="cb61-2"><a href="#cb61-2"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">fill =</span> continent), <span class="at">alpha=</span><span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> gapminder) <span class="sc">+</span> <span class="do">## i.e. No "global" aesthetic mappings"</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">fill =</span> continent), <span class="at">alpha=</span><span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="index_files/figure-revealjs/unnamed-chunk-40-1.png" width="2560" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-33-1.png" width="2560" class="r-stretch quarto-figure-center"></section>
 <section id="construir-la-gráfica-por-capas" class="slide level2 medium">
 <h2>3. Construir la gráfica por capas</h2>
-<p>Ya hemos visto cómo podemos encadenar (o “superponer”) elementos de gráfico consecutivos utilizando el conector “+”.</p>
+<p>Ya hemos visto cómo podemos encadenar (o “superponer”) elementos consecutivos del gráfico utilizando el conector <code>+</code>.</p>
 <ul>
-<li>El hecho de que podamos crear y luego reutilizar un objeto de gráfico intermedio (por ejemplo, “p”) es un testimonio de esto.</li>
+<li>El que podamos crear y luego reutilizar un objeto intermedio del gráfico (por ejemplo, “p”) es una prueba de esto</li>
 </ul>
-<p>Pero vale la pena repetirlo: puede generar una complejidad y transformación realmente impresionantes de su visualización a través de este simple proceso de superposición. - No tiene que transformar sus datos originales; ggplot2 se encarga de todo eso. - Por ejemplo (vea la siguiente diapositiva para ver la figura).</p>
+<div class="fragment">
+<p><span class="hl hl-dred">Mediante este sencillo proceso de capas, pueden lograr visualizaciones con una complejidad realmente impresionantes.</span></p>
+<ul>
+<li><p>No tienen que transformar sus datos originales; ggplot2 se encarga de todo eso</p></li>
+<li><p>Las siguientes diapositivas les darán un ejemplo de esto…</p></li>
+</ul>
+</div>
 </section>
-<section id="construir-la-gráfica-por-capas-cont" class="slide level2 medium">
-<h2>3. Construir la gráfica por capas (cont)</h2>
+<section id="construir-la-gráfica-por-capas-1" class="slide level2 medium">
+<h2>3. Construir la gráfica por capas</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>p <span class="sc">+</span></span>
-<span id="cb62-2"><a href="#cb62-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>p <span class="sc">+</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-42-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-35-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1326,21 +1132,21 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="construir-la-gráfica-por-capas-cont-1" class="slide level2 medium">
-<h2>3. Construir la gráfica por capas (cont)</h2>
+<section id="construir-la-gráfica-por-capas-2" class="slide level2 medium">
+<h2>3. Construir la gráfica por capas</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>p <span class="sc">+</span></span>
-<span id="cb63-2"><a href="#cb63-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb63-3"><a href="#cb63-3"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">name =</span> <span class="st">"Continent"</span>, <span class="at">palette =</span> <span class="st">"Set1"</span>)  <span class="do">## Different colour scale</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>p <span class="sc">+</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">name =</span> <span class="st">"Continent"</span>, <span class="at">palette =</span> <span class="st">"Set1"</span>)  <span class="do">## Different colour scale</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-44-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-37-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1348,22 +1154,22 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="construir-la-gráfica-por-capas-cont-2" class="slide level2 medium">
-<h2>3. Construir la gráfica por capas (cont)</h2>
+<section id="construir-la-gráfica-por-capas-3" class="slide level2 medium">
+<h2>3. Construir la gráfica por capas</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>p <span class="sc">+</span></span>
-<span id="cb64-2"><a href="#cb64-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb64-3"><a href="#cb64-3"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">name =</span> <span class="st">"Continent"</span>, <span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span> <span class="do">## Different colour scale</span></span>
-<span id="cb64-4"><a href="#cb64-4"></a>  <span class="fu">scale_size</span>(<span class="at">name =</span> <span class="st">"Population"</span>, <span class="at">labels =</span> scales<span class="sc">::</span>comma)  <span class="do">## Different point (i.e. legend) scale</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>p <span class="sc">+</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb46-3"><a href="#cb46-3"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">name =</span> <span class="st">"Continent"</span>, <span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span> <span class="do">## Different colour scale</span></span>
+<span id="cb46-4"><a href="#cb46-4"></a>  <span class="fu">scale_size</span>(<span class="at">name =</span> <span class="st">"Population"</span>, <span class="at">labels =</span> scales<span class="sc">::</span>comma)  <span class="do">## Different point (i.e. legend) scale</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-46-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-39-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1371,23 +1177,23 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="construir-la-gráfica-por-capas-cont-3" class="slide level2 medium">
-<h2>3. Construir la gráfica por capas (cont)</h2>
+<section id="construir-la-gráfica-por-capas-4" class="slide level2 medium">
+<h2>3. Construir la gráfica por capas</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a>p <span class="sc">+</span></span>
-<span id="cb65-2"><a href="#cb65-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb65-3"><a href="#cb65-3"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">name =</span> <span class="st">"Continent"</span>, <span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span> <span class="do">## Different colour scale</span></span>
-<span id="cb65-4"><a href="#cb65-4"></a>  <span class="fu">scale_size</span>(<span class="at">name =</span> <span class="st">"Population"</span>, <span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span> <span class="do">## Different point (i.e. legend) scale</span></span>
-<span id="cb65-5"><a href="#cb65-5"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar)  <span class="do">## Switch to logarithmic scale on x-axis. Use dollar units.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>p <span class="sc">+</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb47-3"><a href="#cb47-3"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">name =</span> <span class="st">"Continent"</span>, <span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span> <span class="do">## Different colour scale</span></span>
+<span id="cb47-4"><a href="#cb47-4"></a>  <span class="fu">scale_size</span>(<span class="at">name =</span> <span class="st">"Population"</span>, <span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span> <span class="do">## Different point (i.e. legend) scale</span></span>
+<span id="cb47-5"><a href="#cb47-5"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar)  <span class="do">## Switch to logarithmic scale on x-axis. Use dollar units.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-48-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-41-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1395,24 +1201,24 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="construir-la-gráfica-por-capas-cont-4" class="slide level2 medium">
-<h2>3. Construir la gráfica por capas (cont)</h2>
+<section id="construir-la-gráfica-por-capas-5" class="slide level2 medium">
+<h2>3. Construir la gráfica por capas</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>p <span class="sc">+</span></span>
-<span id="cb66-2"><a href="#cb66-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb66-3"><a href="#cb66-3"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">name =</span> <span class="st">"Continent"</span>, <span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span> <span class="do">## Different colour scale</span></span>
-<span id="cb66-4"><a href="#cb66-4"></a>  <span class="fu">scale_size</span>(<span class="at">name =</span> <span class="st">"Population"</span>, <span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span> <span class="do">## Different point (i.e. legend) scale</span></span>
-<span id="cb66-5"><a href="#cb66-5"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="do">## Switch to logarithmic scale on x-axis. Use dollar units.</span></span>
-<span id="cb66-6"><a href="#cb66-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Log (GDP per capita)"</span>, <span class="at">y =</span> <span class="st">"Life Expectancy"</span>)  <span class="do">## Better axis titles</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a>p <span class="sc">+</span></span>
+<span id="cb48-2"><a href="#cb48-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb48-3"><a href="#cb48-3"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">name =</span> <span class="st">"Continent"</span>, <span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span> <span class="do">## Different colour scale</span></span>
+<span id="cb48-4"><a href="#cb48-4"></a>  <span class="fu">scale_size</span>(<span class="at">name =</span> <span class="st">"Population"</span>, <span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span> <span class="do">## Different point (i.e. legend) scale</span></span>
+<span id="cb48-5"><a href="#cb48-5"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="do">## Switch to logarithmic scale on x-axis. Use dollar units.</span></span>
+<span id="cb48-6"><a href="#cb48-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Log (GDP per capita)"</span>, <span class="at">y =</span> <span class="st">"Life Expectancy"</span>)  <span class="do">## Better axis titles</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-50-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-43-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1420,25 +1226,25 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="construir-la-gráfica-por-capas-cont-5" class="slide level2 medium">
-<h2>3. Construir la gráfica por capas (cont)</h2>
+<section id="construir-la-gráfica-por-capas-6" class="slide level2 medium">
+<h2>3. Construir la gráfica por capas</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1"></a>p <span class="sc">+</span></span>
-<span id="cb67-2"><a href="#cb67-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb67-3"><a href="#cb67-3"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">name =</span> <span class="st">"Continent"</span>, <span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span> <span class="do">## Different colour scale</span></span>
-<span id="cb67-4"><a href="#cb67-4"></a>  <span class="fu">scale_size</span>(<span class="at">name =</span> <span class="st">"Population"</span>, <span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span> <span class="do">## Different point (i.e. legend) scale</span></span>
-<span id="cb67-5"><a href="#cb67-5"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="do">## Switch to logarithmic scale on x-axis. Use dollar units.</span></span>
-<span id="cb67-6"><a href="#cb67-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Log (GDP per capita)"</span>, <span class="at">y =</span> <span class="st">"Life Expectancy"</span>) <span class="sc">+</span> <span class="do">## Better axis titles</span></span>
-<span id="cb67-7"><a href="#cb67-7"></a>  <span class="fu">theme_minimal</span>() <span class="do">## Try a minimal (b&amp;w) plot theme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>p <span class="sc">+</span></span>
+<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> pop, <span class="at">col =</span> continent), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="#cb49-3"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">name =</span> <span class="st">"Continent"</span>, <span class="at">palette =</span> <span class="st">"Set1"</span>) <span class="sc">+</span> <span class="do">## Different colour scale</span></span>
+<span id="cb49-4"><a href="#cb49-4"></a>  <span class="fu">scale_size</span>(<span class="at">name =</span> <span class="st">"Population"</span>, <span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span> <span class="do">## Different point (i.e. legend) scale</span></span>
+<span id="cb49-5"><a href="#cb49-5"></a>  <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span> <span class="do">## Switch to logarithmic scale on x-axis. Use dollar units.</span></span>
+<span id="cb49-6"><a href="#cb49-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Log (GDP per capita)"</span>, <span class="at">y =</span> <span class="st">"Life Expectancy"</span>) <span class="sc">+</span> <span class="do">## Better axis titles</span></span>
+<span id="cb49-7"><a href="#cb49-7"></a>  <span class="fu">theme_minimal</span>() <span class="do">## Try a minimal (b&amp;w) plot theme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-52-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-45-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1446,10 +1252,10 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="construir-la-gráfica-por-capas-cont-6" class="slide level2 medium">
-<h2>3. Construir la gráfica por capas (cont)</h2>
+<section id="construir-la-gráfica-por-capas-7" class="slide level2 medium">
+<h2>3. Construir la gráfica por capas</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-53-1.png" width="576" class="r-stretch quarto-figure-center"></section></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-46-1.png" width="576" class="r-stretch quarto-figure-center"></section></section>
 <section>
 <section id="dplyr" class="title-slide slide level1 center">
 <h1>dplyr</h1>
@@ -1462,13 +1268,13 @@ Caused by error in `compute_geom_1()`:
 <p>Es el principal paquete para transformar datos en <code>tidyverse</code></p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><a href="https://dplyr.tidyverse.org">dplyr.tidyverse.org</a></p>
+<p><a href="https://dplyr.tidyverse.org" target="_blank">dplyr.tidyverse.org</a></p>
 <iframe width="600" height="375" src="https://dplyr.tidyverse.org/" title="dplyr home page"></iframe>
 </div><div class="column" style="width:50%;">
-<p><a href="https://rstudio.github.io/cheatsheets/html/data-transformation.html">Cheat sheet</a></p>
+<p><a href="https://rstudio.github.io/cheatsheets/html/data-transformation.html" target="_blank">Cheat sheet</a></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="https://rstudio.github.io/cheatsheets/html/data-transformation.html"><img data-src="img/dplyr-cheat-sheet.png"></a></p>
+<p><a href="https://rstudio.github.io/cheatsheets/html/data-transformation.html" target="_blank"><img data-src="img/dplyr-cheat-sheet.png"></a></p>
 </figure>
 </div>
 </div>
@@ -1495,37 +1301,37 @@ Caused by error in `compute_geom_1()`:
 <tbody>
 <tr class="odd">
 <td style="text-align: center;"><code>x &lt; y</code></td>
-<td style="text-align: left;">Less than</td>
+<td style="text-align: left;">Menor que</td>
 <td style="text-align: center;"><code>x %in% y</code></td>
-<td style="text-align: left;">In (group membership)</td>
+<td style="text-align: left;">En (miembro de un grupo)</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>x &gt; y</code></td>
-<td style="text-align: left;">Greater than</td>
+<td style="text-align: left;">Mayor que</td>
 <td style="text-align: center;"><code>is.na(x)</code></td>
-<td style="text-align: left;">Is missing</td>
+<td style="text-align: left;">Es missing</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><code>==</code></td>
-<td style="text-align: left;">Equal to</td>
+<td style="text-align: left;">Igual a</td>
 <td style="text-align: center;"><code>!is.na(x)</code></td>
-<td style="text-align: left;">Is not missing</td>
+<td style="text-align: left;">No es missing</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>x &lt;= y</code></td>
-<td style="text-align: left;">Less than or equal to</td>
+<td style="text-align: left;">Menor o igual a</td>
 <td style="text-align: center;"></td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><code>x &gt;= y</code></td>
-<td style="text-align: left;">Greater than or equal to</td>
+<td style="text-align: left;">Mayor o igual a</td>
 <td style="text-align: center;"></td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>x != y</code></td>
-<td style="text-align: left;">Not equal to</td>
+<td style="text-align: left;">Diferente a</td>
 <td style="text-align: center;"></td>
 <td style="text-align: left;"></td>
 </tr>
@@ -1533,8 +1339,8 @@ Caused by error in `compute_geom_1()`:
 </table>
 </div>
 </section>
-<section id="los-verbos-del-dlpyr" class="slide level2">
-<h2>Los verbos del dlpyr</h2>
+<section id="los-verbos-del-dplyr" class="slide level2">
+<h2>Los verbos del dplyr</h2>
 <div class="cell">
 <table>
 <colgroup>
@@ -1586,7 +1392,7 @@ Caused by error in `compute_geom_1()`:
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><code>filter(data = <span style="background-color: #FFDFD1; font-weight: bold;">DATA</span>, <span style="background-color: #FFD0CF; font-weight: bold;">…</span>)</code></p>
+<p><code>filter(.data = <span style="background-color: #FFDFD1; font-weight: bold;">DATA</span>, <span style="background-color: #FFD0CF; font-weight: bold;">…</span>)</code></p>
 </div><div class="column" style="width:50%;">
 <ul>
 <li><span style="background-color: #FFDFD1; font-weight: bold;">DATA</span> = los datos a transformar</li>
@@ -1597,13 +1403,13 @@ Caused by error in `compute_geom_1()`:
 </section>
 <section id="dplyrfilter-1" class="slide level2 medium">
 <h2>1) dplyr::filter</h2>
-<p>Podemos encadenar múltiples comandos de filtro con el pipe (), o simplemente separarlos dentro de un solo comando de filtro usando comas.</p>
+<p>Podemos encadenar múltiples comandos de filtro con el pipe (<code>|&gt;</code>), o simplemente separarlos dentro de un solo comando de filtro usando comas.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb68-2"><a href="#cb68-2"></a>  <span class="fu">filter</span>( </span>
-<span id="cb68-3"><a href="#cb68-3"></a>    species <span class="sc">==</span> <span class="st">"Human"</span>, </span>
-<span id="cb68-4"><a href="#cb68-4"></a>    height <span class="sc">&gt;=</span> <span class="dv">190</span></span>
-<span id="cb68-5"><a href="#cb68-5"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb50-2"><a href="#cb50-2"></a>  <span class="fu">filter</span>( </span>
+<span id="cb50-3"><a href="#cb50-3"></a>    species <span class="sc">==</span> <span class="st">"Human"</span>, </span>
+<span id="cb50-4"><a href="#cb50-4"></a>    height <span class="sc">&gt;=</span> <span class="dv">190</span></span>
+<span id="cb50-5"><a href="#cb50-5"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 x 14
   name      height  mass hair_color skin_color eye_color birth_year sex   gender
@@ -1617,15 +1423,15 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="otros-operadores-lógidos" class="slide level2 medium">
-<h2>Otros operadores lógidos</h2>
+<section id="otros-operadores-lógicos" class="slide level2 medium">
+<h2>Otros operadores lógicos</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><code>a &amp; b</code> significa <code>a</code> y <code>b</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb70-2"><a href="#cb70-2"></a>  <span class="fu">filter</span>( species <span class="sc">==</span> <span class="st">"Human"</span> <span class="sc">&amp;</span></span>
-<span id="cb70-3"><a href="#cb70-3"></a>            height <span class="sc">&gt;=</span> <span class="dv">190</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb52-2"><a href="#cb52-2"></a>  <span class="fu">filter</span>( species <span class="sc">==</span> <span class="st">"Human"</span> <span class="sc">&amp;</span></span>
+<span id="cb52-3"><a href="#cb52-3"></a>            height <span class="sc">&gt;=</span> <span class="dv">190</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -1641,9 +1447,9 @@ Caused by error in `compute_geom_1()`:
 </div><div class="column fragment" style="width:50%;">
 <p><code>a | b</code> significa <code>a</code> o <code>b</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb72-2"><a href="#cb72-2"></a>  <span class="fu">filter</span>( species <span class="sc">==</span> <span class="st">"Human"</span> <span class="sc">|</span> </span>
-<span id="cb72-3"><a href="#cb72-3"></a>            height <span class="sc">&gt;=</span> <span class="dv">190</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb54-2"><a href="#cb54-2"></a>  <span class="fu">filter</span>( species <span class="sc">==</span> <span class="st">"Human"</span> <span class="sc">|</span> </span>
+<span id="cb54-3"><a href="#cb54-3"></a>            height <span class="sc">&gt;=</span> <span class="dv">190</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -1666,12 +1472,12 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="dplyrfilter-cont." class="slide level2 medium">
-<h2>1) dplyr::filter <em>cont.</em></h2>
-<p>Las <a href="https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular">expresiones regulares</a> también funcionan dentro del comando.</p>
+<section id="dplyrfilter-2" class="slide level2 medium">
+<h2>1) dplyr::filter</h2>
+<p>Las <a href="https://es.wikipedia.org/wiki/Expresi%C3%B3n_regular" target="_blank">expresiones regulares</a> también funcionan dentro de la función.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb74-2"><a href="#cb74-2"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"Skywalker"</span>, name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb56-2"><a href="#cb56-2"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"Skywalker"</span>, name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 x 14
   name      height  mass hair_color skin_color eye_color birth_year sex   gender
@@ -1684,12 +1490,12 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="dplyrfilter-cont.-1" class="slide level2 medium">
-<h2>1) dplyr::filter <em>cont.</em></h2>
+<section id="dplyrfilter-3" class="slide level2 medium">
+<h2>1) dplyr::filter</h2>
 <p>Un uso muy común de <code>filter</code> es identificar (o eliminar) casos con valores faltantes (missings).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a>starwars <span class="sc">|&gt;</span></span>
-<span id="cb76-2"><a href="#cb76-2"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(height))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb58-2"><a href="#cb58-2"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(height))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 x 14
   name      height  mass hair_color skin_color eye_color birth_year sex   gender
@@ -1731,7 +1537,7 @@ Caused by error in `compute_geom_1()`:
 <h2>Errores comunes</h2>
 <p>Otros errores comunes son:</p>
 <ol start="3" type="1">
-<li>Tratar de agregar las condiciones sin comas o conectores lógidos</li>
+<li>Tratar de agregar las condiciones sin comas o conectores lógicos</li>
 <li>Usar las comas cuando se pueden usar los conectores lógicos</li>
 </ol>
 <div class="columns">
@@ -1749,8 +1555,8 @@ Caused by error in `compute_geom_1()`:
 <section id="dplyrarrange" class="slide level2 medium">
 <h2>2) dplyr::arrange</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb78-2"><a href="#cb78-2"></a>  <span class="fu">arrange</span>(birth_year) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb60-2"><a href="#cb60-2"></a>  <span class="fu">arrange</span>(birth_year) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 87 x 14
    name     height  mass hair_color skin_color eye_color birth_year sex   gender
@@ -1771,15 +1577,15 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 <div class="fragment">
-<p><br><em>Nota:</em> Si se organiza una variable basado en caracteres, se ordenarán alfabéticamente. Intenten ordenando según la variable “name”.</p>
+<p><br><em>Nota:</em> Si se organiza una variable basado en caracteres, se ordenarán alfabéticamente. Intenten ordenando los datos según la variable “name”.</p>
 </div>
 </section>
-<section id="dplyrarrange-cont." class="slide level2 medium">
-<h2>2) dplyr::arrange <em>cont.</em></h2>
+<section id="dplyrarrange-1" class="slide level2 medium">
+<h2>2) dplyr::arrange</h2>
 <p>También podemos organizar los elementos en orden descendente utilizando <code>arrange(desc())</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a>starwars <span class="sc">|&gt;</span></span>
-<span id="cb80-2"><a href="#cb80-2"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(birth_year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb62-2"><a href="#cb62-2"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(birth_year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 87 x 14
    name     height  mass hair_color skin_color eye_color birth_year sex   gender
@@ -1804,8 +1610,8 @@ Caused by error in `compute_geom_1()`:
 <h2>3) dplyr::select</h2>
 <p>Utilicen comas para seleccionar varias columnas de una base de datos (usen “first:last” para columnas consecutivas). Anulen la selección de una columna con “-”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb82-2"><a href="#cb82-2"></a>  <span class="fu">select</span>(name<span class="sc">:</span>skin_color, species, <span class="sc">-</span>height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb64-2"><a href="#cb64-2"></a>  <span class="fu">select</span>(name<span class="sc">:</span>skin_color, species, <span class="sc">-</span>height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 87 x 5
    name                mass hair_color    skin_color  species
@@ -1824,12 +1630,12 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="dplyrselect-cont." class="slide level2 medium">
-<h2>3) dplyr::select <em>cont.</em></h2>
-<p>También puede cambiar el nombre de algunas (o todas) de las variables seleccionadas.</p>
+<section id="dplyrselect-1" class="slide level2 medium">
+<h2>3) dplyr::select</h2>
+<p>También pueden cambiar el nombre de algunas (o todas) de las variables seleccionadas.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a>starwars <span class="sc">|&gt;</span></span>
-<span id="cb84-2"><a href="#cb84-2"></a>  <span class="fu">select</span>(<span class="at">alias=</span>name, <span class="at">crib=</span>homeworld, <span class="at">sex=</span>gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb66-2"><a href="#cb66-2"></a>  <span class="fu">select</span>(<span class="at">alias=</span>name, <span class="at">crib=</span>homeworld, <span class="at">sex=</span>gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 87 x 3
    alias              crib     sex      
@@ -1848,15 +1654,15 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 <div class="fragment">
-<p>Si solo desean cambiar el nombre de las columnas sin seleccionarlas, pueden utilizar. <code>rename</code>. Prueben esto ahora reemplazando <code>select(...)</code> en el fragmento de código anterior por <code>rename(...)</code>.</p>
+<p>Si solo desean cambiar el nombre de las columnas sin seleccionarlas, pueden utilizar <code>rename</code>. Prueben esto ahora reemplazando <code>select(...)</code> en el fragmento de código anterior por <code>rename(...)</code>.</p>
 </div>
 </section>
-<section id="dplyrselect-cont.-1" class="slide level2 medium">
-<h2>3) dplyr::select <em>cont.</em></h2>
+<section id="dplyrselect-2" class="slide level2 medium">
+<h2>3) dplyr::select</h2>
 <p>La opción <code>select(contains(PATTERN))</code> proporciona un buen atajo en casos relevantes.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb86-2"><a href="#cb86-2"></a>  <span class="fu">select</span>(name, <span class="fu">contains</span>(<span class="st">"color"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb68-2"><a href="#cb68-2"></a>  <span class="fu">select</span>(name, <span class="fu">contains</span>(<span class="st">"color"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 87 x 4
    name               hair_color    skin_color  eye_color
@@ -1875,13 +1681,13 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="dplyrselect-cont.-2" class="slide level2 medium">
-<h2>3) dplyr::select <em>cont.</em></h2>
-<p>La opción <code>select(..., everything())</code> es otro atajo útil si solo desea traer algunas variables al “frente” de la base de datos.</p>
+<section id="dplyrselect-3" class="slide level2 medium">
+<h2>3) dplyr::select</h2>
+<p>La opción <code>select(..., everything())</code> es otro atajo útil si solo desean traer algunas variables al “frente” de la base de datos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb88-2"><a href="#cb88-2"></a>  <span class="fu">select</span>(species, homeworld, <span class="fu">everything</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb88-3"><a href="#cb88-3"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb70-2"><a href="#cb70-2"></a>  <span class="fu">select</span>(species, homeworld, <span class="fu">everything</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb70-3"><a href="#cb70-3"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 x 14
   species homeworld name           height  mass hair_color skin_color  eye_color
@@ -1900,10 +1706,10 @@ Caused by error in `compute_geom_1()`:
 <h2>4) dplyr::mutate</h2>
 <p>Pueden crear nuevas columnas desde cero o (más comúnmente) como transformaciones de columnas existentes.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb90-2"><a href="#cb90-2"></a>  <span class="fu">select</span>(name, birth_year) <span class="sc">|&gt;</span></span>
-<span id="cb90-3"><a href="#cb90-3"></a>  <span class="fu">mutate</span>(<span class="at">dog_years =</span> birth_year <span class="sc">*</span> <span class="dv">7</span>) <span class="sc">|&gt;</span></span>
-<span id="cb90-4"><a href="#cb90-4"></a>  <span class="fu">mutate</span>(<span class="at">comment =</span> <span class="fu">paste0</span>(name, <span class="st">" is "</span>, dog_years, <span class="st">" in dog years."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb72-2"><a href="#cb72-2"></a>  <span class="fu">select</span>(name, birth_year) <span class="sc">|&gt;</span></span>
+<span id="cb72-3"><a href="#cb72-3"></a>  <span class="fu">mutate</span>(<span class="at">dog_years =</span> birth_year <span class="sc">*</span> <span class="dv">7</span>) <span class="sc">|&gt;</span></span>
+<span id="cb72-4"><a href="#cb72-4"></a>  <span class="fu">mutate</span>(<span class="at">comment =</span> <span class="fu">paste0</span>(name, <span class="st">" is "</span>, dog_years, <span class="st">" in dog years."</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 87 x 4
    name               birth_year dog_years comment                              
@@ -1922,16 +1728,16 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="dplyrmutate-cont." class="slide level2 medium">
-<h2>4) dplyr::mutate <em>cont.</em></h2>
-<p><em>Nota:</em> <code>mutate</code> tiene en cuenta el orden, por lo que puedes encadenar múltiples cambios en un sólo uso del comando.</p>
+<section id="dplyrmutate-1" class="slide level2 medium">
+<h2>4) dplyr::mutate</h2>
+<p><em>Nota:</em> <code>mutate</code> tiene en cuenta el orden, por lo que pueden encadenar múltiples cambios en un sólo uso de la función.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb92-2"><a href="#cb92-2"></a>  <span class="fu">select</span>(name, birth_year) <span class="sc">|&gt;</span></span>
-<span id="cb92-3"><a href="#cb92-3"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb92-4"><a href="#cb92-4"></a>    <span class="at">dog_years =</span> birth_year <span class="sc">*</span> <span class="dv">7</span>, <span class="do">## Separate with a comma</span></span>
-<span id="cb92-5"><a href="#cb92-5"></a>    <span class="at">comment =</span> <span class="fu">paste0</span>(name, <span class="st">" is "</span>, dog_years, <span class="st">" in dog years."</span>)</span>
-<span id="cb92-6"><a href="#cb92-6"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb74-2"><a href="#cb74-2"></a>  <span class="fu">select</span>(name, birth_year) <span class="sc">|&gt;</span></span>
+<span id="cb74-3"><a href="#cb74-3"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb74-4"><a href="#cb74-4"></a>    <span class="at">dog_years =</span> birth_year <span class="sc">*</span> <span class="dv">7</span>, <span class="do">## Separate with a comma</span></span>
+<span id="cb74-5"><a href="#cb74-5"></a>    <span class="at">comment =</span> <span class="fu">paste0</span>(name, <span class="st">" is "</span>, dog_years, <span class="st">" in dog years."</span>)</span>
+<span id="cb74-6"><a href="#cb74-6"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 87 x 4
    name               birth_year dog_years comment                              
@@ -1964,15 +1770,15 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="dplyrmutate-cont.-1" class="slide level2 medium">
-<h2>4) dplyr::mutate <em>cont.</em></h2>
+<section id="dplyrmutate-2" class="slide level2 medium">
+<h2>4) dplyr::mutate</h2>
 <p>Los operadores lógicos y condicionales también funcionan bien con <code>mutate</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb94-2"><a href="#cb94-2"></a>  <span class="fu">select</span>(name, height) <span class="sc">|&gt;</span></span>
-<span id="cb94-3"><a href="#cb94-3"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Luke Skywalker"</span>, <span class="st">"Anakin Skywalker"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb94-4"><a href="#cb94-4"></a>  <span class="fu">mutate</span>(<span class="at">tall1 =</span> height <span class="sc">&gt;</span> <span class="dv">180</span>) <span class="sc">|&gt;</span></span>
-<span id="cb94-5"><a href="#cb94-5"></a>  <span class="fu">mutate</span>(<span class="at">tall2 =</span> <span class="fu">ifelse</span>(height <span class="sc">&gt;</span> <span class="dv">180</span>, <span class="st">"Tall"</span>, <span class="st">"Short"</span>)) <span class="do">## Same effect, but can choose labels</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb76-2"><a href="#cb76-2"></a>  <span class="fu">select</span>(name, height) <span class="sc">|&gt;</span></span>
+<span id="cb76-3"><a href="#cb76-3"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Luke Skywalker"</span>, <span class="st">"Anakin Skywalker"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb76-4"><a href="#cb76-4"></a>  <span class="fu">mutate</span>(<span class="at">tall1 =</span> height <span class="sc">&gt;</span> <span class="dv">180</span>) <span class="sc">|&gt;</span></span>
+<span id="cb76-5"><a href="#cb76-5"></a>  <span class="fu">mutate</span>(<span class="at">tall2 =</span> <span class="fu">ifelse</span>(height <span class="sc">&gt;</span> <span class="dv">180</span>, <span class="st">"Tall"</span>, <span class="st">"Short"</span>)) <span class="do">## Same effect, but can choose labels</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 x 4
   name             height tall1 tall2
@@ -1982,14 +1788,14 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="dplyrmutate-cont.-2" class="slide level2 medium">
-<h2>4) dplyr::mutate <em>cont.</em></h2>
+<section id="dplyrmutate-3" class="slide level2 medium">
+<h2>4) dplyr::mutate</h2>
 <p>Por último, la combinación de <code>mutate</code> con la función <code>across</code> les permite trabajar fácilmente en un subconjunto de variables. Por ejemplo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96" data-code-line-numbers="3|1,2,3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb96-2"><a href="#cb96-2"></a>  <span class="fu">select</span>(name<span class="sc">:</span>eye_color) <span class="sc">|&gt;</span> </span>
-<span id="cb96-3"><a href="#cb96-3"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), toupper)) <span class="sc">|&gt;</span></span>
-<span id="cb96-4"><a href="#cb96-4"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78" data-code-line-numbers="3|1,2,3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb78-2"><a href="#cb78-2"></a>  <span class="fu">select</span>(name<span class="sc">:</span>eye_color) <span class="sc">|&gt;</span> </span>
+<span id="cb78-3"><a href="#cb78-3"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), toupper)) <span class="sc">|&gt;</span></span>
+<span id="cb78-4"><a href="#cb78-4"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 x 6
   name           height  mass hair_color skin_color  eye_color
@@ -2006,9 +1812,9 @@ Caused by error in `compute_geom_1()`:
 <h2>5) dplyr::summarise</h2>
 <p>Particularmente útil en combinación con el comando <code>group_by</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb98-2"><a href="#cb98-2"></a>  <span class="fu">group_by</span>(species, gender) <span class="sc">|&gt;</span> </span>
-<span id="cb98-3"><a href="#cb98-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb80-2"><a href="#cb80-2"></a>  <span class="fu">group_by</span>(species, gender) <span class="sc">|&gt;</span> </span>
+<span id="cb80-3"><a href="#cb80-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 42 x 3
 # Groups:   species [38]
@@ -2028,22 +1834,22 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="dplyrsummarise-cont." class="slide level2 medium">
-<h2>5) dplyr::summarise <em>cont.</em></h2>
-<p>Tengan en cuenta que incluir “na.rm = TRUE” (o su alias “na.rm = T”) suele ser una buena idea con estas funcioes. De lo contrario, cualquier valor faltante se propagará también al valor resumido.</p>
+<section id="dplyrsummarise-1" class="slide level2 medium">
+<h2>5) dplyr::summarise</h2>
+<p>Tengan en cuenta que incluir <code>na.rm = TRUE</code> (o su alias <code>na.rm = T</code>) suele ser una buena idea con estas funciones. De lo contrario, cualquier valor faltante se propagará también al valor resumido.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1"></a><span class="do">## Probably not what we want</span></span>
-<span id="cb100-2"><a href="#cb100-2"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb100-3"><a href="#cb100-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1"></a><span class="do">## Probably not what we want</span></span>
+<span id="cb82-2"><a href="#cb82-2"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb82-3"><a href="#cb82-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 x 1
   mean_height
         &lt;dbl&gt;
 1          NA</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1"></a><span class="do">## Much better</span></span>
-<span id="cb102-2"><a href="#cb102-2"></a>starwars <span class="sc">|&gt;</span> </span>
-<span id="cb102-3"><a href="#cb102-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a><span class="do">## Much better</span></span>
+<span id="cb84-2"><a href="#cb84-2"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb84-3"><a href="#cb84-3"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 x 1
   mean_height
@@ -2052,14 +1858,14 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="dplyrsummarise-cont.-1" class="slide level2 medium">
-<h2>5) dplyr::summarise <em>cont.</em></h2>
-<p>El mismo flujo de trabajo basado en <code>across</code> que vimos con <code>mutate</code> unas diapositivas atrás también funciona con <code>summarise</code>. Por ejemplo:</p>
+<section id="dplyrsummarise-2" class="slide level2 medium">
+<h2>5) dplyr::summarise</h2>
+<p>El mismo flujo de código basado en <code>across</code> que vimos con <code>mutate</code> unas diapositivas atrás también funciona con <code>summarise</code>. Por ejemplo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb104" data-code-line-numbers="3|1,2,3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1"></a>starwars <span class="sc">%&gt;%</span> </span>
-<span id="cb104-2"><a href="#cb104-2"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span> </span>
-<span id="cb104-3"><a href="#cb104-3"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean, <span class="at">na.rm=</span>T)) <span class="sc">%&gt;%</span></span>
-<span id="cb104-4"><a href="#cb104-4"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86" data-code-line-numbers="3|1,2,3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb86-2"><a href="#cb86-2"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span> </span>
+<span id="cb86-3"><a href="#cb86-3"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean, <span class="at">na.rm=</span>T)) <span class="sc">|&gt;</span></span>
+<span id="cb86-4"><a href="#cb86-4"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 x 4
   species  height  mass birth_year
@@ -2072,29 +1878,350 @@ Caused by error in `compute_geom_1()`:
 </div>
 </div>
 </section>
-<section id="otros-verbos-del-dplys" class="slide level2 medium">
-<h2>Otros verbos del dplys</h2>
+<section id="otros-verbos-del-dplyr" class="slide level2 medium">
+<h2>Otros verbos del dplyr</h2>
 <p><code>slice</code>: Selecciona filas por posición en lugar de filtrar por valores.</p>
-<ul>
-<li>Por ejemplo: <code>starwars %&gt;% slice(c(1, 5))</code></li>
-</ul>
-<div class="fragment">
-<p><code>pull</code>: Extrae una columna de un data frame como un vector o un escalar.</p>
-<ul>
-<li>Por ejemplo: <code>starwars %&gt;% filter(gender=="female") %&gt;% pull(height)</code></li>
-</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb88-2"><a href="#cb88-2"></a>  <span class="fu">slice</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 x 14
+  name      height  mass hair_color skin_color eye_color birth_year sex   gender
+  &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+1 Luke Sky~    172    77 blond      fair       blue              19 male  mascu~
+2 Leia Org~    150    49 brown      light      brown             19 fema~ femin~
+# i 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+</div>
 </div>
 <div class="fragment">
-<p><code>count</code> y <code>distinct</code>: Cuenta y aísla observaciones únicas.</p>
+<p><code>pull</code>: Extrae una columna de un data frame como un vector o un escalar.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a>starwars <span class="sc">|&gt;</span> </span>
+<span id="cb90-2"><a href="#cb90-2"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb90-3"><a href="#cb90-3"></a>  <span class="fu">pull</span>(height)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 150 165 150 185 163 178 184 170 166 165 168 213 167 178  NA  NA</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="otros-verbos-del-dplyr-1" class="slide level2 medium">
+<h2>Otros verbos del dplyr</h2>
+<p><code>count</code> y <code>distinct</code>: Cuentan y aíslan observaciones únicas.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1"></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb92-2"><a href="#cb92-2"></a>  <span class="fu">count</span>(species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 38 x 2
+   species       n
+   &lt;chr&gt;     &lt;int&gt;
+ 1 Aleena        1
+ 2 Besalisk      1
+ 3 Cerean        1
+ 4 Chagrian      1
+ 5 Clawdite      1
+ 6 Droid         6
+ 7 Dug           1
+ 8 Ewok          1
+ 9 Geonosian     1
+10 Gungan        3
+# i 28 more rows</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1"></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb94-2"><a href="#cb94-2"></a>  <span class="fu">distinct</span>(species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 38 x 1
+   species       
+   &lt;chr&gt;         
+ 1 Human         
+ 2 Droid         
+ 3 Wookiee       
+ 4 Rodian        
+ 5 Hutt          
+ 6 &lt;NA&gt;          
+ 7 Yoda's species
+ 8 Trandoshan    
+ 9 Mon Calamari  
+10 Ewok          
+# i 28 more rows</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="otros-verbos-del-dplyr-2" class="slide level2 medium">
+<h2>Otros verbos del dplyr</h2>
 <ul>
-<li>Por ejemplo: <code>starwars %&gt;% count(species)</code> o <code>starwars %&gt;% distinct(species)</code></li>
-<li>También se puede usar una combinación de <code>mutate</code>, <code>group_by</code> y <code>n()</code>, por ejemplo: <code>starwars %&gt;% group_by(species) %&gt;% mutate(num = n())</code>.</li>
+<li>También se puede usar una combinación de <code>mutate</code>, <code>group_by</code> y <code>n()</code></li>
 </ul>
-<div class="footer footer-default">
-
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1"></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb96-2"><a href="#cb96-2"></a>  <span class="fu">select</span>(name, species) <span class="sc">|&gt;</span></span>
+<span id="cb96-3"><a href="#cb96-3"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb96-4"><a href="#cb96-4"></a>  <span class="fu">mutate</span>(<span class="at">num =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb96-5"><a href="#cb96-5"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 x 3
+# Groups:   species [2]
+   name               species   num
+   &lt;chr&gt;              &lt;chr&gt;   &lt;int&gt;
+ 1 Luke Skywalker     Human      35
+ 2 C-3PO              Droid       6
+ 3 R2-D2              Droid       6
+ 4 Darth Vader        Human      35
+ 5 Leia Organa        Human      35
+ 6 Owen Lars          Human      35
+ 7 Beru Whitesun Lars Human      35
+ 8 R5-D4              Droid       6
+ 9 Biggs Darklighter  Human      35
+10 Obi-Wan Kenobi     Human      35</code></pre>
 </div>
 </div>
 </section></section>
+<section>
+<section id="dataframe" class="title-slide slide level1 center">
+<h1>Modificando un data frame</h1>
+
+</section>
+<section id="cómo-y-cuándo-modificar-un-data-frame" class="slide level2 medium">
+<h2>Cómo y cuándo modificar un data frame</h2>
+<p>Creemos un data frame para usar como ejemlo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb98-2"><a href="#cb98-2"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>))</span>
+<span id="cb98-3"><a href="#cb98-3"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 2
+      x y    
+  &lt;dbl&gt; &lt;chr&gt;
+1     1 a    
+2     2 a    
+3     3 b    
+4     4 c    
+5     5 c    </code></pre>
+</div>
+</div>
+</section>
+<section id="cómo-y-cuándo-modificar-un-data-frame-1" class="slide level2 medium">
+<h2>Cómo y cuándo modificar un data frame</h2>
+<div class="columns">
+<div class="column fragment" style="width:50%;">
+<blockquote>
+<p><strong>Haga algo y muéstrelo</strong></p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb100-2"><a href="#cb100-2"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> x <span class="sc">*</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 2
+      x y    
+  &lt;dbl&gt; &lt;chr&gt;
+1     2 a    
+2     4 a    
+3     6 b    
+4     8 c    
+5    10 c    </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 2
+      x y    
+  &lt;dbl&gt; &lt;chr&gt;
+1     1 a    
+2     2 a    
+3     3 b    
+4     4 c    
+5     5 c    </code></pre>
+</div>
+</div>
+</div><div class="column fragment" style="width:50%;">
+<blockquote>
+<p><strong>Haga algo y guarde el resultado</strong></p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb104-2"><a href="#cb104-2"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> x <span class="sc">*</span> <span class="dv">2</span>)</span>
+<span id="cb104-3"><a href="#cb104-3"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 2
+      x y    
+  &lt;dbl&gt; &lt;chr&gt;
+1     2 a    
+2     4 a    
+3     6 b    
+4     8 c    
+5    10 c    </code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="cómo-y-cuándo-modificar-un-data-frame-2" class="slide level2 medium">
+<h2>Cómo y cuándo modificar un data frame</h2>
+<div class="columns">
+<div class="column fragment" style="width:50%;">
+<blockquote>
+<p><strong>Haga algo, guarde el resultado, modifique el original</strong></p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb106" data-code-line-numbers="5-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb106-2"><a href="#cb106-2"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), </span>
+<span id="cb106-3"><a href="#cb106-3"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>)</span>
+<span id="cb106-4"><a href="#cb106-4"></a>)</span>
+<span id="cb106-5"><a href="#cb106-5"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb106-6"><a href="#cb106-6"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> x <span class="sc">*</span> <span class="dv">2</span>)</span>
+<span id="cb106-7"><a href="#cb106-7"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 2
+      x y    
+  &lt;dbl&gt; &lt;chr&gt;
+1     2 a    
+2     4 a    
+3     6 b    
+4     8 c    
+5    10 c    </code></pre>
+</div>
+</div>
+</div><div class="column fragment" style="width:50%;">
+<blockquote>
+<p><strong>Haga algo, guarde el resultado, <em>no</em> modifique el original</strong></p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb108" data-code-line-numbers="5-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb108-2"><a href="#cb108-2"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), </span>
+<span id="cb108-3"><a href="#cb108-3"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>)</span>
+<span id="cb108-4"><a href="#cb108-4"></a>)</span>
+<span id="cb108-5"><a href="#cb108-5"></a>df_new <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb108-6"><a href="#cb108-6"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> x <span class="sc">*</span> <span class="dv">2</span>)</span>
+<span id="cb108-7"><a href="#cb108-7"></a>df_new</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 2
+      x y    
+  &lt;dbl&gt; &lt;chr&gt;
+1     2 a    
+2     4 a    
+3     6 b    
+4     8 c    
+5    10 c    </code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="cómo-y-cuándo-modificar-un-data-frame-3" class="slide level2 medium">
+<h2>Cómo y cuándo modificar un data frame</h2>
+<div class="columns">
+<div class="column fragment" style="width:50%;">
+<blockquote>
+<p><strong>Haga algo, guarde el resultado, modifique el original <em>cuando no debería</em></strong></p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb110" data-code-line-numbers="5-8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb110-2"><a href="#cb110-2"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), </span>
+<span id="cb110-3"><a href="#cb110-3"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>)</span>
+<span id="cb110-4"><a href="#cb110-4"></a>)</span>
+<span id="cb110-5"><a href="#cb110-5"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb110-6"><a href="#cb110-6"></a>  <span class="fu">group_by</span>(y) <span class="sc">|&gt;</span></span>
+<span id="cb110-7"><a href="#cb110-7"></a>  <span class="fu">summarize</span>(<span class="at">mean_x =</span> <span class="fu">mean</span>(x))</span>
+<span id="cb110-8"><a href="#cb110-8"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 x 2
+  y     mean_x
+  &lt;chr&gt;  &lt;dbl&gt;
+1 a        1.5
+2 b        3  
+3 c        4.5</code></pre>
+</div>
+</div>
+</div><div class="column fragment" style="width:50%;">
+<blockquote>
+<p><strong>Haga algo, guarde el resultado, <em>no</em> modifique el original <em>cuando no debería</em></strong></p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112" data-code-line-numbers="5-8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb112-2"><a href="#cb112-2"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), </span>
+<span id="cb112-3"><a href="#cb112-3"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>)</span>
+<span id="cb112-4"><a href="#cb112-4"></a>)</span>
+<span id="cb112-5"><a href="#cb112-5"></a>df_summary <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb112-6"><a href="#cb112-6"></a>  <span class="fu">group_by</span>(y) <span class="sc">|&gt;</span></span>
+<span id="cb112-7"><a href="#cb112-7"></a>  <span class="fu">summarize</span>(<span class="at">mean_x =</span> <span class="fu">mean</span>(x))</span>
+<span id="cb112-8"><a href="#cb112-8"></a>df_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 x 2
+  y     mean_x
+  &lt;chr&gt;  &lt;dbl&gt;
+1 a        1.5
+2 b        3  
+3 c        4.5</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="cómo-y-cuándo-modificar-un-data-frame-4" class="slide level2 medium">
+<h2>Cómo y cuándo modificar un data frame</h2>
+<div class="columns">
+<div class="column fragment" style="width:50%;">
+<blockquote>
+<p><strong>Haga algo, guarde el resultado, modifique el</strong><br>
+<strong><em>data frame original</em></strong></p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb114" data-code-line-numbers="5-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb114-2"><a href="#cb114-2"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), </span>
+<span id="cb114-3"><a href="#cb114-3"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>)</span>
+<span id="cb114-4"><a href="#cb114-4"></a>)</span>
+<span id="cb114-5"><a href="#cb114-5"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb114-6"><a href="#cb114-6"></a>  <span class="fu">mutate</span>(<span class="at">z =</span> x <span class="sc">+</span> <span class="dv">2</span>)</span>
+<span id="cb114-7"><a href="#cb114-7"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 3
+      x y         z
+  &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
+1     1 a         3
+2     2 a         4
+3     3 b         5
+4     4 c         6
+5     5 c         7</code></pre>
+</div>
+</div>
+</div><div class="column fragment" style="width:50%;">
+<blockquote>
+<p><strong>Haga algo, guarde el resultado, modifique la</strong><br>
+<strong><em>columna original</em></strong></p>
+</blockquote>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb116" data-code-line-numbers="5-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb116-2"><a href="#cb116-2"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), </span>
+<span id="cb116-3"><a href="#cb116-3"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>)</span>
+<span id="cb116-4"><a href="#cb116-4"></a>)</span>
+<span id="cb116-5"><a href="#cb116-5"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span></span>
+<span id="cb116-6"><a href="#cb116-6"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> x <span class="sc">+</span> <span class="dv">2</span>)</span>
+<span id="cb116-7"><a href="#cb116-7"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 2
+      x y    
+  &lt;dbl&gt; &lt;chr&gt;
+1     3 a    
+2     4 a    
+3     5 b    
+4     6 c    
+5     7 c    </code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="footer footer-default">
+
+</div>
+</section></section>
+
     </div>
   </div>
 
