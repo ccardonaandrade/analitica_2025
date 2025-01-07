@@ -44,20 +44,21 @@ library(scales)
 
 ## Plan para hoy
 
-1. [tidy data](#tidy)
+1. [Fundamentos sobre los datos](#data)
 
+2. [El Histograma](#histograma)
 
-2. [ggplot](#ggplot)
-
-
-3. [dplyr](#dplyr)
-
+3. [Medidas de tendencia central](#central)
 
 4. [Diagrama de caja](#boxplot)
 
+5. [Medidas de dispersión](#dispersion)
+
+6. [Análisis bivariado](#bivariado)
 
 
-# Fundamentos sobre los datos
+
+# Fundamentos sobre los datos {#data}
 
 ## Tipos de variables
 
@@ -177,13 +178,13 @@ email50 |>
 
 - line_breaks $\rightarrow$ [numérica]{.marker-hl}
 
-- format $\rightarrow$ [categórica/nominal]{.marker-hl}
+- format $\rightarrow$ [categórica]{.marker-hl}
 
-- number $\rightarrow$ [categórica/ordinal]{.marker-hl}
+- number $\rightarrow$ [categórica]{.marker-hl}
 :::
 
 
-# Histogramas
+# El Histograma {#histograma}
 
 ## ¿Cómo hacer un histograma? {.medium}
 
@@ -203,7 +204,7 @@ Paso 2: Contar el número de observaciones en cada intervalo
 library(gapminder)
 gapminder |>
   mutate(lifeExp_cat = cut(lifeExp, breaks = seq(20, 90, 10))) |>
-  count(lifeExp_cat, name = "Count") |>
+  count(lifeExp_cat, name = "Frequency") |>
   separate(lifeExp_cat, into = c("lower", "upper"), sep = ",") |>
   mutate(
     lower = str_remove(lower, "\\("),
@@ -237,7 +238,7 @@ Paso 3: Dibujar el histograma
 #| fig-height: 5
 ggplot(gapminder, aes(x = lifeExp)) +
   geom_histogram(breaks = seq(20, 90, 10), fill="lightblue", color="darkblue") +
-  labs(x = "Life Expectancy (years)", y = "Count") +
+  labs(x = "Life Expectancy (years)", y = "Frequency") +
   scale_x_continuous(
     breaks = seq(20, 90, 10)
     ) + theme_minimal()
@@ -299,7 +300,7 @@ ggplot(gapminder) +
   geom_histogram(aes(x=lifeExp),
                  fill = "lightblue",
                  color = "darkblue")+
-  labs(y = "Count",
+  labs(y = "Frequency",
        x = "Life Expectancy (years)") +
   theme_minimal()
 ```
@@ -316,7 +317,7 @@ ggplot(gapminder) +
   geom_histogram(aes(x=lifeExp),
                  fill = "lightblue",
                  color = "darkblue")+
-  labs(y = "Count",
+  labs(y = "Frequency",
        x = "Life Expectancy (years)") +
   theme_minimal()
 ```
@@ -339,7 +340,7 @@ ggplot(gapminder) +
                  fill = "lightblue",
                  color = "darkblue",
                  bins = 10)+
-  labs(y = "Count",
+  labs(y = "Frequency",
        x = "Life Expectancy (years)") +
   theme_minimal()
 ```
@@ -357,7 +358,7 @@ ggplot(gapminder) +
                  fill = "lightblue",
                  color = "darkblue",
                  bins = 10)+
-  labs(y = "Count",
+  labs(y = "Frequency",
        x = "Life Expectancy (years)") +
   theme_minimal()
 ```
@@ -380,7 +381,7 @@ ggplot(gapminder) +
                  fill = "lightblue",
                  color = "darkblue",
                  bins = 20)+
-  labs(y = "Count",
+  labs(y = "Frequency",
        x = "Life Expectancy (years)") +
   theme_minimal()
 ```
@@ -398,7 +399,7 @@ ggplot(gapminder) +
                  fill = "lightblue",
                  color = "darkblue",
                  bins = 20)+
-  labs(y = "Count",
+  labs(y = "Frequency",
        x = "Life Expectancy (years)") +
   theme_minimal()
 ```
@@ -420,22 +421,22 @@ ggplot(gapminder) +
 
 ggplot(gapminder, aes(x = lifeExp)) +
   geom_histogram(bins=5, fill="lightblue", color="darkblue") +
-  labs(x = "Life Expectancy (years)", y = "Count") + 
+  labs(x = "Life Expectancy (years)", y = "Frequency") + 
   theme_minimal()
 
 ggplot(gapminder, aes(x = lifeExp)) +
   geom_histogram(bins=10, fill="lightblue", color="darkblue") +
-  labs(x = "Life Expectancy (years)", y = "Count") + 
+  labs(x = "Life Expectancy (years)", y = "Frequency") + 
   theme_minimal()
 
 ggplot(gapminder, aes(x = lifeExp)) +
   geom_histogram(bins=20, fill="lightblue", color="darkblue") +
-  labs(x = "Life Expectancy (years)", y = "Count") + 
+  labs(x = "Life Expectancy (years)", y = "Frequency") + 
   theme_minimal()
 
 ggplot(gapminder, aes(x = lifeExp)) +
   geom_histogram(bins=30, fill="lightblue", color="darkblue") +
-  labs(x = "Life Expectancy (years)", y = "Count") + 
+  labs(x = "Life Expectancy (years)", y = "Frequency") + 
   theme_minimal()
 ```
 
@@ -451,11 +452,110 @@ Es un proceso iterativo: prueba con diferentes números.
 
   - No tantos como para perder los detalles dentro de un barra.
   
-  - (No haya un número de barras “perfecto” y único).
+  - No hay un número de barras “perfecto” y único.
   
 . . .
 
-Regla general: **cuantas más observaciones haya, más barras se deben usar.**
+Regla general: [cuantas más observaciones haya, más barras se deben usar]{.hl .hl-dred}
+
+
+## El gráfico de densidad  {.medium}
+
+El gráfico de densidad es una versión suavizada del histograma. La forma, la escala y la dispersión de las observaciones son similares que en el histograma. 
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 100%
+ggplot(gapminder) +
+  geom_density(aes(x=lifeExp))
+```
+
+::::
+
+:::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 100%
+ggplot(gapminder) +
+  geom_histogram(aes(x=lifeExp))
+```
+::::
+
+:::::
+
+
+## La gráfica de densidad en R {.medium}
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "2|1,2"
+ggplot(gapminder) +
+  geom_density(aes(x=lifeExp))
+```
+
+::::
+
+:::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 100%
+ggplot(gapminder) +
+  geom_density(aes(x=lifeExp))
+```
+::::
+
+:::::
+
+
+## La gráfica de densidad en R {.medium}
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "2,3,4|5,6"
+ggplot(gapminder) +
+  geom_density(aes(x=lifeExp),
+                 fill = "lightblue",
+                 color = "darkblue")+
+  labs(y = "Density",
+       x = "Life Expectancy (years)") +
+  theme_minimal()
+```
+
+::::
+
+:::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 100%
+ggplot(gapminder) +
+  geom_density(aes(x=lifeExp),
+                 fill = "lightblue",
+                 color = "darkblue")+
+  labs(y = "Density",
+       x = "Life Expectancy (years)") +
+  theme_minimal()
+```
+::::
+
+:::::
 
 ## ¿Qué mirar en un histograma? {.medium}
 
@@ -499,6 +599,8 @@ Regla general: **cuantas más observaciones haya, más barras se deben usar.**
 
 ## Asimetría en los Histogramas {.medium}
 
+El [sesgo]{.marker-hl} mide qué tan asimétricos están distribuidos los datos
+
 ### distribución sesgada a la izquierda (-), simétrica y sesgada a la derecha (+)
 
 
@@ -536,7 +638,7 @@ p1+p2+p3
 
 ## Moda en los Histogramas {.medium}
 
-### Un ejemplo de distribución unimodal, bimodal y multimodal
+### Un ejemplo de distribución unimodal, bimodal y multimodal 
 
 ```{r}
 #| echo: false
@@ -568,7 +670,7 @@ p_uni + p_bi + p_multi
 ```
 
 
-## Ejemplo con la Expectativa de vida
+## Ejemplo con la Expectativa de vida {.medium}
 
 ```{r}
 #| echo: false
@@ -577,7 +679,7 @@ p_uni + p_bi + p_multi
 
 ggplot(gapminder, aes(x = lifeExp)) +
   geom_histogram(bins=20, fill="lightblue", color="darkblue") +
-  labs(x = "Life Expectancy (years)", y = "Count") + 
+  labs(x = "Life Expectancy (years)", y = "Frequency") + 
   theme_minimal()
 
 ```
@@ -595,7 +697,7 @@ Adicional al pico cerca a los 70 años, pareciera existir otro pico a los 40-45 
 #| fig-width: 7
 ggplot(gapminder) +
   geom_histogram(aes(x=lifeExp), bins = 20, fill="lightblue", color="darkblue") +
-  labs(y = "Count",
+  labs(y = "Frequency",
        x = "Life Expectancy (years)") +
   theme_minimal() +
   facet_wrap(~continent, ncol = 1)
@@ -610,7 +712,7 @@ Uniforme y alta en Europa y Oceanía
 :::
 
 
-# La media y la mediana
+# Medidas de tendencia central {#central}
 
 ## La media {.medium}
 Es la suma de todos los valores dividida entre el número de valores observados:
@@ -657,6 +759,26 @@ $$
 La mediana es $\frac{5 + 8}{2} = 6,5$.
 
 
+## Tendencia central y sesgo {.medium}
+
+La asimetría de una distribución está relacionada a la ubicación de las medidas de tendencia central dentro de la misma distribución.
+
+
+::: columns
+::: {.column width="33.3%"}
+![](img/bias1.png){.absolute width=30% height=40%}
+:::
+
+::: {.column width="33.3%"}
+![](img/bias2.png){.absolute width=30% height=40%}
+:::
+
+::: {.column width="33.3%"}
+![](img/bias3.png){.absolute width=30% height=40%}
+:::
+:::
+
+
 ## Media vs Mediana {.medium}
 
 
@@ -674,7 +796,7 @@ mean_median_values <- gapminder |>
 # Create the plot
 ggplot(gapminder) +
   geom_histogram(aes(x=lifeExp), bins = 20, fill="lightblue", color="darkblue") +
-  labs(y = "Count", x = "Life Expectancy (years)") +
+  labs(y = "Frequency", x = "Life Expectancy (years)") +
   theme_minimal() +
   facet_wrap(~continent, ncol = 1) +
   geom_vline(data = mean_median_values, aes(xintercept = mean_lifeExp, color = "Mean"),
@@ -728,37 +850,40 @@ gapminder |>
 ## Cuartiles y Resumen de Cinco Números {.medium}
 
 - Los cuartiles dividen los datos en 4 partes iguales.  
-    - **Primer cuartil ($Q_1$)** = percentil 25:  
+    - [Primer cuartil ($Q_1$)]{.hl .hl-blue} = percentil 25:  
        El 25% de los datos están por debajo y el 75% por encima.
        
-    - **Segundo cuartil ($Q_2$)** = mediana = percentil 50  
+    - [Segundo cuartil ($Q_2$)]{.hl .hl-blue} = mediana = percentil 50  
     
-    - **Tercer cuartil ($Q_3$)** = percentil 75:  
+    - [Tercer cuartil ($Q_3$)]{.hl .hl-blue} = percentil 75:  
        El 75% de los datos están por debajo y el 25% por encima. 
        
 . . .
        
-- **Rango intercuartílico** (IQR) = $Q_3 − Q_1$  
+- [Rango intercuartílico (RIC)]{.hl .hl-blue} = $Q_3 − Q_1$  
 
 . . .
   
-- **Resumen de cinco números**: 
+- [Resumen de cinco números]{.hl .hl-blue}: 
 
   $$ min \quad Q_1 \quad mediana \quad Q3 \quad max  $$
 
 ## Cuartiles {.medium}
-- Se calculan de acuerdo a la posición en los datos ordenados:
 
-$$Q_1 = \dfrac{n+1}{4}$$
-$$Q_2 = \dfrac{n+1}{2}$$
+Se calculan de acuerdo a la posición en los datos ordenados:
 
-$$Q_3 = \dfrac{3(n+1)}{4}$$
-- Donde $n$ es el número de valores.
+$$Q_1 : \dfrac{n+1}{4}$$
+$$Q_2 : \dfrac{n+1}{2}$$
+
+$$Q_3 : \dfrac{3(n+1)}{4}$$
+
+Donde $n$ es el número de valores.
 
 
 ## Cuartiles {.medium}
 
 $$X=11, 12, 13, 16, 16, 17, 18, 21, 22$$
+
 - $Q_1$ está en la posición $\dfrac{(9+1)}{4}=2.5$
 
 - Calculamos el promedio de los valores en la posición 2 y 3.
@@ -792,13 +917,13 @@ $$X=11, 12, 13, 16, 16, 17, 18, 21, 22$$
 
 . . .
 
-### IQR
+### RIC
 
 - $Q_3 − Q_1$: 19.5 - 12.5 = 7 
 
 ## Cálculo de los cuartiles {.medium}
 
-De hecho, los estadísticos no tienen un consenso sobre el cálculo de los cuartiles. Existen varias fórmulas para los cuartiles, que varían de un libro a otro y de un software a otro.
+De hecho, no existe un consenso sobre el cálculo de los cuartiles. Hay varias fórmulas para los cuartiles, que varían de un libro a otro y de un software a otro.
 
 . . .
 
@@ -815,7 +940,7 @@ fivenum(x)
 
 ## Cálculo de los cuartiles {.medium}
 
-Incluso diferentes comandos en R a veces reportan diferente cuartiles:
+Incluso diferentes comandos en <i class="fa-brands fa-r-project"></i> a veces reportan diferente cuartiles:
 
 
 ```{r}
@@ -837,30 +962,27 @@ No se preocupen por la fórmula. Simplemente tengan en cuenta que:
 
 # Diagrama de caja {#boxplot}
 
-## El diagrama de caja
+## El diagrama de caja {.medium}
+
+El diagrama de caja es la manera más común de visualizar los 5 estadísticos que explicamos anteriormente. Al mismo tiempo, un diagrama de caja identifica observaciones *inusuales*.
 
 <br>
 
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "60%"
-knitr::include_graphics("img/boxplot.png")
-```
+![](img/boxplot.png){fig-align="center" width=800 height=200}
 
 
-## El diagrama de caja - RIC
+
+## El diagrama de caja - RIC {.medium}
 
 <br>
 
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "40%"
-knitr::include_graphics("img/ric.png")
-```
+![](img/ric.png){fig-align="center" width=800 height=360}
+
+. . .
+
+
+El [RIC]{.hl .hl-blue} es una medida de la variabilidad de los datos. El RIC tiende a ser mayor si la variación de los datos también es mayor.
+
 
 ## Diagrama de caja - Outliers {.medium}
 
@@ -891,7 +1013,7 @@ p1 <- ggplot(gapminder) +
 p2 <- ggplot(gapminder) +
   geom_histogram(aes(x=lifeExp), bins = 10,
                  fill = "lightblue", color = "darkblue") + 
-  labs(y = "Frecuency",
+  labs(y = "Frequency",
        x = "Life Expectancy (years)") +
   theme_minimal()
 
@@ -964,7 +1086,43 @@ ggplot(gapminder) +
 
 :::::
 
-# Medidas de dispersión
+
+## El diagrama de caja en R {.medium}
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "2|1,2,3,4,5"
+ggplot(gapminder) +
+  geom_boxplot(aes(x=lifeExp , y=continent)) +
+  labs(x = "Life Expectancy (years)",
+       y = "Continent") +
+  theme_minimal()
+```
+
+::::
+
+:::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 100%
+ggplot(gapminder) +
+  geom_boxplot(aes(x=lifeExp, y=continent)) + 
+  labs(x = "Life Expectancy (years)",
+       y = "Continent") +
+  theme_minimal()
+```
+::::
+
+:::::
+
+
+# Medidas de dispersión {#disperson}
 
 ## La desviación estándar {.medium}
 
@@ -975,9 +1133,13 @@ $$s_x=\sqrt{\dfrac{\sum{(x-\bar{x})^2}}{n-1}} $$
 
 ## La desviación estándar {.medium}
 
+Tomemos el siguiente conjunto de datos como ejemplo:
+
 $$x = 1, 9 , 5, 8, 7$$
 
 La media es $\bar{x}=6$. 
+
+. . .
 
 La [desviación]{.marker-hl} es la distancia de un valor a la media. El siguiente paso es calcular la desviación de cada valor:
 
@@ -1083,7 +1245,7 @@ abline(v = 15.5, col = "purple", lty = 2, lwd = 2) # lty=2 for dashed line, lwd=
 
 - Aproximadamente el 68% de las observaciones estarán dentro de 1 desviación estándar de la media.
 
-- Aproximadamente el 95% estarán dentro de 2 desviaciones estándar de la media.
+- Aproximadamente el 95% de las observaciones estarán dentro de 2 desviaciones estándar de la media.
 
 - Ambas reglas funcionan **muy bien** para datos con forma de campana y **razonablemente bien** para datos unimodales y no muy sesgados, pero no para todos los datos.
 
@@ -1130,7 +1292,7 @@ ggplot(gapminder) +
   scale_fill_manual(values = c("Africa" = "red", "Americas" = "red", 
                                "Asia" = "red", "Europe" = "red", "Oceania" = "red")) +
   scale_color_manual(values = c("Mean" = "darkred")) +
-  labs(y = "Count", x = "Life Expectancy (years)") +
+  labs(y = "Frequency", x = "Life Expectancy (years)") +
   theme_minimal() +
   facet_wrap(~continent, ncol = 1) +
   guides(fill = "none", color = guide_legend(title = NULL)) +  # Remove legend title
@@ -1201,7 +1363,7 @@ ggplot(gapminder) +
   scale_fill_manual(values = c("Africa" = "red", "Americas" = "red", 
                                "Asia" = "red", "Europe" = "red", "Oceania" = "red")) +
   scale_color_manual(values = c("Mean" = "darkred")) +
-  labs(y = "Count", x = "Life Expectancy (years)") +
+  labs(y = "Frequency", x = "Life Expectancy (years)") +
   theme_minimal() +
   facet_wrap(~continent, ncol = 1) +
   guides(fill = "none", color = guide_legend(title = NULL)) +  # Remove legend title
@@ -1267,7 +1429,7 @@ ggplot(gapminder) +
     linetype = "dashed", size = 1
   ) +
   scale_color_manual(values = c("Mean" = "darkred")) +
-  labs(y = "Count", x = "Life Expectancy (years)") +
+  labs(y = "Frequency", x = "Life Expectancy (years)") +
   theme_minimal() +
   facet_wrap(~continent, ncol = 1) +
   theme(legend.position = "none")  # Removes all legends
@@ -1275,7 +1437,7 @@ ggplot(gapminder) +
 :::
 :::
 
-# Diagramas de dispersión
+# Análisis bivariado {#bivariado}
 
 ## Diagramas de dispersión {.medium}
 
@@ -1437,10 +1599,17 @@ $$r=\dfrac{cov(X,Y)}{S_xS_y}$$
 - $r$ no tiene unidad de medida
 - Más cerca a -1, más fuerte `la relación lineal negativa`.
 - Más cerca a 1, más fuerte `la relación lineal positiva`.
-- Más cerca a 0, más dÃ©bil `la relación lineal`.
+- Más cerca a 0, más débil `la relación lineal`.
 
 
-## El gráfico de dispersión en R {.medium}
+## Valores y gráficos de la correlación {.medium}
+
+![](img/correlacion.png){fig-align="center" width=80% height=80%}
+
+
+## La correlación en R {.medium}
+
+La correlación se calcula con la función `cor`:
 
 ::::: {.columns}
 
@@ -1460,7 +1629,44 @@ ggplot(gapminder)+
 :::: {.column  width="40%"}
 
 ```{r}
+#| echo: true
+gapminder |> 
+  group_by(continent) |>
+  summarise(
+    corr = cor(lifeExp, gdpPercap)
+    )
+```
+::::
+
+::::
+
+
+## La correlación en R {.medium}
+
+En ocasiones es mejor separar los gráficos para cada categoría:
+
+::::: {.columns}
+
+:::: {.column width="60%"}
+```{r}
 #| echo: false
+#| code-line-numbers: "7,8|1,2,3,4,5,6,7,8"
+ggplot(gapminder)+
+    geom_point(aes(x=log(gdpPercap), y=lifeExp, color = continent)) + 
+    labs(x = "log(GDP per cápita)",
+         y = "Life Expectancy") +
+    scale_color_brewer(name = "Continent", palette = "Dark2") +
+    theme_minimal() + 
+    facet_wrap(~continent, ncol = 3) + 
+    theme(legend.position = "none")
+```
+
+::::
+
+:::: {.column  width="40%"}
+
+```{r}
+#| echo: true
 gapminder |> 
   group_by(continent) |>
   summarise(
