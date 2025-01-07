@@ -21,10 +21,15 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
     - Lecturas: [R4DS 1-3](https://r4ds.hadley.nz/data-visualize)
 3. Explorando datos numéricos
     - Lecturas: [IME 5](https://openintro-ims.netlify.app/explore-numerical)
+    - [Ejercicios](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/estatdesc/ejercicios.pdf), [Respuestas](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/estatdesc/soluciones.pdf)
 4. Explorando datos categóricos
     - Lecturas: [IME 4 y 6](https://openintro-ims.netlify.app/explore-categorical)
 5. Distribución muestral e intervalos de confianza
+    - Lecturas: OIS 5.1 - 5.2
+    - [Ejercicios con respuestas](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/int_conf/ejercicios.pdf)
 6. Pruebas de hipótesis
+    - Lecturas: OIS 5.3
+    - [Ejercicios con respuestas](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/p_hipotesis/ejercicios.pdf)
 7. Intro al Modelo de Regresión Lineal
 8. Más sobre Regresión Lineal
 9. Muestre y encuestas
