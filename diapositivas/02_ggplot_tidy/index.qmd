@@ -469,8 +469,12 @@ Concentrémonos en la primera línea que contiene el llamado a la función `ggpl
 
 El mapeo estético acá es simple: sólo define un eje x (gdpPercap) y un eje y (lifeExp).
 
-- Sin embargo, para tener una idea del poder y la flexibilidad que conlleva este enfoque, consideremos lo que sucede si agregamos más estética a la línea de la función...
 
+## 1. Mapeo estético - Tipos {.medium}
+
+Sin embargo, para tener una idea del poder y la flexibilidad que conlleva este enfoque, consideremos lo que sucede si agregamos alguna de las siguientes estética a la línea de la función...
+
+![](img/aesthetics.png){fig-align="center" width=800 height=400}
 
 
 ## 1. Mapeo estético {.medium}
@@ -481,7 +485,7 @@ El mapeo estético acá es simple: sólo define un eje x (gdpPercap) y un eje y 
 #| fig-width: 8
 #| fig-height: 4
 #| dpi: 320
-ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, size = pop, col = continent)) + 
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, size = pop, color = continent)) + 
   geom_point(alpha = 0.3) ## "alpha" controls transparency. Takes a value between 0 and 1.
 ```
 
@@ -501,7 +505,7 @@ También podemos especificar el mapeo estético en la línea del objeto geométr
 #| fig-height: 5
 #| dpi: 320
 ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + ## Applicable to all geoms
-  geom_point(aes(size = pop, col = continent), alpha = 0.3) ## Applicable to this geom only
+  geom_point(aes(size = pop, color = continent), alpha = 0.3) ## Applicable to this geom only
 ```
 
 ## 1. Mapeo estético {.medium}
@@ -522,6 +526,40 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 
 <br/> **Respuesta: **Las características estéticas están asociadas a variables, no a descripciones!
 
+
+## 1. Mapeo estético {.medium}
+
+<br>
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| echo: true
+#| fig.align: 'center'
+#| fig-height: 5
+#| dpi: 320
+#| code-line-numbers: "2"
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(aes(col="blue"), alpha = 0.3)
+```
+
+::::
+
+
+:::: {.column width="50%"}
+```{r}
+#| echo: true
+#| fig.align: 'center'
+#| fig-height: 5
+#| dpi: 320
+#| code-line-numbers: "2"
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(color = "blue", alpha = 0.3)
+```
+::::
+::::
+
 ## 1. Mapeo estético {.medium}
 
 En este punto, en lugar de repetir la misma primera línea del código, es más conveniente definir un gráfico intermedio que podamos reutilizar.
@@ -532,6 +570,8 @@ En este punto, en lugar de repetir la misma primera línea del código, es más 
 p <- ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp))
 p
 ```
+
+
 
 ## 2. Objetos Geométricos {.medium}
 
@@ -564,20 +604,41 @@ p +
   geom_smooth(method = "loess")
 ```
 
+
 ## 2. Objetos Geométricos {.medium}
 
-El gráfico anterior proporciona una buena ilustración del poder (o efecto) que surge de asignar mapeos estéticos "globalmente" vs al interior de las capas geométricas individuales.
+### Global vs Local
 
-- Comparen: ¿Qué sucede si ejecutan la línea de código a continuación?
+Cualquier mapeo estético en `ggplot()` se mostrará en TODAS las capas
 
 ```{r}
-#| eval: false
+#| eval: true
 #| echo: true
 #| fig.align: 'center'
-ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, size = pop, col = continent)) +
+#| fig-width: 10
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) +
   geom_point(alpha = 0.3)  +
   geom_smooth(method = "loess")
 ```
+
+
+## 2. Objetos Geométricos {.medium}
+
+### Global vs Local
+
+Cualquier mapeo estético en los objetos geométricos `geom_layer` aplica SOLO en esas capas
+
+```{r}
+#| eval: true
+#| echo: true
+#| fig.align: 'center'
+#| fig-width: 10
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point(aes(color = continent), alpha = 0.3)  +
+  geom_smooth(method = "loess")
+```
+
 
 ## 2. Objetos Geométricos {.medium}
 
@@ -603,6 +664,18 @@ Podemos solucionar este error siendo más cuidadosos con cómo construimos la gr
 ggplot(data = gapminder) + ## i.e. No "global" aesthetic mappings"
   geom_density(aes(x = gdpPercap, fill = continent), alpha=0.3)
 ```
+
+## 2. Objetos Geométricos - Tipos {.medium}
+
+En la [documentación de ggplot](https://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms){target="_blank"} encuentran todos los posibles objetos geométricos.
+
+<center>
+
+```{=html}
+<iframe width=800 height=500 src="https://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms" title="ggplot geoms"></iframe>
+```
+
+<center>
 
 ## 3. Construir la gráfica por capas {.medium}
 

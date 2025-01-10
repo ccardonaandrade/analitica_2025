@@ -37,22 +37,25 @@ library(kableExtra)
 library(openintro)
 library(janitor)
 library(ggrepel)
-
+library(waffle)
+library(ggmosaic)
 ```
 
 
 ## Plan para hoy
 
-1. [tidy data](#tidy)
+1. [Datos categóricos](#intro)
+
+2. [Visualizandos una variable categórica](#1category)
+
+3. [Visualizandos dos variables categóricas](#2categories)
+
+4. [Comparando variables numéricas entre grupos](#acrossgroups)
 
 
-2. [ggplot](#ggplot)
 
 
-3. [dplyr](#dplyr)
-
-
-# Fundamentos sobre los datos
+# Datos categóricos {#intro}
 
 ## Tipos de variables
 
@@ -93,34 +96,45 @@ arrows(1.02, 0.38, 1.1, 0.22, length = 0.08)
 par(par_og) # restore original par
 ```
    
-   
-## Tipos de variables {.medium}
+
+## Variables Categóricas
 
 ```{r}
 #| echo: false
+#| fig-align: center
 
-email50 |> 
-  select(spam, num_char, line_breaks, format, number) |>
-  mutate(spam =ifelse(spam==1, "yes", "no" ),
-         format = ifelse(format==1, "html", "text")) |>
-  head(10)
+par_og <- par(no.readonly = TRUE) # save original par
+par(mar = rep(0, 4))
+plot(c(-0.15, 1.3), 0:1, type = "n", axes = FALSE)
+
+text(0.6, 0.9, "Variables")
+rect(0.4, 0.8, 0.8, 1)
+
+text(0.25, 0.5, "Numéricas", col = "gray50")
+rect(0.1, 0.4, 0.4, 0.6, border = "gray50")
+arrows(0.45, 0.78, 0.34, 0.62, length = 0.08, col = "gray50")
+
+text(0.9, 0.5, "Categóricas")
+rect(0.73, 0.4, 1.07, 0.6)
+arrows(0.76, 0.78, 0.85, 0.62, length = 0.08)
+
+text(0, 0.1, "Discretas", col = "gray50")
+rect(-0.17, 0, 0.17, 0.2, border = "gray50")
+arrows(0.13, 0.38, 0.05, 0.22, length = 0.08, col = "gray50")
+
+text(0.39, 0.1, "Continuas", col = "gray50")
+rect(0.25, 0, 0.53, 0.2, border = "gray50")
+arrows(0.35, 0.38, 0.4, 0.22, length = 0.08, col = "gray50")
+
+text(0.77, 0.105, "Ordinales")
+rect(0.64, 0, 0.9, 0.2)
+arrows(0.82, 0.38, 0.77, 0.22, length = 0.08)
+
+text(1.12, 0.1, "Nominales")
+rect(0.99, 0, 1.25, 0.2)
+arrows(1.02, 0.38, 1.1, 0.22, length = 0.08)
+par(par_og) # restore original par
 ```
-
-
-
-::: {.incremental}
-
-- spam $\rightarrow$ [categórica]{.marker-hl}
-
-- num_char $\rightarrow$ [numérica]{.marker-hl}
-
-- line_breaks $\rightarrow$ [numérica]{.marker-hl}
-
-- format $\rightarrow$ [categórica/nominal]{.marker-hl}
-
-- number $\rightarrow$ [categórica/ordinal]{.marker-hl}
-:::
-
 
 ```{r}
 #| echo: false
@@ -141,29 +155,86 @@ loans_individual_rent <- loans |>
   nrow()
 ```
 
-## Tablas de Contingencia
 
+# Visualizandos una variable categórica {#1category}
+
+
+
+## Tabla de Frecuencia {.medium}
+
+- Una variable categórica se resume mediante una tabla que muestra la [frecuencia]{.hl .hl-blue} o el [porcentaje]{.hl .hl-blue} de casos en cada categoría
+
+- Suele representarse mediante un gráfico de barras o un gráfico de torta
+
+<br>
+
+::: {.tbl-classic .tbl-larger}
 
 ```{r}
 #| echo: false
 #| fig-align: center
-
 loans |>
-  count(application_type, homeownership) |>
-  pivot_wider(names_from = homeownership, values_from = n) |>
-  select(application_type, rent, mortgage, own) |>
-  adorn_totals(where = c("row", "col")) |>
+  count(homeownership, name = "Frequency") |>
+  adorn_totals(where = "row") |>
   kbl(linesep = "", booktabs = TRUE) |>
   kable_styling(
     bootstrap_options = c("striped", "condensed"),
-    latex_options = c("striped")
+    latex_options = c("striped"), full_width = FALSE
   ) |>
-  add_header_above(c(" " = 1, "homeownership" = 3, " " = 1)) |>
-  column_spec(1, width = "8em") |>
-  column_spec(2:5, width = "5em")
+  column_spec(1:2, width = "10em")
 ```
 
-## Gráfico de barras
+:::
+
+## Gráfico de barras {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+Un gráfico de barras es la forma más común de representar una única variable categórica. 
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-width: 5
+
+ggplot(loans, aes(x = homeownership)) +
+  geom_bar(fill = "gold") +
+  labs(x = "Homeownership", y = "Count") +
+  theme_minimal()
+```
+:::
+:::
+
+## Gráfico de barras {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+Un gráfico de barras en el que se muestran proporciones en lugar de frecuencias se llama gráfico de barras de frecuencia relativa.
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-width: 5
+loans |>
+  count(homeownership) |>
+  mutate(proportion = n / sum(n)) |>
+  ggplot(aes(x = homeownership, y = proportion)) +
+  geom_col(fill = "gold") +
+  labs(x = "Homeownership", y = "Proportion") +
+  theme_minimal()
+```
+:::
+:::
+
+
+## Gráfico de barras en R
 
 ::: columns
 ::: {.column width="50%"}
@@ -175,7 +246,7 @@ loans |>
 #| code-line-numbers: "1|2|3,4|5"
 
 ggplot(loans, aes(x = homeownership)) +
-  geom_bar(fill = "darkblue") +
+  geom_bar(fill = "gold") +
   labs(x = "Homeownership",
        y = "Count") +
   theme_minimal()
@@ -190,7 +261,7 @@ ggplot(loans, aes(x = homeownership)) +
 #| fig-width: 5
 
 ggplot(loans, aes(x = homeownership)) +
-  geom_bar(fill = "darkblue") +
+  geom_bar(fill = "gold") +
   labs(x = "Homeownership", y = "Count") +
   theme_minimal()
 ```
@@ -198,7 +269,8 @@ ggplot(loans, aes(x = homeownership)) +
 :::
 
 
-## Gráfico de barras
+## Gráfico de barras en R {.medium}
+
 
 ::: columns
 ::: {.column width="50%"}
@@ -214,7 +286,7 @@ loans |>
   mutate(proportion = n / sum(n)) |>
   ggplot(aes(x = homeownership,
              y = proportion)) +
-  geom_col(fill = "darkblue") +
+  geom_col(fill = "gold") +
   labs(x = "Homeownership",
        y = "Proportion") +
   theme_minimal()
@@ -232,7 +304,7 @@ loans |>
   count(homeownership) |>
   mutate(proportion = n / sum(n)) |>
   ggplot(aes(x = homeownership, y = proportion)) +
-  geom_col(fill = "darkblue") +
+  geom_col(fill = "gold") +
   labs(x = "Homeownership", y = "Proportion") +
   theme_minimal()
 ```
@@ -249,7 +321,7 @@ loans |>
 #| fig-width: 5
 #| layout-ncol: 2
 ggplot(loans, aes(x = homeownership)) +
-  geom_bar(fill = "darkblue") +
+  geom_bar(fill = "gold") +
   labs(x = "Homeownership", y = "Count") +
   theme_minimal()
 
@@ -257,13 +329,44 @@ loans |>
   count(homeownership) |>
   mutate(proportion = n / sum(n)) |>
   ggplot(aes(x = homeownership, y = proportion)) +
-  geom_col(fill = "darkblue") +
+  geom_col(fill = "gold") +
   labs(x = "Homeownership", y = "Proportion") +
   theme_minimal()
 ```
 
 
-## Gráficos de torta
+## Gráficos de torta {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+- Las áreas de las porciones representan los porcentajes de las categorías
+
+- Generalmente es más difícil comparar los tamaños de los grupos en un gráfico de pastel que en un gráfico de barras
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-width: 5
+loans |>
+  mutate(homeownership = fct_infreq(homeownership)) |>
+  count(homeownership) |>
+  mutate(text_y = cumsum(n) - n / 2) |>
+  ggplot(aes(x = "", fill = homeownership, y = n)) +
+  geom_col(position = position_stack(reverse = TRUE), show.legend = FALSE) +
+  geom_text_repel(aes(x = 1, label = homeownership, y = text_y)) +
+  coord_polar("y", start = 0) +
+  scale_fill_openintro("hot") +
+  theme_void() +
+  labs(title = "Homeownership")
+```
+:::
+:::
+
+## Gráficos de torta {.medium}
+
 
 
 ```{r}
@@ -296,7 +399,43 @@ loans |>
 ```
 
 
-## Gráficos de torta
+## Gráficos de torta {.medium}
+
+
+::: columns
+::: {.column width="50%"}
+
+- Es mucho más fácil hacer un gráfico de pastel incorrecto que un gráfico de barras incorrecto.
+
+- En un gráfico de pastel, las categorías deben representar un todo. No existe esta restricción para un gráfico de barras.
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-width: 5
+loans |>
+  count(grade) |>
+  mutate(text_y = cumsum(n) - n / 2) |>
+  ggplot(aes(x = "", fill = grade, y = n)) +
+  geom_col(position = position_stack(reverse = TRUE), show.legend = FALSE) +
+  geom_text_repel(
+    aes(x = 1.4, label = grade, y = text_y), nudge_x = 0.3, segment.size = 0.5
+  ) +
+  coord_polar(theta = "y") +
+  scale_fill_openintro("cool") +
+  theme_void() +
+  labs(title = "Loan grade")
+```
+:::
+:::
+
+
+## Gráficos de torta {.medium}
+
+
 
 ```{r}
 #| echo: false
@@ -328,7 +467,235 @@ loans |>
 ```
 
 
-## Gráfico de barras conjunto
+## Gráfico de torta en R{.medium}
+
+::: columns
+::: {.column width="50%"}
+
+- Existen diferentes maneras de hacer un gráfico de torta, más allá de `ggplot`
+
+- En [Pie Charts](https://r-graph-gallery.com/pie-plot.html){target="_blank"} encuentran una guía explicando diferentes maneras de hacerlo en <i class="fa-brands fa-r-project"></i>
+
+:::
+
+::: {.column width="50%"}
+```{=html}
+<iframe width=600 height=375 src="https://r-graph-gallery.com/pie-plot.html"></iframe>
+```
+:::
+:::
+
+
+
+## Gráfico de Waffle {.medium}
+
+```{r}
+#| echo: false
+#| fig-subcap:
+#|   - "Homeownership: rent, mortgage, and own"
+#|   - "Loan status: fully paid, in grace period, and late"
+#| layout: [[46, -6, 46]]
+#| fig-width: 5
+#| out-width: 100%
+
+loans |>
+  count(homeownership) |>
+  ggplot(aes(fill = homeownership, values = n)) +
+  geom_waffle(
+    color = "white", flip = TRUE, make_proportional = TRUE, na.rm = TRUE
+  ) +
+  labs(fill = NULL, title = "Homeownership") +
+  scale_fill_openintro("hot") +
+  coord_equal() +
+  theme_enhance_waffle() +
+  theme_void() +  # Removes background, grid lines, and axis text
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = 13)
+  )
+
+loans |>
+  count(loan_status) |>
+  ggplot(aes(fill = loan_status, values = n)) +
+  geom_waffle(
+    color = "white", flip = TRUE, make_proportional = TRUE, na.rm = TRUE
+  ) +
+  labs(fill = NULL, title = "Loan status") +
+  scale_fill_openintro("four") +
+  coord_equal() +
+  theme_enhance_waffle() +
+  theme_void() +  # Removes background, grid lines, and axis text
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = 13)
+  ) +
+  guides(fill = guide_legend(nrow = 2))
+```
+
+
+## Gráfico de Waffle {.medium}
+
+- Los gráficos de waffle son otra técnica útil para visualizar datos categóricos, mostrando la proporción de cada categoría
+
+- Al igual que los gráficos de pastel, funcionan mejor cuando el número de categorías es bajo
+
+- A diferencia de los gráficos de pastel, facilitan la comparación de proporciones que no representan fracciones simples
+
+
+
+## Gráfico de Waffle en R {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+- Este tipo de gráfico va más allá de la funcionalidad de `ggplot`
+
+- Por lo tanto no lo explicaré en clase, pero acá les dejo recursos para que aprendan por su cuenta: 
+
+  1. La página del paquete [waffle](https://github.com/hrbrmstr/waffle){target="_blank"}
+
+  2. [Waffle Charts](https://r-graph-gallery.com/waffle.html){target="_blank"} provee una guía de cómo crear este tipo de gráfico
+
+:::
+
+::: {.column width="50%"}
+```{=html}
+<iframe width=600 height=375 src="https://r-graph-gallery.com/waffle.html" title="waffle plots"></iframe>
+```
+:::
+:::
+
+
+# Visualizandos dos variables categóricas {#2categories}
+
+
+## Tablas de Contingencia {.medium}
+
+- Una tabla que resume datos para dos variables categóricas de esta manera se llama [tabla de contingencia]{.hl .hl-blue}
+
+- Cada valor en la tabla representa la cantidad de veces que ocurrió una combinación particular de resultados de las variables
+
+<br>
+
+::: {.tbl-classic .tbl-larger}
+
+```{r}
+#| echo: false
+#| fig-align: center
+
+loans |>
+  count(application_type, homeownership) |>
+  pivot_wider(names_from = homeownership, values_from = n) |>
+  select(application_type, rent, mortgage, own) |>
+  adorn_totals(where = c("row", "col")) |>
+  kbl(linesep = "", booktabs = TRUE) |>
+  kable_styling(
+    bootstrap_options = c("striped", "condensed"),
+    latex_options = c("striped")
+  ) |>
+  add_header_above(c(" " = 1, "homeownership" = 3, " " = 1)) |>
+  column_spec(1, width = "8em") |>
+  column_spec(2:5, width = "5em")
+```
+
+:::
+
+## Gráfico de barras apiladas {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+- Los solicitantes de préstamos viven más comúnmente en viviendas con hipoteca
+
+- Sin embargo, basándose solo en este gráfico, es difícil determinar cómo varían los tipos de solicitud entre los niveles de tenencia de vivienda
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-width: 5
+
+ggplot(loans, aes(x = homeownership,
+                  fill = application_type)) +
+  geom_bar() +
+  scale_fill_manual(values = c("darkred",
+                               "gold")) +
+  labs(x = "Homeownership",
+       y = "Count",
+       fill = "Application type") +
+  theme_minimal()
+```
+:::
+:::
+
+
+## Gráfico de barras estandarizado {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+- Este tipo de visualización es útil para comprender la proporción del tipo de solicitudes en cada nivel de tenencia de vivienda
+
+- Además, dado que las proporciones del tipo de préstamos varían entre los grupos, podemos concluir que estas dos variables están asociadas en esta muestra
+
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-width: 5
+
+ggplot(loans, aes(x = homeownership,
+                  fill = application_type)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values = c("darkred",
+                               "gold")) +
+  labs(x = "Homeownership",
+       y = "Count",
+       fill = "Application type") +
+  theme_minimal()
+```
+:::
+:::
+
+
+## Gráfico de barras dobles {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+- Dentro de cada nivel de tenencia de vivienda, las solicitudes individuales son más comunes que las solicitudes conjuntas
+
+- Las solicitudes conjuntas son más comunes entre los solicitantes con hipoteca, en comparación con los inquilinos y los propietarios.
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-width: 5
+
+ggplot(loans, aes(x = homeownership,
+                  fill = application_type)) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = c("darkred",
+                               "gold")) +
+  labs(x = "Homeownership",
+       y = "Count",
+       fill = "Application type") +
+  theme_minimal()
+```
+:::
+:::
+
+
+
+## Gráfico de barras apiladas en R
 
 ::: columns
 ::: {.column width="50%"}
@@ -372,7 +739,7 @@ ggplot(loans, aes(x = homeownership,
 :::
 
 
-## Gráfico de barras conjunto
+## Gráfico de barras estandarizado en R {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -416,7 +783,7 @@ ggplot(loans, aes(x = homeownership,
 :::
 
 
-## Gráfico de barras conjunto
+## Gráfico de barras dobles en R {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -501,3 +868,215 @@ ggplot(loans, aes(x = homeownership,
 ```
 
 
+
+## Gráfico de mosaico
+
+```{r}
+#| echo: false
+#| fig-subcap: 
+#|   - Homeownership.
+#|   - Homeownership vs. application type.
+#| layout: [[46, -6, 46]]
+#| fig-width: 5
+#| out-width: 100%
+ggplot(loans) +
+  geom_mosaic(aes(x = product(homeownership)), fill = IMSCOL["green", "full"]) +
+  labs(x = "Homeownership", y = "") +
+  theme(
+    axis.title.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  ) + 
+  theme(
+    panel.background = element_rect(fill = "white", color = NA),  # Remove grey background
+    plot.background = element_rect(fill = "white", color = NA),   # Remove grey plot background
+    panel.grid = element_blank(),  # Remove grid lines
+    axis.title = element_text(size = 12),  # Keep axis labels
+    axis.text = element_text(size = 10)    # Keep axis text
+  )
+
+ggplot(loans) +
+  geom_mosaic(aes(x = product(homeownership), fill = application_type)) +
+  scale_fill_manual(values = c(IMSCOL["blue", "full"], IMSCOL["yellow", "full"])) +
+  labs(x = "Homeownership", y = "Application type") +
+  guides(fill = FALSE) + 
+  theme_mosaic()   # Removes background, grid lines, and axis text
+
+```
+
+## Gráfico de mosaico {.medium}
+
+- Un gráfico mosaico es otra manera de visualizar tablas de contingencia que se asemeja a un gráfico de barras apiladas estandarizado
+
+- La ventaja consiste en aún poder ver el tamaño relativo de los grupos de la variable principal
+
+. . . 
+
+$$
+\small
+\begin{array}{rcl}
+\text{Area del segmento} &=& (\text{ancho de la barra}) \times (\text{longitud del segmento}) \\  
+&=& \text{frecuencia de la fila} \times (\text{proporcion de la fila}) \\  
+&=& \text{frecuencia de la fila} \times \dfrac{\text{frecuencia de la celda}}{\text{frecuencia de la fila}} \\  
+&=& \text{frecuencia de la celda}  
+\end{array}
+$$
+
+## Gráfico de mosaico {.medium}
+
+Es importante pensar cuál variable va en el eje horizontal y cuál en el vertical. En ocasiones, una es más *explicativa* que la otra.
+
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-align: center
+#| out-width: 100%
+ggplot(loans) +
+  geom_mosaic(aes(x = product(application_type), fill = homeownership)) +
+  scale_fill_openintro("hot") +
+  labs(x = "Application type", y = "Homeownership") +
+  guides(fill = FALSE) + 
+  theme_mosaic()
+```
+
+
+## Gráfico de Mosaico en R {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+- Este tipo de gráfico también va más allá de la funcionalidad de `ggplot`
+
+- La página del paquete [ggmosaic](https://haleyjeppson.github.io/ggmosaic/articles/ggmosaic.html){target="_blank"} es un buen sitio para empezar a practicar por su cuenta
+
+
+:::
+
+::: {.column width="50%"}
+```{=html}
+<iframe width=600 height=375 src="https://haleyjeppson.github.io/ggmosaic/articles/ggmosaic.html" title="waffle plots"></iframe>
+```
+:::
+:::
+
+# Comparando variables numéricas entre grupos {#acrossgroups}
+
+## Histograma y Diagrama de Caja entre grupos {.medium}
+
+
+```{r}
+#| echo: false
+#| out-width: 100%
+#| fig-asp: 0.23
+#| fig-align: center
+library(gapminder)
+gapminder |> 
+  filter(continent %in% c("Africa", "Americas")) |>
+ggplot() +
+  geom_histogram(aes(x=lifeExp, fill=continent), alpha = 0.5, bins=10) +
+   labs(y = NULL,
+       x = "Life Expectancy (years)",
+       fill = "Continent") +
+  theme_minimal()
+
+gapminder |> 
+  filter(continent %in% c("Africa", "Americas")) |>
+ggplot() +
+  geom_boxplot(aes(x=lifeExp, y=continent, color=continent)) +
+   labs(y = NULL,
+       x = "Life Expectancy (years)",
+       color = "Continent") +
+  theme_minimal()
+```
+
+
+## Ridge plot {.medium}
+
+Otro tipo de visualización útil para comparar datos numéricos entre grupos es el gráfico de crestas (ridge plot), que combina gráficos de densidad de varios grupos en la misma escala dentro de una única ventana de visualización
+
+
+```{r}
+#| echo: false
+#| out-width: 100%
+#| fig-asp: 0.23
+#| fig-align: center
+library(ggridges)
+gapminder |> 
+  filter(continent %in% c("Africa", "Americas")) |>
+ggplot(aes(x=lifeExp, y=continent, color=continent, fill=continent)) +
+  geom_density_ridges(alpha = 0.5) +
+   labs(y = NULL,
+       x = "Life Expectancy (years)",
+       color = "Continent",
+       fill = "Continent") +
+  theme_minimal()
+```
+
+
+## Ridge plot {.medium}
+
+Establecer el color según la variable numérica en lugar de la categórica puede ser bastante útil para contar la historia de los datos.
+
+
+```{r}
+#| echo: false
+#| out-width: 100%
+#| fig-align: center
+library(viridis)
+library(hrbrthemes)
+
+gapminder |>
+  filter(year %in% c(1952, 1962, 1972, 1982, 1992, 2002)) |>
+ggplot(aes(x = lifeExp, y = factor(year), fill = stat(x))) +
+  geom_density_ridges_gradient() +
+  scale_fill_viridis_c(name = "Life Expectancy (years)", option = "C")+
+  labs(y = "Year",
+       x = "Life Expectancy (years)") + 
+  theme_ipsum() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8)
+    )
+
+```
+
+
+## Ridge plot en R {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+- Quiero destacar la flexibilidad de <i class="fa-brands fa-r-project"></i> para mejorar con la incorporación de paquetes
+
+- La página del paquete [ggridges](https://haleyjeppson.github.io/ggmosaic/articles/ggmosaic.html){target="_blank"} es un buen sitio para profundizar en este tipo de gráfico
+
+- [Basic ridgeline plot](https://r-graph-gallery.com/294-basic-ridgeline-plot.html){target="_blank"} también explica este gráfico y tiene buenos ejemplos
+
+:::
+
+::: {.column width="50%"}
+```{=html}
+<iframe width=600 height=375 src="https://r-graph-gallery.com/294-basic-ridgeline-plot.html" title="ridge plots"></iframe>
+```
+:::
+:::
+
+
+## Maneras de visualizar relaciones entre variables {.medium}
+
+- numérica v.s. numérica
+  
+    - Diagramas de dispersión
+    
+    
+- categórica v.s. categórica
+
+    - Tablas de contigencia
+    - Gráficos de barra (apilados, dobles, estandarizados)
+    - Gráfico de mosaico
+    
+- categórica v.s. numérica
+ 
+    - Diagramas de caja entre grupos
+    - Ridge plots
