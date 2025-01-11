@@ -58,9 +58,7 @@ library(knitr)
 
 <i class="fa-solid fa-globe icon"></i> [https://github.com/ccardonaandrade/analitica\_2025](https://github.com/ccardonaandrade/analitica\_2025){target="_blank"}
 
-<i class="fa-solid fa-calendar icon"></i> Lunes
-
-<i class="fa-solid fa-clock icon"></i> 4:10pm - 6:40pm
+<i class="fa-solid fa-clock icon"></i> Lunes 4:10pm - 6:40pm
 
 . . .
 
@@ -78,7 +76,7 @@ library(knitr)
 ## Evaluación {.medium}
 
 <br>
-<i class="fa-solid fa-home icon"></i> Quices y Talleres: 30\% 
+<i class="fa-solid fa-home icon"></i> Quices y Talleres: 30\% [(La idea es que haya uno cada dos semanas)]{.grey600 style="font-size:1.5rem;"} 
 <br>
 <br>
 
@@ -604,6 +602,114 @@ countries <- c("Brasil", "India", "Colombia")
 
 . . .
 
+- `typeof()` para conocer el tipo de un vector
+
+- `length()` para conocer la longitud de un vector
+
+```{r}
+#| eval: true
+#| echo: true
+length(my_numbers)
+length(countries)
+typeof(my_numbers)
+typeof(countries)
+```
+
+## Tipos de Variables en R {.medium}
+
+
+<br>
+
+::: {.tbl-classic .tbl-larger}
+
+
+| **Tipo**       | **Descripción**       | **Ejemplo**                                         |
+|----------------|-----------------------|-----------------------------------------------------|
+| **Integer**    | Números enteros       | `c(1, 2, 3, 4)`                                    |
+| **Double**     | Números decimales     | `c(1, 2.4, 3.14, 4)`                               |
+| **Character**  | Texto                 | `c("1", "blue", "fun", "monster")`                  |
+| **Logical**    | Verdadero o falso     | `c(TRUE, FALSE, TRUE, FALSE)`                       |
+| **Factor**     | Categoría             | `c("Strongly disagree", "Agree", "Neutral")`        |
+: {tbl-colwidths="[15,25,60]"}
+:::
+
+
+## Subconjunto de Vectores {.medium}
+
+- Se usan corchetes `[]` para acceder a elementos de un vector
+
+- Diferentes formas de hacer un subconjunto:
+
+  - Con un índice `x[2]` o un vector de índices `x[c(2, 5, 7)]`
+  - Con un *vector lógico* de la misma longitud que `x`
+
+- Los índices negativos eliminan elementos `x[-1]`
+
+- Se permiten índices repetidos `x[c(2, 2)]`
+
+
+## Subconjunto de Vectores: Ejemplo {.medium}
+
+```{r}
+#| echo: true
+countries
+countries[1]
+countries[c(1, 3)]
+countries[c(FALSE, TRUE, TRUE)]
+countries[-c(1, 3)]
+countries[-2]
+countries[c(-1, -2)]
+countries[c(1, 2, 1, 2)]
+```
+
+## R no tiene escalares {.medium}
+
+¿Notaron el `[1]` que sigue apareciendo en todas partes?
+
+```{r}
+#| echo: true
+2^8
+```
+
+. . .
+
+`a` es un **vector**; `[1]` indica su primer (y único) elemento.
+
+```{r}
+#| echo: true
+a <- 5+5
+length(a)
+```
+
+. . .
+
+Aquí, el primer elemento `[1]` es 30 y el vigesimosexto `[26]` es 55:
+
+
+```{r}
+#| echo: true
+r <- 30:70 # shorthand for the vector c(30, 31, ..., 69, 70)
+r
+```
+
+
+## 💪 Ejercicio 1 - (5 minutos) {.medium}
+
+```{r}
+#| eval: false
+#| echo: true
+countries <- c("Brasil", "India", "Colombia")
+```
+
+1. Usen el comando `countries[4]`. Qué obtienen? Por qué?
+
+2. Quiero extraer el segundo y tercer elemento de `countries`, entonces use `countries[2,3]`. ¿Qué pasa? ¿Lo pueden arreglar?`
+
+3. Seleccionen Brasil e India de dos maneras diferentes.
+
+
+## Tipos de Objetos en R {.medium}
+
 - [Matrices]{.marker-hl}:
 Consiste en filas y columnas de números
 
@@ -611,8 +717,37 @@ Consiste en filas y columnas de números
 #| eval: true
 #| echo: true
 matrix <- matrix(1:9, nrow = 3, ncol = 3)
-print(matrix)
+matrix
 ```
+
+. . .
+
+### Accediendo a elementos de una matriz
+
+Misma idea que para los vectores pero en dos dimensiones: `[fila, columna]`
+
+
+```{r}
+#| eval: true
+#| echo: true
+matrix[3, 3]
+
+matrix[1:2, 2:3]
+```
+
+## Accediendo a elementos de una matriz {.medium}
+ 
+Espacio significa *todo* de esa dimensión 
+
+```{r}
+#| eval: true
+#| echo: true
+matrix
+matrix[1,]
+matrix[,3]
+matrix[,c(FALSE, TRUE, FALSE)]
+```
+
 
 
 ## Tipos de Objetos en R {.medium}
@@ -624,15 +759,16 @@ Las columnas pueden tener diferentes clases (caracteres, números, etc.)
 ```{r}
 #| eval: true
 #| echo: true
-d <- data.frame(x = 1:2, y = 3:4) 
+d <- data.frame(x = 1:2, y = c("a", "b")) 
 d
 ```
 
 . . .
 
+
 - Otro tipo de objeto que es importante es el [tibble](https://tibble.tidyverse.org/), el cual se asimila a un data frame pero con unas propiedades especiales
 
-- Aprenderán la diferencia a medida que avance el curso
+- Aprenderán la diferencia en la próxima clase
 
 
 
@@ -686,7 +822,7 @@ Algunas palabras están reservadas y no pueden usarse como nombres de objetos. A
 ## Buenas prácticas para nombrar objetos {.medium}
 
 - Sean concisos, consistentes e informativos  
-- Usen minúsculas y separen palabras con guión bajo, como en el estilo [tidyverse](https://style.tidyverse.org/syntax.html){target="_blank"} 
+- Usen minúsculas y separen palabras con guión bajo, como en el [ estilo tidyverse](https://style.tidyverse.org/syntax.html){target="_blank"} 
 - Eviten espacios en los nombres de variables
 
 ```r
@@ -747,7 +883,7 @@ knitr::include_graphics("img/packages-packages.png")
 ```
 
 
-## Usando paquetes {.medium}
+## Los paquetes en R {.medium}
 
 
 ::: columns
@@ -780,7 +916,7 @@ library(name)
 Uno de los errores más comunes del curso pasado fue instalar el mismo paquete varias veces. ¡Solo se necesita una vez!
 :::
 
-## Usando paquetes {.medium}
+## Los paquetes en R: Un ejemplo {.medium}
 
 ```{r}
 #| echo: false
@@ -818,8 +954,9 @@ ggplot(df, aes(x = value)) +
 
 
 
-## Usando paquetes {.medium}
+## Los paquetes en R: Un ejemplo {.medium}
 
+**Siempre** debo cargar los paquetes que voy a usar al inicio de la sesión.
 
 ::: columns
 ::: {.column width="50%"}
@@ -844,7 +981,7 @@ ggplot(df, aes(x = value)) +
 ```
 :::
 
-::: {.column width="50%"}
+::: {.column .fragment width="50%"}
 ```{r}
 #| eval: true
 #| echo: false
@@ -945,41 +1082,27 @@ library(lubridate)
 ## Acceder a Datos en R {.medium}
 
 1. La primera manera es utilizando conjuntos de datos disponibles en paquetes:
-  - Por ejemplo, los datos `titanic` del paquete `socviz`
   - El conjunto de datos `gapminder` del paquete con el mismo nombre
-  
+  - Los datos `titanic` del paquete `socviz`
+
+
 ```{r}
-#| eval: true
 #| echo: true
+#| eval: false
+install.packages("socviz")
+library(socviz)
+titanic
+```
+```{r}
+#| echo: false
+#| eval: true
 library(socviz)
 titanic
 ```
 
-. . . 
-
-- En este conjunto de datos `titanic`, dos de las columnas son numéricas y dos no lo son
 
 
-## Tipos de Variables en R {.medium}
-
-
-<br>
-
-::: {.tbl-classic .tbl-larger}
-
-
-| **Tipo**       | **Descripción**       | **Ejemplo**                                         |
-|----------------|-----------------------|-----------------------------------------------------|
-| **Integer**    | Números enteros       | `c(1, 2, 3, 4)`                                    |
-| **Double**     | Números decimales     | `c(1, 2.4, 3.14, 4)`                               |
-| **Character**  | Texto                 | `c("1", "blue", "fun", "monster")`                  |
-| **Logical**    | Verdadero o falso     | `c(TRUE, FALSE, TRUE, FALSE)`                       |
-| **Factor**     | Categoría             | `c("Strongly disagree", "Agree", "Neutral")`        |
-: {tbl-colwidths="[15,25,60]"}
-:::
-
-
-## Indexación {.medium}
+## Accediendo a los elementos de los datos {.medium}
 
 
 Pueden acceder a las filas y columnas de varias maneras. Una es usar la notación de matrices para llamar una variable, recordando que `data.frame[fila,columna]`: 
@@ -1013,7 +1136,7 @@ titanic[1:3,2]
 ```
 
 
-## Indexación {.medium}
+## Accediendo a los elementos de los datos {.medium}
 
 Otra manera es usando el operador `$` que permite seleccionar una columna específica de un data frame por su nombre:
 
@@ -1040,6 +1163,29 @@ titanic$sex[2]
 <center>
 [Les recomiendo usar esta. Es mucho más inuitiva]{.hl .hl-dred}
 <center>
+
+
+## 💪 Ejercicio 2 - (10 minutos) {.medium}
+
+Supongamos que el data frame `sales` tiene la siguiente estructura:
+
+```{r}
+#| eval: true
+#| echo: true
+sales <- data.frame(product = c("A", "B", "C", "D", "E"),
+                    price = c(10, 15, 8, 12, 20),
+                    quantity = c(100, 150, 80, 120, 90))
+sales
+```
+
+1. Obtengan la columna *precio* usando notación de matrices
+
+2. Obtengan la cantidad de los producto B y C usando el operador `$`
+
+3. Obtengan de dos maneras diferentes los nombres de los primeros 3 productos
+
+4. ¿Cómo obtener el nombre y el precio de los 3 últimos productos?
+
 
 ## Viewer {.medium}
 
@@ -1110,5 +1256,14 @@ También habrán notado que R Studio tiene botones prácticos para limpiar el en
 
 ![](img/broom.png){fig-align="center" width=200 height=80}
 
+## No puedo cubrir todo! {.medium}
 
+- Estas clases son un punto de partida para ayudarlos a aprender
 
+- Desarrollen habilidades y confianza para seguir aprendiendo por su cuenta
+
+- 📚 Deberían leer *ya* 📚
+
+- [R for Data Science](https://r4ds.hadley.nz/intro){target="_blank"} Intro y Caps. 1-3
+
+- [Intro to R for Finance](https://www.datacamp.com/courses/introduction-to-r-for-finance){target="_blank"}

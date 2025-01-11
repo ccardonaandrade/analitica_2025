@@ -436,8 +436,7 @@ Carlos Cardona Andrade
 <p><i class="fa-solid fa-user icon"></i> Carlos Cardona Andrade</p>
 <p><i class="fa-solid fa-envelope icon"></i> <a href="mailto:carlos.cardonaa@javeriana.edu.co">carlos.cardonaa@javeriana.edu.co</a></p>
 <p><i class="fa-solid fa-globe icon"></i> <a href="https://github.com/ccardonaandrade/analitica_2025" target="_blank">https://github.com/ccardonaandrade/analitica_2025</a></p>
-<p><i class="fa-solid fa-calendar icon"></i> Lunes</p>
-<p><i class="fa-solid fa-clock icon"></i> 4:10pm - 6:40pm</p>
+<p><i class="fa-solid fa-clock icon"></i> Lunes 4:10pm - 6:40pm</p>
 <div class="fragment">
 <p><br></p>
 <p><span class="hl hl-blue">Sobre ustedes</span></p>
@@ -452,7 +451,7 @@ Carlos Cardona Andrade
 </section>
 <section id="evaluación" class="slide level2 medium">
 <h2>Evaluación</h2>
-<p><br> <i class="fa-solid fa-home icon"></i> Quices y Talleres: 30% <br> <br></p>
+<p><br> <i class="fa-solid fa-home icon"></i> Quices y Talleres: 30% <span class="grey600" style="font-size:1.5rem;">(La idea es que haya uno cada dos semanas)</span> <br> <br></p>
 <div class="fragment">
 <p><i class="fa-solid fa-file-pen icon"></i> 2 Parciales: 30% <span class="grey600" style="font-size:1.5rem;">(15% cada uno)</span> <br> <br></p>
 </div>
@@ -610,8 +609,8 @@ Carlos Cardona Andrade
 <span id="cb5-4"><a href="#cb5-4"></a><span class="fu">addMarkers</span>(<span class="at">lng=</span><span class="sc">-</span><span class="fl">74.06454</span>, <span class="at">lat=</span><span class="fl">4.63006</span>, <span class="at">popup=</span><span class="st">"Universidad Javeriana"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-597480c99c9d18a807ae" style="width:960px;height:432px;"></div>
-<script type="application/json" data-for="htmlwidget-597480c99c9d18a807ae">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[4.63006,-74.06454,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Universidad Javeriana",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[4.63006,4.63006],"lng":[-74.06454,-74.06454]}},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-4f6920d00f3798ac35f5" style="width:960px;height:432px;"></div>
+<script type="application/json" data-for="htmlwidget-4f6920d00f3798ac35f5">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[4.63006,-74.06454,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"Universidad Javeriana",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[4.63006,4.63006],"lng":[-74.06454,-74.06454]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -880,11 +879,176 @@ Carlos Cardona Andrade
 </div>
 <div class="fragment">
 <ul>
+<li><p><code>typeof()</code> para conocer el tipo de un vector</p></li>
+<li><p><code>length()</code> para conocer la longitud de un vector</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">length</span>(my_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">length</span>(countries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">typeof</span>(my_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "double"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">typeof</span>(countries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="tipos-de-variables-en-r" class="slide level2 medium">
+<h2>Tipos de Variables en R</h2>
+<p><br></p>
+<div class="tbl-classic tbl-larger">
+<table>
+<colgroup>
+<col style="width: 15%">
+<col style="width: 25%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Tipo</strong></th>
+<th><strong>Descripción</strong></th>
+<th><strong>Ejemplo</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Integer</strong></td>
+<td>Números enteros</td>
+<td><code>c(1, 2, 3, 4)</code></td>
+</tr>
+<tr class="even">
+<td><strong>Double</strong></td>
+<td>Números decimales</td>
+<td><code>c(1, 2.4, 3.14, 4)</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Character</strong></td>
+<td>Texto</td>
+<td><code>c("1", "blue", "fun", "monster")</code></td>
+</tr>
+<tr class="even">
+<td><strong>Logical</strong></td>
+<td>Verdadero o falso</td>
+<td><code>c(TRUE, FALSE, TRUE, FALSE)</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Factor</strong></td>
+<td>Categoría</td>
+<td><code>c("Strongly disagree", "Agree", "Neutral")</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="subconjunto-de-vectores" class="slide level2 medium">
+<h2>Subconjunto de Vectores</h2>
+<ul>
+<li><p>Se usan corchetes <code>[]</code> para acceder a elementos de un vector</p></li>
+<li><p>Diferentes formas de hacer un subconjunto:</p>
+<ul>
+<li>Con un índice <code>x[2]</code> o un vector de índices <code>x[c(2, 5, 7)]</code></li>
+<li>Con un <em>vector lógico</em> de la misma longitud que <code>x</code></li>
+</ul></li>
+<li><p>Los índices negativos eliminan elementos <code>x[-1]</code></p></li>
+<li><p>Se permiten índices repetidos <code>x[c(2, 2)]</code></p></li>
+</ul>
+</section>
+<section id="subconjunto-de-vectores-ejemplo" class="slide level2 medium">
+<h2>Subconjunto de Vectores: Ejemplo</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>countries</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Brasil"   "India"    "Colombia"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>countries[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Brasil"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>countries[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Brasil"   "Colombia"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>countries[<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "India"    "Colombia"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>countries[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "India"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>countries[<span class="sc">-</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Brasil"   "Colombia"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>countries[<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">2</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Colombia"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>countries[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Brasil" "India"  "Brasil" "India" </code></pre>
+</div>
+</div>
+</section>
+<section id="r-no-tiene-escalares" class="slide level2 medium">
+<h2>R no tiene escalares</h2>
+<p>¿Notaron el <code>[1]</code> que sigue apareciendo en todas partes?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="dv">2</span><span class="sc">^</span><span class="dv">8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 256</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><code>a</code> es un <strong>vector</strong>; <code>[1]</code> indica su primer (y único) elemento.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>a <span class="ot">&lt;-</span> <span class="dv">5</span><span class="sc">+</span><span class="dv">5</span></span>
+<span id="cb53-2"><a href="#cb53-2"></a><span class="fu">length</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Aquí, el primer elemento <code>[1]</code> es 30 y el vigesimosexto <code>[26]</code> es 55:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>r <span class="ot">&lt;-</span> <span class="dv">30</span><span class="sc">:</span><span class="dv">70</span> <span class="co"># shorthand for the vector c(30, 31, ..., 69, 70)</span></span>
+<span id="cb55-2"><a href="#cb55-2"></a>r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54
+[26] 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-1---5-minutos" class="slide level2 medium">
+<h2>💪 Ejercicio 1 - (5 minutos)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>countries <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Brasil"</span>, <span class="st">"India"</span>, <span class="st">"Colombia"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><p>Usen el comando <code>countries[4]</code>. Qué obtienen? Por qué?</p></li>
+<li><p>Quiero extraer el segundo y tercer elemento de <code>countries</code>, entonces use <code>countries[2,3]</code>. ¿Qué pasa? ¿Lo pueden arreglar?`</p></li>
+<li><p>Seleccionen Brasil e India de dos maneras diferentes.</p></li>
+</ol>
+</section>
+<section id="tipos-de-objetos-en-r-1" class="slide level2 medium">
+<h2>Tipos de Objetos en R</h2>
+<ul>
 <li><span class="marker-hl">Matrices</span>: Consiste en filas y columnas de números</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="fu">print</span>(matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb58-2"><a href="#cb58-2"></a>matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3]
 [1,]    1    4    7
@@ -892,26 +1056,66 @@ Carlos Cardona Andrade
 [3,]    3    6    9</code></pre>
 </div>
 </div>
+<div class="fragment">
+<h3 id="accediendo-a-elementos-de-una-matriz">Accediendo a elementos de una matriz</h3>
+<p>Misma idea que para los vectores pero en dos dimensiones: <code>[fila, columna]</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>matrix[<span class="dv">3</span>, <span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a>matrix[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    4    7
+[2,]    5    8</code></pre>
+</div>
+</div>
 </div>
 </section>
-<section id="tipos-de-objetos-en-r-1" class="slide level2 medium">
+<section id="accediendo-a-elementos-de-una-matriz-1" class="slide level2 medium">
+<h2>Accediendo a elementos de una matriz</h2>
+<p>Espacio significa <em>todo</em> de esa dimensión</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>matrix[<span class="dv">1</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 4 7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>matrix[,<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7 8 9</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1"></a>matrix[,<span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4 5 6</code></pre>
+</div>
+</div>
+</section>
+<section id="tipos-de-objetos-en-r-2" class="slide level2 medium">
 <h2>Tipos de Objetos en R</h2>
 <ul>
 <li><span class="marker-hl">Data frame</span>: Es una tabla rectangular con filas (observaciones) y columnas (variables). Las columnas pueden tener diferentes clases (caracteres, números, etc.)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">y =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>) </span>
-<span id="cb29-2"><a href="#cb29-2"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>)) </span>
+<span id="cb72-2"><a href="#cb72-2"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  x y
-1 1 3
-2 2 4</code></pre>
+1 1 a
+2 2 b</code></pre>
 </div>
 </div>
 <div class="fragment">
 <ul>
 <li><p>Otro tipo de objeto que es importante es el <a href="https://tibble.tidyverse.org/">tibble</a>, el cual se asimila a un data frame pero con unas propiedades especiales</p></li>
-<li><p>Aprenderán la diferencia a medida que avance el curso</p></li>
+<li><p>Aprenderán la diferencia en la próxima clase</p></li>
 </ul>
 </div>
 </section>
@@ -962,17 +1166,17 @@ Carlos Cardona Andrade
 <ul>
 <li>Sean concisos, consistentes e informativos<br>
 </li>
-<li>Usen minúsculas y separen palabras con guión bajo, como en el estilo <a href="https://style.tidyverse.org/syntax.html" target="_blank">tidyverse</a></li>
+<li>Usen minúsculas y separen palabras con guión bajo, como en el <a href="https://style.tidyverse.org/syntax.html" target="_blank">estilo tidyverse</a></li>
 <li>Eviten espacios en los nombres de variables</li>
 </ul>
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># Good</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a>day_one</span>
-<span id="cb31-3"><a href="#cb31-3"></a>day_1</span>
-<span id="cb31-4"><a href="#cb31-4"></a></span>
-<span id="cb31-5"><a href="#cb31-5"></a><span class="co"># Bad</span></span>
-<span id="cb31-6"><a href="#cb31-6"></a>DayOne</span>
-<span id="cb31-7"><a href="#cb31-7"></a>first_day_of_the_month</span>
-<span id="cb31-8"><a href="#cb31-8"></a>djm1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1"></a><span class="co"># Good</span></span>
+<span id="cb74-2"><a href="#cb74-2"></a>day_one</span>
+<span id="cb74-3"><a href="#cb74-3"></a>day_1</span>
+<span id="cb74-4"><a href="#cb74-4"></a></span>
+<span id="cb74-5"><a href="#cb74-5"></a><span class="co"># Bad</span></span>
+<span id="cb74-6"><a href="#cb74-6"></a>DayOne</span>
+<span id="cb74-7"><a href="#cb74-7"></a>first_day_of_the_month</span>
+<span id="cb74-8"><a href="#cb74-8"></a>djm1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section></section>
 <section>
 <section id="funciones" class="title-slide slide level1 center">
@@ -985,7 +1189,7 @@ Carlos Cardona Andrade
 <li>Una <span class="marker-hl">función</span> es un objeto que realiza acciones. Toma un objeto(s), los procesa, y devuelve objetos</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">mean</span>(my_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1"></a><span class="fu">mean</span>(my_numbers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.714286</code></pre>
 </div>
@@ -1000,8 +1204,8 @@ Carlos Cardona Andrade
 <li>Pueden asignar el resultado de una función a un objeto:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>my_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(my_numbers)</span>
-<span id="cb34-2"><a href="#cb34-2"></a>my_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1"></a>my_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(my_numbers)</span>
+<span id="cb77-2"><a href="#cb77-2"></a>my_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   1.000   1.500   3.000   5.714   4.000  25.000 </code></pre>
@@ -1022,18 +1226,18 @@ Carlos Cardona Andrade
 <h2>Base R y los paquetes</h2>
 
 <img data-src="img/packages-packages.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
-<section id="usando-paquetes" class="slide level2 medium">
-<h2>Usando paquetes</h2>
+<section id="los-paquetes-en-r" class="slide level2 medium">
+<h2>Los paquetes en R</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="sourceCode" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">install.packages</span>(<span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1"></a><span class="fu">install.packages</span>(<span class="st">"name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><p>Esta función descarga archivos a su computador</p></li>
 <li><p>El nombre del paquete debe ir entre comillas</p></li>
 <li><p>Hagan esto una vez por computador</p></li>
 </ul>
 </div><div class="column fragment" style="width:50%;">
-<div class="sourceCode" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">library</span>(name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1"></a><span class="fu">library</span>(name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><p>Carga el paquete a su sesión</p></li>
 <li><p>El nombre del paquete <strong>no</strong> va en comillas</p></li>
@@ -1045,49 +1249,50 @@ Carlos Cardona Andrade
 <p>Uno de los errores más comunes del curso pasado fue instalar el mismo paquete varias veces. ¡Solo se necesita una vez!</p>
 </div>
 </section>
-<section id="usando-paquetes-1" class="slide level2 medium">
-<h2>Usando paquetes</h2>
+<section id="los-paquetes-en-r-un-ejemplo" class="slide level2 medium">
+<h2>Los paquetes en R: Un ejemplo</h2>
 <p>Si utilizo la función <code>ggplot</code> del paquete <code>tidyverse</code>, <i class="fa-brands fa-r-project"></i> no podrá ejecutar el código:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">value =</span> my_numbers)</span>
-<span id="cb38-2"><a href="#cb38-2"></a></span>
-<span id="cb38-3"><a href="#cb38-3"></a><span class="co"># Create a plot</span></span>
-<span id="cb38-4"><a href="#cb38-4"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
-<span id="cb38-5"><a href="#cb38-5"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>,</span>
-<span id="cb38-6"><a href="#cb38-6"></a>                 <span class="at">fill =</span> <span class="st">"lightblue"</span>,</span>
-<span id="cb38-7"><a href="#cb38-7"></a>                 <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb38-8"><a href="#cb38-8"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histogram"</span>,</span>
-<span id="cb38-9"><a href="#cb38-9"></a>       <span class="at">x =</span> <span class="st">"Value"</span>,</span>
-<span id="cb38-10"><a href="#cb38-10"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>)<span class="sc">+</span></span>
-<span id="cb38-11"><a href="#cb38-11"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">value =</span> my_numbers)</span>
+<span id="cb81-2"><a href="#cb81-2"></a></span>
+<span id="cb81-3"><a href="#cb81-3"></a><span class="co"># Create a plot</span></span>
+<span id="cb81-4"><a href="#cb81-4"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
+<span id="cb81-5"><a href="#cb81-5"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>,</span>
+<span id="cb81-6"><a href="#cb81-6"></a>                 <span class="at">fill =</span> <span class="st">"lightblue"</span>,</span>
+<span id="cb81-7"><a href="#cb81-7"></a>                 <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb81-8"><a href="#cb81-8"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histogram"</span>,</span>
+<span id="cb81-9"><a href="#cb81-9"></a>       <span class="at">x =</span> <span class="st">"Value"</span>,</span>
+<span id="cb81-10"><a href="#cb81-10"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>)<span class="sc">+</span></span>
+<span id="cb81-11"><a href="#cb81-11"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in ggplot(df, aes(x = value)): could not find function "ggplot"</code></pre>
 </div>
 </div>
 </section>
-<section id="usando-paquetes-2" class="slide level2 medium">
-<h2>Usando paquetes</h2>
+<section id="los-paquetes-en-r-un-ejemplo-1" class="slide level2 medium">
+<h2>Los paquetes en R: Un ejemplo</h2>
+<p><strong>Siempre</strong> debo cargar los paquetes que voy a usar al inicio de la sesión.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb40" data-code-line-numbers="1|1-11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb40-2"><a href="#cb40-2"></a></span>
-<span id="cb40-3"><a href="#cb40-3"></a><span class="co"># Create a plot</span></span>
-<span id="cb40-4"><a href="#cb40-4"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
-<span id="cb40-5"><a href="#cb40-5"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>,</span>
-<span id="cb40-6"><a href="#cb40-6"></a>                 <span class="at">fill =</span> <span class="st">"lightblue"</span>,</span>
-<span id="cb40-7"><a href="#cb40-7"></a>                 <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb40-8"><a href="#cb40-8"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histogram"</span>,</span>
-<span id="cb40-9"><a href="#cb40-9"></a>       <span class="at">x =</span> <span class="st">"Value"</span>,</span>
-<span id="cb40-10"><a href="#cb40-10"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>)<span class="sc">+</span></span>
-<span id="cb40-11"><a href="#cb40-11"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83" data-code-line-numbers="1|1-11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb83-2"><a href="#cb83-2"></a></span>
+<span id="cb83-3"><a href="#cb83-3"></a><span class="co"># Create a plot</span></span>
+<span id="cb83-4"><a href="#cb83-4"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
+<span id="cb83-5"><a href="#cb83-5"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>,</span>
+<span id="cb83-6"><a href="#cb83-6"></a>                 <span class="at">fill =</span> <span class="st">"lightblue"</span>,</span>
+<span id="cb83-7"><a href="#cb83-7"></a>                 <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb83-8"><a href="#cb83-8"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histogram"</span>,</span>
+<span id="cb83-9"><a href="#cb83-9"></a>       <span class="at">x =</span> <span class="st">"Value"</span>,</span>
+<span id="cb83-10"><a href="#cb83-10"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>)<span class="sc">+</span></span>
+<span id="cb83-11"><a href="#cb83-11"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column fragment" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-35-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-43-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1119,30 +1324,30 @@ Carlos Cardona Andrade
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Es mucho mejor executar esta línea:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Que descargar múltiples paquetes así:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb42-2"><a href="#cb42-2"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
-<span id="cb42-3"><a href="#cb42-3"></a><span class="fu">install.packages</span>(<span class="st">"tidyr"</span>)</span>
-<span id="cb42-4"><a href="#cb42-4"></a><span class="fu">install.packages</span>(<span class="st">"readr"</span>)</span>
-<span id="cb42-5"><a href="#cb42-5"></a><span class="fu">install.packages</span>(<span class="st">"purrr"</span>)</span>
-<span id="cb42-6"><a href="#cb42-6"></a><span class="fu">install.packages</span>(<span class="st">"tibble"</span>)</span>
-<span id="cb42-7"><a href="#cb42-7"></a><span class="fu">install.packages</span>(<span class="st">"stringr"</span>)</span>
-<span id="cb42-8"><a href="#cb42-8"></a><span class="fu">install.packages</span>(<span class="st">"forcats"</span>)</span>
-<span id="cb42-9"><a href="#cb42-9"></a><span class="fu">install.packages</span>(<span class="st">"lubridate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb85-2"><a href="#cb85-2"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb85-3"><a href="#cb85-3"></a><span class="fu">install.packages</span>(<span class="st">"tidyr"</span>)</span>
+<span id="cb85-4"><a href="#cb85-4"></a><span class="fu">install.packages</span>(<span class="st">"readr"</span>)</span>
+<span id="cb85-5"><a href="#cb85-5"></a><span class="fu">install.packages</span>(<span class="st">"purrr"</span>)</span>
+<span id="cb85-6"><a href="#cb85-6"></a><span class="fu">install.packages</span>(<span class="st">"tibble"</span>)</span>
+<span id="cb85-7"><a href="#cb85-7"></a><span class="fu">install.packages</span>(<span class="st">"stringr"</span>)</span>
+<span id="cb85-8"><a href="#cb85-8"></a><span class="fu">install.packages</span>(<span class="st">"forcats"</span>)</span>
+<span id="cb85-9"><a href="#cb85-9"></a><span class="fu">install.packages</span>(<span class="st">"lubridate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column fragment" style="width:50%;">
 <p>Aplica lo mismo para cuando vamos a cargar los paquetes!</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Qué tedio escribir todas estas líneas muchas veces!</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb44-2"><a href="#cb44-2"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb44-3"><a href="#cb44-3"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb44-4"><a href="#cb44-4"></a><span class="fu">library</span>(readr)</span>
-<span id="cb44-5"><a href="#cb44-5"></a><span class="fu">library</span>(purrr)</span>
-<span id="cb44-6"><a href="#cb44-6"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb44-7"><a href="#cb44-7"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb44-8"><a href="#cb44-8"></a><span class="fu">library</span>(forcats)</span>
-<span id="cb44-9"><a href="#cb44-9"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb87-2"><a href="#cb87-2"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb87-3"><a href="#cb87-3"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb87-4"><a href="#cb87-4"></a><span class="fu">library</span>(readr)</span>
+<span id="cb87-5"><a href="#cb87-5"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb87-6"><a href="#cb87-6"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb87-7"><a href="#cb87-7"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb87-8"><a href="#cb87-8"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb87-9"><a href="#cb87-9"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section></section>
@@ -1157,12 +1362,15 @@ Carlos Cardona Andrade
 <li>La primera manera es utilizando conjuntos de datos disponibles en paquetes:</li>
 </ol>
 <ul>
-<li>Por ejemplo, los datos <code>titanic</code> del paquete <code>socviz</code></li>
 <li>El conjunto de datos <code>gapminder</code> del paquete con el mismo nombre</li>
+<li>Los datos <code>titanic</code> del paquete <code>socviz</code></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">library</span>(socviz)</span>
-<span id="cb45-2"><a href="#cb45-2"></a>titanic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1"></a><span class="fu">install.packages</span>(<span class="st">"socviz"</span>)</span>
+<span id="cb88-2"><a href="#cb88-2"></a><span class="fu">library</span>(socviz)</span>
+<span id="cb88-3"><a href="#cb88-3"></a>titanic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>      fate    sex    n percent
 1 perished   male 1364    62.0
@@ -1171,64 +1379,12 @@ Carlos Cardona Andrade
 4 survived female  344    15.6</code></pre>
 </div>
 </div>
-<div class="fragment">
-<ul>
-<li>En este conjunto de datos <code>titanic</code>, dos de las columnas son numéricas y dos no lo son</li>
-</ul>
-</div>
 </section>
-<section id="tipos-de-variables-en-r" class="slide level2 medium">
-<h2>Tipos de Variables en R</h2>
-<p><br></p>
-<div class="tbl-classic tbl-larger">
-<table>
-<colgroup>
-<col style="width: 15%">
-<col style="width: 25%">
-<col style="width: 60%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Tipo</strong></th>
-<th><strong>Descripción</strong></th>
-<th><strong>Ejemplo</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Integer</strong></td>
-<td>Números enteros</td>
-<td><code>c(1, 2, 3, 4)</code></td>
-</tr>
-<tr class="even">
-<td><strong>Double</strong></td>
-<td>Números decimales</td>
-<td><code>c(1, 2.4, 3.14, 4)</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Character</strong></td>
-<td>Texto</td>
-<td><code>c("1", "blue", "fun", "monster")</code></td>
-</tr>
-<tr class="even">
-<td><strong>Logical</strong></td>
-<td>Verdadero o falso</td>
-<td><code>c(TRUE, FALSE, TRUE, FALSE)</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Factor</strong></td>
-<td>Categoría</td>
-<td><code>c("Strongly disagree", "Agree", "Neutral")</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="indexación" class="slide level2 medium">
-<h2>Indexación</h2>
+<section id="accediendo-a-los-elementos-de-los-datos" class="slide level2 medium">
+<h2>Accediendo a los elementos de los datos</h2>
 <p>Pueden acceder a las filas y columnas de varias maneras. Una es usar la notación de matrices para llamar una variable, recordando que <code>data.frame[fila,columna]</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a>titanic[,<span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1"></a>titanic[,<span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 62.0  5.7 16.7 15.6</code></pre>
 </div>
@@ -1236,7 +1392,7 @@ Carlos Cardona Andrade
 <div class="fragment">
 <p>También para llamar observaciones particulares:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>titanic[<span class="dv">2</span>,<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1"></a>titanic[<span class="dv">2</span>,<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] female
 Levels: female male</code></pre>
@@ -1246,7 +1402,7 @@ Levels: female male</code></pre>
 <div class="fragment">
 <p>O conjuntos de observaciones particulares:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>titanic[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1"></a>titanic[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] male   female male  
 Levels: female male</code></pre>
@@ -1254,11 +1410,11 @@ Levels: female male</code></pre>
 </div>
 </div>
 </section>
-<section id="indexación-1" class="slide level2 medium">
-<h2>Indexación</h2>
+<section id="accediendo-a-los-elementos-de-los-datos-1" class="slide level2 medium">
+<h2>Accediendo a los elementos de los datos</h2>
 <p>Otra manera es usando el operador <code>$</code> que permite seleccionar una columna específica de un data frame por su nombre:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>titanic<span class="sc">$</span>percent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1"></a>titanic<span class="sc">$</span>percent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 62.0  5.7 16.7 15.6</code></pre>
 </div>
@@ -1266,7 +1422,7 @@ Levels: female male</code></pre>
 <div class="fragment">
 <p>Se puede combinar la notación con <code>$</code> y la de matrices:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>titanic<span class="sc">$</span>sex[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1"></a>titanic<span class="sc">$</span>sex[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] female
 Levels: female male</code></pre>
@@ -1280,12 +1436,36 @@ Levels: female male</code></pre>
 <center>
 </center></center></div>
 </section>
+<section id="ejercicio-2---10-minutos" class="slide level2 medium">
+<h2>💪 Ejercicio 2 - (10 minutos)</h2>
+<p>Supongamos que el data frame <code>sales</code> tiene la siguiente estructura:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1"></a>sales <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">product =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>),</span>
+<span id="cb100-2"><a href="#cb100-2"></a>                    <span class="at">price =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">8</span>, <span class="dv">12</span>, <span class="dv">20</span>),</span>
+<span id="cb100-3"><a href="#cb100-3"></a>                    <span class="at">quantity =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">150</span>, <span class="dv">80</span>, <span class="dv">120</span>, <span class="dv">90</span>))</span>
+<span id="cb100-4"><a href="#cb100-4"></a>sales</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  product price quantity
+1       A    10      100
+2       B    15      150
+3       C     8       80
+4       D    12      120
+5       E    20       90</code></pre>
+</div>
+</div>
+<ol type="1">
+<li><p>Obtengan la columna <em>precio</em> usando notación de matrices</p></li>
+<li><p>Obtengan la cantidad de los producto B y C usando el operador <code>$</code></p></li>
+<li><p>Obtengan de dos maneras diferentes los nombres de los primeros 3 productos</p></li>
+<li><p>¿Cómo obtener el nombre y el precio de los 3 últimos productos?</p></li>
+</ol>
+</section>
 <section id="viewer" class="slide level2 medium">
 <h2>Viewer</h2>
 <p>Darle click a un objeto en el entorno o usar la función <code>View()</code> abre una ventana interactiva mostrándonos los datos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>data_titanic <span class="ot">&lt;-</span> titanic</span>
-<span id="cb57-2"><a href="#cb57-2"></a><span class="fu">View</span>(data_titanic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1"></a>data_titanic <span class="ot">&lt;-</span> titanic</span>
+<span id="cb102-2"><a href="#cb102-2"></a><span class="fu">View</span>(data_titanic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <img data-src="img/titanic_viewer.png" style="width:50.0%" class="r-stretch quarto-figure-center"></section>
@@ -1344,9 +1524,9 @@ Levels: female male</code></pre>
 <h2>Eliminando objetos</h2>
 <p>Usen <code>rm()</code> para eliminar un objeto o varios objetos de su entorno de trabajo</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>b <span class="ot">&lt;-</span> <span class="st">"hello"</span></span>
-<span id="cb58-2"><a href="#cb58-2"></a>c <span class="ot">&lt;-</span> <span class="st">"world"</span></span>
-<span id="cb58-3"><a href="#cb58-3"></a><span class="fu">rm</span>(b, c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1"></a>b <span class="ot">&lt;-</span> <span class="st">"hello"</span></span>
+<span id="cb103-2"><a href="#cb103-2"></a>c <span class="ot">&lt;-</span> <span class="st">"world"</span></span>
+<span id="cb103-3"><a href="#cb103-3"></a><span class="fu">rm</span>(b, c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>También pueden usar <code>rm(list = ls())</code> para eliminar todos los objetos de tu entorno de trabajo (excepto los paquetes), pero esto no es recomendable.</p>
@@ -1363,6 +1543,16 @@ Levels: female male</code></pre>
 <p><img data-src="img/broom.png" width="200" height="80"></p>
 </figure>
 </div>
+</section>
+<section id="no-puedo-cubrir-todo" class="slide level2 medium">
+<h2>No puedo cubrir todo!</h2>
+<ul>
+<li><p>Estas clases son un punto de partida para ayudarlos a aprender</p></li>
+<li><p>Desarrollen habilidades y confianza para seguir aprendiendo por su cuenta</p></li>
+<li><p>📚 Deberían leer <em>ya</em> 📚</p></li>
+<li><p><a href="https://r4ds.hadley.nz/intro" target="_blank">R for Data Science</a> Intro y Caps. 1-3</p></li>
+<li><p><a href="https://www.datacamp.com/courses/introduction-to-r-for-finance" target="_blank">Intro to R for Finance</a></p></li>
+</ul>
 <div class="footer footer-default">
 
 </div>
