@@ -46,7 +46,7 @@ library(kableExtra)
 
 3. [El operador pipe](#pipe)
 
-4. [ggplot](#ggplot)
+4. [ggplot2](#ggplot)
 
 
 5. [dplyr](#dplyr)
@@ -103,6 +103,31 @@ library(gapminder)
 ```
 
 
+## 💪 Ejercicio 1 - (5 minutos) {.medium}
+
+Abran un R Script, y utilizando la siguiente plantilla, carguen los paquetes `tidyverse` y `gapminder`. Instálenlos desde la consola si es la primera vez que usan su PC actual.
+
+```{r}
+#| eval: false
+#| echo: true
+## ------------------------------
+## Taller 1
+##
+## Autor: 
+##
+## Fecha: 
+## ------------------------------
+   
+## cargamos todos los paquetes que usaremos en la sesión:
+
+library(tidyverse)
+library(gapminder)
+
+## ---------------------------
+
+### Ejercicio 1
+
+```
     
 ## El conjunto de datos gapminder {.medium}
 
@@ -113,6 +138,8 @@ Como vamos a graficar el conjunto de datos de [gapminder](https://github.com/jen
 library(gapminder)
 gapminder
 ```
+
+
     
 ## gapminder -- dimensiones {.medium}
 
@@ -337,13 +364,13 @@ gapminder |>
 
 
 
-# ggplot {#ggplot}
+# ggplot2 {#ggplot}
 
 <center>
 ![](img/ggplot-logo.png){width=250}
 </center>
 
-## ggplot2 {.medium}
+## El paquete ggplot2 {.medium}
 
 Es el principal paquete para visualizar datos en `tidyverse`
 
@@ -364,7 +391,8 @@ Es el principal paquete para visualizar datos en `tidyverse`
 :::
 :::
 
-## El paquete ggplot {.medium}
+## El paquete ggplot2 {.medium}
+
 ```{r, fig.width = 4, fig.asp = 0.45} 
 #| echo: false
 #| fig.align: 'center'
@@ -422,7 +450,7 @@ El paquete ggplot2 creado por [Hadley Wickham](http://hadley.nz/){target="_blank
   
   - Está construido sobre una teoría de visualización profunda: i.e. [*The Grammar of Graphics*](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448){target="_blank"} de Leland Wilkinson
 
-## Elements of ggplot2 {.medium}
+## Elementos de ggplot2 {.medium}
 
 Hay mucho que decir sobre la implementación de este enfoque de "gramática de gráficos" en ggplot2, pero los tres elementos clave son:
 
@@ -519,7 +547,7 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + ## Applicable to all
 #| fig-height: 4
 #| dpi: 320
 ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
-  geom_point(aes(size = "big", col="blue"), alpha = 0.3)
+  geom_point(aes(size = "big", color="blue"), alpha = 0.3)
 ```
 
 . . .
@@ -541,7 +569,7 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 #| dpi: 320
 #| code-line-numbers: "2"
 ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
-  geom_point(aes(col="blue"), alpha = 0.3)
+  geom_point(aes(color="blue"), alpha = 0.3)
 ```
 
 ::::
@@ -559,6 +587,27 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 ```
 ::::
 ::::
+
+## 💪 Ejercicio 2 - (5 minutos) {.medium}
+
+Grafiquen las siguientes 4 gráficas. ¿Cuál eligirían y por qué? Respondan en el script usando comentarios precedidos por `#`.
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + 
+  geom_point()
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, size = continent)) + 
+  geom_point()
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, shape = continent)) + 
+  geom_point()
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, alpha = continent)) + 
+  geom_point()
+```
+
 
 ## 1. Mapeo estético {.medium}
 
@@ -1175,6 +1224,20 @@ cat('<code>filter(starwars,<br> <span style="color: #4db070;">name %in% c("Anaki
 ::::
 ::::
 
+
+## 💪 Ejercicio 4 - (5 minutos) {.medium}
+
+Usen `filter()` y los operadores lógicos para mostrar:
+
+1. Los datos para el siguiente país que quisieran visitar
+
+2. ¿Por qué ese país?
+
+3. Todos los datos en el año 2007 y para el continente del país en los puntos anteriores
+
+4. Filas donde la expectativa de vida sea mayor a 82 en el año 2007 y que no sean Oceanía
+
+
 ## 2) dplyr::arrange {.medium}
 
 ```{r}
@@ -1195,6 +1258,13 @@ También podemos organizar los elementos en orden descendente utilizando `arrang
 starwars |>
   arrange(desc(birth_year))
 ```
+
+
+## 💪 Ejercicio 5 - (5 minutos) {.medium}
+
+1. ¿Cuál es la expectativa de vida más baja en `gapminder`? ¿Qué país la tiene y en qué año?
+
+2. ¿Cuál es la expectativa de vida más alta en `gapminder`? ¿Qué país la tiene y en qué año?
 
 
 
@@ -1244,6 +1314,11 @@ starwars |>
   head(5)
 ```
 
+## 💪 Ejercicio 6 - (5 minutos) {.medium}
+
+1. Seleccionen solo las columnas `year`, `lifeExp` y `country` en `gapminder`
+
+2. Seleccionen todas las columnas *excepto* `year`, `lifeExp` y `country` en `gapminder`
 
 
 ## 4) dplyr::mutate {.medium}
@@ -1327,6 +1402,15 @@ starwars |>
   head(5)
 ```
 
+## 💪 Ejercicio 7 - (5 minutos) {.medium}
+
+1. Creen una variable llamada `africa` que sea `TRUE` si el país está en el continente africano
+
+2. Agreguen una columna que sea el logaritmo del GDP pero cápita (Pista: usen `log()`)
+
+3. Conviertan la expectativa de vida de años a *meses*
+
+
 ## 5) dplyr::summarise {.medium}
 
 Particularmente útil en combinación con el comando `group_by`.
@@ -1368,6 +1452,19 @@ starwars |>
   head(5)
 ```
 
+## 💪 Ejercicio 8 - (5 minutos) {.medium}
+
+1. Calculen el GDP per cápita promedio en 1977 para cada continente
+
+2. ¿Por qué el siguiente código no funciona? ¿Cómo lo pueden arreglar?
+
+```{r}
+#| echo: true
+#| eval: false
+gapminder |>
+  summarize(meanLifeExp = mean(lifeExp)) |>
+  group_by(year)
+```
 
 ## Otros verbos del dplyr {.medium}
 
