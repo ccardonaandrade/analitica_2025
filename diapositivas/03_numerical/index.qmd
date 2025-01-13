@@ -198,6 +198,9 @@ Paso 2: Contar el número de observaciones en cada intervalo
 
 <br>
 
+::: {.tbl-classic .tbl-larger .center-text}
+
+
 ```{r}
 #| eval: true
 #| echo: false
@@ -222,6 +225,7 @@ gapminder |>
   column_spec(1:2, width = "9em")
 ```
 
+:::
 
 ## ¿Cómo hacer un histograma? {.medium}
 
