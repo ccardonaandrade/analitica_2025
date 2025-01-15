@@ -716,6 +716,24 @@ Uniforme y alta en Europa y Oceanía
 :::
 
 
+## 💪 Ejercicio 2 - (5 minutos) {.medium}
+
+1. Dibujen un histograma para la variable `price`. ¿Existe sesgo?
+
+2. Intenten el punto anterior con distinto número de *bins*.
+
+3. Por la dificultad de graficar el anterior histograma. Censuremos un poco los datos con el siguiente código:
+
+```{r}
+#| echo: true
+#| eval: false
+newdata <- airbnb |>
+  filter(price<3*sd(price, na.rm = TRUE))
+```
+
+4. Intenten gráficar el histograma nuevamente y elijan el número de *bins* que para ustedes provea más información.
+
+
 # Medidas de tendencia central {#central}
 
 ## La media {.medium}
@@ -848,6 +866,14 @@ gapminder |>
    summarise(mean_lexp = mean(lifeExp),
              median_lexp = median(lifeExp))
 ```
+
+
+## 💪 Ejercicio 3 - (5 minutos) {.medium}
+
+1. Calculen la media y la mediana para cada `neighbourhood_group`.
+
+2. Basado en el punto anterior, ¿qué tipo de sesgo tiene cada barrio?
+
 
 # Resumen de los Cinco Números
 
@@ -1124,6 +1150,17 @@ ggplot(gapminder) +
 ::::
 
 :::::
+
+
+## 💪 Ejercicio 4 - (5 minutos) {.medium}
+
+1. Grafiquen los diagramas de caja para cada `neighbourhood_group`.
+
+2. Describan con 3 aspectos las 5 gráficas. Dos ejemplos: todos los barrios tienen una presencia fuerte de outliers y Manhattan tiene la mediana mayor.
+
+3. Usando la función `IQR()`, calculen el rango intercuartílico para cada barrio.
+
+4. ¿Qué pueden decir a partir del punto anterior?
 
 
 # Medidas de dispersión {#disperson}
@@ -1441,6 +1478,15 @@ ggplot(gapminder) +
 :::
 :::
 
+
+## 💪 Ejercicio 5 - (5 minutos) {.medium}
+
+1. Usando la función `mutate`, creen una nueva variable llamada `within_1SD` que sea igual a TRUE si el precio se encuentra dentro de una desviación estándar de la media, y FALSE en caso contrario. Es decir, la variable debe ser TRUE si el precio está en el rango de [media - 1 * desviación estándar, media + 1 * desviación estándar], y FALSE si no está en este rango.
+
+2. Calculen la media de `within_1SD`. Recuerden que el promedio de una variable que toma valores 0 o 1 corresponde a la proporción de observaciones que cumplen la condición. ¿La proporción obtenida se aproxima al 68%?
+
+
+
 # Análisis bivariado {#bivariado}
 
 ## Diagramas de dispersión {.medium}
@@ -1680,3 +1726,21 @@ gapminder |>
 ::::
 
 ::::
+
+
+## 💪 Ejercicio 6 - (5 minutos) {.medium}
+
+1. Grafiquen la dispersión entre el precio y el número de reseñas (reviews). ¿Qué tipo de relación visualizan entre estas dos variables?
+
+2. Calculen la correlación entre el precio y el número de reseñas. ¿El valor obtenido tiene sentido con lo que observan en la gráfica del punto anterior?
+
+3. En ocasiones, la relación entre dos variables no es clara a primera vista. La función `geom_smooth()` facilita visualizar posibles relaciones. Por ejemplo:
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(newdata) +
+  geom_smooth(aes(y=number_of_reviews, x=price))
+```
+
+¿Qué historia nos cuenta esta nueva gráfica? ¿Tiene sentido para ustedes la relación observada entre las variables?
