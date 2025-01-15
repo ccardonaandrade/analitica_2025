@@ -91,18 +91,98 @@ library(knitr)
 
 <i class="fa-solid fa-person-chalkboard icon"></i>  Trabajo Final: 40\% [(Trabajo Escrito y Presentación)]{.grey600 style="font-size:1.5rem;"} 
 
+## Motivación: Buenos gráficos
+
+::: {.secfont style="font-size:2.3rem;text-align:center;"}
+"Una imagen vale más que mil palabras"
+:::
+
+
+<center>
+
+```{=html}
+<iframe width=900 height=550 src="https://www.consultantsmind.com/wp-content/uploads/2019/11/Consultantsmind-Economist-Internet-Digital-Payments-1.png" title="the economist"></iframe>
+```
+
+<center>
+
+
+
+
+## Motivación: Buenos gráficos
+
+::: {.secfont style="font-size:2.3rem;text-align:center;"}
+"Una imagen vale más que mil palabras"
+:::
+
+
+<center>
+
+```{=html}
+<iframe width=800 height=500 src="https://www.ft.com/content/c4288d72-a7d0-11e9-984c-fac8325aaa04" title="the financial times"></iframe>
+```
+
+<center>
+
+::: {.aside}
+Source: [The Financial Times](https://www.ft.com/content/62fbf660-2651-11ea-9a4f-963f0ec7e134){target="_blank"}
+:::
+
+
+## Motivación: Storytelling {.medium}
+
+- [Out of Sight, Out of Mind (Pitch Interactive, 2013)](https://drones.pitchinteractive.com/){target="_blank"}
+
+- [An Alternative Data-driven Country Map (Nikita Rokotyan, 2019)](https://projects.interacta.io/country-tsne/){target="_blank"}
+
+- [Bezos' Wealth](https://mkorostoff.github.io/1-pixel-wealth/){target="_blank"}
+
+
+## Motivación: Malos gráficos {.medium}
+
+::: {.secfont style="font-size:2.3rem;text-align:center;"}
+"Una imagen vale más que mil palabras"
+:::
+
+::: {.columns}
+::: {.column .fragment}
+![](img/accuracy1.jpeg){height="450" fig-align="center"}
+:::
+::: {.column .fragment}
+![](img/accuracy2.jpg){height="450" fig-align="center"}
+:::
+:::
+
+::: {.aside}
+Source: [Patient](https://patient.info/news-and-features/whats-the-average-height-for-men){target="_blank"}
+:::
+
+## Motivación: Malos gráficos {.medium}
+
+::: {.secfont style="font-size:2.3rem;text-align:center;"}
+"Una imagen vale más que mil palabras"
+:::
+
+::: {.columns}
+::: {.column width=50%}
+![](img/trumptweet.png){height="450"}
+:::
+::: {.column width=50% .fragment}
+<br>
+![](img/voting-election.gif){style="border: 1px solid;"}
+:::
+:::
+
+
 ## Descripción del curso {.medium}
 
 ::: {.secfont style="font-size:2.3rem;text-align:center;"}
 "Una imagen vale más que mil palabras"
 :::
 
-. . .
-
 En este curso, los estudiantes aprenderán a trabajar con datos de manera efectiva frente a la incertidumbre, desarrollando habilidades para recolectar, analizar y utilizar datos con el propósito de realizar inferencias y conclusiones sobre fenómenos del mundo real. 
 
 A lo largo del curso, se adquirirá experiencia práctica utilizando el software R, una herramienta fundamental para el análisis y visualización de datos.
-
 
 ## Objetivos de la clase {.medium}
 
@@ -302,48 +382,6 @@ addMarkers(lng=-74.06454, lat=4.63006, popup="Universidad Javeriana")
 ```
 
 
-## Aprendiendo R
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-knitr::include_graphics("img/tweet_R.png")
-```
-
-::: {.fragment .fade-in}
-[El tuit es de 2017! Ahora también existe ChatGPT y demás IA websites]{.bubble .bubble-bottom-left .absolute top="40%" right="0%" style="--bubcol: var(--bubcol-red);max-width:350px;font-size:1.2rem;"}
-:::
-
-## Sean pacientes con R y con ustedes mismos
-
-::::: {.columns}
-
-:::: {.column width="50%"}
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-knitr::include_graphics("img/jake_sucking.png")
-```
-::::
-
-:::: {.column width="50%"}
-```{r}
-#| eval: true
-#| echo: false
-#| fig-align: "center"
-#| out-width: "100%"
-#| fig-cap: "<a href='https://www.nytimes.com/2017/04/28/opinion/its-great-to-suck-at-surfing.html'>Karen Rinaldi, (It's Great to) Suck at Something</a>"
-knitr::include_graphics("img/newyorktimes.png")
-```
-::::
-
-:::::
-
-
 # Intro a R {#introR}
 
 
@@ -373,7 +411,7 @@ knitr::include_graphics("img/newyorktimes.png")
 [![](img/r_vs_rstudio.png){fig-alt="On the left: a car engine. On the right: a car dashboard. The engine is labelled R. The dashboard is labelled RStudio." fig-align="center" width="1001"}](https://moderndive.com/1-getting-started.html)
 
 ::: aside
-Source: [Modern Dive](https://moderndive.com/1-getting-started.html).
+Source: [Modern Dive](https://moderndive.com/1-getting-started.html){target="_blank"}.
 :::
 
 
@@ -394,7 +432,7 @@ Source: [Modern Dive](https://moderndive.com/1-getting-started.html).
 
 ```R
 RStudio.Version()$version
-# Requiere la versión interactiva pero debería mostrar algo como "[1] ‘2023.3.0.386’"
+# Requiere la versión interactiva pero debería mostrar algo como "[1] ‘2024.12.0.467’"
 ```
 
 ## Un tour por R Studio
@@ -602,9 +640,9 @@ countries <- c("Brasil", "India", "Colombia")
 
 . . .
 
-- `typeof()` para conocer el tipo de un vector
-
 - `length()` para conocer la longitud de un vector
+
+- `typeof()` para conocer el tipo de un vector
 
 ```{r}
 #| eval: true
@@ -615,7 +653,7 @@ typeof(my_numbers)
 typeof(countries)
 ```
 
-## Tipos de Variables en R {.medium}
+## Tipos de Vectores/Variables en R {.medium}
 
 
 <br>
@@ -701,7 +739,7 @@ r
 countries <- c("Brasil", "India", "Colombia")
 ```
 
-1. Usen el comando `countries[4]`. Qué obtienen? Por qué?
+1. Usen el comando `countries[4]`. ¿Qué obtienen? Por qué?
 
 2. Quiero extraer el segundo y tercer elemento de `countries`, entonces use `countries[2,3]`. ¿Qué pasa? ¿Lo pueden arreglar?`
 
@@ -1055,12 +1093,12 @@ install.packages("lubridate")
 
 ::: {.column .fragment width="50%"}
 
-Aplica lo mismo para cuando vamos a cargar los paquetes!
+Aplica lo mismo para cuando vamos a cargar los paquetes.
 
 ```r
 library(tidyverse)
 ```
-Qué tedio escribir todas estas líneas muchas veces!
+Con `tidyverse`, tenemos todo lo que necesitamos listo al instante
 
 ```r
 library(ggplot2)
@@ -1245,25 +1283,76 @@ También pueden usar `rm(list = ls())` para eliminar todos los objetos de tu ent
 
 . . .
 
-Es mejor simplemente iniciar una nueva sesión de R.
+Es mejor simplemente iniciar una nueva sesión de <i class="fa-brands fa-r-project"></i>.
 
 
 ## Eliminando objetos {.medium}
 
 
-También habrán notado que R Studio tiene botones prácticos para limpiar el entorno de trabajo y eliminar gráficos individuales. Solo busca estos íconos en los paneles correspondientes:
+También habrán notado que R Studio tiene botones prácticos para limpiar el entorno de trabajo y eliminar gráficos individuales. Solo busquen estos íconos en los paneles correspondientes:
 
 
 ![](img/broom.png){fig-align="center" width=200 height=80}
 
-## No puedo cubrir todo! {.medium}
+## 📌 Aprendiendo R
 
-- Estas clases son un punto de partida para ayudarlos a aprender
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/tweet_R.png")
+```
 
-- Desarrollen habilidades y confianza para seguir aprendiendo por su cuenta
+::: {.fragment .fade-in}
+[El tuit es de 2017! Ahora también existe ChatGPT y demás IA websites]{.bubble .bubble-bottom-left .absolute top="40%" right="0%" style="--bubcol: var(--bubcol-red);max-width:350px;font-size:1.2rem;"}
+:::
 
-- 📚 Deberían leer *ya* 📚
+## 📌 Aprender R toma tiempo {.medium}
 
-- [R for Data Science](https://r4ds.hadley.nz/intro){target="_blank"} Intro y Caps. 1-3
+Es normal equivocarse al principio. Lo importante es [seguir practicando]{.hl .hl-dred}.
 
-- [Intro to R for Finance](https://www.datacamp.com/courses/introduction-to-r-for-finance){target="_blank"}
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/jake_sucking.png")
+```
+::::
+
+:::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+#| fig-cap: "<a href='https://www.nytimes.com/2017/04/28/opinion/its-great-to-suck-at-surfing.html'>Karen Rinaldi, (It's Great to) Suck at Something</a>"
+knitr::include_graphics("img/newyorktimes.png")
+```
+::::
+
+:::::
+
+. . .
+
+<center>
+⚡ Pongan el esfuerzo necesarios y serán recompensados⚡ 
+<center>
+
+
+## 📌 El aprendizaje comienza aquí {.medium}
+
+- Las clases son solo el punto de partida
+
+- Desarrollen habilidades y confianza para aprender por su cuenta
+
+- ¡Empiecen a leer desde ya! 📚
+
+- Actividades recomendadas: 
+    - [R for Data Science](https://r4ds.hadley.nz/intro){target="_blank"} Intro y Caps. 1-3
+
+    - El curso de Datacamp [Intro to R for Finance](https://www.datacamp.com/courses/introduction-to-r-for-finance){target="_blank"}
