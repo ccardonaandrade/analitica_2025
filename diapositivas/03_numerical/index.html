@@ -409,14 +409,101 @@ Carlos Cardona Andrade
 <section id="plan-para-hoy" class="slide level2">
 <h2>Plan para hoy</h2>
 <ol type="1">
+<li><p><a href="#/project">Estructura de un proyecto</a></p></li>
 <li><p><a href="#/data">Fundamentos sobre los datos</a></p></li>
 <li><p><a href="#/histograma">El Histograma</a></p></li>
 <li><p><a href="#/central">Medidas de tendencia central</a></p></li>
 <li><p><a href="#/boxplot">Diagrama de caja</a></p></li>
 <li><p><a href="#/dispersion">Medidas de dispersión</a></p></li>
-<li><p><a href="#/bivariado">Análisis bivariado</a></p></li>
+<li><p><a href="#/bivariado">Medidas de relación entre dos variables</a></p></li>
 </ol>
 </section>
+<section>
+<section id="project" class="title-slide slide level1 center">
+<h1>Estructura de un proyecto</h1>
+
+</section>
+<section id="estructura-de-un-proyecto" class="slide level2 medium">
+<h2>Estructura de un proyecto</h2>
+<p>Un proyecto debería tener la siguiente estructura para facilitar la organización:</p>
+<pre><code>📂 project_name
+├── 📂 data
+├── 📂 scripts
+└── 📂 output
+    ├── 📂 plots
+    └── 📂 data</code></pre>
+<div class="fragment">
+<ul>
+<li><p>Esta organización facilita el trabajo colaborativo y ayuda a retomar el proyecto más fácilmente</p></li>
+<li><p>Eviten usar <strong>mayúsculas</strong> o <strong>espacios</strong> en los nombres de archivos y carpetas. Ejemplos:</p>
+<ul>
+<li>Incorrecto: <code>Archivo de datos.csv</code></li>
+<li>Correcto: <code>archivo_de_datos.csv</code></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="el-directorio-de-trabajo" class="slide level2 medium">
+<h2>El Directorio de Trabajo</h2>
+<ul>
+<li><p>El directorio de trabajo es la carpeta en la que están trabajando actualmente</p></li>
+<li><p><i class="fa-brands fa-r-project"></i> guarda y carga archivos desde esta carpeta por defecto</p></li>
+<li><p>Antes de comenzar, asegúrense de establecer tu directorio de trabajo con la siguiente función:</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">setwd</span>(<span class="st">"C:/Users/nombre_apellido/OneDrive/Documentos/analisis_de_datos/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<ul>
+<li>Recuerden que en el explorador de archivos, las carpetas se dividen por “<code>\</code>”, pero <i class="fa-brands fa-r-project"></i> requiere “<code>/</code>” como separador de carpetas</li>
+</ul>
+
+</div>
+<aside><div>
+<p>Para entender por qué el uso de “<code>/</code>” pueden leer <a href="https://www.geeksforgeeks.org/how-to-convert-backslash-to-forward-slash-in-r/" target="_blank">Forward Slash in R</a></p>
+</div></aside></section>
+<section id="establecer-el-directorio-de-trabajo-manualmente" class="slide level2 medium">
+<h2>Establecer el Directorio de Trabajo Manualmente</h2>
+<p>También puedes hacerlo manualmente desde el visualizador de archivos en R Studio:</p>
+<p>Primero, van al panel [Files] en la parte inferior derecha.</p>
+
+<img data-src="img/paso1.png" class="quarto-discovered-preview-image r-stretch quarto-figure-center" style="width:80.0%"></section>
+<section id="establecer-el-directorio-de-trabajo-manualmente-1" class="slide level2 medium">
+<h2>Establecer el Directorio de Trabajo Manualmente</h2>
+<p>Luego en la parte derecha, hagan clic en <code>...</code> que es “Go to directory”.</p>
+
+<img data-src="img/paso2.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="establecer-el-directorio-de-trabajo-manualmente-2" class="slide level2 medium">
+<h2>Establecer el Directorio de Trabajo Manualmente</h2>
+<p>Seleccionen la carpeta donde van a tener sus archivos. El directorio deberá aparecer en [Files].</p>
+
+<img data-src="img/paso3.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="establecer-el-directorio-de-trabajo-manualmente-3" class="slide level2 medium">
+<h2>Establecer el Directorio de Trabajo Manualmente</h2>
+<p>Seleccionen la tuerca en [FILES] y establezcan la carpeta como directorio de trabajo.</p>
+
+<img data-src="img/paso4.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
+<section id="ejercicio-1---5-minutos" class="slide level2 medium">
+<h2>💪 Ejercicio 1 - (5 minutos)</h2>
+<ol type="1">
+<li>Usando la plantilla con la que ya hemos trabajado anteriormente, establezcan el directorio de trabajo (la carpeta donde guardaron los datos de airbnb):</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Ejemplo:</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">setwd</span>(<span class="st">"C:\Users\ccard\Downloads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li>Carguen los datos <code>airbnb_ny_2019</code> de la siguiente manera usando el paquete <code>tidyverse</code>:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>airbnb <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"airbnb_ny_2019.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Exploren los datos usando la función <code>glimpse()</code></li>
+</ol>
+</div>
+</section></section>
 <section>
 <section id="data" class="title-slide slide level1 center">
 <h1>Fundamentos sobre los datos</h1>
@@ -425,11 +512,11 @@ Carlos Cardona Andrade
 <section id="tipos-de-variables" class="slide level2">
 <h2>Tipos de variables</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-discovered-preview-image r-stretch quarto-figure-center" width="576"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" width="576" class="r-stretch quarto-figure-center"></section>
 <section id="variables-numéricas" class="slide level2">
 <h2>Variables numéricas</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="576" class="r-stretch quarto-figure-center"></section>
 <section id="variables-numéricas-1" class="slide level2 medium">
 <h2>Variables numéricas</h2>
 <p>Una variable es <span class="hl hl-blue">numérica</span> cuando puede tomar una amplia gama de valores numéricos y tiene sentido realizar operaciones aritméticas (suma, resta, promedio) con esos valores. De lo contrario, es <span class="hl hl-blue">categórica</span>.</p>
@@ -445,7 +532,7 @@ Carlos Cardona Andrade
 <h2>Tipos de variables</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 x 5
+<pre><code># A tibble: 10 × 5
    spam  num_char line_breaks format number
    &lt;chr&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;chr&gt;  &lt;fct&gt; 
  1 no      21.7           551 html   small 
@@ -539,7 +626,7 @@ Carlos Cardona Andrade
 <li><p>Nombrar el eje horizontal (con unidades!)</p></li>
 </ul>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="480" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="480" class="r-stretch quarto-figure-center"></section>
 <section id="histogramas" class="slide level2 medium">
 <h2>Histogramas</h2>
 <ul>
@@ -561,15 +648,15 @@ Carlos Cardona Andrade
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2" data-code-line-numbers="1|2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="1|2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -582,20 +669,20 @@ Carlos Cardona Andrade
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="2,3,4|5,6|7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp),</span>
-<span id="cb3-3"><a href="#cb3-3"></a>                 <span class="at">fill =</span> <span class="st">"lightblue"</span>,</span>
-<span id="cb3-4"><a href="#cb3-4"></a>                 <span class="at">color =</span> <span class="st">"darkblue"</span>)<span class="sc">+</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
-<span id="cb3-6"><a href="#cb3-6"></a>       <span class="at">x =</span> <span class="st">"Life Expectancy (years)"</span>) <span class="sc">+</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="2,3,4|5,6|7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp),</span>
+<span id="cb7-3"><a href="#cb7-3"></a>                 <span class="at">fill =</span> <span class="st">"lightblue"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>                 <span class="at">color =</span> <span class="st">"darkblue"</span>)<span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6"></a>       <span class="at">x =</span> <span class="st">"Life Expectancy (years)"</span>) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -608,21 +695,21 @@ Carlos Cardona Andrade
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp),</span>
-<span id="cb4-3"><a href="#cb4-3"></a>                 <span class="at">fill =</span> <span class="st">"lightblue"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4"></a>                 <span class="at">color =</span> <span class="st">"darkblue"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5"></a>                 <span class="at">bins =</span> <span class="dv">10</span>)<span class="sc">+</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
-<span id="cb4-7"><a href="#cb4-7"></a>       <span class="at">x =</span> <span class="st">"Life Expectancy (years)"</span>) <span class="sc">+</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp),</span>
+<span id="cb8-3"><a href="#cb8-3"></a>                 <span class="at">fill =</span> <span class="st">"lightblue"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4"></a>                 <span class="at">color =</span> <span class="st">"darkblue"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5"></a>                 <span class="at">bins =</span> <span class="dv">10</span>)<span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7"></a>       <span class="at">x =</span> <span class="st">"Life Expectancy (years)"</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -635,21 +722,21 @@ Carlos Cardona Andrade
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp),</span>
-<span id="cb5-3"><a href="#cb5-3"></a>                 <span class="at">fill =</span> <span class="st">"lightblue"</span>,</span>
-<span id="cb5-4"><a href="#cb5-4"></a>                 <span class="at">color =</span> <span class="st">"darkblue"</span>,</span>
-<span id="cb5-5"><a href="#cb5-5"></a>                 <span class="at">bins =</span> <span class="dv">20</span>)<span class="sc">+</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
-<span id="cb5-7"><a href="#cb5-7"></a>       <span class="at">x =</span> <span class="st">"Life Expectancy (years)"</span>) <span class="sc">+</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp),</span>
+<span id="cb9-3"><a href="#cb9-3"></a>                 <span class="at">fill =</span> <span class="st">"lightblue"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4"></a>                 <span class="at">color =</span> <span class="st">"darkblue"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5"></a>                 <span class="at">bins =</span> <span class="dv">20</span>)<span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7"></a>       <span class="at">x =</span> <span class="st">"Life Expectancy (years)"</span>) <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -665,14 +752,14 @@ Carlos Cardona Andrade
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="384"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="384"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-2.png" width="384"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-18-2.png" width="384"></p>
 </figure>
 </div>
 </div>
@@ -681,14 +768,14 @@ Carlos Cardona Andrade
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-3.png" width="384"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-18-3.png" width="384"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-4.png" width="384"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-18-4.png" width="384"></p>
 </figure>
 </div>
 </div>
@@ -719,7 +806,7 @@ Carlos Cardona Andrade
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -729,7 +816,7 @@ Carlos Cardona Andrade
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-20-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -742,15 +829,15 @@ Carlos Cardona Andrade
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="2|1,2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="2|1,2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -763,20 +850,20 @@ Carlos Cardona Andrade
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="2,3,4|5,6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp),</span>
-<span id="cb7-3"><a href="#cb7-3"></a>                 <span class="at">fill =</span> <span class="st">"lightblue"</span>,</span>
-<span id="cb7-4"><a href="#cb7-4"></a>                 <span class="at">color =</span> <span class="st">"darkblue"</span>)<span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Density"</span>,</span>
-<span id="cb7-6"><a href="#cb7-6"></a>       <span class="at">x =</span> <span class="st">"Life Expectancy (years)"</span>) <span class="sc">+</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="2,3,4|5,6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp),</span>
+<span id="cb11-3"><a href="#cb11-3"></a>                 <span class="at">fill =</span> <span class="st">"lightblue"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4"></a>                 <span class="at">color =</span> <span class="st">"darkblue"</span>)<span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Density"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6"></a>       <span class="at">x =</span> <span class="st">"Life Expectancy (years)"</span>) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-21-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-24-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -813,23 +900,24 @@ Carlos Cardona Andrade
 <p>El <span class="marker-hl">sesgo</span> mide qué tan asimétricos están distribuidos los datos</p>
 <h3 id="distribución-sesgada-a-la-izquierda---simétrica-y-sesgada-a-la-derecha">distribución sesgada a la izquierda (-), simétrica y sesgada a la derecha (+)</h3>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="moda-en-los-histogramas" class="slide level2 medium">
 <h2>Moda en los Histogramas</h2>
+<p>La <span class="marker-hl">moda</span> es el dato que más se repite en la distribución</p>
 <h3 id="un-ejemplo-de-distribución-unimodal-bimodal-y-multimodal">Un ejemplo de distribución unimodal, bimodal y multimodal</h3>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-26-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="ejemplo-con-la-expectativa-de-vida" class="slide level2 medium">
 <h2>Ejemplo con la Expectativa de vida</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" class="r-stretch quarto-figure-center"><div class="fragment">
+<img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch quarto-figure-center"><div class="fragment">
 <p>Adicional al pico cerca a los 70 años, pareciera existir otro pico a los 40-45 años.</p>
 </div>
 </section>
 <section id="la-expectativa-de-vida-es" class="slide level2 medium">
 <h2>La expectativa de vida es…</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="672" class="r-stretch quarto-figure-center"><div class="absolute textbox fragment fade-up altlist" style="font-size:1.7rem;padding:0.5rem 1rem;top: 10%; right: -15%; width: 340px; ">
+<img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" width="672" class="r-stretch quarto-figure-center"><div class="absolute textbox fragment fade-up altlist" style="font-size:1.7rem;padding:0.5rem 1rem;top: 10%; right: -15%; width: 340px; ">
 <p>Mucho más baja y con alta variación en África</p>
 </div>
 <div class="absolute textbox fragment fade-up altlist" style="font-size:1.7rem;padding:0.5rem 1rem;left: -10%; bottom: 10%; width: 340px; ">
@@ -840,15 +928,15 @@ Carlos Cardona Andrade
 <h2>💪 Ejercicio 2 - (5 minutos)</h2>
 <ol type="1">
 <li><p>Dibujen un histograma para la variable <code>price</code>. ¿Existe sesgo?</p></li>
-<li><p>Intenten el punto anterior con distinto número de <em>bins</em>.</p></li>
-<li><p>Por la dificultad de graficar el anterior histograma. Censuremos un poco los datos con el siguiente código:</p></li>
+<li><p>Intenten el punto anterior para distinto número de <em>bins</em>.</p></li>
+<li><p>Por la dificultad de graficar el anterior histograma, censuremos un poco los datos con el siguiente código:</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>newdata <span class="ot">&lt;-</span> airbnb <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">filter</span>(price<span class="sc">&lt;</span><span class="dv">3</span><span class="sc">*</span><span class="fu">sd</span>(price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>newdata <span class="ot">&lt;-</span> airbnb <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">filter</span>(price<span class="sc">&lt;</span><span class="dv">3</span><span class="sc">*</span><span class="fu">sd</span>(price, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="4" type="1">
-<li>Intenten gráficar el histograma nuevamente y elijan el número de <em>bins</em> que para ustedes provea más información.</li>
+<li>Intenten graficar el histograma nuevamente y elijan el número de <em>bins</em> que para ustedes provea más información.</li>
 </ol>
 </section></section>
 <section>
@@ -904,7 +992,7 @@ Carlos Cardona Andrade
 <section id="media-vs-mediana" class="slide level2 medium">
 <h2>Media vs Mediana</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="672" class="r-stretch quarto-figure-center"><div class="absolute textbox fragment fade-up altlist" style="font-size:1.7rem;padding:0.5rem 1rem;top: 10%; left: -10%; width: 380px; ">
+<img data-src="index_files/figure-revealjs/unnamed-chunk-30-1.png" width="672" class="r-stretch quarto-figure-center"><div class="absolute textbox fragment fade-up altlist" style="font-size:1.7rem;padding:0.5rem 1rem;top: 10%; left: -10%; width: 380px; ">
 <p>¿Cuál distribución es simétrica?</p>
 </div>
 <div class="absolute textbox fragment fade-up altlist" style="font-size:1.7rem;padding:0.5rem 1rem;top: 10%; right: -10%; width: 380px; ">
@@ -915,7 +1003,7 @@ Carlos Cardona Andrade
 <h2>La media y la mediana en R</h2>
 <p>La media se calcula con la función <code>mean()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">mean</span>(gapminder<span class="sc">$</span>lifeExp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">mean</span>(gapminder<span class="sc">$</span>lifeExp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 59.47444</code></pre>
 </div>
@@ -923,7 +1011,7 @@ Carlos Cardona Andrade
 <div class="fragment">
 <p>La mediana se calcula con la función <code>median()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">median</span>(gapminder<span class="sc">$</span>lifeExp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">median</span>(gapminder<span class="sc">$</span>lifeExp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 60.7125</code></pre>
 </div>
@@ -932,12 +1020,12 @@ Carlos Cardona Andrade
 <div class="fragment">
 <p>Comparemos para cada continente:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>gapminder <span class="sc">|&gt;</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a>   <span class="fu">summarise</span>(<span class="at">mean_lexp =</span> <span class="fu">mean</span>(lifeExp),</span>
-<span id="cb13-4"><a href="#cb13-4"></a>             <span class="at">median_lexp =</span> <span class="fu">median</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>gapminder <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>   <span class="fu">summarise</span>(<span class="at">mean_lexp =</span> <span class="fu">mean</span>(lifeExp),</span>
+<span id="cb17-4"><a href="#cb17-4"></a>             <span class="at">median_lexp =</span> <span class="fu">median</span>(lifeExp))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 3
+<pre><code># A tibble: 5 × 3
   continent mean_lexp median_lexp
   &lt;fct&gt;         &lt;dbl&gt;       &lt;dbl&gt;
 1 Africa         48.9        47.8
@@ -1005,7 +1093,7 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <h2>Cuartiles</h2>
 <p><span class="math display">\[X=11, 12, 13, 16, 16, 17, 18, 21, 22\]</span></p>
 <ul>
-<li><p><span class="math inline">\(Q_2: \dfrac{(9+1)}{2}=5\)</span>posición <span class="math display">\[Q_2=mediana=16\]</span></p></li>
+<li><p><span class="math inline">\(Q_2: \dfrac{(9+1)}{2}=5\)</span> posición <span class="math display">\[Q_2=mediana=16\]</span></p></li>
 <li><p><span class="math inline">\(Q_3: \dfrac{3*(9+1)}{4}=7.5\)</span> posición</p></li>
 </ul>
 <p><span class="math display">\[Q_3=\dfrac{18+21}{2}=19.5\]</span></p>
@@ -1033,13 +1121,13 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="fragment">
 <p>Retomemos el ejemplo de la diapositiva anterior, donde <span class="math inline">\(Q_1\)</span> = 12.5, <span class="math inline">\(Q_2\)</span> = 16 y <span class="math inline">\(Q_3\)</span> = 19.5</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a> x <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">21</span>,<span class="dv">22</span>)</span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">summary</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a> x <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">21</span>,<span class="dv">22</span>)</span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">summary</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   11.00   13.00   16.00   16.22   18.00   22.00 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">fivenum</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">fivenum</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 11 13 16 18 22</code></pre>
 </div>
@@ -1050,13 +1138,13 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <h2>Cálculo de los cuartiles</h2>
 <p>Incluso diferentes comandos en <i class="fa-brands fa-r-project"></i> a veces reportan diferente cuartiles:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>y <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">43</span>,<span class="dv">35</span>,<span class="dv">43</span>,<span class="dv">33</span>,<span class="dv">38</span>,<span class="dv">53</span>,<span class="dv">64</span>,<span class="dv">27</span>,<span class="dv">34</span>,<span class="dv">27</span>)</span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">summary</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>y <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">43</span>,<span class="dv">35</span>,<span class="dv">43</span>,<span class="dv">33</span>,<span class="dv">38</span>,<span class="dv">53</span>,<span class="dv">64</span>,<span class="dv">27</span>,<span class="dv">34</span>,<span class="dv">27</span>)</span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="fu">summary</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   27.00   33.25   36.50   39.70   43.00   64.00 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">fivenum</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">fivenum</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 27.0 33.0 36.5 43.0 64.0</code></pre>
 </div>
@@ -1098,28 +1186,28 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <section id="diagrama-de-caja---outliers" class="slide level2 medium">
 <h2>Diagrama de caja - Outliers</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-33-1.png" width="864" class="r-stretch quarto-figure-center"><p>Una observación se identifica como un posible valor atípico (<em>outlier</em>) si se encuentra más de 1.5 × RIC por debajo de <span class="math inline">\(Q_1\)</span> o por encima de <span class="math inline">\(Q_3\)</span></p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-36-1.png" width="864" class="r-stretch quarto-figure-center"><p>Una observación se identifica como un posible valor atípico (<em>outlier</em>) si se encuentra más de 1.5 × RIC por debajo de <span class="math inline">\(Q_1\)</span> o por encima de <span class="math inline">\(Q_3\)</span></p>
 </section>
 <section id="diagrama-de-caja-vs-histograma" class="slide level2 medium">
 <h2>Diagrama de caja vs Histograma</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-34-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-37-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="el-diagrama-de-caja-en-r" class="slide level2 medium">
 <h2>El diagrama de caja en R</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23" data-code-line-numbers="2|1,2,3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp)) <span class="sc">+</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Life Expectancy (years)"</span>) <span class="sc">+</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27" data-code-line-numbers="2|1,2,3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp)) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Life Expectancy (years)"</span>) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-36-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-39-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1132,17 +1220,17 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24" data-code-line-numbers="2|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>lifeExp)) <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Life Expectancy (years)"</span>) <span class="sc">+</span></span>
-<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28" data-code-line-numbers="2|3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>lifeExp)) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Life Expectancy (years)"</span>) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-38-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-41-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1155,18 +1243,18 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25" data-code-line-numbers="2|1,2,3,4,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp , <span class="at">y=</span>continent)) <span class="sc">+</span></span>
-<span id="cb25-3"><a href="#cb25-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Life Expectancy (years)"</span>,</span>
-<span id="cb25-4"><a href="#cb25-4"></a>       <span class="at">y =</span> <span class="st">"Continent"</span>) <span class="sc">+</span></span>
-<span id="cb25-5"><a href="#cb25-5"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29" data-code-line-numbers="2|1,2,3,4,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>lifeExp , <span class="at">y=</span>continent)) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Life Expectancy (years)"</span>,</span>
+<span id="cb29-4"><a href="#cb29-4"></a>       <span class="at">y =</span> <span class="st">"Continent"</span>) <span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-40-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-43-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1184,9 +1272,15 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 </ol>
 </section></section>
 <section>
-<section id="disperson" class="title-slide slide level1 center">
+<section id="dispersion" class="title-slide slide level1 center">
 <h1>Medidas de dispersión</h1>
 
+</section>
+<section id="el-rango" class="slide level2 medium">
+<h2>El Rango</h2>
+<p>Es la distancia cubierta por los valores en una distribución, es decir, la distancia entre menor y el mayor valor</p>
+<p>Se calcula de la siguiente manera: <span class="math display">\[Rango=X_{max}-X_{min}\]</span></p>
+<p>Usualmente es más útil reportar el mínimo y el máximo que reportar el rango</p>
 </section>
 <section id="la-desviación-estándar" class="slide level2 medium">
 <h2>La desviación estándar</h2>
@@ -1241,7 +1335,7 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-41-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-44-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1251,7 +1345,7 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-42-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-45-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1261,7 +1355,7 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-43-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-46-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1289,7 +1383,7 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-44-1.png" width="672"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-47-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1297,7 +1391,7 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 </div><div class="column" style="width:40%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 2
+<pre><code># A tibble: 5 × 2
   continent proportion_1SD
   &lt;fct&gt;              &lt;dbl&gt;
 1 Africa             0.691
@@ -1318,7 +1412,7 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-46-1.png" width="672"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-49-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1326,7 +1420,7 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 </div><div class="column" style="width:40%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 2
+<pre><code># A tibble: 5 × 2
   continent proportion_2SD
   &lt;fct&gt;              &lt;dbl&gt;
 1 Africa             0.947
@@ -1345,14 +1439,14 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>gapminder <span class="sc">|&gt;</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span></span>
-<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb28-4"><a href="#cb28-4"></a>    <span class="at">mean_lExp =</span> <span class="fu">mean</span>(lifeExp),</span>
-<span id="cb28-5"><a href="#cb28-5"></a>    <span class="at">sd_lExp =</span> <span class="fu">sd</span>(lifeExp)</span>
-<span id="cb28-6"><a href="#cb28-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>gapminder <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb32-4"><a href="#cb32-4"></a>    <span class="at">mean_lExp =</span> <span class="fu">mean</span>(lifeExp),</span>
+<span id="cb32-5"><a href="#cb32-5"></a>    <span class="at">sd_lExp =</span> <span class="fu">sd</span>(lifeExp)</span>
+<span id="cb32-6"><a href="#cb32-6"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 3
+<pre><code># A tibble: 5 × 3
   continent mean_lExp sd_lExp
   &lt;fct&gt;         &lt;dbl&gt;   &lt;dbl&gt;
 1 Africa         48.9    9.15
@@ -1367,7 +1461,7 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-49-1.png" width="672"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-52-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1384,7 +1478,7 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 </section></section>
 <section>
 <section id="bivariado" class="title-slide slide level1 center">
-<h1>Análisis bivariado</h1>
+<h1>Medidas de relación entre dos variables</h1>
 
 </section>
 <section id="diagramas-de-dispersión" class="slide level2 medium">
@@ -1395,7 +1489,7 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-50-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-53-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1417,18 +1511,18 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30" data-code-line-numbers="2|1,2,3,4,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">ggplot</span>(gapminder)<span class="sc">+</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>gdpPercap, <span class="at">y=</span>lifeExp)) <span class="sc">+</span> </span>
-<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per cápita"</span>,</span>
-<span id="cb30-4"><a href="#cb30-4"></a>       <span class="at">y =</span> <span class="st">"Life Expectancy"</span>) <span class="sc">+</span></span>
-<span id="cb30-5"><a href="#cb30-5"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34" data-code-line-numbers="2|1,2,3,4,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">ggplot</span>(gapminder)<span class="sc">+</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>gdpPercap, <span class="at">y=</span>lifeExp)) <span class="sc">+</span> </span>
+<span id="cb34-3"><a href="#cb34-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"GDP per cápita"</span>,</span>
+<span id="cb34-4"><a href="#cb34-4"></a>       <span class="at">y =</span> <span class="st">"Life Expectancy"</span>) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-52-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-55-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1441,18 +1535,18 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31" data-code-line-numbers="2|1,2,3,4,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">ggplot</span>(gapminder)<span class="sc">+</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdpPercap), <span class="at">y=</span>lifeExp)) <span class="sc">+</span> </span>
-<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"log(GDP per cápita)"</span>,</span>
-<span id="cb31-4"><a href="#cb31-4"></a>       <span class="at">y =</span> <span class="st">"Life Expectancy"</span>) <span class="sc">+</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35" data-code-line-numbers="2|1,2,3,4,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">ggplot</span>(gapminder)<span class="sc">+</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdpPercap), <span class="at">y=</span>lifeExp)) <span class="sc">+</span> </span>
+<span id="cb35-3"><a href="#cb35-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"log(GDP per cápita)"</span>,</span>
+<span id="cb35-4"><a href="#cb35-4"></a>       <span class="at">y =</span> <span class="st">"Life Expectancy"</span>) <span class="sc">+</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-54-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-57-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1465,19 +1559,19 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32" data-code-line-numbers="2|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">ggplot</span>(gapminder)<span class="sc">+</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdpPercap), <span class="at">y=</span>lifeExp, <span class="at">color =</span> continent)) <span class="sc">+</span> </span>
-<span id="cb32-3"><a href="#cb32-3"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"log(GDP per cápita)"</span>,</span>
-<span id="cb32-4"><a href="#cb32-4"></a>         <span class="at">y =</span> <span class="st">"Life Expectancy"</span>) <span class="sc">+</span></span>
-<span id="cb32-5"><a href="#cb32-5"></a>    <span class="fu">scale_color_brewer</span>(<span class="at">name =</span> <span class="st">"Continent"</span>, <span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
-<span id="cb32-6"><a href="#cb32-6"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36" data-code-line-numbers="2|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">ggplot</span>(gapminder)<span class="sc">+</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdpPercap), <span class="at">y=</span>lifeExp, <span class="at">color =</span> continent)) <span class="sc">+</span> </span>
+<span id="cb36-3"><a href="#cb36-3"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"log(GDP per cápita)"</span>,</span>
+<span id="cb36-4"><a href="#cb36-4"></a>         <span class="at">y =</span> <span class="st">"Life Expectancy"</span>) <span class="sc">+</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a>    <span class="fu">scale_color_brewer</span>(<span class="at">name =</span> <span class="st">"Continent"</span>, <span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="#cb36-6"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-56-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-59-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1489,7 +1583,7 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <h2>Covarianza</h2>
 <ul>
 <li><p>La covarianza mide qué tan fuerte es la relación (lineal) de <em>dos variables numéricas</em>.</p></li>
-<li><p>La covarianza muestra:</p></li>
+<li><p>La covarianza se calcula de la siguiente manera:</p></li>
 </ul>
 <p><span class="math display">\[cov(X,Y)=\dfrac{\sum_{i=1}^{n}(X_i-\bar{X})(Y_i-\bar{Y})}{n-1}\]</span></p>
 <ul>
@@ -1513,7 +1607,7 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <ul>
 <li>La correlación mide la dirección y la fuerza de la relación lineal entre dos variables numéricas.</li>
 </ul>
-<p><span class="math display">\[r=\dfrac{cov(X,Y)}{S_xS_y}\]</span></p>
+<p><span class="math display">\[r=\dfrac{cov(X,Y)}{s_xs_y}\]</span></p>
 </section>
 <section id="características-de-la-correlación" class="slide level2 medium">
 <h2>Características de la correlación</h2>
@@ -1541,18 +1635,18 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="column" style="width:60%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-57-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-60-1.png" width="576"></p>
 </div>
 </div>
 </div><div class="column" style="width:40%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>gapminder <span class="sc">|&gt;</span> </span>
-<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span></span>
-<span id="cb33-3"><a href="#cb33-3"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb33-4"><a href="#cb33-4"></a>    <span class="at">corr =</span> <span class="fu">cor</span>(lifeExp, gdpPercap)</span>
-<span id="cb33-5"><a href="#cb33-5"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="#cb37-3"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb37-4"><a href="#cb37-4"></a>    <span class="at">corr =</span> <span class="fu">cor</span>(lifeExp, gdpPercap)</span>
+<span id="cb37-5"><a href="#cb37-5"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 2
+<pre><code># A tibble: 5 × 2
   continent  corr
   &lt;fct&gt;     &lt;dbl&gt;
 1 Africa    0.426
@@ -1572,18 +1666,18 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="column" style="width:60%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-59-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-62-1.png" width="576"></p>
 </div>
 </div>
 </div><div class="column" style="width:40%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>gapminder <span class="sc">|&gt;</span> </span>
-<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span></span>
-<span id="cb35-3"><a href="#cb35-3"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb35-4"><a href="#cb35-4"></a>    <span class="at">corr =</span> <span class="fu">cor</span>(lifeExp, gdpPercap)</span>
-<span id="cb35-5"><a href="#cb35-5"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb39-4"><a href="#cb39-4"></a>    <span class="at">corr =</span> <span class="fu">cor</span>(lifeExp, gdpPercap)</span>
+<span id="cb39-5"><a href="#cb39-5"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 x 2
+<pre><code># A tibble: 5 × 2
   continent  corr
   &lt;fct&gt;     &lt;dbl&gt;
 1 Africa    0.426
@@ -1604,8 +1698,8 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <li><p>En ocasiones, la relación entre dos variables no es clara a primera vista. La función <code>geom_smooth()</code> facilita visualizar posibles relaciones. Por ejemplo:</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">ggplot</span>(newdata) <span class="sc">+</span></span>
-<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y=</span>number_of_reviews, <span class="at">x=</span>price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">ggplot</span>(newdata) <span class="sc">+</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y=</span>number_of_reviews, <span class="at">x=</span>price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>¿Qué historia nos cuenta esta nueva gráfica? ¿Tiene sentido para ustedes la relación observada entre las variables?</p>
 <div class="footer footer-default">

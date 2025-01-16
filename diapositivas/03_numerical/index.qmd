@@ -44,19 +44,123 @@ library(scales)
 
 ## Plan para hoy
 
-1. [Fundamentos sobre los datos](#data)
+1. [Estructura de un proyecto](#project)
 
-2. [El Histograma](#histograma)
+2. [Fundamentos sobre los datos](#data)
 
-3. [Medidas de tendencia central](#central)
+3. [El Histograma](#histograma)
 
-4. [Diagrama de caja](#boxplot)
+4. [Medidas de tendencia central](#central)
 
-5. [Medidas de dispersión](#dispersion)
+5. [Diagrama de caja](#boxplot)
 
-6. [Análisis bivariado](#bivariado)
+6. [Medidas de dispersión](#dispersion)
+
+7. [Medidas de relación entre dos variables](#bivariado)
 
 
+# Estructura de un proyecto {#project}
+
+## Estructura de un proyecto {.medium}
+
+Un proyecto debería tener la siguiente estructura para facilitar la organización:
+
+```
+📂 project_name
+├── 📂 data
+├── 📂 scripts
+└── 📂 output
+    ├── 📂 plots
+    └── 📂 data
+```
+
+. . .
+
+- Esta organización facilita el trabajo colaborativo y ayuda a retomar el proyecto más fácilmente
+
+- Eviten usar **mayúsculas** o **espacios** en los nombres de archivos y carpetas. Ejemplos:
+    - Incorrecto: `Archivo de datos.csv`
+    - Correcto: `archivo_de_datos.csv`
+
+
+## El Directorio de Trabajo {.medium}
+
+- El directorio de trabajo es la carpeta en la que están trabajando actualmente
+
+- <i class="fa-brands fa-r-project"></i> guarda y carga archivos desde esta carpeta por defecto
+
+- Antes de comenzar, asegúrense de establecer tu directorio de trabajo con la siguiente función:
+
+```{r}
+#| eval: false
+setwd("C:/Users/nombre_apellido/OneDrive/Documentos/analisis_de_datos/")
+```
+
+. . .
+
+- Recuerden que en el explorador de archivos, las carpetas se dividen por "`\`", pero <i class="fa-brands fa-r-project"></i> requiere "`/`" como separador de carpetas
+
+::: {.aside}
+Para entender por qué el uso de "`/`" pueden leer [Forward Slash in R](https://www.geeksforgeeks.org/how-to-convert-backslash-to-forward-slash-in-r/){target="_blank"}
+:::
+
+## Establecer el Directorio de Trabajo Manualmente {.medium}
+
+También puedes hacerlo manualmente desde el visualizador de archivos en R Studio:
+
+Primero, van al panel [Files] en la parte inferior derecha.
+
+
+![](img/paso1.png){fig-align="center" width=80%}
+
+
+
+## Establecer el Directorio de Trabajo Manualmente {.medium}
+
+
+Luego en la parte derecha, hagan clic en `...` que es “Go to directory”.
+
+
+![](img/paso2.png){fig-align="center" width=80%}
+
+
+
+## Establecer el Directorio de Trabajo Manualmente {.medium}
+
+
+Seleccionen la carpeta donde van a tener sus archivos. El directorio deberá aparecer en [Files].
+
+![](img/paso3.png){fig-align="center" width=80%}
+
+
+## Establecer el Directorio de Trabajo Manualmente {.medium}
+
+
+Seleccionen la tuerca en [FILES] y establezcan la carpeta como directorio de trabajo.
+
+
+![](img/paso4.png){fig-align="center" width=80%}
+
+## 💪 Ejercicio 1 - (5 minutos) {.medium}
+
+1. Usando la plantilla con la que ya hemos trabajado anteriormente, establezcan el directorio de trabajo (la carpeta donde guardaron los datos de airbnb):
+
+```{r}
+#| eval: false
+# Ejemplo:
+setwd("C:\Users\ccard\Downloads")
+```
+
+. . .
+
+2. Carguen los datos `airbnb_ny_2019` de la siguiente manera usando el paquete `tidyverse`:
+
+```{r}
+#| eval: false
+airbnb <- read.csv("airbnb_ny_2019.csv")
+```
+
+3. Exploren los datos usando la función `glimpse()` 
 
 # Fundamentos sobre los datos {#data}
 
@@ -642,6 +746,8 @@ p1+p2+p3
 
 ## Moda en los Histogramas {.medium}
 
+La [moda]{.marker-hl} es el dato que más se repite en la distribución
+
 ### Un ejemplo de distribución unimodal, bimodal y multimodal 
 
 ```{r}
@@ -720,9 +826,9 @@ Uniforme y alta en Europa y Oceanía
 
 1. Dibujen un histograma para la variable `price`. ¿Existe sesgo?
 
-2. Intenten el punto anterior con distinto número de *bins*.
+2. Intenten el punto anterior para distinto número de *bins*.
 
-3. Por la dificultad de graficar el anterior histograma. Censuremos un poco los datos con el siguiente código:
+3. Por la dificultad de graficar el anterior histograma, censuremos un poco los datos con el siguiente código:
 
 ```{r}
 #| echo: true
@@ -731,7 +837,7 @@ newdata <- airbnb |>
   filter(price<3*sd(price, na.rm = TRUE))
 ```
 
-4. Intenten gráficar el histograma nuevamente y elijan el número de *bins* que para ustedes provea más información.
+4. Intenten graficar el histograma nuevamente y elijan el número de *bins* que para ustedes provea más información.
 
 
 # Medidas de tendencia central {#central}
@@ -924,7 +1030,7 @@ $$Q_1=\dfrac{12+13}{2}=12.5$$
 
 $$X=11, 12, 13, 16, 16, 17, 18, 21, 22$$
 
-- $Q_2: \dfrac{(9+1)}{2}=5$posición
+- $Q_2: \dfrac{(9+1)}{2}=5$ posición
 $$Q_2=mediana=16$$
 
 - $Q_3: \dfrac{3*(9+1)}{4}=7.5$ posición
@@ -1163,7 +1269,17 @@ ggplot(gapminder) +
 4. ¿Qué pueden decir a partir del punto anterior?
 
 
-# Medidas de dispersión {#disperson}
+# Medidas de dispersión {#dispersion}
+
+## El Rango {.medium}
+
+
+Es la distancia cubierta por los valores en una distribución, es decir, la distancia entre menor y el mayor valor
+
+Se calcula de la siguiente manera:
+$$Rango=X_{max}-X_{min}$$
+
+Usualmente es más útil reportar el mínimo y el máximo que reportar el rango
 
 ## La desviación estándar {.medium}
 
@@ -1487,7 +1603,7 @@ ggplot(gapminder) +
 
 
 
-# Análisis bivariado {#bivariado}
+# Medidas de relación entre dos variables {#bivariado}
 
 ## Diagramas de dispersión {.medium}
 
@@ -1622,7 +1738,7 @@ ggplot(gapminder)+
 
 - La covarianza mide qué tan fuerte es la relación (lineal) de *dos variables numéricas*.
 
-- La covarianza muestra:
+- La covarianza se calcula de la siguiente manera:
 
 $$cov(X,Y)=\dfrac{\sum_{i=1}^{n}(X_i-\bar{X})(Y_i-\bar{Y})}{n-1}$$
 
@@ -1640,7 +1756,7 @@ $$cov(X,Y)=\dfrac{\sum_{i=1}^{n}(X_i-\bar{X})(Y_i-\bar{Y})}{n-1}$$
 
 - La correlación mide la dirección y la fuerza de la relación lineal entre dos variables numéricas.
 
-$$r=\dfrac{cov(X,Y)}{S_xS_y}$$
+$$r=\dfrac{cov(X,Y)}{s_xs_y}$$
 
 ## Características de la correlación {.medium}
 
