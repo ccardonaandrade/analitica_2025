@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.18.1 (MiKTeX 24.4) (format=lualatex 2024.12.23)  6 JAN 2025 09:14
+This is LuaHBTeX, Version 1.18.1 (MiKTeX 24.4) (format=lualatex 2024.12.23)  16 JAN 2025 12:39
  restricted system commands enabled.
 **syllabus.tex
 (./syllabus.tex
@@ -766,6 +766,11 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
 [2]
 
 [3]
+Overfull \hbox (3.46341pt too wide) in paragraph at lines 200--224
+ [][] 
+ []
+
+
 
 [4] (./syllabus.aux)
  ***********
@@ -777,28 +782,26 @@ Package rerunfilecheck Info: File `syllabus.out' has not changed.
 )
 
 Here is how much of LuaTeX's memory you used:
- 20767 strings out of 475630
+ 20762 strings out of 475630
  100000,1144653 words of node,token memory allocated
- 540 words of node memory still in use:
-   6 hlist, 2 vlist, 2 rule, 3 glue, 4 kern, 1 glyph, 8 attribute, 59 glue_spec,
- 8 attribute_list, 1 write, 1 pdf_action nodes
-   avail lists: 2:602,3:220,4:108,5:1250,6:57,7:6219,8:2,9:427,10:4,11:545
- 43302 multiletter control sequences out of 65536+600000
- 80 fonts using 13865495 bytes
- 79i,12n,104p,540b,1016s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 523 words of node memory still in use:
+   6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 7 attribute, 59 glue_spec,
+ 7 attribute_list, 1 write nodes
+   avail lists: 2:566,3:220,4:105,5:1186,6:54,7:6194,8:2,9:427,10:3,11:548
+ 43299 multiletter control sequences out of 65536+600000
+ 77 fonts using 12579647 bytes
+ 79i,12n,104p,534b,1016s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/ccard/AppData/Local/Microsoft/Windows/Fonts/firasanscondensed-boldital
-ic.ttf>{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Program Files/M
-iKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}<C:/Users/ccard/AppData/Local/Microsoft/W
-indows/Fonts/firasanscondensed-italic.ttf><c:/program files/miktex/fonts/opentyp
-e/public/lm/lmmono10-regular.otf><C:/Users/ccard/AppData/Roaming/MiKTeX/fonts/op
-entype/public/fontawesome/fontawesome.otf><C:/Users/ccard/AppData/Local/Microsof
-t/Windows/Fonts/firasanscondensed-bold.ttf><C:/Users/ccard/AppData/Local/Microso
-ft/Windows/Fonts/firasanscondensed-regular.ttf><c:/program files/miktex/fonts/op
-entype/public/lm/lmmonolt10-bold.otf><C:/Program Files/MiKTeX/fonts/type1/public
-/lm/lmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy10.pfb>
-Output written on syllabus.pdf (4 pages, 88463 bytes).
+ic.ttf><C:/Users/ccard/AppData/Local/Microsoft/Windows/Fonts/firasanscondensed-i
+talic.ttf><c:/program files/miktex/fonts/opentype/public/lm/lmmono10-regular.otf
+><C:/Users/ccard/AppData/Roaming/MiKTeX/fonts/opentype/public/fontawesome/fontaw
+esome.otf><C:/Users/ccard/AppData/Local/Microsoft/Windows/Fonts/firasanscondense
+d-bold.ttf><C:/Users/ccard/AppData/Local/Microsoft/Windows/Fonts/firasanscondens
+ed-regular.ttf><c:/program files/miktex/fonts/opentype/public/lm/lmmonolt10-bold
+.otf>
+Output written on syllabus.pdf (4 pages, 78863 bytes).
 
-PDF statistics: 140 PDF objects out of 1000 (max. 8388607)
- 37 named destinations out of 1000 (max. 131072)
+PDF statistics: 124 PDF objects out of 1000 (max. 8388607)
+ 35 named destinations out of 1000 (max. 131072)
  1 words of extra memory for PDF output out of 10000 (max. 100000000)
 
