@@ -40,4 +40,4 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
 ## Proyecto Final 
 
 ## Detalles 
-Este es un curso dictado por Carlos Cardona Andrade. Gran parte del material está basado en los cursos de [Andrew Heiss](https://evalsp24.classes.andrewheiss.com/), [Grant McDermott](https://github.com/uo-ec607/lectures) y [Daniel Parra](https://danielfparra.github.io/). Todo comentario para mejorar el contenido de las diapositivas es bienvenido.
+Este es un curso dictado por Carlos Cardona Andrade. Gran parte del material está basado en los cursos de [Andrew Heiss](https://evalsp24.classes.andrewheiss.com/), [Grant McDermott](https://github.com/uo-ec607/lectures), [Mine Çetinkaya-Rundel ](https://sta101-f23.github.io/), [Daniel Parra](https://danielfparra.github.io/) y [Matthias Schnetzer](https://mschnetzer.github.io/econpol24/). Todo comentario para mejorar el contenido de las diapositivas es bienvenido.
