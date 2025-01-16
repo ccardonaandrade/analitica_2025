@@ -572,7 +572,7 @@ Para mantener el código **organizado** y facilitar la calificación, es **oblig
 ##
 ## Autor: Carlos Cardona Andrade
 ##
-## Fecha: Jan 27 - 2025
+## Fecha: Enero 27 - 2025
 ## ------------------------------
 
 ## establecemos el directorio de trabajo:
