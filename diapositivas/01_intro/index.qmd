@@ -91,58 +91,54 @@ library(knitr)
 
 <i class="fa-solid fa-person-chalkboard icon"></i>  Trabajo Final: 40\% [(Trabajo Escrito y Presentación)]{.grey600 style="font-size:1.5rem;"} 
 
-## Motivación: Buenos gráficos
+## Motivación: Cómo John Snow mapeó el cólera
 
-::: {.secfont style="font-size:2.3rem;text-align:center;"}
-"Una imagen vale más que mil palabras"
+::: {.columns}
+::: {.column width=60%}
+![](img/cholera_large.jpg){height="450" style="border: 1px solid;"}
 :::
 
-
-<center>
-
-```{=html}
-<iframe width=900 height=550 src="https://www.consultantsmind.com/wp-content/uploads/2019/11/Consultantsmind-Economist-Internet-Digital-Payments-1.png" title="the economist"></iframe>
-```
-
-<center>
-
-
-
-
-## Motivación: Buenos gráficos
-
-::: {.secfont style="font-size:2.3rem;text-align:center;"}
-"Una imagen vale más que mil palabras"
+::: {.column width=35%}
+![](img/cholera_detail.png){height="450" style="border: 1px solid;"}
 :::
-
-
-<center>
-
-```{=html}
-<iframe width=800 height=500 src="https://www.ft.com/content/c4288d72-a7d0-11e9-984c-fac8325aaa04" title="the financial times"></iframe>
-```
-
-<center>
+:::
 
 ::: {.aside}
-Source: [The Financial Times](https://www.ft.com/content/62fbf660-2651-11ea-9a4f-963f0ec7e134){target="_blank"}
+[John Snow, 1854]
+:::
+
+## Motivación: Cambio en la duración de las películas
+
+![](img/movies_time.png){height="450" fig-align="center"}
+  
+::: {.aside}
+Source: [El orden mundial](https://elordenmundial.com/mapas-y-graficos/peliculas-cada-vez-mas-largas/){target="_blank"}
 :::
 
 
-## Motivación: Storytelling {.medium}
+## Motivación: Estado de resultados de Apple
+
+
+![](img/apple.png){height="450" fig-align="center"}
+
+
+
+## Motivación: Storytelling with Data {.medium}
 
 - [Out of Sight, Out of Mind (Pitch Interactive, 2013)](https://drones.pitchinteractive.com/){target="_blank"}
 
+Pitch Interactive documentó todos los ataques con drones en Pakistán desde 2004, visualizando fecha, ubicación y víctimas.
+
 - [An Alternative Data-driven Country Map (Nikita Rokotyan, 2019)](https://projects.interacta.io/country-tsne/){target="_blank"}
+
+Una visualización simple pero impactante, creada con IA, que revela conexiones inéditas entre países.
 
 - [Bezos' Wealth](https://mkorostoff.github.io/1-pixel-wealth/){target="_blank"}
 
+Una historia interactiva que muestra la inmensidad de la riqueza de Bezos, permitiendo explorar su escala con desplazamiento.
 
-## Motivación: Malos gráficos {.medium}
 
-::: {.secfont style="font-size:2.3rem;text-align:center;"}
-"Una imagen vale más que mil palabras"
-:::
+## Motivación: Engañar con gráficos {.medium}
 
 ::: {.columns}
 ::: {.column .fragment}
@@ -157,11 +153,8 @@ Source: [The Financial Times](https://www.ft.com/content/62fbf660-2651-11ea-9a4f
 Source: [Patient](https://patient.info/news-and-features/whats-the-average-height-for-men){target="_blank"}
 :::
 
-## Motivación: Malos gráficos {.medium}
+## Motivación: Engañar con gráficos {.medium}
 
-::: {.secfont style="font-size:2.3rem;text-align:center;"}
-"Una imagen vale más que mil palabras"
-:::
 
 ::: {.columns}
 ::: {.column width=50%}
@@ -173,12 +166,31 @@ Source: [Patient](https://patient.info/news-and-features/whats-the-average-heigh
 :::
 :::
 
+## Motivación: Desafíos en la Aplicación de la Analítica de Datos {.medium}
+
+::: columns
+::: {.column width="50%"}
+Las empresas suelen subestimar los hallazgos de la analítica de datos debido a la resistencia cultural, la mala calidad de los datos y la falta de comunicación efectiva.
+:::
+
+::: {.column width="50%"}
+![](img/datavsgut.png){height="450" fig-align="center"}
+
+:::
+:::
+
+::: {.aside}
+Source: [Why Insights from Data Analytics are Underestimated in Companies?](https://medium.com/@ytxia/why-insights-from-data-analytics-are-underestimated-in-companies-7f89d3aecf4a){target="_blank"}
+:::
+
 
 ## Descripción del curso {.medium}
 
 ::: {.secfont style="font-size:2.3rem;text-align:center;"}
 "Una imagen vale más que mil palabras"
 :::
+
+. . .
 
 En este curso, los estudiantes aprenderán a trabajar con datos de manera efectiva frente a la incertidumbre, desarrollando habilidades para recolectar, analizar y utilizar datos con el propósito de realizar inferencias y conclusiones sobre fenómenos del mundo real. 
 
@@ -212,7 +224,7 @@ A lo largo del curso, se adquirirá experiencia práctica utilizando el software
 
 2. Los empleadores del sector privado y público prefieren R sobre otros softwares como Stata 
 
-3. R es muy flexible y potente, adaptable a casi cualquier tarea, como limpieza de datos, análisis de datos espaciales, machine learning, web scraping, etc
+3. R es muy flexible y adaptable a casi cualquier tarea, como limpieza de datos, machine learning, web scraping, etc
 
 4. R no impone limitaciones en la cantidad de observaciones, variables, memoria o poder de procesamiento
 
@@ -739,7 +751,7 @@ r
 countries <- c("Brasil", "India", "Colombia")
 ```
 
-1. Usen el comando `countries[4]`. ¿Qué obtienen? Por qué?
+1. Usen el comando `countries[4]`. ¿Qué obtienen? ¿Por qué?
 
 2. Quiero extraer el segundo y tercer elemento de `countries`, entonces use `countries[2,3]`. ¿Qué pasa? ¿Lo pueden arreglar?`
 
@@ -1272,9 +1284,7 @@ knitr::include_graphics("img/titanic_viewer.png")
 Usen `rm()` para eliminar un objeto o varios objetos de su entorno de trabajo
 
 ```{r}
-b <- "hello"
-c <- "world"
-rm(b, c)
+rm(d, my_numbers, countries)
 ```
 
 . . .
