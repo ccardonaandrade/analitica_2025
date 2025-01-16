@@ -2,7 +2,7 @@
 
 [`Libros`](#libros) | [`Clases`](#clases) | [`Proyecto Final`](#proyecto-final) | [`Detalles`](#detalles)   
 
-Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/96c0f9c2aa0d9c54504589ee46b5c68515ebc6be/syllabus/syllabus.pdf) para información más detallada sobre el curso.
+Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/a364e66fe539207251bf8dacf7202586899879a4/syllabus/syllabus.pdf) para información más detallada sobre el curso.
 
 ## Libros 
 
