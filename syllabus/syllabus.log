@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.18.1 (MiKTeX 24.4) (format=lualatex 2024.12.23)  16 JAN 2025 12:39
+This is LuaHBTeX, Version 1.18.1 (MiKTeX 24.4) (format=lualatex 2024.12.23)  16 JAN 2025 12:59
  restricted system commands enabled.
 **syllabus.tex
 (./syllabus.tex
@@ -766,7 +766,7 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
 [2]
 
 [3]
-Overfull \hbox (3.46341pt too wide) in paragraph at lines 200--224
+Overfull \hbox (2.38347pt too wide) in paragraph at lines 200--224
  [][] 
  []
 
@@ -799,7 +799,7 @@ esome.otf><C:/Users/ccard/AppData/Local/Microsoft/Windows/Fonts/firasanscondense
 d-bold.ttf><C:/Users/ccard/AppData/Local/Microsoft/Windows/Fonts/firasanscondens
 ed-regular.ttf><c:/program files/miktex/fonts/opentype/public/lm/lmmonolt10-bold
 .otf>
-Output written on syllabus.pdf (4 pages, 78863 bytes).
+Output written on syllabus.pdf (4 pages, 78869 bytes).
 
 PDF statistics: 124 PDF objects out of 1000 (max. 8388607)
  35 named destinations out of 1000 (max. 131072)
