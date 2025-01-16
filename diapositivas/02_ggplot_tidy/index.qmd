@@ -194,7 +194,7 @@ head(gapminder)
     -   Selección más estricta
 :::
 
-[^2]: El [capítulo 10](https://r4ds.had.co.nz/tibbles.html){target="_blank"} de la primera edición de R4DS es una buena referencia para profundizar en el tema.
+[^2]: El [capítulo 10](https://r4ds.had.co.nz/tibbles.html){target="_blank"} de la primera edición de R4DS o [https://tibble.tidyverse.org/](https://tibble.tidyverse.org/){target="_blank"} son buenas referencias para profundizar en el tema.
 
 ## Impresión {.medium}
 
@@ -238,129 +238,6 @@ Sólo `NULL` si no encuentra la variable.
 cars$apple
 ```
 :::
-
-# El operador pipe {#pipe}
-
-## El operador pipe en acción {.medium}
-
-- El operador **pipe** (`|>`) es una herramienta para pasar información de un proceso al otro
-
-- Las dos siguientes líneas de código hacen lo mismo:
-
-```{r}
-#| eval: false
-gapminder |> filter(year == 2007) |>  group_by(continent)  |> summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) |> arrange(desc(mean_gpdpercapita))
-arrange(summarize(group_by(filter(gapminder, year == 2007), continent), mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)), desc(mean_gpdpercapita))
-```
-
-. . . 
-
-- La primera línea se lee de izquierda a derecha, exactamente como uno pensaría los procesos
-
-- La segunda línea invierte totalmente este orden lógico (¡la operación final viene primero!)
-
-
-## El operador pipe en acción {.smaller}
-
-```{r}
-#| label: pipe-1
-
-gapminder # <1>
-```
-
-1.  Toma el data frame gapminder
-
-## El operador pipe en acción {.smaller}
-
-```{r}
-#| label: pipe-2
-
-gapminder |>               # <1>
-  filter(year == 2007)     # <2>
-```
-
-1.  Toma el data frame gapminder,
-2.  **y luego** selecciona las observaciones en el año 2007
-
-## El operador pipe en acción {.smaller}
-
-```{r}
-#| label: pipe-3
-
-gapminder |>                 # <1>
-  filter(year == 2002) |>    # <2>
-  group_by(continent)        # <3>
-```
-
-1.  Toma el data frame gapminder,
-2.  **y luego** selecciona las observaciones en el año 2002,
-3.  **y luego** agrupa por continente
-
-## El operador pipe en acción {.smaller}
-
-```{r}
-#| label: pipe-4
-
-gapminder |>                # <1>
-  filter(year == 2007) |>   # <2>
-  group_by(continent)  |>   # <3>
-  summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) # <4>
-```
-
-1.  Toma el data frame gapminder,
-2.  **y luego** selecciona las observaciones en el año 2007,
-3.  **y luego** agrupa por continente,
-4.  **y luego** calcula el GDP per cápita promedio para cada continente
-
-## El operador pipe en acción {.smaller}
-
-```{r}
-#| label: pipe-5
-
-gapminder |>                 # <1>
-  filter(year == 2007) |>    # <2>
-  group_by(continent)  |>    # <3>
-  summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) |> # <4>
-  arrange(desc(mean_gpdpercapita)) # <5>
-```
-
-1.  Toma el data frame gapminder,
-2.  **y luego** selecciona las observaciones en el año 2007,
-3.  **y luego** agrupa por continente,
-4.  **y luego** calcula el GDP per cápita para cada continente,
-5.  **y luego** organiza de manera descendente basado en el GDP per cápita promedio.
-
-## Algunas consideraciones sobre `|>` {.medium}
-
-
-::: columns
-::: {.column width="50%"}
-```{r}
-#| eval: false
-gapminder |> filter(year == 2007) |>  group_by(continent)  |> summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) |> arrange(desc(mean_gpdpercapita))
-```
-:::
-
-::: {.column width="50%"}
-```{r}
-#| eval: false
-gapminder |>                 
-  filter(year == 2007) |>    
-  group_by(continent)  |>    
-  summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) |> 
-  arrange(desc(mean_gpdpercapita)) 
-```
-:::
-:::
-
-
-- Usar espacio vertical no cuesta nada y genera un código mucho más legible y fácil de escribir que amontonar cosas horizontalmente
-
-. . . 
-
-- Otra manera de denotar el pipe operator es `%>%`. Hay diferencias entre ambos pero van más allá del propósito del curso
-
-- Revisen el post [|> vs. %>%](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/){target="_blank"} si quieren profundizar en el tema 
 
 
 
@@ -500,7 +377,7 @@ El mapeo estético acá es simple: sólo define un eje x (gdpPercap) y un eje y 
 
 ## 1. Mapeo estético - Tipos {.medium}
 
-Sin embargo, para tener una idea del poder y la flexibilidad que conlleva este enfoque, consideremos lo que sucede si agregamos alguna de las siguientes estética a la línea de la función...
+Sin embargo, para tener una idea del poder y la flexibilidad que conlleva este enfoque, consideremos lo que sucede si agregamos alguna de las siguientes estéticas a la línea de la función...
 
 ![](img/aesthetics.png){fig-align="center" width=800 height=400}
 
@@ -552,12 +429,12 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 
 . . .
 
-<br/> **Respuesta: **Las características estéticas están asociadas a variables, no a descripciones!
+<br/> **Respuesta: **El mapeo estético está asociado a variables, no a descripciones!
 
 
 ## 1. Mapeo estético {.medium}
 
-<br>
+Dentro de `aes()`, pueden mapear una variable a un atributo estético, mientras que fuera pueden asignarle un valor fijo.
 
 ::::: {.columns}
 
@@ -934,6 +811,148 @@ p2
 ```
 
 
+## Exportar con ggsave() {.medium}
+
+<center>
+`ggsave("filename.png", width = , height = )`
+<center>
+
+- Por defecto, guarda el último gráfico que hicieron
+
+- `filename` es el directorio y el nombre del archivo
+
+- Soporta `.jpg`, `.png`, `.pdf` y otros formatos
+
+- La otra manera es con el botón de exportar en el visualizador de gráficos
+
+
+
+# El operador pipe {#pipe}
+
+## El operador pipe en acción {.medium}
+
+- El operador **pipe** (`|>`) es una herramienta para pasar información de un proceso al otro
+
+- Las dos siguientes líneas de código hacen lo mismo:
+
+```{r}
+#| eval: false
+gapminder |> filter(year == 2007) |>  group_by(continent)  |> summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) |> arrange(desc(mean_gpdpercapita))
+arrange(summarize(group_by(filter(gapminder, year == 2007), continent), mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)), desc(mean_gpdpercapita))
+```
+
+. . . 
+
+- La primera línea se lee de izquierda a derecha, exactamente como uno pensaría los procesos
+
+- La segunda línea invierte totalmente este orden lógico (¡la operación final viene primero!)
+
+
+## El operador pipe en acción {.smaller}
+
+```{r}
+#| label: pipe-1
+
+gapminder # <1>
+```
+
+1.  Toma el data frame gapminder
+
+## El operador pipe en acción {.smaller}
+
+```{r}
+#| label: pipe-2
+
+gapminder |>               # <1>
+  filter(year == 2007)     # <2>
+```
+
+1.  Toma el data frame gapminder,
+2.  **y luego** selecciona las observaciones en el año 2007
+
+## El operador pipe en acción {.smaller}
+
+```{r}
+#| label: pipe-3
+
+gapminder |>                 # <1>
+  filter(year == 2002) |>    # <2>
+  group_by(continent)        # <3>
+```
+
+1.  Toma el data frame gapminder,
+2.  **y luego** selecciona las observaciones en el año 2002,
+3.  **y luego** agrupa por continente
+
+## El operador pipe en acción {.smaller}
+
+```{r}
+#| label: pipe-4
+
+gapminder |>                # <1>
+  filter(year == 2007) |>   # <2>
+  group_by(continent)  |>   # <3>
+  summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) # <4>
+```
+
+1.  Toma el data frame gapminder,
+2.  **y luego** selecciona las observaciones en el año 2007,
+3.  **y luego** agrupa por continente,
+4.  **y luego** calcula el GDP per cápita promedio para cada continente
+
+## El operador pipe en acción {.smaller}
+
+```{r}
+#| label: pipe-5
+
+gapminder |>                 # <1>
+  filter(year == 2007) |>    # <2>
+  group_by(continent)  |>    # <3>
+  summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) |> # <4>
+  arrange(desc(mean_gpdpercapita)) # <5>
+```
+
+1.  Toma el data frame gapminder,
+2.  **y luego** selecciona las observaciones en el año 2007,
+3.  **y luego** agrupa por continente,
+4.  **y luego** calcula el GDP per cápita para cada continente,
+5.  **y luego** organiza de manera descendente basado en el GDP per cápita promedio.
+
+## Algunas consideraciones sobre `|>` {.medium}
+
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| eval: false
+gapminder |> filter(year == 2007) |>  group_by(continent)  |> summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) |> arrange(desc(mean_gpdpercapita))
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| eval: false
+gapminder |>                 
+  filter(year == 2007) |>    
+  group_by(continent)  |>    
+  summarize(mean_gpdpercapita = mean(gdpPercap, na.rm = TRUE)) |> 
+  arrange(desc(mean_gpdpercapita)) 
+```
+:::
+:::
+
+
+- Usar espacio vertical no cuesta nada y genera un código mucho más legible y fácil de escribir que amontonar cosas horizontalmente
+
+. . . 
+
+- Otra manera de denotar el pipe operator es `%>%`. Hay diferencias entre ambos pero van más allá del propósito del curso
+
+- Revisen el post [|> vs. %>%](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/){target="_blank"} si quieren profundizar en el tema 
+
+
+
+
 # dplyr {#dplyr}
 
 <center>
@@ -1227,7 +1246,7 @@ cat('<code>filter(starwars,<br> <span style="color: #4db070;">name %in% c("Anaki
 
 ## 💪 Ejercicio 4 - (5 minutos) {.medium}
 
-Usen `filter()` y los operadores lógicos para mostrar:
+Para los datos de `gapminder`, usen `filter()` y operadores lógicos para seleccionar:
 
 1. Los datos para el siguiente país que quisieran visitar
 
@@ -1406,7 +1425,7 @@ starwars |>
 
 1. Creen una variable llamada `africa` que sea `TRUE` si el país está en el continente africano
 
-2. Agreguen una columna que sea el logaritmo del GDP pero cápita (Pista: usen `log()`)
+2. Agreguen una columna que sea el logaritmo del GDP per cápita (Pista: usen la función `log()`)
 
 3. Conviertan la expectativa de vida de años a *meses*
 
