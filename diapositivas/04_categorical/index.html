@@ -1077,7 +1077,129 @@ homeownership
 <li>Ridge plots</li>
 </ul></li>
 </ul>
-<div class="footer footer-default">
+</section></section>
+<section>
+<section id="probabilidad" class="title-slide slide level1 center">
+<h1>Probabilidad</h1>
+
+</section>
+<section id="probabilidad-1" class="slide level2 medium">
+<h2>Probabilidad</h2>
+<ul>
+<li>Una probabilidad se define como la siguiente proporción:</li>
+</ul>
+<p><span class="math display">\[P=\dfrac{\#\, \text{resultados deseados}}{\#\, \text{resultados posibles}}\]</span></p>
+<ul>
+<li>Por ejemplo, al tirar un dado la probabilidad de obtener un 2 luego de lanzar un dado es:</li>
+</ul>
+<p><span class="math display">\[P(2)=\dfrac{1}{6}=0.166=16.66\%\]</span></p>
+</section>
+<section id="probabilidad-2" class="slide level2 medium">
+<h2>Probabilidad</h2>
+<ol type="1">
+<li>Las probabilidades siempre están entre 0 y 1.</li>
+</ol>
+<ul>
+<li>Una probabilidad igual a 0 indica que el evento nunca va a ocurrir.</li>
+<li>Por otro lado, si es igual a 1 indica que con toda seguridad el evento tendrá lugar.</li>
+</ul>
+<ol start="2" type="1">
+<li><span class="math inline">\(\sum{P}=1\)</span></li>
+<li>La probabilidad de que un evento <strong>no ocurra</strong> es igual a 1 menos la probabilidad de que el evento ocurra.</li>
+</ol>
+<ul>
+<li>Al tirar un dado:</li>
+</ul>
+<p><span class="math display">\[P(\sim2)=1-P(2)=1-\dfrac{1}{6}=\dfrac{5}{6}\]</span></p>
+</section>
+<section id="probabilidad-3" class="slide level2 medium">
+<h2>Probabilidad</h2>
+<ol start="4" type="1">
+<li>Si A y B son eventos alternativos (no se superponen), entonces <span class="math inline">\(P(A\)</span> <span class="math inline">\(o\)</span> <span class="math inline">\(B)=P(A)+P(B)\)</span></li>
+</ol>
+<ul>
+<li>Siguiendo con el ejemplo del dado:</li>
+</ul>
+<p><span class="math display">\[P(2\, o\,  3)=P(2)+P(3)=\dfrac{1}{6}+\dfrac{1}{6}=\dfrac{2}{6}=\dfrac{1}{3}\]</span></p>
+</section>
+<section id="probabilidad-4" class="slide level2 medium">
+<h2>Probabilidad</h2>
+<ol start="5" type="1">
+<li>Si A y B son eventos que se superponen (ocurrencia conjunta), entonces <span class="math inline">\(P(A\)</span> <span class="math inline">\(o\)</span> <span class="math inline">\(B)=P(A)+P(B)-P(A\)</span> <span class="math inline">\(y\)</span> <span class="math inline">\(B)\)</span></li>
+</ol>
+<ul>
+<li>¿Cuál sería la probabilidad de sacar un número par o un 6?</li>
+</ul>
+<p><span class="math display">\[P(Par\, o\,  6)=P(Par)+P(6)=\dfrac{3}{6}+\dfrac{1}{6}=\dfrac{4}{6}=\dfrac{2}{3} \quad \text{Incorrecto} \]</span></p>
+<p><span class="math display">\[P(Par\, o\,  6)=P(Par)+P(6)-P(Par\, y\,  6)=\dfrac{3}{6}+\dfrac{1}{6}-\dfrac{1}{6}=\dfrac{3}{6}=\dfrac{1}{2} \quad \text{Correcto} \]</span></p>
+</section>
+<section id="probabilidad-5" class="slide level2 medium">
+<h2>Probabilidad</h2>
+<ol start="6" type="1">
+<li>Si A y B son <strong>independientes</strong>, entonces <span class="math inline">\(P(A\, y\, B)=P(A) \cdot P(B)\)</span></li>
+</ol>
+<ul>
+<li>¿Cuál es la probabilidad de sacar 2 luego de tirar el dado dos veces?</li>
+</ul>
+<p><span class="math display">\[P(2\, luego\, 2)=P(2) \cdot P(2)=\dfrac{1}{6} \cdot \dfrac{1}{6}=\dfrac{1}{36}\]</span></p>
+</section>
+<section id="probabilidad-6" class="slide level2 medium">
+<h2>Probabilidad</h2>
+<ul>
+<li>Es importante tener en cuenta si existe reemplazo o no.</li>
+<li>Por ejemplo, si un recipiente tiene 4 pelotas amarillas y 2 azules. ¿Cuál es la probabilidad de sacar una amarilla y luego una azul sin reemplazo?</li>
+</ul>
+<p><span class="math display">\[P(Amarilla\, luego\, Azul)=P(Amarilla) \cdot P(Azul)=\dfrac{4}{6} \cdot \dfrac{2}{5}=\dfrac{8}{30}=\dfrac{4}{15}\]</span></p>
+</section></section>
+<section>
+<section id="distribuciones-continuas" class="title-slide slide level1 center">
+<h1>Distribuciones continuas</h1>
+
+</section>
+<section id="distribuciones-y-probabilidad" class="slide level2 medium">
+<h2>Distribuciones y probabilidad</h2>
+<p>Para los histogramas en una escala de frecuencia, la altura de las barras = cantidad de observaciones en ese intervalo.</p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-34-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<section id="distribuciones-y-probabilidad-1" class="slide level2 medium">
+<h2>Distribuciones y probabilidad</h2>
+<p>Para un histograma en una escala de densidad,<br>
+el área de la barra = proporción de observaciones en ese intervalo.<br>
+Entonces, la altura de la barra es:</p>
+<p><span class="math display">\[\text{Altura de la barra} = \dfrac{\# \text{ de observaciones en el intervalo}}{(\# \text{ total de observaciones})(\text{ancho del intervalo})}\]</span></p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-35-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<section id="distribuciones-y-probabilidad-2" class="slide level2 medium">
+<h2>Distribuciones y probabilidad</h2>
+<p>En una escala de densidad, la <strong>proporción</strong> de países con expectativas de vida entre 60 y 70 años = el área bajo la curva del histograma entre 60 y 70</p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-36-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<section id="distribuciones-y-probabilidad-3" class="slide level2 medium">
+<h2>Distribuciones y probabilidad</h2>
+<p>Podríamos intentar aproximar un histograma mediante una curva suave, llamada una función de densidad (probabilidad).</p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-37-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<section id="distribuciones-y-probabilidad-4" class="slide level2 medium">
+<h2>Distribuciones y probabilidad</h2>
+<p>Por lo tanto, la proporción de países con expectativas de vida entre 60 y 70 años puede ser estimada como el área sombreada debajo de la curva. (La proporción exacta es el área debajo del histograma).</p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-38-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<section id="distribución-normal" class="slide level2 medium">
+<h2>Distribución Normal</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-39-1.png" style="width:60.0%" class="r-stretch quarto-figure-center"></section>
+<section id="distribución-normal-1" class="slide level2 medium">
+<h2>Distribución Normal</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-40-1.png" width="672" class="r-stretch quarto-figure-center"></section>
+<section id="distribución-normal-2" class="slide level2 medium">
+<h2>Distribución Normal</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-41-1.png" style="width:60.0%" class="r-stretch quarto-figure-center"></section>
+<section id="distribución-normal-3" class="slide level2 medium">
+<h2>Distribución Normal</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-42-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><div class="footer footer-default">
 
 </div>
 </section></section>

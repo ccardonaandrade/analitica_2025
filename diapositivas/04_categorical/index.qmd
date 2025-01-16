@@ -1080,3 +1080,295 @@ ggplot(aes(x = lifeExp, y = factor(year), fill = stat(x))) +
  
     - Diagramas de caja entre grupos
     - Ridge plots
+    
+# Probabilidad
+
+## Probabilidad {.medium}
+
+- Una probabilidad se define como la siguiente proporción:
+
+$$P=\dfrac{\#\, \text{resultados deseados}}{\#\, \text{resultados posibles}}$$
+
+- Por ejemplo, al tirar un dado la probabilidad de obtener un 2 luego de lanzar un dado es:
+
+$$P(2)=\dfrac{1}{6}=0.166=16.66\%$$
+
+## Probabilidad {.medium}
+
+1. Las probabilidades siempre están entre 0 y 1.
+  - Una probabilidad igual a 0 indica que el evento nunca va a ocurrir. 
+  - Por otro lado, si es igual a 1 indica que con toda seguridad el evento tendrá lugar.
+  
+2. $\sum{P}=1$
+3. La probabilidad de que un evento **no ocurra** es igual a 1 menos la probabilidad de que el evento ocurra.
+  - Al tirar un dado:
+  
+$$P(\sim2)=1-P(2)=1-\dfrac{1}{6}=\dfrac{5}{6}$$
+
+## Probabilidad {.medium}
+
+4. Si A y B son eventos alternativos (no se superponen), entonces $P(A$ $o$ $B)=P(A)+P(B)$
+  - Siguiendo con el ejemplo del dado:
+  
+$$P(2\, o\,  3)=P(2)+P(3)=\dfrac{1}{6}+\dfrac{1}{6}=\dfrac{2}{6}=\dfrac{1}{3}$$
+
+## Probabilidad {.medium}
+
+5. Si A y B son eventos que se superponen (ocurrencia conjunta), entonces $P(A$ $o$ $B)=P(A)+P(B)-P(A$ $y$ $B)$
+  - ¿Cuál sería la probabilidad de sacar un número par o un 6?
+  
+$$P(Par\, o\,  6)=P(Par)+P(6)=\dfrac{3}{6}+\dfrac{1}{6}=\dfrac{4}{6}=\dfrac{2}{3} \quad \text{Incorrecto} $$
+
+$$P(Par\, o\,  6)=P(Par)+P(6)-P(Par\, y\,  6)=\dfrac{3}{6}+\dfrac{1}{6}-\dfrac{1}{6}=\dfrac{3}{6}=\dfrac{1}{2} \quad \text{Correcto} $$
+
+## Probabilidad {.medium}
+
+6. Si A y B son **independientes**, entonces $P(A\, y\, B)=P(A) \cdot P(B)$
+  - ¿Cuál es la probabilidad de sacar 2 luego de tirar el dado dos veces?
+  
+$$P(2\, luego\, 2)=P(2) \cdot P(2)=\dfrac{1}{6} \cdot \dfrac{1}{6}=\dfrac{1}{36}$$
+
+## Probabilidad {.medium}
+
+- Es importante tener en cuenta si existe reemplazo o no.
+- Por ejemplo, si un recipiente tiene 4 pelotas amarillas y 2 azules. ¿Cuál es la probabilidad de sacar una amarilla y luego una azul sin reemplazo?
+
+$$P(Amarilla\, luego\, Azul)=P(Amarilla) \cdot P(Azul)=\dfrac{4}{6} \cdot \dfrac{2}{5}=\dfrac{8}{30}=\dfrac{4}{15}$$
+
+# Distribuciones continuas
+
+## Distribuciones y probabilidad {.medium}
+
+Para los histogramas en una escala de frecuencia, la altura de las barras = cantidad de observaciones en ese intervalo.
+
+```{r}
+#| echo: false
+#| out-width: 100%
+#| fig-align: center
+
+gapminder |>
+  ggplot() +
+  geom_histogram(aes(x = lifeExp), 
+                 color = "black", fill = "darkblue", bins = 30) +
+  scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10)) +
+  theme_minimal()
+
+```
+
+
+## Distribuciones y probabilidad {.medium}
+
+Para un histograma en una escala de densidad,  
+el área de la barra = proporción de observaciones en ese intervalo.  
+Entonces, la altura de la barra es:
+
+$$\text{Altura de la barra} = \dfrac{\# \text{ de observaciones en el intervalo}}{(\# \text{ total de observaciones})(\text{ancho del intervalo})}$$
+
+
+```{r}
+#| echo: false
+#| out-width: 100%
+#| fig-align: center
+
+gapminder |>
+  ggplot() +
+  geom_histogram(aes(x = lifeExp, y = after_stat(density)), 
+                 color = "black", fill = "darkblue", bins = 30) +
+  scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10)) +
+  scale_y_continuous(limits = c(0, 0.04)) +
+  theme_minimal()
+
+```
+
+
+## Distribuciones y probabilidad {.medium}
+
+En una escala de densidad, la **proporción** de países con expectativas de vida entre 60 y 70 años = el área bajo la curva del histograma entre 60 y 70
+
+
+```{r}
+#| echo: false
+#| out-width: 100%
+#| fig-align: center
+
+gapminder |>
+  ggplot() +
+  geom_histogram(aes(x = lifeExp, y = after_stat(density), 
+                     fill = after_stat(x) >= 60 & after_stat(x) <= 70), 
+                 color = "black", bins=30) +
+  scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10)) +
+  scale_y_continuous(limits = c(0, 0.04)) +
+  scale_fill_manual(values = c("FALSE" = "white", "TRUE" = "darkblue")) + 
+  theme_minimal() +
+  theme(legend.position = "none")  # Hides the legend
+
+```
+
+
+## Distribuciones y probabilidad {.medium}
+
+Podríamos intentar aproximar un histograma mediante una curva suave, 
+llamada una función de densidad (probabilidad).
+
+
+```{r}
+#| echo: false
+#| out-width: 100%
+#| fig-align: center
+
+gapminder |>
+  ggplot() +
+  geom_histogram(aes(x = lifeExp, y = after_stat(density)), 
+                     fill = "lightblue", 
+                 color = "#c8d9ed", bins=30) +
+  geom_density(aes(x=lifeExp), color="darkblue")+
+  scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10)) +
+  scale_y_continuous(limits = c(0, 0.04)) +
+  theme_minimal() 
+
+```
+
+
+
+## Distribuciones y probabilidad {.medium}
+
+Por lo tanto,  la proporción de países con expectativas de vida entre 60 y 70 años 
+puede ser estimada como el área sombreada debajo de la curva. 
+(La proporción exacta es el área debajo del histograma).
+
+
+```{r}
+#| echo: false
+#| out-width: 100%
+#| fig-align: center
+
+density_data <- density(gapminder$lifeExp)
+density_df <- data.frame(x = density_data$x, y = density_data$y)
+
+gapminder |>
+  ggplot() +
+  geom_histogram(aes(x = lifeExp, y = after_stat(density)), 
+                 fill = "lightblue", 
+                 color = "#c8d9ed", bins=30) +
+  geom_density(aes(x = lifeExp), color = "darkblue") +
+  geom_area(data = subset(density_df, x >= 60 & x <= 70),
+            aes(x = x, y = y),
+            fill = "darkblue",
+            alpha = 0.3) +
+  scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10)) +
+  scale_y_continuous(limits = c(0, 0.04)) +
+  theme_minimal()
+
+
+```
+
+
+## Distribución Normal {.medium}
+
+```{r}
+#| fig-asp: 0.4
+#| out-width: 60%
+#| fig-align: center
+#| fig-width: 5
+#| echo: false
+par(mar = c(2, 0, 0, 0))
+par_og <- par(no.readonly = TRUE) # save original par
+par(mar = c(0, 0, 0, 0), mfrow = c(2, 1))
+
+normTail(m = 1500, s = 300, U = 1630, col = IMSCOL["blue", "full"])
+```
+
+
+## Distribución Normal {.medium}
+
+```{r}
+#| fig-asp: 0.45
+#| fig-align: center
+#| fig-width: 7
+#| echo: false
+X <- seq(-3.2, 3.2, 0.01)
+Y <- dnorm(X)
+plot(X, Y, type = "l", axes = F, xlim = c(-3.4, 16 + 3.4), ylim = c(0, 0.652), xlab = NA, ylab = NA)
+lines(X, rep(0, length(X)))
+these <- which(X <= 8)
+polygon(c(X[these[1]], X[these], X[rev(these)[1]]), c(0, Y[these], 0), col = IMSCOL["blue", "full"])
+lines(X, Y)
+# abline(h=0)
+lines(c(0, 0), dnorm(0) * c(0.01, 0.99), col = COL[6], lty = 3)
+lines(c(3, 8 - 3), c(0.2, 0.2), lwd = 3)
+text(0, 0.45, format(c(1, 0.0001), scientific = FALSE, digits = 4)[1], cex = 1)
+lines(X + 8, Y, type = "l", xlim = c(-3.4, 3.4))
+lines(X + 8, rep(0, length(X)))
+these <- which(X <= 0.43)
+polygon(c(X[these[1]], X[these], X[rev(these)[1]]) + 8, c(0, Y[these], 0), col = IMSCOL["blue", "full"])
+lines(X + 8, Y)
+lines(c(0, 0), dnorm(0) * c(0.01, 0.99), col = COL[6], lty = 3)
+lines(8 + c(3, 8 - 3), c(0.23, 0.23), lwd = 3)
+lines(8 + c(3, 8 - 3), c(0.17, 0.17), lwd = 3)
+lines(c(3.72, 4.28), rep(0.45, 2), lwd = 2)
+text(8, 0.45, format(0.6664, scientific = FALSE, digits = 4)[1], cex = 1)
+lines(X + 8 + 8, Y, type = "l", xlim = c(-3.4, 3.4))
+lines(X + 8 + 8, rep(0, length(X)))
+these <- which(X > 0.43)
+polygon(c(X[these[1]], X[these], X[rev(these)[1]]) + 8 + 8, c(0, Y[these], 0), col = IMSCOL["blue", "full"])
+lines(X + 8 + 8, Y)
+lines(c(0, 0), dnorm(0) * c(0.01, 0.99), col = COL[6], lty = 3)
+text(12, 0.45, "=", cex = 1.5)
+text(16, 0.45, format(0.3336, scientific = FALSE, digits = 4)[1], cex = 1)
+par(par_og) # restore original par
+```
+
+
+
+## Distribución Normal {.medium}
+
+```{r}
+#| fig-asp: 0.4
+#| out-width: 60%
+#| fig-align: center
+#| fig-width: 5
+#| echo: false
+par(mar = c(2, 0, 0, 0))
+normTail(70, 3.3, M = c(69, 74), col = IMSCOL["blue", "full"])
+```
+
+
+## Distribución Normal {.medium}
+
+```{r}
+#| fig-asp: 0.25
+#| fig-align: center
+#| out-width: 100%
+#| echo: false
+X <- seq(-3.2, 3.2, 0.01)
+Y <- dnorm(X)
+par(mar = c(2, 0, 0, 0))
+plot(X, Y, type = "l", axes = F, xlim = c(-3.4, 24 + 3.4), ylim = c(0, 0.6), xlab = NA, ylab = NA)
+lines(X, rep(0, length(X)))
+these <- which(X <= 8)
+polygon(c(X[these[1]], X[these], X[rev(these)[1]]), c(0, Y[these], 0), col = IMSCOL["blue", "full"])
+lines(X, Y)
+lines(c(3, 8 - 3), c(0.2, 0.2), lwd = 3)
+lines(X + 8, Y, type = "l")
+lines(X + 8, rep(0, length(X)))
+these <- which(X < -0.303)
+polygon(c(X[these[1]], X[these], X[rev(these)[1]]) + 8, c(0, Y[these], 0), col = IMSCOL["blue", "full"])
+lines(X + 8, Y)
+lines(8 + c(3, 8 - 3), c(0.2, 0.2), lwd = 3)
+lines(X + 16, Y, type = "l")
+lines(X + 16, rep(0, length(X)))
+these <- which(X > 1.212)
+polygon(c(X[these[1]], X[these], X[rev(these)[1]]) + 16, c(0, Y[these], 0), col = IMSCOL["blue", "full"])
+lines(X + 16, Y)
+lines(16 + c(3, 8 - 3), c(0.23, 0.23), lwd = 3)
+lines(16 + c(3, 8 - 3), c(0.17, 0.17), lwd = 3)
+lines(X + 24, Y, type = "l", xlim = c(-3.4, 3.4))
+lines(X + 24, rep(0, length(X)))
+these <- which(X > -0.303 & X < 1.212)
+polygon(c(X[these[1]], X[these], X[rev(these)[1]]) + 24, c(0, Y[these], 0), col = IMSCOL["blue", "full"])
+lines(X + 24, Y)
+text(0, 0.53, "1.0000")
+text(8, 0.53, "0.3821")
+text(16, 0.53, "0.1131")
+text(24, 0.53, "0.5048")
+```
