@@ -16,14 +16,14 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
 *Nota: las diapositivas se ven mejor en el HTML que es el formato original.*
 
 1. Introducción \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/2a2d26235a66c199d2ab3e68885a24c82d2c057e/diapositivas/01_intro/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/2a2d26235a66c199d2ab3e68885a24c82d2c057e/diapositivas/01_intro/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/2a2d26235a66c199d2ab3e68885a24c82d2c057e/diapositivas/01_intro/index.qmd)\]
-    - Lecturas: [DV 2](https://socviz.co/gettingstarted.html#use-r-with-rstudio)
+    - Lecturas: DV 2
 2. ggplot y tidyverse \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/946c2228f9b99f8ae600d4dc5557296b6fae401d/diapositivas/02_ggplot_tidy/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/946c2228f9b99f8ae600d4dc5557296b6fae401d/diapositivas/02_ggplot_tidy/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/946c2228f9b99f8ae600d4dc5557296b6fae401d/diapositivas/02_ggplot_tidy/index.qmd)\]
-    - Lecturas: [R4DS 1-3](https://r4ds.hadley.nz/data-visualize)
+    - Lecturas: R4DS 1-3
 3. Explorando datos numéricos \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/9845e20d89813c8b2d0dd80d776ab0c6ff6d88c1/diapositivas/03_numerical/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/9845e20d89813c8b2d0dd80d776ab0c6ff6d88c1/diapositivas/03_numerical/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/9845e20d89813c8b2d0dd80d776ab0c6ff6d88c1/diapositivas/03_numerical/index.qmd)\]
-    - Lecturas: [IME 5](https://openintro-ims.netlify.app/explore-numerical)
+    - Lecturas: IMS 5
     - [Ejercicios](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/estatdesc/ejercicios.pdf), [Respuestas](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/estatdesc/soluciones.pdf)
 4. Explorando datos categóricos
-    - Lecturas: [IME 4 y 6](https://openintro-ims.netlify.app/explore-categorical)
+    - Lecturas: IMS 4 y 6
 5. Distribución muestral e intervalos de confianza
     - Lecturas: OIS 5.1 - 5.2
     - [Ejercicios con respuestas](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/int_conf/ejercicios.pdf)
@@ -31,10 +31,14 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
     - Lecturas: OIS 5.3
     - [Ejercicios con respuestas](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/p_hipotesis/ejercicios.pdf)
 7. Muestreo y encuestas
+    - Lecturas: IMS 2
 8. Intro al Modelo de Regresión Lineal
+    - Lecturaas: IMS 7; OIS 8
 9. Más sobre Regresión Lineal
+    - Lecturas: IMS 8; OIS 9.1-9.4
 10. Experimentos
 11. Regresión Logística
+    - Lecturas: IMS 9; OIS 9.5
 12. Análisis de Texto
 
 ## Proyecto Final 
