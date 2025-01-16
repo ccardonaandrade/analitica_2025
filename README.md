@@ -17,7 +17,7 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
 
 1. Introducción \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/2a2d26235a66c199d2ab3e68885a24c82d2c057e/diapositivas/01_intro/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/2a2d26235a66c199d2ab3e68885a24c82d2c057e/diapositivas/01_intro/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/2a2d26235a66c199d2ab3e68885a24c82d2c057e/diapositivas/01_intro/index.qmd)\]
     - Lecturas: [DV 2](https://socviz.co/gettingstarted.html#use-r-with-rstudio)
-2. ggplot y tidyverse
+2. ggplot y tidyverse \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/946c2228f9b99f8ae600d4dc5557296b6fae401d/diapositivas/02_ggplot_tidy/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/946c2228f9b99f8ae600d4dc5557296b6fae401d/diapositivas/02_ggplot_tidy/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/946c2228f9b99f8ae600d4dc5557296b6fae401d/diapositivas/02_ggplot_tidy/index.qmd)\]
     - Lecturas: [R4DS 1-3](https://r4ds.hadley.nz/data-visualize)
 3. Explorando datos numéricos
     - Lecturas: [IME 5](https://openintro-ims.netlify.app/explore-numerical)
