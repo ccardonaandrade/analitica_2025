@@ -44,10 +44,9 @@ library(kableExtra)
 
 2. [tibble vs. data frame](#tibble)
 
-3. [El operador pipe](#pipe)
+3. [ggplot2](#ggplot)
 
-4. [ggplot2](#ggplot)
-
+4. [El operador pipe](#pipe)
 
 5. [dplyr](#dplyr)
 
