@@ -898,7 +898,7 @@ mean(my_numbers)
 
 . . .
 
-- Las funciones usan [argumentos]{.marker-hl} para funcionar. Pueden ser datos (`my_numbers`) o instrucciones (`title = "Life Expectancy"`)  
+- Las funciones usan [argumentos]{.marker-hl} para ejecutarse. Pueden ser datos (`my_numbers`) o instrucciones (`title = "Life Expectancy"`)  
   
 . . .
 
