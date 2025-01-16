@@ -2,7 +2,7 @@
 
 [`Libros`](#libros) | [`Clases`](#clases) | [`Proyecto Final`](#proyecto-final) | [`Detalles`](#detalles)   
 
-Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/51e6ac9dd7cfc8ae96a8ce3692ed1692daf790eb/syllabus/syllabus.pdf) para información específica sobre el curso.
+Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/96c0f9c2aa0d9c54504589ee46b5c68515ebc6be/syllabus/syllabus.pdf) para información más detallada sobre el curso.
 
 ## Libros 
 
@@ -30,9 +30,9 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
 6. Pruebas de hipótesis
     - Lecturas: OIS 5.3
     - [Ejercicios con respuestas](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/p_hipotesis/ejercicios.pdf)
-7. Intro al Modelo de Regresión Lineal
-8. Más sobre Regresión Lineal
-9. Muestreo y encuestas
+7. Muestreo y encuestas
+8. Intro al Modelo de Regresión Lineal
+9. Más sobre Regresión Lineal
 10. Experimentos
 11. Regresión Logística
 12. Análisis de Texto
