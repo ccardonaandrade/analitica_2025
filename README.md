@@ -15,7 +15,7 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
 
 *Nota: las diapositivas se ven mejor en el HTML que es el formato original.*
 
-1. Introducción
+1. Introducción \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/2a2d26235a66c199d2ab3e68885a24c82d2c057e/diapositivas/01_intro/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/2a2d26235a66c199d2ab3e68885a24c82d2c057e/diapositivas/01_intro/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/2a2d26235a66c199d2ab3e68885a24c82d2c057e/diapositivas/01_intro/index.qmd)\]
     - Lecturas: [DV 2](https://socviz.co/gettingstarted.html#use-r-with-rstudio)
 2. ggplot y tidyverse
     - Lecturas: [R4DS 1-3](https://r4ds.hadley.nz/data-visualize)
