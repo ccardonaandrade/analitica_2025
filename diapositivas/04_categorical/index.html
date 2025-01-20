@@ -413,6 +413,8 @@ Carlos Cardona Andrade
 <li><p><a href="#/1category">Visualizandos una variable categórica</a></p></li>
 <li><p><a href="#/2categories">Visualizandos dos variables categóricas</a></p></li>
 <li><p><a href="#/acrossgroups">Comparando variables numéricas entre grupos</a></p></li>
+<li><p><a href="#/probabilidad">Probabilidad</a></p></li>
+<li><p><a href="#/distnormal">La Distribución Normal</a></p></li>
 </ol>
 </section>
 <section>
@@ -511,7 +513,7 @@ Carlos Cardona Andrade
 <div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1|2|3,4|5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">ggplot</span>(loans, <span class="fu">aes</span>(<span class="at">x =</span> homeownership)) <span class="sc">+</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"gold"</span>) <span class="sc">+</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Homeownership"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4"></a>       <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
 <span id="cb1-5"><a href="#cb1-5"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -851,7 +853,7 @@ homeownership
 <span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkred"</span>,</span>
 <span id="cb3-5"><a href="#cb3-5"></a>                               <span class="st">"gold"</span>)) <span class="sc">+</span></span>
 <span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Homeownership"</span>,</span>
-<span id="cb3-7"><a href="#cb3-7"></a>       <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
 <span id="cb3-8"><a href="#cb3-8"></a>       <span class="at">fill =</span> <span class="st">"Application type"</span>) <span class="sc">+</span></span>
 <span id="cb3-9"><a href="#cb3-9"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -875,7 +877,7 @@ homeownership
 <span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkred"</span>,</span>
 <span id="cb4-5"><a href="#cb4-5"></a>                               <span class="st">"gold"</span>)) <span class="sc">+</span></span>
 <span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Homeownership"</span>,</span>
-<span id="cb4-7"><a href="#cb4-7"></a>       <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7"></a>       <span class="at">y =</span> <span class="st">"Proportion"</span>,</span>
 <span id="cb4-8"><a href="#cb4-8"></a>       <span class="at">fill =</span> <span class="st">"Application type"</span>) <span class="sc">+</span></span>
 <span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -899,7 +901,7 @@ homeownership
 <span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkred"</span>,</span>
 <span id="cb5-5"><a href="#cb5-5"></a>                               <span class="st">"gold"</span>)) <span class="sc">+</span></span>
 <span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Homeownership"</span>,</span>
-<span id="cb5-7"><a href="#cb5-7"></a>       <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
 <span id="cb5-8"><a href="#cb5-8"></a>       <span class="at">fill =</span> <span class="st">"Application type"</span>) <span class="sc">+</span></span>
 <span id="cb5-9"><a href="#cb5-9"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1152,55 +1154,439 @@ homeownership
 <p><span class="math display">\[P(Amarilla\, luego\, Azul)=P(Amarilla) \cdot P(Azul)=\dfrac{4}{6} \cdot \dfrac{2}{5}=\dfrac{8}{30}=\dfrac{4}{15}\]</span></p>
 </section></section>
 <section>
-<section id="distribuciones-continuas" class="title-slide slide level1 center">
-<h1>Distribuciones continuas</h1>
+<section id="distnormal" class="title-slide slide level1 center">
+<h1>La Distribución Normal</h1>
 
 </section>
-<section id="distribuciones-y-probabilidad" class="slide level2 medium">
-<h2>Distribuciones y probabilidad</h2>
+<section id="escala-de-frecuencia-de-un-histograma" class="slide level2 medium">
+<h2>Escala de frecuencia de un Histograma</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Retomemos la distribución de la expectativa de vida en los datos <code>gapminder</code>.</p>
 <p>Para los histogramas en una escala de frecuencia, la altura de las barras = cantidad de observaciones en ese intervalo.</p>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-34-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
-<section id="distribuciones-y-probabilidad-1" class="slide level2 medium">
-<h2>Distribuciones y probabilidad</h2>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-34-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="escala-de-densidad-de-un-histograma" class="slide level2 medium">
+<h2>Escala de densidad de un Histograma</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <p>Para un histograma en una escala de densidad,<br>
-el área de la barra = proporción de observaciones en ese intervalo.<br>
-Entonces, la altura de la barra es:</p>
-<p><span class="math display">\[\text{Altura de la barra} = \dfrac{\# \text{ de observaciones en el intervalo}}{(\# \text{ total de observaciones})(\text{ancho del intervalo})}\]</span></p>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-35-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
-<section id="distribuciones-y-probabilidad-2" class="slide level2 medium">
-<h2>Distribuciones y probabilidad</h2>
-<p>En una escala de densidad, la <strong>proporción</strong> de países con expectativas de vida entre 60 y 70 años = el área bajo la curva del histograma entre 60 y 70</p>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-36-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
-<section id="distribuciones-y-probabilidad-3" class="slide level2 medium">
-<h2>Distribuciones y probabilidad</h2>
-<p>Podríamos intentar aproximar un histograma mediante una curva suave, llamada una función de densidad (probabilidad).</p>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-37-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
-<section id="distribuciones-y-probabilidad-4" class="slide level2 medium">
-<h2>Distribuciones y probabilidad</h2>
-<p>Por lo tanto, la proporción de países con expectativas de vida entre 60 y 70 años puede ser estimada como el área sombreada debajo de la curva. (La proporción exacta es el área debajo del histograma).</p>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-38-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+el área de la barra = proporción de observaciones en ese intervalo.</p>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-35-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="escala-de-densidad-de-un-histograma-1" class="slide level2 medium">
+<h2>Escala de densidad de un Histograma</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>En una escala de densidad, la <span class="hl hl-blue">proporción</span> de países con expectativas de vida entre 60 y 70 años = el <span class="hl hl-blue">área</span> bajo la curva del histograma entre 60 y 70</p>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-36-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="del-histograma-a-la-curva-de-densidad" class="slide level2 medium">
+<h2>Del Histograma a la Curva de Densidad</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Podríamos intentar aproximar un histograma mediante una curva suave, llamada una <span class="hl hl-blue">función de densidad (probabilidad)</span>.</p>
+<ol type="1">
+<li><p>Una función de densidad nunca es negativa</p></li>
+<li><p>El área total bajo la curva es siempre 1 o 100%</p></li>
+</ol>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-37-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="del-histograma-a-la-curva-de-densidad-1" class="slide level2 medium">
+<h2>Del Histograma a la Curva de Densidad</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Por lo tanto, la proporción de países con expectativas de vida entre 60 y 70 años se puede estimar como el <span class="hl hl-blue">área sombreada bajo la curva</span>. La proporción exacta es el área bajo el histograma.</p>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-38-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="variables-continuas-curvas-de-densidad" class="slide level2 medium">
+<h2>Variables continuas &amp; Curvas de densidad</h2>
+<p>La distribución de probabilidad de una variable aleatoria continua se describe mediante una curva de densidad.</p>
+<p>Si <span class="math inline">\(Y\)</span> es una variable aleatoria continua, <span class="math inline">\(P(a &lt; Y &lt; b)\)</span> es el área bajo la curva de densidad de <span class="math inline">\(Y\)</span> sobre el intervalo entre <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/continuous.png" height="150"></p>
+</figure>
+</div>
+<div class="fragment">
+<p>Nota: todas las distribuciones de probabilidad continuas asignan una probabilidad de cero a cada resultado individual: <span class="math inline">\(P(Y=y)=0\)</span></p>
+</div>
+</section>
 <section id="distribución-normal" class="slide level2 medium">
 <h2>Distribución Normal</h2>
+<p>La distribución normal (campana de Gauss) es una familia de curvas de densidad que son <span class="marker-hl">simétricas</span> y con <span class="marker-hl">forma de campana</span>. Se definen por su media <span class="math inline">\({\color{orange} \mu}\)</span> y su desviación estándar <span class="math inline">\({\color{orange} \sigma}\)</span>, con notación <span class="math inline">\(N(\mu,\sigma)\)</span>.</p>
+<div class="cell quarto-layout-panel" data-fig.asp="0.5">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-39-1.png"></p>
+<p></p><figcaption>Mean = 0, SD = 1</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-39-2.png"></p>
+<p></p><figcaption>Mean = 19, SD = 4</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Las dos distribuciones entonces se escribirían <span class="math inline">\(N(1,0)\)</span> y <span class="math inline">\(N(19,4)\)</span>.</p>
+</div>
+</section>
+<section id="ejemplo-sat-vs.-act" class="slide level2 medium">
+<h2>Ejemplo: SAT vs.&nbsp;ACT</h2>
+<ul>
+<li>Las puntuaciones del SAT siguen una distribución aproximadamente normal con una media de 1500 puntos y una desviación estándar de 300 puntos.</li>
+</ul>
+<p><span class="math display">\[SAT \sim N(1500,300)\]</span></p>
+<ul>
+<li>Las puntuaciones del ACT también siguen una distribución aproximadamente normal con una media de 21 puntos y una desviación estándar de 5 puntos.</li>
+</ul>
+<p><span class="math display">\[ACT \sim N(21,5)\]</span></p>
+</section>
+<section id="ejemplo-sat-vs.-act-1" class="slide level2 medium">
+<h2>Ejemplo: SAT vs.&nbsp;ACT</h2>
+<p>Supongamos que una universidad está decidiendo cuál de los dos aspirantes obtuvo un mejor puntaje en su examen estandarizado en comparación con los otros estudiantes: Pam, quien obtuvo un 1800 en su SAT, o Jim, quien obtuvo un 24 en su ACT?</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-39-1.png" style="width:60.0%" class="r-stretch quarto-figure-center"></section>
-<section id="distribución-normal-1" class="slide level2 medium">
-<h2>Distribución Normal</h2>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-40-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="estandarizar-con-el-z-score" class="slide level2 medium">
+<h2>Estandarizar con el Z-Score</h2>
+<p>Dado que no podemos simplemente comparar estos dos puntajes, en su lugar comparamos cuántas desviaciones estándar por encima de la media está cada observación.</p>
+<ul>
+<li><p>El puntaje de Pam es <span class="math inline">\(\dfrac{1800-1500}{300}=1\)</span> desviación estándar (SD) encima de la media</p></li>
+<li><p>El puntaje de Jim es <span class="math inline">\(\dfrac{24-21}{5}=0.6\)</span> SD encima de la media</p></li>
+</ul>
+</section>
+<section id="estandarizar-con-el-z-score-1" class="slide level2 medium">
+<h2>Estandarizar con el Z-Score</h2>
+<p>La siguiente gráfica visualiza la comparación que estamos haciendo al usar desviaciones estándar:</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-40-1.png" width="672" class="r-stretch quarto-figure-center"></section>
-<section id="distribución-normal-2" class="slide level2 medium">
-<h2>Distribución Normal</h2>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-41-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="el-z-score" class="slide level2 medium">
+<h2>El Z-score</h2>
+<p>El Z-score de una observación representa cuántas desviaciones estándar se encuentra por encima o por debajo de la media, permitiendo comparar su posición relativa dentro de una distribución.</p>
+<p>Si <span class="math inline">\(x\)</span> es una observación de la distribución <span class="math inline">\(N(\mu,\sigma)\)</span>, el Z-score se define:</p>
+<p><span class="math display">\[Z=\dfrac{x-\mu}{\sigma}\]</span></p>
+<div class="fragment">
+<p>Observaciones que estén más allá de <span class="math inline">\(3\)</span> SD de la media (<span class="math inline">\(|Z|&gt;3\)</span>) son usualmente consideradas inusuales.</p>
+</div>
+</section>
+<section id="maneras-de-detectar-outliers" class="slide level2 medium">
+<h2>Maneras de detectar <em>Outliers</em></h2>
+<ul>
+<li><p><span class="math inline">\(1.5 \times RIC\)</span></p></li>
+<li><p>Observaciones con <span class="math inline">\(|Z|&gt;3\)</span></p></li>
+<li><p>Histogramas</p></li>
+<li><p>Diagramas de caja</p></li>
+</ul>
+</section>
+<section id="distribución-normal-y-probabilidad" class="slide level2 medium">
+<h2>Distribución Normal y Probabilidad</h2>
+<p>Si <span class="math inline">\(X\)</span> sigue una distribución normal, para encontrar probabilidades sobre <span class="math inline">\(X\)</span> se calculan áreas bajo la curva normal <span class="math inline">\(N(\mu,\sigma)\)</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/normal_prob.png" height="350"></p>
+</figure>
+</div>
+</section>
+<section id="calculando-probabilidades-la-tabla-de-la-normal" class="slide level2 medium">
+<h2>Calculando Probabilidades: La tabla de la Normal</h2>
+<p><span class="math display">\[P(Z&lt;{\color{orange} z})=P(Z&lt;-0.83)=0.2033\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/normal_table.png" height="450"></p>
+</figure>
+</div>
+</section>
+<section id="calculando-probabilidades-en-r" class="slide level2 medium">
+<h2>Calculando Probabilidades en R</h2>
+<ul>
+<li>Con la función <code>pnorm()</code> pueden calcular probabilidades en R:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2032694</code></pre>
+</div>
+</div>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-41-1.png" style="width:60.0%" class="r-stretch quarto-figure-center"></section>
-<section id="distribución-normal-3" class="slide level2 medium">
-<h2>Distribución Normal</h2>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-43-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="calculando-probabilidades-en-r-1" class="slide level2 medium">
+<h2>Calculando Probabilidades en R</h2>
+<p>Hay dos maneras de calcular probabilidades en la parte superior de la distribución:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>P(<span class="math inline">\(Z&gt;-0.83\)</span>) = <span class="math inline">\(1\)</span> - P(<span class="math inline">\(Z&lt;-0.83\)</span>)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7967306</code></pre>
+</div>
+</div>
+<ul>
+<li>Y la otra es cambiando las opciones de la función:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7967306</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-46-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculando-probabilidades-para-la-normal" class="slide level2 medium">
+<h2>Calculando probabilidades para la Normal</h2>
+<p>¿Qué porcentaje de estudiantes tiene puntajes mayores a 1630 en el SAT? Recuerden que SAT<span class="math inline">\(\sim N(1500,300)\)</span></p>
+<div class="fragment">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-47-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculando-probabilidades-para-la-normal-1" class="slide level2 medium">
+<h2>Calculando probabilidades para la Normal</h2>
+<h3 id="probabilidades-con-área-complementaria">Probabilidades con Área Complementaria</h3>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ol type="1">
+<li>Calcular el Z-score:</li>
+</ol>
+<p><span class="math display">\[Z=\dfrac{1630-1500}{300}=0.43\]</span></p>
+<ol start="2" type="1">
+<li>Calcular el área bajo la distribución normal estandarizada:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">pnorm</span>(<span class="fl">0.43</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6664022</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">0.43</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3335978</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-49-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculando-probabilidades-para-la-normal-2" class="slide level2 medium">
+<h2>Calculando probabilidades para la Normal</h2>
+<h3 id="usando-las-opciones-de-pnorm">Usando las opciones de pnorm()</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ol type="1">
+<li>Modificar los valores en la función <code>pnorm()</code>:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">pnorm</span>(<span class="dv">1630</span>,</span>
+<span id="cb16-2"><a href="#cb16-2"></a>      <span class="at">mean =</span> <span class="dv">1500</span>,</span>
+<span id="cb16-3"><a href="#cb16-3"></a>      <span class="at">sd =</span> <span class="dv">300</span>,</span>
+<span id="cb16-4"><a href="#cb16-4"></a>      <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3323863</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-51-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculando-probabilidades-otro-ejemplo" class="slide level2 medium">
+<h2>Calculando probabilidades: Otro ejemplo</h2>
+<p>Con base en una muestra de 100 transacciones, el gasto promedio mensual de los clientes en una tienda minorista estadounidense sigue una distribución casi normal con una media de $70.00 y una desviación estándar de $3.30. ¿Cuál es la probabilidad de seleccionar aleatoriamente una transacción entre 69 y 74 dólares?</p>
+<div class="fragment">
+<div class="cell" data-layout-align="center" data-fig.asp="0.4">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-52-1.png" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculando-probabilidades-otro-ejemplo-1" class="slide level2 medium">
+<h2>Calculando probabilidades: Otro ejemplo</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-42-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><div class="footer footer-default">
+<img data-src="index_files/figure-revealjs/unnamed-chunk-53-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><div class="columns">
+<div class="column fragment" style="width:50%;">
+<p><span class="math display">\[Z_1=\dfrac{69-70}{3.3}=-0.30\]</span></p>
+<p><span class="math display">\[Z_2=\dfrac{74-70}{3.3}=1.21\]</span></p>
+</div><div class="column fragment" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>a <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.30</span>)</span>
+<span id="cb18-2"><a href="#cb18-2"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3820886</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>b <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="fl">1.21</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
+<span id="cb20-2"><a href="#cb20-2"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1131394</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="dv">1</span><span class="sc">-</span>a<span class="sc">-</span>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.504772</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculando-cuartilespercentiles" class="slide level2 medium">
+<h2>Calculando cuartiles/percentiles</h2>
+<p>¿Qué valor en la distribución de transacciones es el primer cuartil (<span class="math inline">\(Q_1\)</span>)? Recuerden que 25% de los datos son menores al primer cuartil.</p>
 
+<img data-src="index_files/figure-revealjs/unnamed-chunk-55-1.png" style="width:60.0%" class="r-stretch quarto-figure-center"></section>
+<section id="calculando-cuartilespercentiles-en-r" class="slide level2 medium">
+<h2>Calculando cuartiles/percentiles en R</h2>
+<p>La función <code>qnorm()</code> permite calcular cuartiles/percentiles para una distribución normal:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.6744898</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Sabiendo que el primer cuartil en la distribución normal estandarizada es <span class="math inline">\(Z_{Q_1}=-0.674\)</span>:</p>
+<p><span class="math display">\[ -0.674 = Z_{Q_1} = \frac{x_{Q_1} - \mu}{\sigma} = \frac{x_{Q_1} - 70}{3.3} \]</span> Resolviendo para <span class="math inline">\(Z_{Q_1}\)</span>, se encuentra que 67.7 dólares es el primer cuartil en la distribución original.</p>
+</div>
+</section>
+<section id="calculando-cuartilespercentiles-en-r-1" class="slide level2 medium">
+<h2>Calculando cuartiles/percentiles en R</h2>
+<p>Al usar las opciones de la función <code>qnorm()</code>, podemos calcular el valor exacto del primer cuartil:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">70</span>, <span class="at">sd =</span> <span class="fl">3.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 67.77418</code></pre>
+</div>
+</div>
+<div class="fragment">
+<h3 id="qué-es-un-percentil">¿Qué es un percentil?</h3>
+<ul>
+<li><p>Es un valor que divide un conjunto de datos ordenados en 100 partes iguales, indicando la posición relativa de un dato dentro del conjunto</p></li>
+<li><p>Por ejemplo, el primer cuartil es equivalente al percentil 25, lo que significa que el 25% de los datos son menores o iguales a ese valor</p></li>
+</ul>
+</div>
+</section>
+<section id="la-regla-68-95-99.7" class="slide level2 medium">
+<h2>La regla 68-95-99.7</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-58-1.png" width="768" class="r-stretch quarto-figure-center"><div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">pnorm</span>(<span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6826895</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">pnorm</span>(<span class="dv">2</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9544997</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">pnorm</span>(<span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9973002</code></pre>
+</div>
+</div>
+<div class="footer footer-default">
+
+</div>
 </div>
 </section></section>
     </div>

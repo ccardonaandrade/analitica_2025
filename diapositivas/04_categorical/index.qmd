@@ -52,7 +52,9 @@ library(ggmosaic)
 
 4. [Comparando variables numéricas entre grupos](#acrossgroups)
 
+5. [Probabilidad](#probabilidad)
 
+6. [La Distribución Normal](#distnormal)
 
 
 # Datos categóricos {#intro}
@@ -203,7 +205,7 @@ Un gráfico de barras es la forma más común de representar una única variable
 
 ggplot(loans, aes(x = homeownership)) +
   geom_bar(fill = "gold") +
-  labs(x = "Homeownership", y = "Count") +
+  labs(x = "Homeownership", y = "Frequency") +
   theme_minimal()
 ```
 :::
@@ -248,7 +250,7 @@ loans |>
 ggplot(loans, aes(x = homeownership)) +
   geom_bar(fill = "gold") +
   labs(x = "Homeownership",
-       y = "Count") +
+       y = "Frequency") +
   theme_minimal()
 ```
 
@@ -262,7 +264,7 @@ ggplot(loans, aes(x = homeownership)) +
 
 ggplot(loans, aes(x = homeownership)) +
   geom_bar(fill = "gold") +
-  labs(x = "Homeownership", y = "Count") +
+  labs(x = "Homeownership", y = "Frequency") +
   theme_minimal()
 ```
 :::
@@ -322,7 +324,7 @@ loans |>
 #| layout-ncol: 2
 ggplot(loans, aes(x = homeownership)) +
   geom_bar(fill = "gold") +
-  labs(x = "Homeownership", y = "Count") +
+  labs(x = "Homeownership", y = "Frequency") +
   theme_minimal()
 
 loans |>
@@ -394,7 +396,7 @@ loans |>
   ggplot(aes(x = homeownership, fill = homeownership)) +
   geom_bar(show.legend = FALSE) +
   scale_fill_openintro("hot") +
-  labs(x = "Homeownership", y = "Count") +
+  labs(x = "Homeownership", y = "Frequency") +
   theme_minimal()
 ```
 
@@ -462,12 +464,12 @@ loans |>
   ggplot(aes(x = grade, fill = grade)) +
   geom_bar(show.legend = FALSE) +
   scale_fill_openintro("cool") +
-  labs(x = "Loan grade", y = "Count") + 
+  labs(x = "Loan grade", y = "Frequency") + 
   theme_minimal()
 ```
 
 
-## Gráfico de torta en R{.medium}
+## Gráfico de torta en R {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -623,7 +625,7 @@ ggplot(loans, aes(x = homeownership,
   scale_fill_manual(values = c("darkred",
                                "gold")) +
   labs(x = "Homeownership",
-       y = "Count",
+       y = "Frequency",
        fill = "Application type") +
   theme_minimal()
 ```
@@ -655,7 +657,7 @@ ggplot(loans, aes(x = homeownership,
   scale_fill_manual(values = c("darkred",
                                "gold")) +
   labs(x = "Homeownership",
-       y = "Count",
+       y = "Proportion",
        fill = "Application type") +
   theme_minimal()
 ```
@@ -686,7 +688,7 @@ ggplot(loans, aes(x = homeownership,
   scale_fill_manual(values = c("darkred",
                                "gold")) +
   labs(x = "Homeownership",
-       y = "Count",
+       y = "Frequency",
        fill = "Application type") +
   theme_minimal()
 ```
@@ -712,7 +714,7 @@ ggplot(loans, aes(x = homeownership,
   scale_fill_manual(values = c("darkred",
                                "gold")) +
   labs(x = "Homeownership",
-       y = "Count",
+       y = "Frequency",
        fill = "Application type") +
   theme_minimal()
 ```
@@ -731,7 +733,7 @@ ggplot(loans, aes(x = homeownership,
   scale_fill_manual(values = c("darkred",
                                "gold")) +
   labs(x = "Homeownership",
-       y = "Count",
+       y = "Frequency",
        fill = "Application type") +
   theme_minimal()
 ```
@@ -756,7 +758,7 @@ ggplot(loans, aes(x = homeownership,
   scale_fill_manual(values = c("darkred",
                                "gold")) +
   labs(x = "Homeownership",
-       y = "Count",
+       y = "Proportion",
        fill = "Application type") +
   theme_minimal()
 ```
@@ -775,7 +777,7 @@ ggplot(loans, aes(x = homeownership,
   scale_fill_manual(values = c("darkred",
                                "gold")) +
   labs(x = "Homeownership",
-       y = "Count",
+       y = "Proportion",
        fill = "Application type") +
   theme_minimal()
 ```
@@ -800,7 +802,7 @@ ggplot(loans, aes(x = homeownership,
   scale_fill_manual(values = c("darkred",
                                "gold")) +
   labs(x = "Homeownership",
-       y = "Count",
+       y = "Frequency",
        fill = "Application type") +
   theme_minimal()
 ```
@@ -819,7 +821,7 @@ ggplot(loans, aes(x = homeownership,
   scale_fill_manual(values = c("darkred",
                                "gold")) +
   labs(x = "Homeownership",
-       y = "Count",
+       y = "Frequency",
        fill = "Application type") +
   theme_minimal()
 ```
@@ -841,7 +843,7 @@ ggplot(loans, aes(x = homeownership,
   scale_fill_manual(values = c("darkred",
                                "gold")) +
   labs(x = "Homeownership",
-       y = "Count",
+       y = "Frequency",
        fill = "Application type") +
   theme_minimal()
 
@@ -851,7 +853,7 @@ ggplot(loans, aes(x = homeownership,
   scale_fill_manual(values = c("darkred",
                                "gold")) +
   labs(x = "Homeownership",
-       y = "Count",
+       y = "Proportion",
        fill = "Application type") +
   theme_minimal()
 
@@ -861,7 +863,7 @@ ggplot(loans, aes(x = homeownership,
   scale_fill_manual(values = c("darkred",
                                "gold")) +
   labs(x = "Homeownership",
-       y = "Count",
+       y = "Frequency",
        fill = "Application type") +
   theme_minimal() +
   theme(legend.position = "bottom")
@@ -1081,7 +1083,7 @@ ggplot(aes(x = lifeExp, y = factor(year), fill = stat(x))) +
     - Diagramas de caja entre grupos
     - Ridge plots
     
-# Probabilidad
+# Probabilidad {#probabilidad}
 
 ## Probabilidad {.medium}
 
@@ -1135,40 +1137,66 @@ $$P(2\, luego\, 2)=P(2) \cdot P(2)=\dfrac{1}{6} \cdot \dfrac{1}{6}=\dfrac{1}{36}
 
 $$P(Amarilla\, luego\, Azul)=P(Amarilla) \cdot P(Azul)=\dfrac{4}{6} \cdot \dfrac{2}{5}=\dfrac{8}{30}=\dfrac{4}{15}$$
 
-# Distribuciones continuas
+# La Distribución Normal {#distnormal}
 
-## Distribuciones y probabilidad {.medium}
+
+## Escala de frecuencia de un Histograma {.medium}
+
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+
+Retomemos la distribución de la expectativa de vida en los datos `gapminder`.
 
 Para los histogramas en una escala de frecuencia, la altura de las barras = cantidad de observaciones en ese intervalo.
 
+::::
+
+:::: {.column  width="50%"}
+
 ```{r}
 #| echo: false
-#| out-width: 100%
 #| fig-align: center
+#| fig-width: 6
+#| fig-height: 6
 
 gapminder |>
   ggplot() +
   geom_histogram(aes(x = lifeExp), 
                  color = "black", fill = "darkblue", bins = 30) +
   scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10)) +
+  labs(x="Life Expectancy (years)",
+       y="Frequency") +
   theme_minimal()
 
 ```
+::::
+
+:::::
 
 
-## Distribuciones y probabilidad {.medium}
+
+
+## Escala de densidad de un Histograma {.medium}
+
+
+::::: {.columns}
+
+:::: {.column width="50%"}
 
 Para un histograma en una escala de densidad,  
-el área de la barra = proporción de observaciones en ese intervalo.  
-Entonces, la altura de la barra es:
+el área de la barra = proporción de observaciones en ese intervalo. 
 
-$$\text{Altura de la barra} = \dfrac{\# \text{ de observaciones en el intervalo}}{(\# \text{ total de observaciones})(\text{ancho del intervalo})}$$
+::::
 
+:::: {.column  width="50%"}
 
 ```{r}
 #| echo: false
-#| out-width: 100%
 #| fig-align: center
+#| fig-width: 6
+#| fig-height: 6
 
 gapminder |>
   ggplot() +
@@ -1176,20 +1204,37 @@ gapminder |>
                  color = "black", fill = "darkblue", bins = 30) +
   scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10)) +
   scale_y_continuous(limits = c(0, 0.04)) +
+  labs(x="Life Expectancy (years)",
+       y="Density") +
   theme_minimal()
 
 ```
+::::
+
+:::::
 
 
-## Distribuciones y probabilidad {.medium}
 
-En una escala de densidad, la **proporción** de países con expectativas de vida entre 60 y 70 años = el área bajo la curva del histograma entre 60 y 70
 
+## Escala de densidad de un Histograma {.medium}
+
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+
+En una escala de densidad, la [proporción]{.hl .hl-blue} de países con expectativas de vida entre 60 y 70 años = el [área]{.hl .hl-blue} bajo la curva del histograma entre 60 y 70
+
+::::
+
+:::: {.column  width="50%"}
 
 ```{r}
 #| echo: false
-#| out-width: 100%
 #| fig-align: center
+#| fig-width: 6
+#| fig-height: 6
+
 
 gapminder |>
   ggplot() +
@@ -1199,22 +1244,42 @@ gapminder |>
   scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10)) +
   scale_y_continuous(limits = c(0, 0.04)) +
   scale_fill_manual(values = c("FALSE" = "white", "TRUE" = "darkblue")) + 
+  labs(x="Life Expectancy (years)",
+       y="Density") +
   theme_minimal() +
   theme(legend.position = "none")  # Hides the legend
 
 ```
+::::
+
+:::::
 
 
-## Distribuciones y probabilidad {.medium}
+
+
+## Del Histograma a la Curva de Densidad {.medium}
+
+
+::::: {.columns}
+
+:::: {.column width="50%"}
 
 Podríamos intentar aproximar un histograma mediante una curva suave, 
-llamada una función de densidad (probabilidad).
+llamada una [función de densidad (probabilidad)]{.hl .hl-blue}.
 
+1. Una función de densidad nunca es negativa
+
+2. El área total bajo la curva es siempre 1 o 100%
+
+::::
+
+:::: {.column  width="50%"}
 
 ```{r}
 #| echo: false
-#| out-width: 100%
 #| fig-align: center
+#| fig-width: 6
+#| fig-height: 6
 
 gapminder |>
   ggplot() +
@@ -1224,23 +1289,36 @@ gapminder |>
   geom_density(aes(x=lifeExp), color="darkblue")+
   scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10)) +
   scale_y_continuous(limits = c(0, 0.04)) +
+  labs(x="Life Expectancy (years)",
+       y="Density") +
   theme_minimal() 
-
 ```
+::::
+
+:::::
 
 
 
-## Distribuciones y probabilidad {.medium}
 
-Por lo tanto,  la proporción de países con expectativas de vida entre 60 y 70 años 
-puede ser estimada como el área sombreada debajo de la curva. 
-(La proporción exacta es el área debajo del histograma).
 
+## Del Histograma a la Curva de Densidad {.medium}
+
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+
+Por lo tanto, la proporción de países con expectativas de vida entre 60 y 70 años se puede estimar como el [área sombreada bajo la curva]{.hl .hl-blue}. La proporción exacta es el área bajo el histograma.
+
+::::
+
+:::: {.column  width="50%"}
 
 ```{r}
 #| echo: false
-#| out-width: 100%
 #| fig-align: center
+#| fig-width: 6
+#| fig-height: 6
 
 density_data <- density(gapminder$lifeExp)
 density_df <- data.frame(x = density_data$x, y = density_data$y)
@@ -1257,19 +1335,323 @@ gapminder |>
             alpha = 0.3) +
   scale_x_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10)) +
   scale_y_continuous(limits = c(0, 0.04)) +
-  theme_minimal()
-
-
+  labs(x="Life Expectancy (years)",
+       y="Density") +
+  theme_minimal() 
 ```
+::::
+
+:::::
+
+
+## Variables continuas & Curvas de densidad {.medium}
+
+La distribución de probabilidad de una variable aleatoria continua se describe mediante una curva de densidad.  
+
+Si $Y$ es una variable aleatoria continua, $P(a < Y < b)$ es el área bajo la curva de densidad de $Y$ sobre el intervalo entre $a$ y $b$.  
+
+![](img/continuous.png){height="150" fig-align="center"}
+
+. . . 
+
+Nota: todas las distribuciones de probabilidad continuas asignan una probabilidad de cero a cada resultado individual: $P(Y=y)=0$
 
 
 ## Distribución Normal {.medium}
 
+La distribución normal (campana de Gauss) es una familia de curvas de densidad que son [simétricas]{.marker-hl} y con [forma de campana]{.marker-hl}. Se definen por su media ${\color{orange} \mu}$ y su desviación estándar ${\color{orange} \sigma}$, con notación $N(\mu,\sigma)$.
+
+
 ```{r}
-#| fig-asp: 0.4
-#| out-width: 60%
-#| fig-align: center
+#| echo: false
+#| fig-subcap:
+#|   - Mean = 0, SD = 1
+#|   - Mean = 19, SD = 4
+#| fig-asp: 0.5
+#| out-width: 100%
+#| layout-ncol: 2
 #| fig-width: 5
+normals <- tibble(
+  x = c(rnorm(100000, mean = 0, sd = 1), rnorm(100000, mean = 19, sd = 4)),
+  group = c(rep(1, 100000), rep(2, 100000))
+)
+
+ggplot(normals |> filter(group == 1), aes(x = x)) +
+  geom_histogram(aes(y = ..density..), alpha = 0.5, color="white") +
+  geom_function(fun = dnorm, args = list(mean = 0, sd = 1), color = IMSCOL["blue", "full"], size = 1) +
+  labs(y = NULL, x = NULL) +
+  scale_x_continuous(breaks = -3:3) +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),     # Removes y-axis tick marks
+    panel.grid = element_blank(),
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA)
+  )
+
+ggplot(normals |> filter(group == 2), aes(x = x)) +
+  geom_histogram(aes(y = ..density..), alpha = 0.5, fill = IMSCOL["green", "full"], color="white") +
+  geom_function(
+    fun = dnorm, args = list(mean = 19, sd = 4), color = IMSCOL["green", "full"], size = 1,
+    linetype = "dashed"
+  ) +
+  labs(y = NULL, x = NULL) +
+  scale_x_continuous(breaks = 19 + 4 * (-3:3)) +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),     # Removes y-axis tick marks
+    panel.grid = element_blank(),
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA)
+  )
+```
+
+. . .
+
+Las dos distribuciones entonces se escribirían $N(1,0)$ y $N(19,4)$.
+
+## Ejemplo: SAT vs. ACT {.medium}
+
+- Las puntuaciones del SAT siguen una distribución aproximadamente normal con una media de 1500 puntos y una desviación estándar de 300 puntos. 
+
+$$SAT \sim N(1500,300)$$
+
+- Las puntuaciones del ACT también siguen una distribución aproximadamente normal con una media de 21 puntos y una desviación estándar de 5 puntos. 
+
+$$ACT \sim N(21,5)$$
+
+
+
+
+## Ejemplo: SAT vs. ACT {.medium}
+
+Supongamos que una universidad está decidiendo cuál de los dos aspirantes obtuvo un mejor puntaje en su examen estandarizado en comparación con los otros estudiantes: Pam, quien obtuvo un 1800 en su SAT, o Jim, quien obtuvo un 24 en su ACT?
+
+```{r}
+#| echo: false
+#| fig-asp: 0.5
+#| fig-align: center
+
+sat_mean <- 1500
+sat_sd <- 300
+act_mean <- 21
+act_sd <- 5
+
+tests <- tibble(
+  score = c(rnorm(100000, mean = sat_mean, sd = sat_sd), rnorm(100000, mean = act_mean, sd = act_sd)),
+  test  = c(rep("SAT", 100000), rep("ACT", 100000))
+)
+
+p_sat <- ggplot(tests |> filter(test == "SAT"), aes(x = score)) +
+  geom_function(fun = dnorm, args = list(mean = sat_mean, sd = sat_sd), color = IMSCOL["black", "full"]) +
+  labs(y = NULL, x = NULL) +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),     # Removes y-axis tick marks
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA)
+  ) +
+  scale_x_continuous(breaks = sat_mean + sat_sd * (-3:3)) +
+  annotate("segment",
+    x = 1800, xend = 1800, y = 0, yend = 0.001,
+    color = "darkred", linetype = "dashed", size = 1
+  ) +
+  annotate("segment", x = sat_mean - 4 * sat_sd, xend = sat_mean + 4 * sat_sd, y = 0, yend = 0, color = IMSCOL["black", "full"]) +
+  annotate("text", x = 1800, y = 0.0011, label = "Pam", color = "darkred") +
+  coord_cartesian(xlim = sat_mean + c(-1, 1) * 4 * sat_sd)
+
+p_act <- ggplot(tests |> filter(test == "ACT"), aes(x = score)) +
+  geom_function(
+    fun = dnorm, args = list(mean = act_mean, sd = act_sd),
+    color = IMSCOL["black", "full"]
+  ) +
+  labs(y = NULL, x = NULL) +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),     # Removes y-axis tick marks
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA)
+  ) +
+  scale_x_continuous(breaks = act_mean + act_sd * (-3:3)) +
+  annotate("segment",
+    x = 24, xend = 24, y = 0, yend = 0.075,
+    color = "darkblue", linetype = "dashed", size = 1
+  ) +
+  annotate("segment", x = act_mean - 4 * act_sd, xend = act_mean + 4 * act_sd, y = 0, yend = 0, color = IMSCOL["black", "full"]) +
+  annotate("text", x = 24, y = 0.08, label = "Jim", color = "darkblue") +
+  coord_cartesian(xlim = act_mean + c(-1, 1) * 4 * act_sd)
+
+p_sat + p_act
+```
+
+
+## Estandarizar con el Z-Score {.medium}
+
+Dado que no podemos simplemente comparar estos dos puntajes, en su lugar comparamos cuántas desviaciones estándar por encima de la media está cada observación.
+
+- El puntaje de Pam es $\dfrac{1800-1500}{300}=1$ desviación estándar (SD) encima de la media 
+
+- El puntaje de Jim es $\dfrac{24-21}{5}=0.6$ SD encima de la media
+
+
+
+
+## Estandarizar con el Z-Score {.medium}
+
+La siguiente gráfica visualiza la comparación que estamos haciendo al usar desviaciones estándar:
+
+```{r}
+#| echo: false
+#| fig-asp: 0.5
+#| fig-align: center
+
+sat_mean <- 0
+sat_sd <- 1
+act_mean <- 0
+act_sd <- 1
+
+tests <- tibble(
+  score = c(rnorm(100000, mean = sat_mean, sd = sat_sd), rnorm(100000, mean = act_mean, sd = act_sd)),
+  test  = c(rep("SAT", 100000), rep("ACT", 100000))
+)
+
+p_sat <- ggplot(tests |> filter(test == "SAT"), aes(x = score)) +
+  geom_function(fun = dnorm, args = list(mean = sat_mean, sd = sat_sd), color = IMSCOL["black", "full"]) +
+  labs(y = NULL, x = NULL) +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),     # Removes y-axis tick marks
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.background = element_rect(fill = "white", color = NA),
+    plot.background = element_rect(fill = "white", color = NA)
+  ) +
+  scale_x_continuous(breaks = sat_mean + sat_sd * (-3:3)) +
+  annotate("segment",
+    x = 1, xend = 1, y = 0, yend = 0.3,
+    color = "darkred", linetype = "dashed", size = 1
+  ) +
+  annotate("segment", x = sat_mean - 4 * sat_sd, xend = sat_mean + 4 * sat_sd, y = 0, yend = 0, color = IMSCOL["black", "full"]) +
+  annotate("text", x = 1, y = 0.33, label = "Pam", color = "darkred") +
+  annotate("segment",
+    x = 0.6, xend = 0.6, y = 0, yend = 0.38,
+    color = "darkblue", linetype = "dashed", size = 1
+  )  +
+  annotate("text", x = 0.6, y = 0.4, label = "Jim", color = "darkblue") +
+  coord_cartesian(xlim = sat_mean + c(-1, 1) * 4 * sat_sd) 
+p_sat
+```
+
+
+## El Z-score {.medium}
+
+El Z-score de una observación representa cuántas desviaciones estándar se encuentra por encima o por debajo de la media, permitiendo comparar su posición relativa dentro de una distribución.
+
+Si $x$ es una observación de la distribución $N(\mu,\sigma)$, el Z-score se define:
+
+$$Z=\dfrac{x-\mu}{\sigma}$$
+
+. . . 
+
+Observaciones que estén más allá de $3$ SD de la media ($|Z|>3$) son usualmente consideradas inusuales.
+
+## Maneras de detectar *Outliers* {.medium}
+
+- $1.5 \times RIC$
+
+- Observaciones con $|Z|>3$
+
+- Histogramas
+
+- Diagramas de caja
+
+
+## Distribución Normal y Probabilidad {.medium}
+
+Si $X$ sigue una distribución normal, para encontrar probabilidades sobre $X$ se calculan áreas bajo la curva normal $N(\mu,\sigma)$
+
+![](img/normal_prob.png){height="350" fig-align="center"}
+
+
+## Calculando Probabilidades: La tabla de la Normal {.medium}
+
+$$P(Z<{\color{orange} z})=P(Z<-0.83)=0.2033$$
+
+
+![](img/normal_table.png){height="450" fig-align="center"}
+
+## Calculando Probabilidades en R {.medium}
+
+- Con la función `pnorm()` pueden calcular probabilidades en R:
+
+
+```{r}
+#| echo: true
+pnorm(-0.83)
+```
+
+```{r}
+#| echo: false
+#| fig-align: center
+openintro::normTail(m = 0, s = 1, L = -0.83, col = IMSCOL["blue", "full"])
+```
+
+## Calculando Probabilidades en R {.medium}
+
+Hay dos maneras de calcular probabilidades en la parte superior de la distribución:
+
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+
+- P($Z>-0.83$) = $1$ - P($Z<-0.83$)
+
+
+```{r}
+#| echo: true
+1 - pnorm(-0.83)
+```
+
+- Y la otra es cambiando las opciones de la función:
+
+```{r}
+#| echo: true
+ pnorm(-0.83, lower.tail=FALSE)
+```
+
+::::
+
+:::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+openintro::normTail(m = 0, s = 1, U = -0.83, col = IMSCOL["blue", "full"])
+```
+::::
+
+:::::
+
+
+
+## Calculando probabilidades para la Normal {.medium}
+
+¿Qué porcentaje de estudiantes tiene puntajes mayores a 1630 en el SAT? Recuerden que SAT$\sim N(1500,300)$
+
+. . .
+
+```{r}
+#| fig-align: center
+#| fig-width: 7
+#| fig-height: 6
 #| echo: false
 par(mar = c(2, 0, 0, 0))
 par_og <- par(no.readonly = TRUE) # save original par
@@ -1279,12 +1661,37 @@ normTail(m = 1500, s = 300, U = 1630, col = IMSCOL["blue", "full"])
 ```
 
 
-## Distribución Normal {.medium}
+## Calculando probabilidades para la Normal {.medium}
+### Probabilidades con Área Complementaria
+
+
+::::: {.columns}
+
+:::: {.column width="40%"}
+
+1. Calcular el Z-score:
+
+$$Z=\dfrac{1630-1500}{300}=0.43$$
+
+2. Calcular el área bajo la distribución normal estandarizada:
 
 ```{r}
-#| fig-asp: 0.45
+#| echo: true
+pnorm(0.43)
+ 1 - pnorm(0.43)
+```
+
+
+
+
+::::
+
+:::: {.column  width="60%"}
+
+```{r}
 #| fig-align: center
 #| fig-width: 7
+#| fig-height: 5
 #| echo: false
 X <- seq(-3.2, 3.2, 0.01)
 Y <- dnorm(X)
@@ -1318,9 +1725,49 @@ text(16, 0.45, format(0.3336, scientific = FALSE, digits = 4)[1], cex = 1)
 par(par_og) # restore original par
 ```
 
+::::
+
+:::::
 
 
-## Distribución Normal {.medium}
+## Calculando probabilidades para la Normal {.medium}
+### Usando las opciones de pnorm()
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+
+1. Modificar los valores en la función `pnorm()`:
+
+```{r}
+#| echo: true
+pnorm(1630,
+      mean = 1500,
+      sd = 300,
+      lower.tail=FALSE)
+```
+
+::::
+
+:::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+openintro::normTail(m = 1500, s = 300, U = 1630, col = IMSCOL["blue", "full"])
+```
+::::
+
+:::::
+
+
+
+
+## Calculando probabilidades: Otro ejemplo {.medium}
+
+Con base en una muestra de 100 transacciones, el gasto promedio mensual de los clientes en una tienda minorista estadounidense sigue una distribución casi normal con una media de $70.00 y una desviación estándar de $3.30. ¿Cuál es la probabilidad de seleccionar aleatoriamente una transacción entre 69 y 74 dólares?
+
+. . .
 
 ```{r}
 #| fig-asp: 0.4
@@ -1333,7 +1780,7 @@ normTail(70, 3.3, M = c(69, 74), col = IMSCOL["blue", "full"])
 ```
 
 
-## Distribución Normal {.medium}
+## Calculando probabilidades: Otro ejemplo {.medium}
 
 ```{r}
 #| fig-asp: 0.25
@@ -1368,7 +1815,133 @@ these <- which(X > -0.303 & X < 1.212)
 polygon(c(X[these[1]], X[these], X[rev(these)[1]]) + 24, c(0, Y[these], 0), col = IMSCOL["blue", "full"])
 lines(X + 24, Y)
 text(0, 0.53, "1.0000")
-text(8, 0.53, "0.3821")
+text(8, 0.53, "0.3820")
 text(16, 0.53, "0.1131")
-text(24, 0.53, "0.5048")
+text(24, 0.53, "0.5047")
+```
+
+::::: {.columns}
+
+:::: {.column .fragment width="50%"}
+
+$$Z_1=\dfrac{69-70}{3.3}=-0.30$$
+
+$$Z_2=\dfrac{74-70}{3.3}=1.21$$
+
+
+
+
+::::
+
+:::: {.column .fragment width="50%"}
+
+```{r}
+#| echo: true
+a <- pnorm(-0.30)
+a
+b <- pnorm(1.21, lower.tail=FALSE)
+b
+1-a-b
+```
+::::
+
+:::::
+
+
+## Calculando cuartiles/percentiles {.medium}
+
+¿Qué valor en la distribución de transacciones es el primer cuartil ($Q_1$)? Recuerden que 25% de los datos son menores al primer cuartil.
+
+```{r}
+#| fig-asp: 0.4
+#| out-width: 60%
+#| fig-align: center
+#| fig-width: 5
+#| echo: false
+par(mar = c(2, 0, 0, 0))
+normTail(70, 3.3, L = qnorm(0.25, 70, 3.3), col = IMSCOL["blue", "full"])
+text(66.5, 0.03, "25%\n(0.25)", cex = 1, col = IMSCOL["black", "full"])
+```
+
+## Calculando cuartiles/percentiles en R {.medium}
+
+La función `qnorm()` permite calcular cuartiles/percentiles para una distribución normal:
+
+```{r}
+#| echo: true
+qnorm(0.25, mean = 0, sd = 1)
+```
+
+. . .
+
+Sabiendo que el primer cuartil en la distribución normal estandarizada es $Z_{Q_1}=-0.674$:
+
+
+$$ -0.674 = Z_{Q_1} = \frac{x_{Q_1} - \mu}{\sigma} = \frac{x_{Q_1} - 70}{3.3} $$
+Resolviendo para $Z_{Q_1}$, se encuentra que 67.7 dólares es el primer cuartil en la distribución original.
+
+## Calculando cuartiles/percentiles en R {.medium}
+
+Al usar las opciones de la función `qnorm()`, podemos calcular el valor exacto del primer cuartil:
+
+```{r}
+#| echo: true
+qnorm(0.25, mean = 70, sd = 3.3)
+```
+
+. . .
+
+### ¿Qué es un percentil?
+
+- Es un valor que divide un conjunto de datos ordenados en 100 partes iguales, indicando la posición relativa de un dato dentro del conjunto
+
+- Por ejemplo, el primer cuartil es equivalente al percentil 25, lo que significa que el 25% de los datos son menores o iguales a ese valor
+
+
+## La regla 68-95-99.7 {.medium}
+
+
+```{r}
+#| echo: false
+#| fig-height: 5
+#| fig-width: 8
+#| fig-align: center
+
+par(mar = c(2, 0, 0, 0))
+X <- seq(-4, 4, 0.01)
+Y <- dnorm(X)
+plot(X, Y, type = "n", axes = F, ylim = c(0, 0.4), xlim = c(-3.2, 3.2), xlab = NA, ylab = NA)
+abline(h = 0, col = IMSCOL["black", "full"])
+axis(1, at = -3:3, label = expression(
+  mu - 3 * sigma, mu - 2 * sigma, mu - sigma, mu,
+  mu + sigma, mu + 2 * sigma, mu + 3 * sigma
+))
+ii <- c(1, 2, 3)
+jj <- c(1, 1, 1)
+for (i in 3:1) {
+  these <- (X >= i - 1 & X <= i)
+  polygon(c(i - 1, X[these], i), c(0, Y[these], 0), col = IMSCOL[ii[i], jj[i]], border = IMSCOL[ii[i], jj[i]])
+  these <- (X >= -i & X <= -i + 1)
+  polygon(c(-i, X[these], -i + 1), c(0, Y[these], 0), col = IMSCOL[ii[i], jj[i]], border = IMSCOL[ii[i], jj[i]])
+}
+# ===> label 99.7 <===#
+arrows(-3, 0.03, 3, 0.03, code = 3, col = "#444444", length = 0.15)
+text(0, 0.02, "99.7%", pos = 3)
+# ===> label 95 <===#
+arrows(-2, 0.13, 2, 0.13, code = 3, col = "#444444", length = 0.15)
+text(0, 0.12, "95%", pos = 3)
+# ===> label 68 <===#
+arrows(-1, 0.23, 1, 0.23, code = 3, col = "#444444", length = 0.15)
+text(0, 0.22, "68%", pos = 3)
+lines(X, Y, col = "#888888")
+abline(h = 0, col = "#AAAAAA")
+```
+
+. . . 
+
+```{r}
+#| echo: true
+pnorm(1) - pnorm(-1)
+pnorm(2) - pnorm(-2)
+pnorm(3) - pnorm(-3)
 ```
