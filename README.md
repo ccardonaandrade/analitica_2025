@@ -15,7 +15,7 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
 
 *Nota: las diapositivas se ven mejor en el HTML que es el formato original.*
 
-1. Introducción \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/2a2d26235a66c199d2ab3e68885a24c82d2c057e/diapositivas/01_intro/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/2a2d26235a66c199d2ab3e68885a24c82d2c057e/diapositivas/01_intro/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/2a2d26235a66c199d2ab3e68885a24c82d2c057e/diapositivas/01_intro/index.qmd)\]
+1. Introducción \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/c43ca9b81ac4a6f9ad10a48c16e80a3df4fe6081/diapositivas/01_intro/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/c43ca9b81ac4a6f9ad10a48c16e80a3df4fe6081/diapositivas/01_intro/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/c43ca9b81ac4a6f9ad10a48c16e80a3df4fe6081/diapositivas/01_intro/index.qmd)\]
     - Lecturas: DV 2
 2. ggplot y tidyverse \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/946c2228f9b99f8ae600d4dc5557296b6fae401d/diapositivas/02_ggplot_tidy/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/946c2228f9b99f8ae600d4dc5557296b6fae401d/diapositivas/02_ggplot_tidy/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/946c2228f9b99f8ae600d4dc5557296b6fae401d/diapositivas/02_ggplot_tidy/index.qmd)\]
     - Lecturas: R4DS 1-3
