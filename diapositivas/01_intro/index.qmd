@@ -910,6 +910,27 @@ my_summary <- summary(my_numbers)
 my_summary
 ```
 
+## Ayuda en R {.medium}
+
+- Para obtener más información sobre una función (con nombre) u objeto en <i class="fa-brands fa-r-project"></i>, consulten la documentación en `help`. Por ejemplo:
+
+```{r}
+#| eval: false
+#| echo: true
+help(plot)
+```
+
+. . . 
+
+- O, simplemente, solo usen `?`, que, además, es el símbolo más comúnmente empleado:
+
+```{r}
+#| eval: false
+#| echo: true
+?plot 
+```
+
+
 # Las funciones existen dentro de paquetes {#paquetes}
 
 ## Base R y los paquetes  {.medium}
