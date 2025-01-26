@@ -355,3 +355,75 @@ tibble(mean = sample_means) |>
 ¿Qué pasa si tomamos 10000 muestras?
 :::
 :::
+
+
+
+
+## Gráfico de barras {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+n_samples <- 10000 # Number of samples to draw
+n_s2 <- 50
+sample_means <- replicate(n_samples, {
+  sample_indices <- sample(1:n_p, n_s2, replace = FALSE) # Random sample
+  mean(pop_df$x[sample_indices]) # Calculate mean
+})
+
+# Visualize the sampling distribution
+tibble(mean = sample_means) |>
+  ggplot(aes(x = mean)) +
+  geom_histogram(binwidth = 0.1, color = "darkblue", fill = "lightblue") +
+    geom_vline(xintercept = pop_mean, linetype = "dashed", color = "darkred", linewidth = 1.2) +
+        scale_x_continuous(limits = c(7, 12), breaks = c(7, 8,9, 10,11, 12)) +
+  labs(title = "Sampling Distribution of the Mean (Approximation)",
+       x = "Sample Mean",
+       y = "Frequency") +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+¿Qué pasa si tomamos 10000 muestras pero de 50 estudiantes?
+:::
+:::
+
+
+## Gráfico de barras {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+n_samples <- 10000 # Number of samples to draw
+n_s3 <- 70
+sample_means <- replicate(n_samples, {
+  sample_indices <- sample(1:n_p, n_s3, replace = FALSE) # Random sample
+  mean(pop_df$x[sample_indices]) # Calculate mean
+})
+
+# Visualize the sampling distribution
+tibble(mean = sample_means) |>
+  ggplot(aes(x = mean)) +
+  geom_histogram(binwidth = 0.1, color = "darkblue", fill = "lightblue") +
+    geom_vline(xintercept = pop_mean, linetype = "dashed", color = "darkred", linewidth = 1.2) +
+        scale_x_continuous(limits = c(7, 12), breaks = c(7, 8,9, 10,11, 12)) +
+  labs(title = "Sampling Distribution of the Mean (Approximation)",
+       x = "Sample Mean",
+       y = "Frequency") +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+¿Qué pasa si tomamos 10000 muestras pero de 70 estudiantes?
+:::
+:::
