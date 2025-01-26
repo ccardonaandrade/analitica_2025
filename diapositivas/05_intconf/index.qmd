@@ -1,0 +1,357 @@
+---
+title: Analítica de Datos
+author: Carlos Cardona Andrade
+subtitle: Distribución muestral e Intervalos de Confianza
+execute:
+  freeze: auto
+  echo: true
+  fig-width: 6
+  fig-height: 5
+format:
+  revealjs: 
+   theme: ../slides.scss
+   header-includes: |
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"/>
+   slide-number: true
+   show-slide-number: all
+   transition: fade
+   progress: true
+   multiplex: false
+   scrollable: false
+   preview-links: false
+   hide-inactive-cursor: true
+   highlight-style: printing
+   pause: true
+---
+     
+```{r}
+#| eval: true
+#| echo: false
+library(pacman)
+p_load(broom, latex2exp, ggplot2, ggthemes, viridis, dplyr, magrittr, knitr, parallel,gtools)
+
+theme_empty <- theme_bw() + theme(
+  line = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  axis.text = element_blank(),
+  plot.title = element_blank(),
+  axis.title = element_blank(),
+  plot.margin = structure(c(0, 0, 0, 0), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+
+
+# Set population and sample sizes
+n_p <- 100
+n_s <- 30
+# Set the seed
+set.seed(12469)
+# Generate data
+pop_df <- tibble(
+  i = 3,
+  x = rnorm(n_p, mean = 10, sd = 3.5),
+  e = rnorm(n_p, mean = 0, sd = 1),
+  y = i + 0.5 * x + e,
+  row = rep(1:sqrt(n_p), times = sqrt(n_p)),
+  col = rep(1:sqrt(n_p), each = sqrt(n_p)),
+  s1 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s2 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s3 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s)))
+)
+
+pop_mean <- as.numeric(round(pop_df |> summarize(mean=mean(x, na.rm = T)),1))
+```
+
+
+## Plan para hoy
+
+1. [Datos categóricos](#intro)
+
+2. [Visualizandos una variable categórica](#1category)
+
+3. [Visualizandos dos variables categóricas](#2categories)
+
+4. [Comparando variables numéricas entre grupos](#acrossgroups)
+
+5. [Probabilidad](#probabilidad)
+
+6. [La Distribución Normal](#distnormal)
+
+
+# Datos categóricos {#intro}
+
+
+
+## Gráfico de barras {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+ggplot(data = pop_df, aes(x = row, y = col)) +
+  geom_point(color = "darkslategray", size = 10) +
+  theme_empty
+```
+:::
+
+::: {.column width="50%"}
+
+La media es `r round(pop_df |> summarize(mean=mean(x, na.rm = T)),1)`
+
+:::
+:::
+
+
+
+## Gráfico de barras {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+ggplot(data = pop_df, aes(x = row, y = col, shape = s1)) +
+  geom_point(color = "darkslategray", size = 10) +
+  scale_shape_manual(values = c(1, 19)) +
+  theme_empty
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+pop_df |>
+  filter(s1 == T) |>
+ggplot(aes(x = x)) +
+  geom_histogram(bins=15, fill="orange", color="darkred") +
+    scale_x_continuous(limits = c(0, 20), breaks = c(0, 5, 10, 15, 20)) +
+    scale_y_continuous(limits = c(0, 10), breaks = c(2, 4, 6, 8,10)) +
+  labs(x="Hours of Studying",
+       y="Frequency") +
+  theme_minimal() 
+```
+
+La media es `r round(pop_df |> filter(s1 == T) |> summarize(mean=mean(x, na.rm = T)),1)`
+
+:::
+:::
+
+
+## Gráfico de barras {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+ggplot(data = pop_df, aes(x = row, y = col, shape = s2)) +
+  geom_point(color = "darkslategray", size = 10) +
+  scale_shape_manual(values = c(1, 19)) +
+  theme_empty
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+pop_df |>
+  filter(s2 == T) |>
+ggplot(aes(x = x)) +
+  geom_histogram(bins=15, fill="orange", color="darkred") +
+    scale_x_continuous(limits = c(0, 20), breaks = c(0, 5, 10, 15, 20)) +
+      scale_y_continuous(limits = c(0, 10), breaks = c(2, 4, 6, 8,10)) +
+  labs(x="Hours of Studying",
+       y="Frequency") +
+  theme_minimal() 
+```
+
+La media es `r round(pop_df |> filter(s2 == T) |> summarize(mean=mean(x, na.rm = T)),1)`
+
+:::
+:::
+
+
+## Gráfico de barras {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+ggplot(data = pop_df, aes(x = row, y = col, shape = s3)) +
+  geom_point(color = "darkslategray", size = 10) +
+  scale_shape_manual(values = c(1, 19)) +
+  theme_empty
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+pop_df |>
+  filter(s3 == T) |>
+ggplot(aes(x = x)) +
+  geom_histogram(bins=15, fill="orange", color="darkred") +
+    scale_x_continuous(limits = c(0, 20), breaks = c(0, 5, 10, 15, 20)) +
+      scale_y_continuous(limits = c(0, 10), breaks = c(2, 4, 6, 8,10)) +
+  labs(x="Hours of Studying",
+       y="Frequency") +
+  theme_minimal() 
+```
+
+La media es `r round(pop_df |> filter(s3 == T) |> summarize(mean=mean(x, na.rm = T)),1)`
+
+:::
+:::
+
+
+## Gráfico de barras {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+n_samples <- 10 # Number of samples to draw
+sample_means <- replicate(n_samples, {
+  sample_indices <- sample(1:n_p, n_s, replace = FALSE) # Random sample
+  mean(pop_df$x[sample_indices]) # Calculate mean
+})
+
+# Visualize the sampling distribution
+tibble(mean = sample_means) |>
+  ggplot(aes(x = mean)) +
+  geom_histogram(binwidth = 0.1, color = "darkblue", fill = "lightblue") +
+geom_vline(xintercept = pop_mean, linetype = "dashed", color = "darkred", linewidth = 1.2) +
+  scale_x_continuous(limits = c(7, 12), breaks = c(7, 8,9, 10,11, 12)) +
+  labs(title = "Sampling Distribution of the Mean (Approximation)",
+       x = "Sample Mean",
+       y = "Frequency") +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+¿Qué pasa si tomamos 10 muestras?
+:::
+:::
+
+
+
+
+
+## Gráfico de barras {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+n_samples <- 100 # Number of samples to draw
+sample_means <- replicate(n_samples, {
+  sample_indices <- sample(1:n_p, n_s, replace = FALSE) # Random sample
+  mean(pop_df$x[sample_indices]) # Calculate mean
+})
+
+# Visualize the sampling distribution
+tibble(mean = sample_means) |>
+  ggplot(aes(x = mean)) +
+  geom_histogram(binwidth = 0.1, color = "darkblue", fill = "lightblue") +
+  geom_vline(xintercept = pop_mean, linetype = "dashed", color = "darkred", linewidth = 1.2) +
+        scale_x_continuous(limits = c(7, 12), breaks = c(7, 8,9, 10,11, 12)) +
+  labs(title = "Sampling Distribution of the Mean (Approximation)",
+       x = "Sample Mean",
+       y = "Frequency") +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+¿Qué pasa si tomamos 100 muestras?
+:::
+:::
+
+
+
+## Gráfico de barras {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+n_samples <- 1000 # Number of samples to draw
+sample_means <- replicate(n_samples, {
+  sample_indices <- sample(1:n_p, n_s, replace = FALSE) # Random sample
+  mean(pop_df$x[sample_indices]) # Calculate mean
+})
+
+# Visualize the sampling distribution
+tibble(mean = sample_means) |>
+  ggplot(aes(x = mean)) +
+  geom_histogram(binwidth = 0.1, color = "darkblue", fill = "lightblue") +
+    geom_vline(xintercept = pop_mean, linetype = "dashed", color = "darkred", linewidth = 1.2) +
+        scale_x_continuous(limits = c(7, 12), breaks = c(7, 8,9, 10,11, 12)) +
+  labs(title = "Sampling Distribution of the Mean (Approximation)",
+       x = "Sample Mean",
+       y = "Frequency") +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+¿Qué pasa si tomamos 1000 muestras?
+:::
+:::
+
+
+## Gráfico de barras {.medium}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+n_samples <- 10000 # Number of samples to draw
+sample_means <- replicate(n_samples, {
+  sample_indices <- sample(1:n_p, n_s, replace = FALSE) # Random sample
+  mean(pop_df$x[sample_indices]) # Calculate mean
+})
+
+# Visualize the sampling distribution
+tibble(mean = sample_means) |>
+  ggplot(aes(x = mean)) +
+  geom_histogram(binwidth = 0.1, color = "darkblue", fill = "lightblue") +
+    geom_vline(xintercept = pop_mean, linetype = "dashed", color = "darkred", linewidth = 1.2) +
+        scale_x_continuous(limits = c(7, 12), breaks = c(7, 8,9, 10,11, 12)) +
+  labs(title = "Sampling Distribution of the Mean (Approximation)",
+       x = "Sample Mean",
+       y = "Frequency") +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+¿Qué pasa si tomamos 10000 muestras?
+:::
+:::
