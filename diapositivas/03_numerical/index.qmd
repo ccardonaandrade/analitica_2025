@@ -1,5 +1,5 @@
 ---
-title: Analítica de Datos
+title: Analítica de los Negocios
 author: Carlos Cardona Andrade
 subtitle: Explorando datos numéricos
 execute:
