@@ -1,4 +1,4 @@
-# Analítica de Datos - 2025
+# Analítica de los Negocios - 2025
 
 [`Libros`](#libros) | [`Clases`](#clases) | [`Proyecto Final`](#proyecto-final) | [`Detalles`](#detalles)   
 
