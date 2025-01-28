@@ -141,7 +141,7 @@ Seleccionen la tuerca en [FILES] y establezcan la carpeta como directorio de tra
 
 ![](img/paso4.png){fig-align="center" width=80%}
 
-## 💪 Ejercicio 1 - (5 minutos) {.medium}
+## 💪 Ejercicio 1  {.medium}
 
 1. Usando la plantilla con la que ya hemos trabajado anteriormente, establezcan el directorio de trabajo (la carpeta donde guardaron los datos de airbnb):
 
@@ -822,7 +822,7 @@ Uniforme y alta en Europa y Oceanía
 :::
 
 
-## 💪 Ejercicio 2 - (5 minutos) {.medium}
+## 💪 Ejercicio 2  {.medium}
 
 1. Dibujen un histograma para la variable `price`. ¿Existe sesgo?
 
@@ -974,7 +974,7 @@ gapminder |>
 ```
 
 
-## 💪 Ejercicio 3 - (5 minutos) {.medium}
+## 💪 Ejercicio 3  {.medium}
 
 1. Calculen la media y la mediana para cada `neighbourhood_group`.
 
@@ -1258,7 +1258,7 @@ ggplot(gapminder) +
 :::::
 
 
-## 💪 Ejercicio 4 - (5 minutos) {.medium}
+## 💪 Ejercicio 4  {.medium}
 
 1. Grafiquen los diagramas de caja para cada `neighbourhood_group`.
 
@@ -1595,7 +1595,7 @@ ggplot(gapminder) +
 :::
 
 
-## 💪 Ejercicio 5 - (5 minutos) {.medium}
+## 💪 Ejercicio 5  {.medium}
 
 1. Usando la función `mutate`, creen una nueva variable llamada `within_1SD` que sea igual a TRUE si el precio se encuentra dentro de una desviación estándar de la media, y FALSE en caso contrario. Es decir, la variable debe ser TRUE si el precio está en el rango de [media - 1 * desviación estándar, media + 1 * desviación estándar], y FALSE si no está en este rango.
 
@@ -1734,6 +1734,48 @@ ggplot(gapminder)+
 
 ::::
 
+
+## El gráfico de dispersión en R {.medium}
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+```{r}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "7|1,2,3,4,5,6,7"
+ggplot(gapminder)+
+    geom_point(aes(x=log(gdpPercap), y=lifeExp, color = continent)) + 
+    labs(x = "log(GDP per cápita)",
+         y = "Life Expectancy") +
+    scale_color_brewer(name = "Continent", palette = "Dark2") +
+    theme_minimal() + 
+    facet_wrap(~continent, ncol = 3)
+```
+
+::::
+
+:::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 100%
+ggplot(gapminder)+
+    geom_point(aes(x=log(gdpPercap), y=lifeExp, color = continent)) + 
+    labs(x = "log(GDP per cápita)",
+         y = "Life Expectancy") +
+    scale_color_brewer(name = "Continent", palette = "Dark2") +
+    theme_minimal() + 
+    facet_wrap(~continent, ncol = 3)
+```
+::::
+
+::::
+
+La opción `facet_wrap()` separa el gráfico por grupos. Este [link](https://ggplot2.tidyverse.org/reference/facet_wrap.html) explica cómo usarla y da ejemplos.
+
+
 ## Covarianza {.medium}
 
 - La covarianza mide qué tan fuerte es la relación (lineal) de *dos variables numéricas*.
@@ -1844,7 +1886,7 @@ gapminder |>
 ::::
 
 
-## 💪 Ejercicio 6 - (5 minutos) {.medium}
+## 💪 Ejercicio 6  {.medium}
 
 1. Grafiquen la dispersión entre el precio y el número de reseñas (reviews). ¿Qué tipo de relación visualizan entre estas dos variables?
 

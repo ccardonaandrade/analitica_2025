@@ -483,8 +483,8 @@ Carlos Cardona Andrade
 <p>Seleccionen la tuerca en [FILES] y establezcan la carpeta como directorio de trabajo.</p>
 
 <img data-src="img/paso4.png" style="width:80.0%" class="r-stretch quarto-figure-center"></section>
-<section id="ejercicio-1---5-minutos" class="slide level2 medium">
-<h2>💪 Ejercicio 1 - (5 minutos)</h2>
+<section id="ejercicio-1" class="slide level2 medium">
+<h2>💪 Ejercicio 1</h2>
 <ol type="1">
 <li>Usando la plantilla con la que ya hemos trabajado anteriormente, establezcan el directorio de trabajo (la carpeta donde guardaron los datos de airbnb):</li>
 </ol>
@@ -924,8 +924,8 @@ Carlos Cardona Andrade
 <p>Uniforme y alta en Europa y Oceanía</p>
 </div>
 </section>
-<section id="ejercicio-2---5-minutos" class="slide level2 medium">
-<h2>💪 Ejercicio 2 - (5 minutos)</h2>
+<section id="ejercicio-2" class="slide level2 medium">
+<h2>💪 Ejercicio 2</h2>
 <ol type="1">
 <li><p>Dibujen un histograma para la variable <code>price</code>. ¿Existe sesgo?</p></li>
 <li><p>Intenten el punto anterior para distinto número de <em>bins</em>.</p></li>
@@ -1037,8 +1037,8 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
-<section id="ejercicio-3---5-minutos" class="slide level2 medium">
-<h2>💪 Ejercicio 3 - (5 minutos)</h2>
+<section id="ejercicio-3" class="slide level2 medium">
+<h2>💪 Ejercicio 3</h2>
 <ol type="1">
 <li><p>Calculen la media y la mediana para cada <code>neighbourhood_group</code>.</p></li>
 <li><p>Basado en el punto anterior, ¿qué tipo de sesgo tiene cada barrio?</p></li>
@@ -1262,8 +1262,8 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 </div>
 </div>
 </section>
-<section id="ejercicio-4---5-minutos" class="slide level2 medium">
-<h2>💪 Ejercicio 4 - (5 minutos)</h2>
+<section id="ejercicio-4" class="slide level2 medium">
+<h2>💪 Ejercicio 4</h2>
 <ol type="1">
 <li><p>Grafiquen los diagramas de caja para cada <code>neighbourhood_group</code>.</p></li>
 <li><p>Describan con 3 aspectos las 5 gráficas. Dos ejemplos: todos los barrios tienen una presencia fuerte de outliers y Manhattan tiene la mediana mayor.</p></li>
@@ -1469,8 +1469,8 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 </div>
 </div>
 </section>
-<section id="ejercicio-5---5-minutos" class="slide level2 medium">
-<h2>💪 Ejercicio 5 - (5 minutos)</h2>
+<section id="ejercicio-5" class="slide level2 medium">
+<h2>💪 Ejercicio 5</h2>
 <ol type="1">
 <li><p>Usando la función <code>mutate</code>, creen una nueva variable llamada <code>within_1SD</code> que sea igual a TRUE si el precio se encuentra dentro de una desviación estándar de la media, y FALSE en caso contrario. Es decir, la variable debe ser TRUE si el precio está en el rango de [media - 1 * desviación estándar, media + 1 * desviación estándar], y FALSE si no está en este rango.</p></li>
 <li><p>Calculen la media de <code>within_1SD</code>. Recuerden que el promedio de una variable que toma valores 0 o 1 corresponde a la proporción de observaciones que cumplen la condición. ¿La proporción obtenida se aproxima al 68%?</p></li>
@@ -1579,6 +1579,33 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 </div>
 </div>
 </section>
+<section id="el-gráfico-de-dispersión-en-r-3" class="slide level2 medium">
+<h2>El gráfico de dispersión en R</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37" data-code-line-numbers="7|1,2,3,4,5,6,7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">ggplot</span>(gapminder)<span class="sc">+</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(gdpPercap), <span class="at">y=</span>lifeExp, <span class="at">color =</span> continent)) <span class="sc">+</span> </span>
+<span id="cb37-3"><a href="#cb37-3"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"log(GDP per cápita)"</span>,</span>
+<span id="cb37-4"><a href="#cb37-4"></a>         <span class="at">y =</span> <span class="st">"Life Expectancy"</span>) <span class="sc">+</span></span>
+<span id="cb37-5"><a href="#cb37-5"></a>    <span class="fu">scale_color_brewer</span>(<span class="at">name =</span> <span class="st">"Continent"</span>, <span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb37-7"><a href="#cb37-7"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>continent, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-61-1.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>La opción <code>facet_wrap()</code> separa el gráfico por grupos. Este <a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">link</a> explica cómo usarla y da ejemplos.</p>
+</section>
 <section id="covarianza" class="slide level2 medium">
 <h2>Covarianza</h2>
 <ul>
@@ -1635,16 +1662,16 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="column" style="width:60%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-60-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-62-1.png" width="576"></p>
 </div>
 </div>
 </div><div class="column" style="width:40%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>gapminder <span class="sc">|&gt;</span> </span>
-<span id="cb37-2"><a href="#cb37-2"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span></span>
-<span id="cb37-3"><a href="#cb37-3"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb37-4"><a href="#cb37-4"></a>    <span class="at">corr =</span> <span class="fu">cor</span>(lifeExp, gdpPercap)</span>
-<span id="cb37-5"><a href="#cb37-5"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb38-4"><a href="#cb38-4"></a>    <span class="at">corr =</span> <span class="fu">cor</span>(lifeExp, gdpPercap)</span>
+<span id="cb38-5"><a href="#cb38-5"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
   continent  corr
@@ -1666,16 +1693,16 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 <div class="column" style="width:60%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-62-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-64-1.png" width="576"></p>
 </div>
 </div>
 </div><div class="column" style="width:40%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>gapminder <span class="sc">|&gt;</span> </span>
-<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span></span>
-<span id="cb39-3"><a href="#cb39-3"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb39-4"><a href="#cb39-4"></a>    <span class="at">corr =</span> <span class="fu">cor</span>(lifeExp, gdpPercap)</span>
-<span id="cb39-5"><a href="#cb39-5"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">group_by</span>(continent) <span class="sc">|&gt;</span></span>
+<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb40-4"><a href="#cb40-4"></a>    <span class="at">corr =</span> <span class="fu">cor</span>(lifeExp, gdpPercap)</span>
+<span id="cb40-5"><a href="#cb40-5"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
   continent  corr
@@ -1690,16 +1717,16 @@ El 75% de los datos están por debajo y el 25% por encima.</p></li>
 </div>
 </div>
 </section>
-<section id="ejercicio-6---5-minutos" class="slide level2 medium">
-<h2>💪 Ejercicio 6 - (5 minutos)</h2>
+<section id="ejercicio-6" class="slide level2 medium">
+<h2>💪 Ejercicio 6</h2>
 <ol type="1">
 <li><p>Grafiquen la dispersión entre el precio y el número de reseñas (reviews). ¿Qué tipo de relación visualizan entre estas dos variables?</p></li>
 <li><p>Calculen la correlación entre el precio y el número de reseñas. ¿El valor obtenido tiene sentido con lo que observan en la gráfica del punto anterior?</p></li>
 <li><p>En ocasiones, la relación entre dos variables no es clara a primera vista. La función <code>geom_smooth()</code> facilita visualizar posibles relaciones. Por ejemplo:</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">ggplot</span>(newdata) <span class="sc">+</span></span>
-<span id="cb41-2"><a href="#cb41-2"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y=</span>number_of_reviews, <span class="at">x=</span>price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="fu">ggplot</span>(newdata) <span class="sc">+</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">y=</span>number_of_reviews, <span class="at">x=</span>price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>¿Qué historia nos cuenta esta nueva gráfica? ¿Tiene sentido para ustedes la relación observada entre las variables?</p>
 <div class="footer footer-default">

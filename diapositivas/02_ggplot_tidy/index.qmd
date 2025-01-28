@@ -102,7 +102,7 @@ library(gapminder)
 ```
 
 
-## 💪 Ejercicio 1 - (5 minutos) {.medium}
+## 💪 Ejercicio 1 {.medium}
 
 Abran un R Script, y utilizando la siguiente plantilla, carguen los paquetes `tidyverse` y `gapminder`. Instálenlos desde la consola si es la primera vez que usan su PC actual.
 
@@ -464,9 +464,9 @@ ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
 ::::
 ::::
 
-## 💪 Ejercicio 2 - (5 minutos) {.medium}
+## 💪 Ejercicio 2 {.medium}
 
-Grafiquen las siguientes 4 gráficas. ¿Cuál eligirían y por qué? Respondan en el script usando comentarios precedidos por `#`.
+Grafiquen las siguientes 4 gráficas usando la consola. ¿Cuál eligirían y por qué? Escriban el código de la gráfica elegida en el script y respondan a las preguntas usando comentarios precedidos por `#`.
 
 ```{r}
 #| echo: true
@@ -825,6 +825,52 @@ p2
 - La otra manera es con el botón de exportar en el visualizador de gráficos
 
 
+## 💪 Ejercicio 3 {.medium}
+
+Hagamos un gráfico de barras sencillo para visualizar la cantidad de observaciones por continente en los datos `gapminder`. 
+
+1. Usen `geom_bar()` como objeto geométrico y mapeen el eje `x` a `continent`.
+
+. . . 
+
+2. Los gráficos llenos de gris no son muy atractivos. Vamos a agregar color al gráfico mapeando el atributo `fill` a `continent`.
+
+. . . 
+
+3. Ahora que el gráfico tiene color, vamos a mejorar aún más su estética. Revisen la página de [paletas de colores Brewer](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html){target="_blank"}, elijan una de las paletas de colores que allí encuentran y agreguen la capa `scale_fill_brewer(palette = "nombre_de_paleta")`. 
+
+
+## 💪 Ejercicio 3 {.medium}
+
+4. Para ser más claros, modifiquen los nombres de los ejes a `y = "Frequency"` y `x = "Continent"`. La diapositiva 41 tiene un ejemplo de cómo hacerlo.
+
+. . .
+
+5. En este caso la guía de los continentes parece innecesaria. Eliminémosla agregando la capa `guides(fill=FALSE)`
+
+. . . 
+
+6. `ggplot` usa un fondo gris por defecto. Elijan entre `theme_minimal()` o `theme_classic()` como última capa.
+
+
+## 💪 Ejercicio 3 {.medium}
+
+Deberían tener algo similar a esto:
+
+
+```{r}
+#| echo: false
+#| fig.align: 'center'
+#| fig-width: 8
+
+ggplot(gapminder) + 
+  geom_bar(aes(x=continent, fill=continent)) + 
+  scale_fill_brewer(palette = "Set2") + 
+  guides(fill=FALSE) +
+  labs(x = "Continent", y = "Frequency") + 
+  theme_classic()
+```
+
 
 # El operador pipe {#pipe}
 
@@ -1037,6 +1083,16 @@ cat('<code><span style="background-color: #EFB3FF; font-weight: bold;">VERB</spa
 ::::
 
 
+## Los datos `starwars` {.medium}
+
+Para ilustrar el uso del paquete `dplyr`, utilizaré  los datos `starwars`, que vienen incluidos en el mismo paquete:
+
+```{r}
+#| echo: true
+glimpse(starwars)
+```
+
+
 ## 1) dplyr::filter {.medium}
 
 <br>
@@ -1243,7 +1299,7 @@ cat('<code>filter(starwars,<br> <span style="color: #4db070;">name %in% c("Anaki
 ::::
 
 
-## 💪 Ejercicio 4 - (5 minutos) {.medium}
+## 💪 Ejercicio 4  {.medium}
 
 Para los datos de `gapminder`, usen `filter()` y operadores lógicos para seleccionar:
 
@@ -1278,7 +1334,7 @@ starwars |>
 ```
 
 
-## 💪 Ejercicio 5 - (5 minutos) {.medium}
+## 💪 Ejercicio 5 {.medium}
 
 1. ¿Cuál es la expectativa de vida más baja en `gapminder`? ¿Qué país la tiene y en qué año?
 
@@ -1332,7 +1388,7 @@ starwars |>
   head(5)
 ```
 
-## 💪 Ejercicio 6 - (5 minutos) {.medium}
+## 💪 Ejercicio 6  {.medium}
 
 1. Seleccionen solo las columnas `year`, `lifeExp` y `country` en `gapminder`
 
@@ -1420,7 +1476,7 @@ starwars |>
   head(5)
 ```
 
-## 💪 Ejercicio 7 - (5 minutos) {.medium}
+## 💪 Ejercicio 7  {.medium}
 
 1. Creen una variable llamada `africa` que sea `TRUE` si el país está en el continente africano
 
@@ -1470,7 +1526,7 @@ starwars |>
   head(5)
 ```
 
-## 💪 Ejercicio 8 - (5 minutos) {.medium}
+## 💪 Ejercicio 8  {.medium}
 
 1. Calculen el GDP per cápita promedio en 1977 para cada continente
 
