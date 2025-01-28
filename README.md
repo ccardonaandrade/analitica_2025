@@ -2,7 +2,7 @@
 
 [`Libros`](#libros) | [`Clases`](#clases) | [`Proyecto Final`](#proyecto-final) | [`Detalles`](#detalles)   
 
-Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/a364e66fe539207251bf8dacf7202586899879a4/syllabus/syllabus.pdf) para información más detallada sobre el curso.
+Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/syllabus/syllabus.pdf) para información más detallada sobre el curso.
 
 ## Libros 
 
@@ -15,11 +15,11 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
 
 *Nota: las diapositivas se ven mejor en el HTML que es el formato original.*
 
-1. Introducción \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/c43ca9b81ac4a6f9ad10a48c16e80a3df4fe6081/diapositivas/01_intro/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/c43ca9b81ac4a6f9ad10a48c16e80a3df4fe6081/diapositivas/01_intro/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/c43ca9b81ac4a6f9ad10a48c16e80a3df4fe6081/diapositivas/01_intro/index.qmd)\]
+1. Introducción \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/diapositivas/01_intro/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/diapositivas/01_intro/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/diapositivas/01_intro/index.qmd)\]
     - Lecturas: DV 2
-2. ggplot y tidyverse \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/946c2228f9b99f8ae600d4dc5557296b6fae401d/diapositivas/02_ggplot_tidy/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/946c2228f9b99f8ae600d4dc5557296b6fae401d/diapositivas/02_ggplot_tidy/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/946c2228f9b99f8ae600d4dc5557296b6fae401d/diapositivas/02_ggplot_tidy/index.qmd)\]
+2. ggplot y tidyverse \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/diapositivas/02_ggplot_tidy/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/diapositivas/02_ggplot_tidy/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/diapositivas/02_ggplot_tidy/index.qmd)\]
     - Lecturas: R4DS 1-3
-3. Explorando datos numéricos \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/9845e20d89813c8b2d0dd80d776ab0c6ff6d88c1/diapositivas/03_numerical/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/9845e20d89813c8b2d0dd80d776ab0c6ff6d88c1/diapositivas/03_numerical/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/9845e20d89813c8b2d0dd80d776ab0c6ff6d88c1/diapositivas/03_numerical/index.qmd)\]
+3. Explorando datos numéricos \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/diapositivas/03_numerical/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/diapositivas/03_numerical/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/diapositivas/03_numerical/index.qmd)\]
     - Lecturas: IMS 5
     - [Ejercicios](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/estatdesc/ejercicios.pdf), [Respuestas](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/estatdesc/soluciones.pdf)
 4. Explorando datos categóricos
