@@ -410,8 +410,8 @@ Carlos Cardona Andrade
 <h2>Plan para hoy</h2>
 <ol type="1">
 <li><p><a href="#/intro">Datos categóricos</a></p></li>
-<li><p><a href="#/1category">Visualizandos una variable categórica</a></p></li>
-<li><p><a href="#/2categories">Visualizandos dos variables categóricas</a></p></li>
+<li><p><a href="#/1category">Visualizando una variable categórica</a></p></li>
+<li><p><a href="#/2categories">Visualizando dos variables categóricas</a></p></li>
 <li><p><a href="#/acrossgroups">Comparando variables numéricas entre grupos</a></p></li>
 <li><p><a href="#/probabilidad">Probabilidad</a></p></li>
 <li><p><a href="#/distnormal">La Distribución Normal</a></p></li>
@@ -432,7 +432,7 @@ Carlos Cardona Andrade
 <img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" width="576" class="r-stretch quarto-figure-center"></section></section>
 <section>
 <section id="1category" class="title-slide slide level1 center">
-<h1>Visualizandos una variable categórica</h1>
+<h1>Visualizando una variable categórica</h1>
 
 </section>
 <section id="tabla-de-frecuencia" class="slide level2 medium">
@@ -570,6 +570,9 @@ Carlos Cardona Andrade
 </div>
 </div>
 </div>
+</div>
+<div class="absolute textbox fragment fade-up altlist" style="font-size:1.7rem;padding:0.5rem 1rem;top: 5%; right: 25%; width: 400px; ">
+<p>¿Cómo sería el gráfico para una variable categórica ordinal?</p>
 </div>
 </section>
 <section id="ejercicio-1" class="slide level2 medium">
@@ -755,7 +758,7 @@ Carlos Cardona Andrade
 </section></section>
 <section>
 <section id="2categories" class="title-slide slide level1 center">
-<h1>Visualizandos dos variables categóricas</h1>
+<h1>Visualizando dos variables categóricas</h1>
 
 </section>
 <section id="tablas-de-contingencia" class="slide level2 medium">
@@ -1161,7 +1164,7 @@ homeownership
 <section id="probabilidad-3" class="slide level2 medium">
 <h2>Probabilidad</h2>
 <ol start="4" type="1">
-<li>Si A y B son eventos alternativos (no se superponen), entonces <span class="math inline">\(P(A\)</span> <span class="math inline">\(o\)</span> <span class="math inline">\(B)=P(A)+P(B)\)</span></li>
+<li>Si A y B son eventos <span class="marker-hl">alternativos</span> (no se superponen), entonces <span class="math inline">\(P(A\)</span> <span class="math inline">\(o\)</span> <span class="math inline">\(B)=P(A)+P(B)\)</span></li>
 </ol>
 <ul>
 <li>Siguiendo con el ejemplo del dado:</li>
@@ -1182,7 +1185,7 @@ homeownership
 <section id="probabilidad-5" class="slide level2 medium">
 <h2>Probabilidad</h2>
 <ol start="6" type="1">
-<li>Si A y B son <strong>independientes</strong>, entonces <span class="math inline">\(P(A\, y\, B)=P(A) \cdot P(B)\)</span></li>
+<li>Si A y B son <span class="marker-hl">independientes</span>, entonces <span class="math inline">\(P(A\, y\, B)=P(A) \cdot P(B)\)</span></li>
 </ol>
 <ul>
 <li>¿Cuál es la probabilidad de sacar 2 luego de tirar el dado dos veces?</li>
@@ -1369,14 +1372,54 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <p>Observaciones que estén más allá de <span class="math inline">\(3\)</span> SD de la media (<span class="math inline">\(|Z|&gt;3\)</span>) son usualmente consideradas inusuales.</p>
 </div>
 </section>
-<section id="maneras-de-detectar-outliers" class="slide level2 medium">
-<h2>Maneras de detectar <em>Outliers</em></h2>
+<section id="maneras-de-detectar-valores-atípicos-outliers" class="slide level2 medium">
+<h2>Maneras de detectar <em>valores atípicos</em> (Outliers)</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
 <li><p><span class="math inline">\(1.5 \times RIC\)</span></p></li>
 <li><p>Observaciones con <span class="math inline">\(|Z|&gt;3\)</span></p></li>
 <li><p>Histogramas</p></li>
 <li><p>Diagramas de caja</p></li>
 </ul>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/outliers.png" height="350"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<center>
+<span class="hl hl-dred">Es importante analizar la causa de los valores atípicos antes de eliminarlos, ya que pueden contener información valiosa.</span>
+<center>
+</center></center></div>
+</section>
+<section id="de-dónde-vienen-los-valores-atípicos" class="slide level2 medium">
+<h2>¿De dónde vienen los <em>valores atípicos</em>?</h2>
+<ol type="1">
+<li>Errores de medición o registro de los datos</li>
+</ol>
+<ul>
+<li>Suelen ser valores extraños o imposibles</li>
+</ul>
+<div class="fragment">
+<ol start="2" type="1">
+<li>Problemas de muestreo y condiciones inusuales</li>
+</ol>
+<ul>
+<li>No son parte de la población que nos interesa</li>
+</ul>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li>Variación natural</li>
+</ol>
+<ul>
+<li>Sí son parte de la población que nos interesa, por lo tanto, son informativos</li>
+</ul>
+</div>
 </section>
 <section id="ejercicio-3" class="slide level2 medium">
 <h2>💪 Ejercicio 3</h2>
@@ -1453,7 +1496,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <h2>Calculando Probabilidades en R</h2>
 <p>Hay dos maneras de calcular probabilidades en la parte superior de la distribución:</p>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:55%;">
 <ul>
 <li>P(<span class="math inline">\(Z&gt;-0.83\)</span>) = <span class="math inline">\(1\)</span> - P(<span class="math inline">\(Z&lt;-0.83\)</span>)</li>
 </ul>
@@ -1472,12 +1515,12 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <pre><code>[1] 0.7967306</code></pre>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:45%;">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-51-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-51-1.png" width="480"></p>
 </figure>
 </div>
 </div>
@@ -1485,8 +1528,8 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 </div>
 </div>
 </section>
-<section id="calculando-probabilidades-para-la-normal" class="slide level2 medium">
-<h2>Calculando probabilidades para la Normal</h2>
+<section id="calculando-probabilidades-para-la-distribución-normal" class="slide level2 medium">
+<h2>Calculando probabilidades para la Distribución Normal</h2>
 <p>¿Qué porcentaje de estudiantes tiene puntajes mayores a 1630 en el SAT? Recuerden que SAT<span class="math inline">\(\sim N(1500,300)\)</span></p>
 <div class="fragment">
 <div class="cell" data-layout-align="center">
@@ -1498,10 +1541,13 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 </div>
 </div>
 </div>
+<div class="absolute textbox fragment fade-up altlist" style="font-size:1.7rem;padding:0.5rem 1rem;top: 40%; left: -10%; width: 415px; ">
+<p>El procedimiento es más claro si grafican el área que van a calcular</p>
+</div>
 </div>
 </section>
-<section id="calculando-probabilidades-para-la-normal-1" class="slide level2 medium">
-<h2>Calculando probabilidades para la Normal</h2>
+<section id="calculando-probabilidades-para-la-distribución-normal-1" class="slide level2 medium">
+<h2>Calculando probabilidades para la Distribución Normal</h2>
 <h3 id="probabilidades-con-área-complementaria">Probabilidades con Área Complementaria</h3>
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -1535,8 +1581,8 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 </div>
 </div>
 </section>
-<section id="calculando-probabilidades-para-la-normal-2" class="slide level2 medium">
-<h2>Calculando probabilidades para la Normal</h2>
+<section id="calculando-probabilidades-para-la-distribución-normal-2" class="slide level2 medium">
+<h2>Calculando probabilidades para la Distribución Normal</h2>
 <h3 id="usando-las-opciones-de-pnorm">Usando las opciones de pnorm()</h3>
 <div class="columns">
 <div class="column" style="width:50%;">

@@ -1156,6 +1156,8 @@ p2 <- ggplot(gapminder) +
 p1 + p2
 ```
 
+Cada uno proporciona información diferente; por ejemplo, mediana vs moda 
+
 
 ## El diagrama de caja en R {.medium}
 
@@ -1351,7 +1353,7 @@ hist(numbersA, breaks = c(10:22),
      cex.main = 2.5,  # Increase title size (default is 1)
      cex.axis = 1.8,  # Increase axis numbers size
      cex.lab = 2.2)   # Increase axis label size (default is 1)
-abline(v = 15.5, col = "purple", lty = 2, lwd = 2) # lty=2 for dashed line, lwd=2 for line width
+abline(v = 15.5, col = "purple", lty = 2, lwd = 2.2) # lty=2 for dashed line, lwd=2 for line width
 
 
 ```
@@ -1370,7 +1372,7 @@ hist(numbersB, breaks = c(10:22),
      cex.main = 2.5,  # Increase title size (default is 1)
      cex.axis = 1.8,  # Increase axis numbers size
      cex.lab = 2.2)   # Increase axis label size (default is 1)
-abline(v = 15.5, col = "purple", lty = 2, lwd = 2) # lty=2 for dashed line, lwd=2 for line width
+abline(v = 15.5, col = "purple", lty = 2, lwd = 2.2) # lty=2 for dashed line, lwd=2 for line width
 
 ```
 :::
@@ -1387,7 +1389,7 @@ hist(numbersC, breaks = c(10:22),
      cex.main = 2.5,  # Increase title size (default is 1)
      cex.axis = 1.8,  # Increase axis numbers size
      cex.lab = 2.2)   # Increase axis label size (default is 1)
-abline(v = 15.5, col = "purple", lty = 2, lwd = 2) # lty=2 for dashed line, lwd=2 for line width
+abline(v = 15.5, col = "purple", lty = 2, lwd = 2.2) # lty=2 for dashed line, lwd=2 for line width
 
 ```
 :::
@@ -1396,6 +1398,8 @@ abline(v = 15.5, col = "purple", lty = 2, lwd = 2) # lty=2 for dashed line, lwd=
 - Noten que las 3 muestras tienen la misma media: $\bar{x}=15.5$
 
 - Las desvaciones estándar son <span style="color: #ebc034;">S=3.33</span>, <span style="color: #3489eb;">S=0.92</span> and <span style="color: #3ba342;">S=4.56</span>.
+
+- ¿Qué tan representativa es la media en cada uno de los gráficos?
 
 
 ## La regla 68% y 95% {.medium}
