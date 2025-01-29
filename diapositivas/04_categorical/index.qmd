@@ -216,7 +216,7 @@ ggplot(loans, aes(x = homeownership)) +
 ::: columns
 ::: {.column width="50%"}
 
-Un gráfico de barras en el que se muestran proporciones en lugar de frecuencias se llama gráfico de barras de frecuencia relativa.
+Un gráfico de barras en el que se muestran proporciones en lugar de frecuencias se llama gráfico de barras de [frecuencia relativa]{.hl .hl-blue}.
 :::
 
 ::: {.column width="50%"}
@@ -1182,12 +1182,7 @@ $$P(Par\, o\,  6)=P(Par)+P(6)-P(Par\, y\,  6)=\dfrac{3}{6}+\dfrac{1}{6}-\dfrac{1
   
 $$P(2\, luego\, 2)=P(2) \cdot P(2)=\dfrac{1}{6} \cdot \dfrac{1}{6}=\dfrac{1}{36}$$
 
-## Probabilidad {.medium}
 
-- Es importante tener en cuenta si existe reemplazo o no.
-- Por ejemplo, si un recipiente tiene 4 pelotas amarillas y 2 azules. ¿Cuál es la probabilidad de sacar una amarilla y luego una azul sin reemplazo?
-
-$$P(Amarilla\, luego\, Azul)=P(Amarilla) \cdot P(Azul)=\dfrac{4}{6} \cdot \dfrac{2}{5}=\dfrac{8}{30}=\dfrac{4}{15}$$
 
 # La Distribución Normal {#distnormal}
 
@@ -1275,7 +1270,9 @@ gapminder |>
 
 :::: {.column width="50%"}
 
-En una escala de densidad, la [proporción]{.hl .hl-blue} de países con expectativas de vida entre 60 y 70 años = el [área]{.hl .hl-blue} bajo la curva del histograma entre 60 y 70
+En una escala de densidad, la [proporción]{.hl .hl-blue} de países con expectativas de vida entre 60 y 70 años = el [área]{.hl .hl-blue} bajo la curva del histograma entre 60 y 70.
+
+Esa proporción es básicamente la probabilidad de encontrar esos valores en nuestros datos.
 
 ::::
 
