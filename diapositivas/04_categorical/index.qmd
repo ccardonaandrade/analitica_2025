@@ -337,6 +337,43 @@ loans |>
 ```
 
 
+## 💪 Ejercicio 1  {.medium}
+
+1. Usando la plantilla con la que ya hemos trabajado anteriormente, establezcan el directorio de trabajo y carguen los paquetes `tidyverse` y `janitor` (Este último instálenlo por lo que es la primera vez que lo usamos).
+
+2. Importen los datos `credit_demographics` con el nombre `credit` usando la función `read.csv()`.
+
+3. Exploren los datos usando la función `glimpse()`.
+
+4. En ocasiones, algunos nombres de variables pueden ser inconsistentes o difíciles de manejar. El paquete `janitor` facilita este proceso. Ejecuten la siguiente línea de código y luego vuelvan a utilizar la función `glimpse()`. ¿Notan la diferencia en los nombres?
+
+```{r}
+#| eval: false
+credit <- credit |>
+  clean_names()
+```
+
+
+## 💪 Ejercicio 1  {.medium}
+
+5. Como pueden notar en el punto anterior, la variable `default` contiene 0s y 1s. Vamos a convertirla en una variable de texto (`string`) para que sea más fácil de interpretar en los gráficos. Ejecuten el siguiente código para crear una nueva variable:
+
+```{r}
+#| eval: false
+credit <- credit |>
+  mutate(
+    default_string = case_when(
+      default == 1 ~ "Default",
+      default == 0 ~ "No Default",
+      TRUE ~ NA_character_  # Assign NA for any unmatched values
+    ))
+```
+
+6. Usando esta nueva variable `default_string` y el paquete `ggplot`, construyan un gráfico de barras para visualizar cuántos clientes están en *default* y cuántos no. Asegúrense de incluir etiquetas y un título para hacer el gráfico más informativo.
+
+
+
+
 ## Gráficos de torta {.medium}
 
 ::: columns

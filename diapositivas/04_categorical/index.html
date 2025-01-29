@@ -572,6 +572,37 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
+<section id="ejercicio-1" class="slide level2 medium">
+<h2>💪 Ejercicio 1</h2>
+<ol type="1">
+<li><p>Usando la plantilla con la que ya hemos trabajado anteriormente, establezcan el directorio de trabajo y carguen los paquetes <code>tidyverse</code> y <code>janitor</code> (Este último instálenlo por lo que es la primera vez que lo usamos).</p></li>
+<li><p>Importen los datos <code>credit_demographics</code> con el nombre <code>credit</code> usando la función <code>read.csv()</code>.</p></li>
+<li><p>Exploren los datos usando la función <code>glimpse()</code>.</p></li>
+<li><p>En ocasiones, algunos nombres de variables pueden ser inconsistentes o difíciles de manejar. El paquete <code>janitor</code> facilita este proceso. Ejecuten la siguiente línea de código y luego vuelvan a utilizar la función <code>glimpse()</code>. ¿Notan la diferencia en los nombres?</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>credit <span class="ot">&lt;-</span> credit <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ejercicio-1-1" class="slide level2 medium">
+<h2>💪 Ejercicio 1</h2>
+<ol start="5" type="1">
+<li>Como pueden notar en el punto anterior, la variable <code>default</code> contiene 0s y 1s. Vamos a convertirla en una variable de texto (<code>string</code>) para que sea más fácil de interpretar en los gráficos. Ejecuten el siguiente código para crear una nueva variable:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>credit <span class="ot">&lt;-</span> credit <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-3"><a href="#cb4-3"></a>    <span class="at">default_string =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-4"><a href="#cb4-4"></a>      default <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Default"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5"></a>      default <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">"No Default"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span>  <span class="co"># Assign NA for any unmatched values</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>    ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="6" type="1">
+<li>Usando esta nueva variable <code>default_string</code> y el paquete <code>ggplot</code>, construyan un gráfico de barras para visualizar cuántos clientes están en <em>default</em> y cuántos no. Asegúrense de incluir etiquetas y un título para hacer el gráfico más informativo.</li>
+</ol>
+</section>
 <section id="gráficos-de-torta" class="slide level2 medium">
 <h2>Gráficos de torta</h2>
 <div class="columns">
@@ -583,56 +614,13 @@ Carlos Cardona Andrade
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" width="480"></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="gráficos-de-torta-1" class="slide level2 medium">
-<h2>Gráficos de torta</h2>
-<div class="cell quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 46.9%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png"></p>
-<p></p><figcaption>Pie chart</figcaption><p></p>
-</figure>
-</div>
-</div>
-<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 6.1%;justify-content: center;">
-<p>&nbsp;</p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 46.9%;justify-content: center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-14-2.png"></p>
-<p></p><figcaption>Bar plot</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="gráficos-de-torta-2" class="slide level2 medium">
-<h2>Gráficos de torta</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ul>
-<li><p>Es mucho más fácil hacer un gráfico de pastel incorrecto que un gráfico de barras incorrecto.</p></li>
-<li><p>En un gráfico de pastel, las categorías deben representar un todo. No existe esta restricción para un gráfico de barras.</p></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="480"></p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="gráficos-de-torta-3" class="slide level2 medium">
+<section id="gráficos-de-torta-1" class="slide level2 medium">
 <h2>Gráficos de torta</h2>
 <div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
@@ -651,6 +639,49 @@ Carlos Cardona Andrade
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-16-2.png"></p>
+<p></p><figcaption>Bar plot</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="gráficos-de-torta-2" class="slide level2 medium">
+<h2>Gráficos de torta</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p>Es mucho más fácil hacer un gráfico de pastel incorrecto que un gráfico de barras incorrecto.</p></li>
+<li><p>En un gráfico de pastel, las categorías deben representar un todo. No existe esta restricción para un gráfico de barras.</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="480"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="gráficos-de-torta-3" class="slide level2 medium">
+<h2>Gráficos de torta</h2>
+<div class="cell quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 46.9%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png"></p>
+<p></p><figcaption>Pie chart</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 6.1%;justify-content: center;">
+<p>&nbsp;</p>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 46.9%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-18-2.png"></p>
 <p></p><figcaption>Bar plot</figcaption><p></p>
 </figure>
 </div>
@@ -678,7 +709,7 @@ Carlos Cardona Andrade
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 46.9%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png"></p>
 <p></p><figcaption>Homeownership: rent, mortgage, and own</figcaption><p></p>
 </figure>
 </div>
@@ -689,7 +720,7 @@ Carlos Cardona Andrade
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 46.9%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-17-2.png"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-19-2.png"></p>
 <p></p><figcaption>Loan status: fully paid, in grace period, and late</figcaption><p></p>
 </figure>
 </div>
@@ -802,7 +833,7 @@ homeownership
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" width="480"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-21-1.png" width="480"></p>
 </div>
 </div>
 </div>
@@ -819,7 +850,7 @@ homeownership
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-20-1.png" width="480"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" width="480"></p>
 </div>
 </div>
 </div>
@@ -836,7 +867,7 @@ homeownership
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-21-1.png" width="480"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="480"></p>
 </div>
 </div>
 </div>
@@ -847,57 +878,9 @@ homeownership
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="1,2|3|4,5|6,7,8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ggplot</span>(loans, <span class="fu">aes</span>(<span class="at">x =</span> homeownership,</span>
-<span id="cb3-2"><a href="#cb3-2"></a>                  <span class="at">fill =</span> application_type)) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkred"</span>,</span>
-<span id="cb3-5"><a href="#cb3-5"></a>                               <span class="st">"gold"</span>)) <span class="sc">+</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Homeownership"</span>,</span>
-<span id="cb3-7"><a href="#cb3-7"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
-<span id="cb3-8"><a href="#cb3-8"></a>       <span class="at">fill =</span> <span class="st">"Application type"</span>) <span class="sc">+</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="480"></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="gráfico-de-barras-estandarizado-en-r" class="slide level2 medium">
-<h2>Gráfico de barras estandarizado en R</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="3|1,2,3,4,5,6,7,8,9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(loans, <span class="fu">aes</span>(<span class="at">x =</span> homeownership,</span>
-<span id="cb4-2"><a href="#cb4-2"></a>                  <span class="at">fill =</span> application_type)) <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkred"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5"></a>                               <span class="st">"gold"</span>)) <span class="sc">+</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Homeownership"</span>,</span>
-<span id="cb4-7"><a href="#cb4-7"></a>       <span class="at">y =</span> <span class="st">"Proportion"</span>,</span>
-<span id="cb4-8"><a href="#cb4-8"></a>       <span class="at">fill =</span> <span class="st">"Application type"</span>) <span class="sc">+</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="cell">
-<div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="480"></p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="gráfico-de-barras-dobles-en-r" class="slide level2 medium">
-<h2>Gráfico de barras dobles en R</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="3|1,2,3,4,5,6,7,8,9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(loans, <span class="fu">aes</span>(<span class="at">x =</span> homeownership,</span>
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="1,2|3|4,5|6,7,8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(loans, <span class="fu">aes</span>(<span class="at">x =</span> homeownership,</span>
 <span id="cb5-2"><a href="#cb5-2"></a>                  <span class="at">fill =</span> application_type)) <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
 <span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkred"</span>,</span>
 <span id="cb5-5"><a href="#cb5-5"></a>                               <span class="st">"gold"</span>)) <span class="sc">+</span></span>
 <span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Homeownership"</span>,</span>
@@ -908,7 +891,55 @@ homeownership
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="480"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="gráfico-de-barras-estandarizado-en-r" class="slide level2 medium">
+<h2>Gráfico de barras estandarizado en R</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="3|1,2,3,4,5,6,7,8,9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(loans, <span class="fu">aes</span>(<span class="at">x =</span> homeownership,</span>
+<span id="cb6-2"><a href="#cb6-2"></a>                  <span class="at">fill =</span> application_type)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkred"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>                               <span class="st">"gold"</span>)) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Homeownership"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7"></a>       <span class="at">y =</span> <span class="st">"Proportion"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8"></a>       <span class="at">fill =</span> <span class="st">"Application type"</span>) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="480"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="gráfico-de-barras-dobles-en-r" class="slide level2 medium">
+<h2>Gráfico de barras dobles en R</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="3|1,2,3,4,5,6,7,8,9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(loans, <span class="fu">aes</span>(<span class="at">x =</span> homeownership,</span>
+<span id="cb7-2"><a href="#cb7-2"></a>                  <span class="at">fill =</span> application_type)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkred"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>                               <span class="st">"gold"</span>)) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Homeownership"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8"></a>       <span class="at">fill =</span> <span class="st">"Application type"</span>) <span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-29-1.png" width="480"></p>
 </div>
 </div>
 </div>
@@ -921,14 +952,14 @@ homeownership
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" width="240"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-30-1.png" width="240"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-28-2.png" width="240"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-30-2.png" width="240"></p>
 </figure>
 </div>
 </div>
@@ -940,7 +971,7 @@ homeownership
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 56.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-28-3.png" width="240"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-30-3.png" width="240"></p>
 </figure>
 </div>
 </div>
@@ -957,7 +988,7 @@ homeownership
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 46.9%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-29-1.png"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-31-1.png"></p>
 <p></p><figcaption>Homeownership.</figcaption><p></p>
 </figure>
 </div>
@@ -968,7 +999,7 @@ homeownership
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 46.9%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-29-2.png"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-31-2.png"></p>
 <p></p><figcaption>Homeownership vs.&nbsp;application type.</figcaption><p></p>
 </figure>
 </div>
@@ -998,7 +1029,7 @@ homeownership
 <h2>Gráfico de mosaico</h2>
 <p>Es importante pensar cuál variable va en el eje horizontal y cuál en el vertical. En ocasiones, una es más <em>explicativa</em> que la otra.</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-30-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-32-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
 <section id="gráfico-de-mosaico-en-r" class="slide level2 medium">
 <h2>Gráfico de Mosaico en R</h2>
 <div class="columns">
@@ -1023,14 +1054,14 @@ homeownership
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-31-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-33-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-31-2.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-33-2.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1040,12 +1071,12 @@ homeownership
 <h2>Ridge plot</h2>
 <p>Otro tipo de visualización útil para comparar datos numéricos entre grupos es el gráfico de crestas (ridge plot), que combina gráficos de densidad de varios grupos en la misma escala dentro de una única ventana de visualización</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-32-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-34-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
 <section id="ridge-plot-1" class="slide level2 medium">
 <h2>Ridge plot</h2>
 <p>Establecer el color según la variable numérica en lugar de la categórica puede ser bastante útil para contar la historia de los datos.</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-33-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-35-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
 <section id="ridge-plot-en-r" class="slide level2 medium">
 <h2>Ridge plot en R</h2>
 <div class="columns">
@@ -1169,7 +1200,7 @@ homeownership
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-34-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-36-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1188,7 +1219,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-35-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-37-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1206,7 +1237,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-36-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-38-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1228,7 +1259,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-37-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-39-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1246,7 +1277,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-38-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-40-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1275,7 +1306,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-39-1.png"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-41-1.png"></p>
 <p></p><figcaption>Mean = 0, SD = 1</figcaption><p></p>
 </figure>
 </div>
@@ -1283,7 +1314,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-39-2.png"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-41-2.png"></p>
 <p></p><figcaption>Mean = 19, SD = 4</figcaption><p></p>
 </figure>
 </div>
@@ -1309,7 +1340,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <h2>Ejemplo: SAT vs.&nbsp;ACT</h2>
 <p>Supongamos que una universidad está decidiendo cuál de los dos aspirantes obtuvo un mejor puntaje en su examen estandarizado en comparación con los otros estudiantes: Pam, quien obtuvo un 1800 en su SAT, o Jim, quien obtuvo un 24 en su ACT?</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-40-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-42-1.png" width="576" class="r-stretch quarto-figure-center"></section>
 <section id="estandarizar-con-el-z-score" class="slide level2 medium">
 <h2>Estandarizar con el Z-Score</h2>
 <p>Dado que no podemos simplemente comparar estos dos puntajes, en su lugar comparamos cuántas desviaciones estándar por encima de la media está cada observación.</p>
@@ -1322,7 +1353,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <h2>Estandarizar con el Z-Score</h2>
 <p>La siguiente gráfica visualiza la comparación que estamos haciendo al usar desviaciones estándar:</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-41-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-43-1.png" width="576" class="r-stretch quarto-figure-center"></section>
 <section id="el-z-score" class="slide level2 medium">
 <h2>El Z-score</h2>
 <p>El Z-score de una observación representa cuántas desviaciones estándar se encuentra por encima o por debajo de la media, permitiendo comparar su posición relativa dentro de una distribución.</p>
@@ -1365,13 +1396,13 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <li>Con la función <code>pnorm()</code> pueden calcular probabilidades en R:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2032694</code></pre>
 </div>
 </div>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-43-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-45-1.png" width="576" class="r-stretch quarto-figure-center"></section>
 <section id="calculando-probabilidades-en-r-1" class="slide level2 medium">
 <h2>Calculando Probabilidades en R</h2>
 <p>Hay dos maneras de calcular probabilidades en la parte superior de la distribución:</p>
@@ -1381,7 +1412,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <li>P(<span class="math inline">\(Z&gt;-0.83\)</span>) = <span class="math inline">\(1\)</span> - P(<span class="math inline">\(Z&lt;-0.83\)</span>)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.7967306</code></pre>
 </div>
@@ -1390,7 +1421,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <li>Y la otra es cambiando las opciones de la función:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.7967306</code></pre>
 </div>
@@ -1400,7 +1431,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-46-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-48-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1416,7 +1447,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-47-1.png" width="672"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-49-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1436,11 +1467,11 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <li>Calcular el área bajo la distribución normal estandarizada:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">pnorm</span>(<span class="fl">0.43</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">pnorm</span>(<span class="fl">0.43</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6664022</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">0.43</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">0.43</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3335978</code></pre>
 </div>
@@ -1450,7 +1481,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-49-1.png" width="672"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-51-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1467,10 +1498,10 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <li>Modificar los valores en la función <code>pnorm()</code>:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">pnorm</span>(<span class="dv">1630</span>,</span>
-<span id="cb16-2"><a href="#cb16-2"></a>      <span class="at">mean =</span> <span class="dv">1500</span>,</span>
-<span id="cb16-3"><a href="#cb16-3"></a>      <span class="at">sd =</span> <span class="dv">300</span>,</span>
-<span id="cb16-4"><a href="#cb16-4"></a>      <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">pnorm</span>(<span class="dv">1630</span>,</span>
+<span id="cb18-2"><a href="#cb18-2"></a>      <span class="at">mean =</span> <span class="dv">1500</span>,</span>
+<span id="cb18-3"><a href="#cb18-3"></a>      <span class="at">sd =</span> <span class="dv">300</span>,</span>
+<span id="cb18-4"><a href="#cb18-4"></a>      <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3323863</code></pre>
 </div>
@@ -1480,7 +1511,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-51-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-53-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1496,7 +1527,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-52-1.png" style="width:60.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-54-1.png" style="width:60.0%"></p>
 </figure>
 </div>
 </div>
@@ -1506,23 +1537,23 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <section id="calculando-probabilidades-otro-ejemplo-1" class="slide level2 medium">
 <h2>Calculando probabilidades: Otro ejemplo</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-53-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><div class="columns">
+<img data-src="index_files/figure-revealjs/unnamed-chunk-55-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><div class="columns">
 <div class="column fragment" style="width:50%;">
 <p><span class="math display">\[Z_1=\dfrac{69-70}{3.3}=-0.30\]</span></p>
 <p><span class="math display">\[Z_2=\dfrac{74-70}{3.3}=1.21\]</span></p>
 </div><div class="column fragment" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>a <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.30</span>)</span>
-<span id="cb18-2"><a href="#cb18-2"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>a <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.30</span>)</span>
+<span id="cb20-2"><a href="#cb20-2"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3820886</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>b <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="fl">1.21</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
-<span id="cb20-2"><a href="#cb20-2"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>b <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="fl">1.21</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
+<span id="cb22-2"><a href="#cb22-2"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1131394</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="dv">1</span><span class="sc">-</span>a<span class="sc">-</span>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="dv">1</span><span class="sc">-</span>a<span class="sc">-</span>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.504772</code></pre>
 </div>
@@ -1534,12 +1565,12 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <h2>Calculando cuartiles/percentiles</h2>
 <p>¿Qué valor en la distribución de transacciones es el primer cuartil (<span class="math inline">\(Q_1\)</span>)? Recuerden que 25% de los datos son menores al primer cuartil.</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-55-1.png" style="width:60.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-57-1.png" style="width:60.0%" class="r-stretch quarto-figure-center"></section>
 <section id="calculando-cuartilespercentiles-en-r" class="slide level2 medium">
 <h2>Calculando cuartiles/percentiles en R</h2>
 <p>La función <code>qnorm()</code> permite calcular cuartiles/percentiles para una distribución normal:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.6744898</code></pre>
 </div>
@@ -1553,7 +1584,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <h2>Calculando cuartiles/percentiles en R</h2>
 <p>Al usar las opciones de la función <code>qnorm()</code>, podemos calcular el valor exacto del primer cuartil:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">70</span>, <span class="at">sd =</span> <span class="fl">3.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">70</span>, <span class="at">sd =</span> <span class="fl">3.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 67.77418</code></pre>
 </div>
@@ -1569,17 +1600,17 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <section id="la-regla-68-95-99.7" class="slide level2 medium">
 <h2>La regla 68-95-99.7</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-58-1.png" width="768" class="r-stretch quarto-figure-center"><div class="fragment">
+<img data-src="index_files/figure-revealjs/unnamed-chunk-60-1.png" width="768" class="r-stretch quarto-figure-center"><div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">pnorm</span>(<span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">pnorm</span>(<span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6826895</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">pnorm</span>(<span class="dv">2</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">pnorm</span>(<span class="dv">2</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9544997</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">pnorm</span>(<span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">pnorm</span>(<span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9973002</code></pre>
 </div>
