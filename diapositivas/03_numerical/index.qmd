@@ -1597,9 +1597,20 @@ ggplot(gapminder) +
 
 ## 💪 Ejercicio 5  {.medium}
 
-1. Usando la función `mutate`, creen una nueva variable llamada `within_1SD` que sea igual a TRUE si el precio se encuentra dentro de una desviación estándar de la media, y FALSE en caso contrario. Es decir, la variable debe ser TRUE si el precio está en el rango de [media - 1 * desviación estándar, media + 1 * desviación estándar], y FALSE si no está en este rango.
+1. Completen el siguiente código que crea la variable `within_1SD` que es igual a TRUE si el precio se encuentra dentro de una desviación estándar de la media, y FALSE en caso contrario.
 
-2. Calculen la media de `within_1SD`. Recuerden que el promedio de una variable que toma valores 0 o 1 corresponde a la proporción de observaciones que cumplen la condición. ¿La proporción obtenida se aproxima al 68%?
+```{r}
+#| echo: true
+#| eval: false
+
+_______ <- newdata |>
+  mutate(within_1SD = price >= mean(_____, na.rm = TRUE) - sd(price, na.rm = TRUE) &
+         price <= mean(price, na.rm = TRUE) + sd(_____, na.rm = TRUE))
+```
+
+2. Usando la función `View()` revisen la nueva variable en los datos.
+
+3. Calculen la media de `within_1SD`. Recuerden que el promedio de una variable que toma valores 0 o 1 corresponde a la proporción de observaciones que cumplen la condición. ¿La proporción obtenida se aproxima al 68%?
 
 
 
