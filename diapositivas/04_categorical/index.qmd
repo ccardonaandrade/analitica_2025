@@ -907,6 +907,21 @@ ggplot(loans, aes(x = homeownership,
 ```
 
 
+## 💪 Ejercicio 2  {.medium}
+
+1. Con base en el código con el que crearon la variable `default_string`, generen la variable `marriage_string` según los valores de la variable `marriage`:
+
+   - 1 $\rightarrow$ *married*
+  
+   - 2 $\rightarrow$ *single* 
+   
+   - 3 $\rightarrow$ *other*
+
+2. Creen un gráfico de barras (apilados, dobles o estandarizado) para visualizar la relación entre el estado civil (`marriage_string`) y si el cliente está en default (`default_string`).
+
+3. ¿Qué pueden concluir a partir del gráfico anterior?
+
+
 
 ## Gráfico de mosaico
 
@@ -1381,7 +1396,7 @@ gapminder |>
 :::::
 
 
-## Variables continuas & Curvas de densidad {.medium}
+## Variables continuas y Curvas de densidad {.medium}
 
 La distribución de probabilidad de una variable aleatoria continua se describe mediante una curva de densidad.  
 
@@ -1608,6 +1623,53 @@ Observaciones que estén más allá de $3$ SD de la media ($|Z|>3$) son usualmen
 - Histogramas
 
 - Diagramas de caja
+
+## 💪 Ejercicio 3  {.medium}
+
+1. Completen el siguiente código que crea una variable igual a 1 si el credito está fuera del rango $1.5 \times RIC$ y 0 en caso contrario.
+
+```{r}
+#| echo: true
+#| eval: false
+# fivenum() devuelve: min, Q1, mediana, Q3, max
+q1 <- fivenum(credit$limit_bal, na.rm = TRUE)[_]
+q3 <- fivenum(________________, na.rm = TRUE)[4]
+ric <- q3-q1
+
+credit <- credit |> 
+  mutate(
+    # Identificar outliers por RIC
+    outlier_ric = ifelse(limit_bal < (q1 - 1.5 * ___) | _________ > (q3 + 1.5 * ric), 1, 0),
+  ) 
+```
+
+## 💪 Ejercicio 3  {.medium}
+
+
+2. Completen el siguiente código que crea una variable igual a 1 si $|ZScore_i|>3$ y 0 en caso contrario.
+
+```{r}
+#| echo: true
+#| eval: false
+credit <- credit |> 
+  mutate(
+    z_score = (limit_bal - mean(_______, na.rm = TRUE)) / sd(_______, na.rm = TRUE),
+    outlier_zscore = ifelse(abs(_______) > 3, 1, 0)
+  )
+```
+
+. . .
+
+3. Luego ejecuten el siguiente código. ¿Qué tan diferentes son los dos criterios?
+
+```{r}
+#| echo: true
+#| eval: false
+credit |> 
+  count(outlier_zscore, outlier_ric)
+```
+
+
 
 
 ## Distribución Normal y Probabilidad {.medium}
@@ -1982,3 +2044,12 @@ pnorm(1) - pnorm(-1)
 pnorm(2) - pnorm(-2)
 pnorm(3) - pnorm(-3)
 ```
+
+
+## 💪 Ejercicio 4  {.medium}
+
+
+1. Suponga que el límite de crédito `limit_bal`$\sim N(150000,50000)$. Calcule de dos maneras diferentes la probabilidad de que un cliente seleccionado al azar tenga un límite de crédito superior a 240000.
+
+2. Encuentren el límite de crédito que corresponde al percentil 95.
+

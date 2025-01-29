@@ -981,6 +981,19 @@ homeownership
 </div>
 </div>
 </section>
+<section id="ejercicio-2" class="slide level2 medium">
+<h2>💪 Ejercicio 2</h2>
+<ol type="1">
+<li><p>Con base en el código con el que crearon la variable <code>default_string</code>, generen la variable <code>marriage_string</code> según los valores de la variable <code>marriage</code>:</p>
+<ul>
+<li><p>1 <span class="math inline">\(\rightarrow\)</span> <em>married</em></p></li>
+<li><p>2 <span class="math inline">\(\rightarrow\)</span> <em>single</em></p></li>
+<li><p>3 <span class="math inline">\(\rightarrow\)</span> <em>other</em></p></li>
+</ul></li>
+<li><p>Creen un gráfico de barras (apilados, dobles o estandarizado) para visualizar la relación entre el estado civil (<code>marriage_string</code>) y si el cliente está en default (<code>default_string</code>).</p></li>
+<li><p>¿Qué pueden concluir a partir del gráfico anterior?</p></li>
+</ol>
+</section>
 <section id="gráfico-de-mosaico" class="slide level2">
 <h2>Gráfico de mosaico</h2>
 <div class="cell quarto-layout-panel">
@@ -1285,8 +1298,8 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 </div>
 </div>
 </section>
-<section id="variables-continuas-curvas-de-densidad" class="slide level2 medium">
-<h2>Variables continuas &amp; Curvas de densidad</h2>
+<section id="variables-continuas-y-curvas-de-densidad" class="slide level2 medium">
+<h2>Variables continuas y Curvas de densidad</h2>
 <p>La distribución de probabilidad de una variable aleatoria continua se describe mediante una curva de densidad.</p>
 <p>Si <span class="math inline">\(Y\)</span> es una variable aleatoria continua, <span class="math inline">\(P(a &lt; Y &lt; b)\)</span> es el área bajo la curva de densidad de <span class="math inline">\(Y\)</span> sobre el intervalo entre <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span>.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -1372,6 +1385,46 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <li><p>Diagramas de caja</p></li>
 </ul>
 </section>
+<section id="ejercicio-3" class="slide level2 medium">
+<h2>💪 Ejercicio 3</h2>
+<ol type="1">
+<li>Completen el siguiente código que crea una variable igual a 1 si el credito está fuera del rango <span class="math inline">\(1.5 \times RIC\)</span> y 0 en caso contrario.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># fivenum() devuelve: min, Q1, mediana, Q3, max</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>q1 <span class="ot">&lt;-</span> <span class="fu">fivenum</span>(credit<span class="sc">$</span>limit_bal, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)[_]</span>
+<span id="cb8-3"><a href="#cb8-3"></a>q3 <span class="ot">&lt;-</span> <span class="fu">fivenum</span>(________________, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)[<span class="dv">4</span>]</span>
+<span id="cb8-4"><a href="#cb8-4"></a>ric <span class="ot">&lt;-</span> q3<span class="sc">-</span>q1</span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a>credit <span class="ot">&lt;-</span> credit <span class="sc">|&gt;</span> </span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-8"><a href="#cb8-8"></a>    <span class="co"># Identificar outliers por RIC</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>    <span class="at">outlier_ric =</span> <span class="fu">ifelse</span>(limit_bal <span class="sc">&lt;</span> (q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> ___) <span class="sc">|</span> _________ <span class="sc">&gt;</span> (q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> ric), <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb8-10"><a href="#cb8-10"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ejercicio-3-1" class="slide level2 medium">
+<h2>💪 Ejercicio 3</h2>
+<ol start="2" type="1">
+<li>Completen el siguiente código que crea una variable igual a 1 si <span class="math inline">\(|ZScore_i|&gt;3\)</span> y 0 en caso contrario.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>credit <span class="ot">&lt;-</span> credit <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-3"><a href="#cb9-3"></a>    <span class="at">z_score =</span> (limit_bal <span class="sc">-</span> <span class="fu">mean</span>(_______, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">/</span> <span class="fu">sd</span>(_______, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb9-4"><a href="#cb9-4"></a>    <span class="at">outlier_zscore =</span> <span class="fu">ifelse</span>(<span class="fu">abs</span>(_______) <span class="sc">&gt;</span> <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb9-5"><a href="#cb9-5"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li>Luego ejecuten el siguiente código. ¿Qué tan diferentes son los dos criterios?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>credit <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">count</span>(outlier_zscore, outlier_ric)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
 <section id="distribución-normal-y-probabilidad" class="slide level2 medium">
 <h2>Distribución Normal y Probabilidad</h2>
 <p>Si <span class="math inline">\(X\)</span> sigue una distribución normal, para encontrar probabilidades sobre <span class="math inline">\(X\)</span> se calculan áreas bajo la curva normal <span class="math inline">\(N(\mu,\sigma)\)</span></p>
@@ -1396,13 +1449,13 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <li>Con la función <code>pnorm()</code> pueden calcular probabilidades en R:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2032694</code></pre>
 </div>
 </div>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-45-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-48-1.png" width="576" class="r-stretch quarto-figure-center"></section>
 <section id="calculando-probabilidades-en-r-1" class="slide level2 medium">
 <h2>Calculando Probabilidades en R</h2>
 <p>Hay dos maneras de calcular probabilidades en la parte superior de la distribución:</p>
@@ -1412,7 +1465,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <li>P(<span class="math inline">\(Z&gt;-0.83\)</span>) = <span class="math inline">\(1\)</span> - P(<span class="math inline">\(Z&lt;-0.83\)</span>)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.7967306</code></pre>
 </div>
@@ -1421,7 +1474,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <li>Y la otra es cambiando las opciones de la función:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.83</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.7967306</code></pre>
 </div>
@@ -1431,7 +1484,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-48-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-51-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1447,7 +1500,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-49-1.png" width="672"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-52-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1467,11 +1520,11 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <li>Calcular el área bajo la distribución normal estandarizada:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">pnorm</span>(<span class="fl">0.43</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">pnorm</span>(<span class="fl">0.43</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6664022</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">0.43</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">0.43</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3335978</code></pre>
 </div>
@@ -1481,7 +1534,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-51-1.png" width="672"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-54-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1498,10 +1551,10 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <li>Modificar los valores en la función <code>pnorm()</code>:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">pnorm</span>(<span class="dv">1630</span>,</span>
-<span id="cb18-2"><a href="#cb18-2"></a>      <span class="at">mean =</span> <span class="dv">1500</span>,</span>
-<span id="cb18-3"><a href="#cb18-3"></a>      <span class="at">sd =</span> <span class="dv">300</span>,</span>
-<span id="cb18-4"><a href="#cb18-4"></a>      <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">pnorm</span>(<span class="dv">1630</span>,</span>
+<span id="cb21-2"><a href="#cb21-2"></a>      <span class="at">mean =</span> <span class="dv">1500</span>,</span>
+<span id="cb21-3"><a href="#cb21-3"></a>      <span class="at">sd =</span> <span class="dv">300</span>,</span>
+<span id="cb21-4"><a href="#cb21-4"></a>      <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3323863</code></pre>
 </div>
@@ -1511,7 +1564,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-53-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-56-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -1527,7 +1580,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-54-1.png" style="width:60.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-57-1.png" style="width:60.0%"></p>
 </figure>
 </div>
 </div>
@@ -1537,23 +1590,23 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <section id="calculando-probabilidades-otro-ejemplo-1" class="slide level2 medium">
 <h2>Calculando probabilidades: Otro ejemplo</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-55-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><div class="columns">
+<img data-src="index_files/figure-revealjs/unnamed-chunk-58-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><div class="columns">
 <div class="column fragment" style="width:50%;">
 <p><span class="math display">\[Z_1=\dfrac{69-70}{3.3}=-0.30\]</span></p>
 <p><span class="math display">\[Z_2=\dfrac{74-70}{3.3}=1.21\]</span></p>
 </div><div class="column fragment" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>a <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.30</span>)</span>
-<span id="cb20-2"><a href="#cb20-2"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>a <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.30</span>)</span>
+<span id="cb23-2"><a href="#cb23-2"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3820886</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>b <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="fl">1.21</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
-<span id="cb22-2"><a href="#cb22-2"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>b <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(<span class="fl">1.21</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
+<span id="cb25-2"><a href="#cb25-2"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1131394</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="dv">1</span><span class="sc">-</span>a<span class="sc">-</span>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="dv">1</span><span class="sc">-</span>a<span class="sc">-</span>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.504772</code></pre>
 </div>
@@ -1565,12 +1618,12 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <h2>Calculando cuartiles/percentiles</h2>
 <p>¿Qué valor en la distribución de transacciones es el primer cuartil (<span class="math inline">\(Q_1\)</span>)? Recuerden que 25% de los datos son menores al primer cuartil.</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-57-1.png" style="width:60.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-60-1.png" style="width:60.0%" class="r-stretch quarto-figure-center"></section>
 <section id="calculando-cuartilespercentiles-en-r" class="slide level2 medium">
 <h2>Calculando cuartiles/percentiles en R</h2>
 <p>La función <code>qnorm()</code> permite calcular cuartiles/percentiles para una distribución normal:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.6744898</code></pre>
 </div>
@@ -1584,7 +1637,7 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <h2>Calculando cuartiles/percentiles en R</h2>
 <p>Al usar las opciones de la función <code>qnorm()</code>, podemos calcular el valor exacto del primer cuartil:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">70</span>, <span class="at">sd =</span> <span class="fl">3.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">70</span>, <span class="at">sd =</span> <span class="fl">3.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 67.77418</code></pre>
 </div>
@@ -1600,24 +1653,31 @@ el área de la barra = proporción de observaciones en ese intervalo.</p>
 <section id="la-regla-68-95-99.7" class="slide level2 medium">
 <h2>La regla 68-95-99.7</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-60-1.png" width="768" class="r-stretch quarto-figure-center"><div class="fragment">
+<img data-src="index_files/figure-revealjs/unnamed-chunk-63-1.png" width="768" class="r-stretch quarto-figure-center"><div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">pnorm</span>(<span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a><span class="fu">pnorm</span>(<span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6826895</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">pnorm</span>(<span class="dv">2</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">pnorm</span>(<span class="dv">2</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9544997</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">pnorm</span>(<span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a><span class="fu">pnorm</span>(<span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9973002</code></pre>
 </div>
 </div>
+</div>
+</section>
+<section id="ejercicio-4" class="slide level2 medium">
+<h2>💪 Ejercicio 4</h2>
+<ol type="1">
+<li><p>Suponga que el límite de crédito <code>limit_bal</code><span class="math inline">\(\sim N(150000,50000)\)</span>. Calcule de dos maneras diferentes la probabilidad de que un cliente seleccionado al azar tenga un límite de crédito superior a 240000.</p></li>
+<li><p>Encuentren el límite de crédito que corresponde al percentil 95.</p></li>
+</ol>
 <div class="footer footer-default">
 
-</div>
 </div>
 </section></section>
     </div>
