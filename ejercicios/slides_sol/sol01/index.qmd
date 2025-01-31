@@ -1,0 +1,15 @@
+---
+title: "Eine kurze Geschichte der Arbeitszeit"
+
+lang: es
+
+format: 
+  closeread-html:
+   css: msaz.css
+   code-tools: false
+   fig-format: svg
+   toc: false
+   linkcolor: tomato
+---
+     
+## Ejercicio 1
