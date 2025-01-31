@@ -7,7 +7,8 @@ body, section, header {
 #quarto-document-content {
   font-family: "Roboto Slab", Georgia, "Times New Roman", Times, serif;
   font-size: 15pt;
-  margin-bottom: 20vh;
+  max-width: 800px; /* Limits the text width */
+  margin: 0 auto 20vh; /* Centers content and keeps bottom margin */
   padding-bottom: 10vh;
   z-index: 1;
 }

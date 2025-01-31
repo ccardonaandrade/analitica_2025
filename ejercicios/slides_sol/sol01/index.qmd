@@ -1,5 +1,5 @@
 ---
-title: "Eine kurze Geschichte der Arbeitszeit"
+title: "Introducción - Soluciones"
 
 lang: es
 
@@ -8,8 +8,147 @@ format:
    css: msaz.css
    code-tools: false
    fig-format: svg
-   toc: false
+   toc: true
    linkcolor: tomato
 ---
+
+
+Estas son las soluciones para las ejercicios en las diapositivas de [Introducción](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/diapositivas/01_intro/index.html#/title-slide){target="_blank"}
+
      
 ## Ejercicio 1
+
+Partiendo del siguiente vector:
+
+```{r}
+#| echo: true
+countries <- c("Brasil", "India", "Colombia")
+```
+
+### Punto 1
+
+Usen el comando `countries[4]`. ¿Qué obtienen? ¿Por qué?
+
+El vector countries solo tiene tres elementos (Brasil, India y Colombia).
+Si intentamos acceder a la posición 4, obtenemos:
+
+```{r}
+#| echo: true
+countries[4]
+```
+
+### Punto 2
+
+Quiero extraer el segundo y tercer elemento de countries, entonces usé countries[2,3]. ¿Qué pasa? ¿Lo pueden arreglar?`
+
+Usando el siguiente código voy a obtener un error:
+
+```{r}
+#| echo: true
+#| error: true
+countries[2,3]
+```
+
+`countries` es un vector, que es un objeto de una sola dimensión. La notación `[fila, columna]` solo se usa para estructuras de dos dimensiones como matrices o data frames. La manera correcta es:
+
+```{r}
+#| echo: true
+countries[c(2,3)]
+```
+
+
+
+### Punto 3
+
+Seleccionen Brasil e India de dos maneras diferentes.
+
+
+**Usando índices numéricos:** Extrae los elementos en las posiciones 1 y 2, es decir, Brasil e India.
+
+```{r}
+#| echo: true
+countries[c(1,2)]
+```
+
+**Usando valores lógicos:** Mantiene los elementos donde hay `TRUE` y excluye los `FALSE.`
+
+```{r}
+#| echo: true
+countries[c(TRUE, TRUE, FALSE)]
+```
+
+**Usando índices negativos:** Elimina el tercer elemento (Colombia) y deja los demás (Brasil e India).
+
+```{r}
+#| echo: true
+countries[-3]
+```
+
+
+## Ejercicio 2
+
+Supongamos que el data frame `sales` tiene la siguiente estructura:
+
+```{r}
+#| eval: true
+#| echo: true
+sales <- data.frame(product = c("A", "B", "C", "D", "E"),
+                    price = c(10, 15, 8, 12, 20),
+                    quantity = c(100, 150, 80, 120, 90))
+sales
+```
+
+### Punto 1
+
+Obtengan la columna *precio* usando notación de matrices
+
+```{r}
+#| echo: true
+sales[,2]
+```
+
+En `r fontawesome::fa("r-project")`, los data.frame pueden manipularse con **notación de matrices**, donde `sales[fila, columna]`. El código `sales[,2]` selecciona **todas las filas** (,) de la **segunda columna** (2), que es la columna `price.`
+
+### Punto 2
+
+Obtengan la cantidad de los producto B y C usando el operador `$`
+
+```{r}
+#| echo: true
+sales$quantity[2:3]
+```
+
+El anterior código extrae la columna `quantity` como un vector y `[2:3]` selecciona los elementos 2 y 3, que corresponden a los productos B y C.
+
+### Punto 3
+
+Obtengan de dos maneras diferentes los nombres de los primeros 3 productos
+
+Una manera es usando el operador `$`:
+
+```{r}
+#| echo: true
+sales$product[1:3]
+```
+
+Extrae la columna `product` como un vector y selecciona las primeras **tres posiciones**.
+
+La otra manera es con notación de matrices:
+
+```{r}
+#| echo: true
+sales[1:3,1]
+```
+
+Selecciona las filas **1 a 3** y la columna 1, que es `product`.
+
+### Punto 4
+
+¿Cómo obtener el nombre y el precio de los 3 últimos productos?
+
+```{r}
+#| echo: true
+sales[3:5,c(1,2)]
+```
+
+`3:5` selecciona las filas 3 a 5 (productos C, D y E). `c(1,2)` selecciona las columnas **1** y **2** (`product` y `price`).
