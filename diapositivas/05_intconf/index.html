@@ -29,6 +29,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #000000; background-color: #ffffff; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #000000; } /* Normal */
+    code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+    code span.an { color: #ca60ca; } /* Annotation */
+    code span.at { color: #0057ae; } /* Attribute */
+    code span.bn { color: #b08000; } /* BaseN */
+    code span.bu { color: #644a9b; } /* BuiltIn */
+    code span.cf { color: #000000; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #924c9d; } /* Char */
+    code span.cn { color: #aa5500; } /* Constant */
+    code span.co { color: #898887; } /* Comment */
+    code span.cv { color: #0095ff; } /* CommentVar */
+    code span.do { color: #607880; } /* Documentation */
+    code span.dt { color: #0057ae; } /* DataType */
+    code span.dv { color: #b08000; } /* DecVal */
+    code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+    code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+    code span.fl { color: #b08000; } /* Float */
+    code span.fu { color: #644a9b; } /* Function */
+    code span.im { color: #644a9b; } /* Import */
+    code span.in { color: #b08000; } /* Information */
+    code span.kw { color: #000000; font-weight: bold; } /* Keyword */
+    code span.op { color: #000000; } /* Operator */
+    code span.ot { color: #006e28; } /* Other */
+    code span.pp { color: #006e28; } /* Preprocessor */
+    code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+    code span.sc { color: #ff5500; } /* SpecialChar */
+    code span.ss { color: #ff5500; } /* SpecialString */
+    code span.st { color: #bf0303; } /* String */
+    code span.va { color: #0057ae; } /* Variable */
+    code span.vs { color: #bf0303; } /* VerbatimString */
+    code span.wa { color: #bf0303; } /* Warning */
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -354,8 +419,72 @@ Carlos Cardona Andrade
 <h1>Datos categóricos</h1>
 
 </section>
-<section id="gráfico-de-barras" class="slide level2 medium">
-<h2>Gráfico de barras</h2>
+<section id="población-y-muestra" class="slide level2 medium">
+<h2>Población y Muestra</h2>
+<ul>
+<li><p>Los estadísticos descriptivos discutidos anteriormente describen una <strong>muestra</strong>, pero no a la <strong>población</strong>.</p></li>
+<li><p>Las medidas que describen a una población se llaman <code>parámetros</code>. Utilizamos letras griegas para referirnos a ellos.</p></li>
+</ul>
+<div class="tbl-classic tbl-larger center-text">
+<table style="width:100%;">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 34%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Medida</th>
+<th style="text-align: center;">Parámetro poblacional</th>
+<th style="text-align: center;">Estadístico muestral</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Media</td>
+<td style="text-align: center;"><span class="math inline">\(\mu\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\bar{x}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Varianza</td>
+<td style="text-align: center;"><span class="math inline">\(\sigma^2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(S^2\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Desviación Estándar</td>
+<td style="text-align: center;"><span class="math inline">\(\sigma\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(S\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="por-qué-nos-importa-tanto-la-población-vs-la-muestra" class="slide level2 medium">
+<h2>¿Por qué nos importa tanto la población vs la muestra?</h2>
+<ul>
+<li>La inferencia estadística es el acto de generalizar a partir de una muestra para sacar conclusiones sobre una población.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Nos interesan los parámetros poblacionales, los cuales no observamos. En su lugar, debemos calcular estadísticas a partir de nuestra muestra para aprender sobre ellos.</li>
+</ul>
+<p><span class="math display">\[
+\bar{x} \xrightarrow{\text{🤞 ojalá 🤞}} \mu
+\]</span></p>
+</div>
+<div class="fragment">
+<ul>
+<li>Como parte de este proceso, debemos cuantificar el grado de incertidumbre en nuestra estadística muestral.</li>
+</ul>
+</div>
+</section>
+<section id="por-qué-nos-importa-tanto-la-población-vs-la-muestra-1" class="slide level2 medium">
+<h2>¿Por qué nos importa tanto la población vs la muestra?</h2>
+<p>Para responder a esta pregunta, utilicemos el siguiente ejemplo:</p>
+<p>100 estudiantes están tomando Analítica de los Negocios y la universidad quiere saber el número de horas de estudio de todo ellos. Asumamos que tenemos los datos para todos los estudiantes.</p>
+</section>
+<section id="la-distribución-poblacional-de-horas-de-estudio" class="slide level2 medium">
+<h2>La distribución poblacional de horas de estudio</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
@@ -364,83 +493,90 @@ Carlos Cardona Andrade
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<p>La media es 9.9</p>
-</div>
-</div>
-</section>
-<section id="gráfico-de-barras-1" class="slide level2 medium">
-<h2>Gráfico de barras</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" style="width:100.0%"></p>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
+<p>La media <strong>poblacional</strong> (<span class="math inline">\(\mu\)</span>) es 9.9</p>
+</div>
+</div>
+</section>
+<section id="horas-de-estudio-para-la-muestra-1" class="slide level2 medium">
+<h2>Horas de estudio para la Muestra 1</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" style="width:100.0%"></p>
 </div>
 </div>
-<p>La media es 9.1</p>
-</div>
-</div>
-</section>
-<section id="gráfico-de-barras-2" class="slide level2 medium">
-<h2>Gráfico de barras</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
+</div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" style="width:100.0%"></p>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
+<p>La media <strong>muestral</strong> es 9.1</p>
+</div>
+</div>
+</section>
+<section id="horas-de-estudio-para-la-muestra-2" class="slide level2 medium">
+<h2>Horas de estudio para la Muestra 2</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" style="width:100.0%"></p>
 </div>
 </div>
-<p>La media es 9.7</p>
-</div>
-</div>
-</section>
-<section id="gráfico-de-barras-3" class="slide level2 medium">
-<h2>Gráfico de barras</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
+</div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" style="width:100.0%"></p>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
+<p>La media <strong>muestral</strong> es 9.7</p>
+</div>
+</div>
+</section>
+<section id="horas-de-estudio-para-la-muestra-3" class="slide level2 medium">
+<h2>Horas de estudio para la Muestra 3</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" style="width:100.0%"></p>
 </div>
 </div>
-<p>La media es 10.8</p>
-</div>
-</div>
-</section>
-<section id="gráfico-de-barras-4" class="slide level2 medium">
-<h2>Gráfico de barras</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
+</div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" style="width:100.0%"></p>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
-<p>¿Qué pasa si tomamos 10 muestras?</p>
+<p>La media <strong>muestral</strong> es 10.8</p>
 </div>
 </div>
 </section>
-<section id="gráfico-de-barras-5" class="slide level2 medium">
-<h2>Gráfico de barras</h2>
+<section id="por-qué-nos-importa-tanto-la-población-vs-la-muestra-2" class="slide level2 medium">
+<h2>¿Por qué nos importa tanto la población vs la muestra?</h2>
+<ul>
+<li><p>Como vimos en los anteriores ejemplos, algunas muestras pueden estar lejos del valor real del parámetro poblacional (el número de horas de estudio promedio para todos los estudiantes tomando Analítica).</p></li>
+<li><p>Diferencias entre muestras individuales y la población llevan a la <strong>incertidumbre</strong> para el que está analizando el problema</p></li>
+</ul>
+<div class="fragment">
+<h3 id="por-qué-nos-importa-tanto-la-población-vs-la-muestra-3">¿Por qué nos importa tanto la población vs la muestra?</h3>
+<p><strong>Respuesta:</strong> la incertidumbre importa!</p>
+<p>Cuando tomamos una muestra, no sabemos si esta es una <em>buena</em> muestra (<span class="math inline">\(\bar{x}\)</span> está cerca a <span class="math inline">\(\mu\)</span>) o una <em>mala</em> (<span class="math inline">\(\bar{x}\)</span> difiere mucho de <span class="math inline">\(\mu\)</span>).</p>
+</div>
+</section>
+<section id="variabilidad-de-las-medias-muestrales" class="slide level2 medium">
+<h2>Variabilidad de las Medias Muestrales</h2>
+<p>Para entender cómo varían las medias muestrales de tamaño <span class="math inline">\(n=30\)</span> de nuestro ejemplo, tomemos 10 muestras y grafiquemos el histograma…</p>
+</section>
+<section id="variabilidad-de-las-medias-muestrales-1" class="slide level2 medium">
+<h2>Variabilidad de las Medias Muestrales</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
@@ -449,12 +585,15 @@ Carlos Cardona Andrade
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<p>¿Qué pasa si tomamos 100 muestras?</p>
+<p>Así luce la distribución de las medias muestrales para 10 muestras.</p>
+<div class="fragment">
+<p>Sin embargo, no se pueden sacar muchas conclusiones con base en el gráfico.</p>
+</div>
 </div>
 </div>
 </section>
-<section id="gráfico-de-barras-6" class="slide level2 medium">
-<h2>Gráfico de barras</h2>
+<section id="variabilidad-de-las-medias-muestrales-2" class="slide level2 medium">
+<h2>Variabilidad de las Medias Muestrales</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
@@ -463,11 +602,14 @@ Carlos Cardona Andrade
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<p>¿Qué pasa si tomamos 1000 muestras?</p>
+<p>¿Qué pasa si tomamos 100 muestras?</p>
+<div class="fragment">
+<p>🤔 Hmmm cierta forma ya conocida empieza a emerger…</p>
+</div>
 </div>
 </div>
 </section>
-<section id="gráfico-de-barras-7" class="slide level2 medium">
+<section id="gráfico-de-barras" class="slide level2 medium">
 <h2>Gráfico de barras</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -477,11 +619,14 @@ Carlos Cardona Andrade
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<p>¿Qué pasa si tomamos 10000 muestras?</p>
+<p>¿Qué pasa si tomamos 1000 muestras?</p>
+<div class="fragment">
+<p>Ya es claro que la distribución tiende a ser normal…</p>
+</div>
 </div>
 </div>
 </section>
-<section id="gráfico-de-barras-8" class="slide level2 medium">
+<section id="gráfico-de-barras-1" class="slide level2 medium">
 <h2>Gráfico de barras</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -491,11 +636,14 @@ Carlos Cardona Andrade
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<p>¿Qué pasa si tomamos 10000 muestras pero de 50 estudiantes?</p>
+<p>¿Qué pasa si tomamos 10000 muestras?</p>
+<div class="fragment">
+<p>…y que la media de la distribución de medias muestrales es la media poblacional (la línea punteada)</p>
+</div>
 </div>
 </div>
 </section>
-<section id="gráfico-de-barras-9" class="slide level2 medium">
+<section id="gráfico-de-barras-2" class="slide level2 medium">
 <h2>Gráfico de barras</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -505,7 +653,75 @@ Carlos Cardona Andrade
 </div>
 </div>
 </div><div class="column" style="width:50%;">
+<p>¿Qué pasa si tomamos 10000 muestras pero de 50 estudiantes?</p>
+<div class="fragment">
+<p>La variabilidad de las medias muestrales es menor.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="gráfico-de-barras-3" class="slide level2 medium">
+<h2>Gráfico de barras</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" style="width:100.0%"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
 <p>¿Qué pasa si tomamos 10000 muestras pero de 70 estudiantes?</p>
+<div class="fragment">
+<p>A medida que el tamaño de la muestra <span class="math inline">\(n\)</span> es mayor, las muestras van a tener menos probabilidad de estar lejos del parámetro poblacional</p>
+</div>
+</div>
+</div>
+</section>
+<section id="qué-podemos-concluir-de-los-histogramas-anteriores" class="slide level2 medium">
+<h2>¿Qué podemos concluir de los histogramas anteriores?</h2>
+<ul>
+<li>La distribución muestral de la media muestral puede no ser normal cuando el tamaño de la muestra es pequeño, pero se vuelve más normal a medida que el tamaño de la muestra aumenta.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>La media muestral puede no ser igual a la media poblacional, pero su distribución se centra en la media poblacional.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Con una muestra más grande, la variabilidad de la media muestral alrededor de la población disminuye.</li>
+</ul>
+</div>
+</section>
+<section id="teorema-del-límite-central" class="slide level2 medium">
+<h2>Teorema del Límite Central</h2>
+<p>Para una población con una media bien definida <span class="math inline">\(\mu\)</span> y una desviación estándar <span class="math inline">\(\sigma\)</span> se cumplen estas tres propiedades para la distribución de la media muestral <span class="math inline">\(\bar{x}\)</span>, siempre que se cumplan ciertas condiciones:</p>
+<ol type="1">
+<li><p>La media de la distribución muestral de la media es idéntica a la media poblacional <span class="math inline">\(\mu\)</span>.</p></li>
+<li><p>La desviación estándar de la distribución de las medias muestrales es <span class="math inline">\(\dfrac{\sigma}{\sqrt{n}}\)</span></p></li>
+</ol>
+<p>Esto se llama el <em>error estándar</em> (SE) de la media.</p>
+<ol start="3" type="1">
+<li>Para un <span class="math inline">\(n\)</span> suficientemente grande, la forma de la distribución muestral de las medias es aproximadamente normal.</li>
+</ol>
+</section>
+<section id="teorema-del-límite-central-1" class="slide level2 medium">
+<h2>Teorema del Límite Central</h2>
+<p>Básicamente el teorema es:</p>
+<p><span class="math display">\[\bar{x}\sim N(\mu,\dfrac{\sigma}{\sqrt{n}})\]</span></p>
+</section>
+<section id="ejemplo" class="slide level2 medium">
+<h2>Ejemplo</h2>
+<p>Volviendo al ejemplo de nuestros estudiantes, la media es 9.9 y la desviación estándar es 3.6. Entonces la distribución muestral de <span class="math inline">\(\bar{x}_{30}\)</span> es aproximadamente:</p>
+<p><span class="math display">\[\bar{x}_{30}\sim N(9.9,\dfrac{3.6}{\sqrt{30}})\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sum</span>(sample_means <span class="sc">&gt;</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4061</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">sum</span>(sample_means <span class="sc">&gt;</span> <span class="fl">9.9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4772</code></pre>
 </div>
 </div>
 <div class="footer footer-default">

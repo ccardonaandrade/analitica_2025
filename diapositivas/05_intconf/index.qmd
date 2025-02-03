@@ -61,6 +61,9 @@ pop_df <- tibble(
 )
 
 pop_mean <- as.numeric(round(pop_df |> summarize(mean=mean(x, na.rm = T)),1))
+
+pop_sd <- as.numeric(round(pop_df |> summarize(sd=sd(x, na.rm = T)),1))
+
 ```
 
 
@@ -81,9 +84,49 @@ pop_mean <- as.numeric(round(pop_df |> summarize(mean=mean(x, na.rm = T)),1))
 
 # Datos categóricos {#intro}
 
+## Población y Muestra {.medium}
+
+- Los estadísticos descriptivos discutidos anteriormente describen una **muestra**, pero no a la **población**. 
+
+- Las medidas que describen a una población se llaman `parámetros`. Utilizamos letras griegas para referirnos a ellos. 
+
+::: {.tbl-classic .tbl-larger .center-text}
 
 
-## Gráfico de barras {.medium}
+| Medida                | Parámetro poblacional  | Estadístico muestral |
+|:----------------------|:----------------------:|:--------------------:|
+| Media                 |       $\mu$            |    $\bar{x}$         |
+| Varianza              |       $\sigma^2$       |    $S^2$             |
+| Desviación Estándar   |       $\sigma$         |    $S$               |
+
+:::
+
+## ¿Por qué nos importa tanto la población vs la muestra? {.medium}
+
+- La inferencia estadística es el acto de generalizar a partir de una muestra para sacar conclusiones sobre una población.
+
+. . .
+
+- Nos interesan los parámetros poblacionales, los cuales no observamos. En su lugar, debemos calcular estadísticas a partir de nuestra muestra para aprender sobre ellos.
+
+$$
+\bar{x} \xrightarrow{\text{🤞 ojalá 🤞}} \mu
+$$
+
+. . .
+
+
+- Como parte de este proceso, debemos cuantificar el grado de incertidumbre en nuestra estadística muestral.
+
+
+
+## ¿Por qué nos importa tanto la población vs la muestra? {.medium}
+
+Para responder a esta pregunta, utilicemos el siguiente ejemplo:
+
+100 estudiantes están tomando Analítica de los Negocios y la universidad quiere saber el número de horas de estudio de todo ellos. Asumamos que tenemos los datos para todos los estudiantes.
+
+## La distribución poblacional de horas de estudio {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -99,14 +142,27 @@ ggplot(data = pop_df, aes(x = row, y = col)) +
 
 ::: {.column width="50%"}
 
-La media es `r round(pop_df |> summarize(mean=mean(x, na.rm = T)),1)`
+```{r}
+#| echo: false
+#| out-width: 100%
+pop_df |>
+ggplot(aes(x = x)) +
+  geom_histogram(bins=15, fill="orange", color="darkred") +
+    scale_x_continuous(limits = c(0, 20), breaks = c(0, 5, 10, 15, 20)) +
+    scale_y_continuous(limits = c(0, 10), breaks = c(2, 4, 6, 8,10)) +
+  labs(x="Hours of Studying",
+       y="Frequency") +
+  theme_minimal() 
+```
+
+La media **poblacional** ($\mu$) es `r round(pop_df |> summarize(mean=mean(x, na.rm = T)),1)`
 
 :::
 :::
 
 
 
-## Gráfico de barras {.medium}
+## Horas de estudio para la Muestra 1 {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -137,13 +193,13 @@ ggplot(aes(x = x)) +
   theme_minimal() 
 ```
 
-La media es `r round(pop_df |> filter(s1 == T) |> summarize(mean=mean(x, na.rm = T)),1)`
+La media **muestral** es `r round(pop_df |> filter(s1 == T) |> summarize(mean=mean(x, na.rm = T)),1)`
 
 :::
 :::
 
 
-## Gráfico de barras {.medium}
+## Horas de estudio para la Muestra 2 {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -174,13 +230,13 @@ ggplot(aes(x = x)) +
   theme_minimal() 
 ```
 
-La media es `r round(pop_df |> filter(s2 == T) |> summarize(mean=mean(x, na.rm = T)),1)`
+La media **muestral** es `r round(pop_df |> filter(s2 == T) |> summarize(mean=mean(x, na.rm = T)),1)`
 
 :::
 :::
 
 
-## Gráfico de barras {.medium}
+## Horas de estudio para la Muestra 3 {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -211,13 +267,33 @@ ggplot(aes(x = x)) +
   theme_minimal() 
 ```
 
-La media es `r round(pop_df |> filter(s3 == T) |> summarize(mean=mean(x, na.rm = T)),1)`
+La media **muestral** es `r round(pop_df |> filter(s3 == T) |> summarize(mean=mean(x, na.rm = T)),1)`
 
 :::
 :::
 
 
-## Gráfico de barras {.medium}
+## ¿Por qué nos importa tanto la población vs la muestra? {.medium}
+
+- Como vimos en los anteriores ejemplos, algunas muestras pueden estar lejos del valor real del parámetro poblacional (el número de horas de estudio promedio para todos los estudiantes tomando Analítica).
+
+- Diferencias entre muestras individuales y la población llevan a la **incertidumbre** para el que está analizando el problema
+
+. . .
+
+### ¿Por qué nos importa tanto la población vs la muestra?
+
+**Respuesta:** la incertidumbre importa!
+
+Cuando tomamos una muestra, no sabemos si esta es una *buena* muestra ($\bar{x}$ está cerca a $\mu$) o una *mala* ($\bar{x}$ difiere mucho de $\mu$).
+
+
+## Variabilidad de las Medias Muestrales {.medium}
+
+Para entender cómo varían las medias muestrales de tamaño $n=30$ de nuestro ejemplo, tomemos 10 muestras y grafiquemos el histograma...
+
+
+## Variabilidad de las Medias Muestrales {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -246,7 +322,13 @@ geom_vline(xintercept = pop_mean, linetype = "dashed", color = "darkred", linewi
 
 ::: {.column width="50%"}
 
-¿Qué pasa si tomamos 10 muestras?
+Así luce la distribución de las medias muestrales para 10 muestras. 
+
+
+::: {.fragment}
+Sin embargo, no se pueden sacar muchas conclusiones con base en el gráfico. 
+:::
+
 :::
 :::
 
@@ -254,7 +336,7 @@ geom_vline(xintercept = pop_mean, linetype = "dashed", color = "darkred", linewi
 
 
 
-## Gráfico de barras {.medium}
+## Variabilidad de las Medias Muestrales {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -283,7 +365,14 @@ tibble(mean = sample_means) |>
 
 ::: {.column width="50%"}
 
-¿Qué pasa si tomamos 100 muestras?
+¿Qué pasa si tomamos 100 muestras? 
+
+
+::: {.fragment}
+🤔 Hmmm cierta forma ya conocida empieza a emerger...
+:::
+
+
 :::
 :::
 
@@ -319,6 +408,12 @@ tibble(mean = sample_means) |>
 ::: {.column width="50%"}
 
 ¿Qué pasa si tomamos 1000 muestras?
+
+
+::: {.fragment}
+Ya es claro que la distribución tiende a ser normal...
+:::
+
 :::
 :::
 
@@ -353,6 +448,11 @@ tibble(mean = sample_means) |>
 ::: {.column width="50%"}
 
 ¿Qué pasa si tomamos 10000 muestras?
+
+::: {.fragment}
+...y que la media de la distribución de medias muestrales es la media poblacional (la línea punteada)
+:::
+
 :::
 :::
 
@@ -390,6 +490,11 @@ tibble(mean = sample_means) |>
 ::: {.column width="50%"}
 
 ¿Qué pasa si tomamos 10000 muestras pero de 50 estudiantes?
+
+::: {.fragment}
+La variabilidad de las medias muestrales es menor. 
+:::
+
 :::
 :::
 
@@ -425,5 +530,71 @@ tibble(mean = sample_means) |>
 ::: {.column width="50%"}
 
 ¿Qué pasa si tomamos 10000 muestras pero de 70 estudiantes?
+
+::: {.fragment}
+A medida que el tamaño de la muestra $n$ es mayor, las muestras van a tener menos probabilidad de estar lejos del parámetro poblacional
+:::
+
+
 :::
 :::
+
+
+## ¿Qué podemos concluir de los histogramas anteriores? {.medium}
+
+- La distribución muestral de la media muestral puede no ser normal cuando el tamaño de la muestra es pequeño, pero se vuelve más normal a medida que el tamaño de la muestra aumenta.
+
+. . .
+
+- La media muestral puede no ser igual a la media poblacional, pero su distribución se centra en la media poblacional.
+
+. . .
+
+- Con una muestra más grande, la variabilidad de la media muestral alrededor de la población disminuye.
+
+
+
+## Teorema del Límite Central {.medium}
+
+Para una población con una media bien definida $\mu$ y una desviación estándar $\sigma$ se cumplen estas tres propiedades para la distribución de la media muestral $\bar{x}$, siempre que se cumplan ciertas condiciones:
+
+1. La media de la distribución muestral de la media es idéntica a la media poblacional $\mu$.
+
+2. La desviación estándar de la distribución de las medias muestrales es $\dfrac{\sigma}{\sqrt{n}}$
+
+Esto se llama el *error estándar* (SE) de la media.
+
+3. Para un $n$ suficientemente grande, la forma de la distribución muestral de las medias es aproximadamente normal.
+
+## Teorema del Límite Central {.medium}
+
+Básicamente el teorema es:
+
+$$\bar{x}\sim N(\mu,\dfrac{\sigma}{\sqrt{n}})$$
+
+## Ejemplo {.medium}
+
+
+Volviendo al ejemplo de nuestros estudiantes, la media es `r round(pop_df |> summarize(mean=mean(x, na.rm = T)),1)` y la desviación estándar es `r round(pop_df |> summarize(sd=sd(x, na.rm = T)),1)`. Entonces la distribución muestral de $\bar{x}_{30}$ es aproximadamente:
+
+$$\bar{x}_{30}\sim N(9.9,\dfrac{3.6}{\sqrt{30}})$$
+
+```{r}
+#| echo: false
+#| out-width: 100%
+n_samples <- 10000 # Number of samples to draw
+n_s <- 30
+sample_means <- replicate(n_samples, {
+  sample_indices <- sample(1:n_p, n_s, replace = FALSE) # Random sample
+  mean(pop_df$x[sample_indices]) # Calculate mean
+})
+```
+
+```{r}
+#| echo: true
+#| out-width: 100%
+sum(sample_means > 10)
+
+sum(sample_means > 9.9)
+
+```
