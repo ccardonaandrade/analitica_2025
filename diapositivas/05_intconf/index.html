@@ -407,11 +407,7 @@ Carlos Cardona Andrade
 <h2>Plan para hoy</h2>
 <ol type="1">
 <li><p><a href="#/intro">Datos categóricos</a></p></li>
-<li><p><a href="#/1category">Visualizandos una variable categórica</a></p></li>
-<li><p><a href="#/2categories">Visualizandos dos variables categóricas</a></p></li>
-<li><p><a href="#/acrossgroups">Comparando variables numéricas entre grupos</a></p></li>
-<li><p><a href="#/probabilidad">Probabilidad</a></p></li>
-<li><p><a href="#/distnormal">La Distribución Normal</a></p></li>
+<li><p><a href="#/intconf">Intervalos de Confianza</a></p></li>
 </ol>
 </section>
 <section>
@@ -713,18 +709,201 @@ Carlos Cardona Andrade
 <section id="ejemplo" class="slide level2 medium">
 <h2>Ejemplo</h2>
 <p>Volviendo al ejemplo de nuestros estudiantes, la media es 9.9 y la desviación estándar es 3.6. Entonces la distribución muestral de <span class="math inline">\(\bar{x}_{30}\)</span> es aproximadamente:</p>
-<p><span class="math display">\[\bar{x}_{30}\sim N(9.9,\dfrac{3.6}{\sqrt{30}})\]</span></p>
+<p><span class="math display">\[\bar{x}_{30}\sim N(9.9,\dfrac{3.6}{\sqrt{30}})=N(9.9 , 0.65)\]</span></p>
+<p>Dado que el TLC dice que la distribución de las medias muestrales es normal, podemos calcular probabilidades bajo la curva. Por ejemplo:</p>
+<p><span class="math display">\[P(\bar{x}_{30}&gt;10)=?\]</span></p>
+</section>
+<section id="ejemplo-1" class="slide level2 medium">
+<h2>Ejemplo</h2>
+<p><span class="math display">\[P(\bar{x}_{30}&gt;10)\approx 0.43\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">sum</span>(sample_means <span class="sc">&gt;</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">pnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="fl">9.9</span>, <span class="at">sd =</span> <span class="fl">0.65</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4061</code></pre>
+<pre><code>[1] 0.4388655</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">sum</span>(sample_means <span class="sc">&gt;</span> <span class="fl">9.9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>En nuestra simulación con las 1000 muestras simuladas de <span class="math inline">\(\bar{x}\)</span>, ¿cuántas medias muestrales están por encima de 10?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">sum</span>(sample_means <span class="sc">&gt;</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4772</code></pre>
+<pre><code>[1] 425</code></pre>
 </div>
 </div>
-<div class="footer footer-default">
+<p>Este número se acerca a la aproximación con el TLC, el cual establece que son aproximadamente 43% (<span class="math inline">\(1000\times0.43\approx430\)</span>) de las medias muestrales.</p>
+</div>
+</section>
+<section id="condiciones-para-el-tlc" class="slide level2 medium">
+<h2>Condiciones para el TLC</h2>
+<p>✅ <code>Independencia</code>: la muestra debe ser tomada aleatoriamente</p>
+<ul>
+<li>Si las muestras son independientes, por definición el valor de una muestra no debería “influenciar” los valores de otras muestras</li>
+</ul>
+</section>
+<section id="condiciones-para-el-tlc-1" class="slide level2 medium">
+<h2>Condiciones para el TLC</h2>
+<p>✅ <code>Tamaño de la muestra /Distribución</code></p>
+<ul>
+<li><p>Si los datos son numéricos, usualmente <span class="math inline">\(n&gt;30\)</span> es una muestra suficiente para que el TLC se aplique</p></li>
+<li><p>Si sabemos que los datos se distribuyen como una normal, la distribución de las medias muestrales también será normal, sin importar <span class="math inline">\(n\)</span></p></li>
+</ul>
+</section></section>
+<section>
+<section id="intconf" class="title-slide slide level1 center">
+<h1>Intervalos de Confianza</h1>
+
+</section>
+<section id="intervalos-de-confianza" class="slide level2 medium">
+<h2>Intervalos de Confianza</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/murky_lake.png" height="450"></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>Usar un estadístico muestral para estimar un parámetro es como pescar con una lanza en un lago fangoso</p></li>
+<li><p>Si tiramos la lanza donde creemos ver un pez, lo más probable es que fallemos</p></li>
+<li><p>Si reportamos una estimación puntual, lo más probable es que no le peguemos al parámetro poblacional</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="intervalos-de-confianza-1" class="slide level2 medium">
+<h2>Intervalos de Confianza</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/fisher.png" height="450"></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>Por otro lado, usar intervalos de confianza es como pescar con una red</p></li>
+<li><p>Si tiramos la red donde creemos ver un pez, tenemos una buena oportunidad de atraparlo</p></li>
+<li><p>Si reportamos un rango de valores plausibles, tenemos también una gran oportunidad de capturar al parámetro poblacional</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="qué-es-un-intervalo-de-confianza" class="slide level2 medium">
+<h2>¿Qué es un intervalo de confianza?</h2>
+<p>Con un <span class="marker-hl">intervalo de confianza</span> tomamos una estimación puntual de la muestra y, con el conocimiento que tenemos sobre las distribuciones muestrales, tratamos de acercarnos al parámetro muestral</p>
+</section>
+<section id="qué-es-un-intervalo-de-confianza-1" class="slide level2 medium">
+<h2>¿Qué es un intervalo de confianza?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>EL TLC dice que <span class="math inline">\(\bar{x}\sim N(\mu,\dfrac{\sigma}{\sqrt{n}})\)</span></p></li>
+<li><p>Para una curva normal, 95% de su área está dentro de 1.96 SD con respecto al centro.</p></li>
+<li><p>Eso significa que, para un 95% de las veces, <span class="math inline">\(\bar{x}\)</span> va a estar a <span class="math inline">\(1.96 \times \dfrac{\sigma}{\sqrt{n}}\)</span> de <span class="math inline">\(\mu\)</span></p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="qué-es-un-intervalo-de-confianza-2" class="slide level2 medium">
+<h2>¿Qué es un intervalo de confianza?</h2>
+<p>Por lo tanto, un intervalo de confianza de <span class="math inline">\(\mu\)</span> al 95% será:</p>
+<p><span class="math display">\[\bar{x}\pm 1.96\times\dfrac{\sigma}{\sqrt{n}}=\Big[\bar{x}- 1.96\times\dfrac{\sigma}{\sqrt{n}},\bar{x}+1.96\times\dfrac{\sigma}{\sqrt{n}}\Big]\]</span></p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-20-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="procedimientos-para-encontrar-un-ic-al-95" class="slide level2 medium">
+<h2>Procedimientos para encontrar un IC al 95%</h2>
+<ol type="1">
+<li><p>Tomen una muestra aleatoria de tamaño <span class="math inline">\(n\)</span> y calculen la media muestral <span class="math inline">\(\bar{x}\)</span></p></li>
+<li><p>Si <span class="math inline">\(n\)</span> es grande, el intervalo de confianza a un 95% de <span class="math inline">\(\mu\)</span> será:</p></li>
+</ol>
+<p><span class="math display">\[\bar{x}\pm 1.96\times\dfrac{\sigma}{\sqrt{n}}\]</span></p>
+<div class="fragment">
+<p>El problema radica en que <span class="math inline">\({\color{orange} \sigma}\)</span> usualmente es desconocida para nosotros…</p>
+</div>
+</section>
+<section id="los-parámetros-poblacionales-son-desconocidos" class="slide level2 medium">
+<h2>Los parámetros poblacionales son desconocidos…</h2>
+<p>Cuando la desviación estándar poblacional <span class="math inline">\(\sigma\)</span> es desconocida, la reemplazamos con la mejor aproximación que tenemos - la desviación estándar muestral <span class="math inline">\({\color{orange} s}\)</span>.</p>
+<p>Así, un aproximado al intervalo de confianza a un 95% para <span class="math inline">\(\mu\)</span> es:</p>
+<p><span class="math display">\[\bar{x}\pm 1.96\times\dfrac{{\color{orange} s}}{\sqrt{n}}\]</span></p>
+<div class="fragment">
+<ul>
+<li><p>Sin embargo, este reemplazo es peligroso:</p>
+<ul>
+<li><span class="math inline">\({\color{orange} s}\)</span> es una estimación pobre de <span class="math inline">\(\sigma\)</span> si <span class="math inline">\(n\)</span> es pequeño</li>
+<li><span class="math inline">\({\color{orange} s}\)</span> es bastante sensible a datos atípicos</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="ejemplo-gapminder" class="slide level2 medium">
+<h2>Ejemplo: gapminder</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>gapminder_2007 <span class="ot">&lt;-</span> gapminder <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>gapminder_2007</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 142 × 6
+   country     continent  year lifeExp       pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       2007    43.8  31889923      975.
+ 2 Albania     Europe     2007    76.4   3600523     5937.
+ 3 Algeria     Africa     2007    72.3  33333216     6223.
+ 4 Angola      Africa     2007    42.7  12420476     4797.
+ 5 Argentina   Americas   2007    75.3  40301927    12779.
+ 6 Australia   Oceania    2007    81.2  20434176    34435.
+ 7 Austria     Europe     2007    79.8   8199783    36126.
+ 8 Bahrain     Asia       2007    75.6    708573    29796.
+ 9 Bangladesh  Asia       2007    64.1 150448339     1391.
+10 Belgium     Europe     2007    79.4  10392226    33693.
+# ℹ 132 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="ejemplo-gapminder-1" class="slide level2 medium">
+<h2>Ejemplo: gapminder</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Calculamos la media poblacional</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>pop_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(gapminder_2007<span class="sc">$</span>lifeExp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>pop_mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 67.00742</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Set seed for reproducibility</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co"># Tomamos una muestra de 100 canciones</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>sample <span class="ot">&lt;-</span> gapminder_2007 <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">30</span>)</span>
+<span id="cb9-5"><a href="#cb9-5"></a></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="do">## Otra manera es usando el comando t.test </span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(sample<span class="sc">$</span>lifeExp, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb9-8"><a href="#cb9-8"></a></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co"># Extraemos los intervalos</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>ic_2 <span class="ot">&lt;-</span> result<span class="sc">$</span>conf.int</span>
+<span id="cb9-11"><a href="#cb9-11"></a>ic_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 62.64086 71.36561
+attr(,"conf.level")
+[1] 0.95</code></pre>
+</div>
+</div>
+</section>
+<section id="ic-con-distintos-niveles-de-confianza" class="slide level2 medium">
+<h2>IC con distintos niveles de confianza</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="ic-para-100-muestras" class="slide level2 medium">
+<h2>95% IC para 100 muestras</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-24-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="ic-para-100-muestras-1" class="slide level2 medium">
+<h2>90% IC para 100 muestras</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="576" class="r-stretch quarto-figure-center"><div class="footer footer-default">
 
 </div>
 </section></section>
