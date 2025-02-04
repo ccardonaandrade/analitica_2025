@@ -1,0 +1,674 @@
+---
+title: "ggplot y tidyverse - Soluciones"
+
+lang: es
+
+format: 
+  closeread-html:
+   css: msaz.css
+   code-tools: false
+   fig-format: svg
+   toc: true
+   linkcolor: tomato
+---
+
+
+Estas son las soluciones para las ejercicios en las diapositivas de [ggplot y tidyverse](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/diapositivas/02_ggplot_tidy/index.html#/title-slide){target="_blank"}
+
+     
+## Ejercicio 1
+
+Abran un R Script, y utilizando la siguiente plantilla, carguen los paquetes `tidyverse` y `gapminder`. Instálenlos desde la consola si es la primera vez que usan su PC actual.
+
+```{r}
+#| eval: false
+#| echo: true
+## ------------------------------
+## Taller 1
+##
+## Autor: 
+##
+## Fecha: 
+## ------------------------------
+   
+## cargamos todos los paquetes que usaremos en la sesión:
+
+library(tidyverse)
+library(gapminder)
+
+## ---------------------------
+
+### Ejercicio 1
+
+```
+
+La idea de tener esta plantilla es ayudarlos a que mantengan un orden y puedan leer su código de mejor manera.
+
+
+#### Instalación de los paquetes
+
+Si es la primera vez que van a usar un paquete, recuerden **siempre** instalarlo en el computador antes de cargarlo. ¿Cómo hacerlo? Con la función `install.packages()` y el nombre del paquete entre comillas. Si estos paquetes ya están instalados en su computador, pueden omitir este paso y simplemente cargarlos con `library()`. Mi sugerencia para instalarlos es que usen la consola para escribir:
+
+```{r}
+#| eval: false
+#| echo: true
+install.packages("tidyverse")
+install.packages("gapminder")
+```
+
+Otra manera de hacerlo usando notación de vectores es:
+
+```{r}
+#| eval: false
+#| echo: true
+install.packages(c("tidyverse", "gapminder"))
+```
+
+Los paquetes se instalan **una única vez** por computador.
+
+#### Cargar los paquetes a la sesión actual de R Studio
+
+Luego de esto pueden cargar los paquetes con la función `library()`. Los paquetes se cargan **siempre** en una nueva sesión de R Studio:
+
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: true
+library(tidyverse)
+library(gapminder)
+```
+
+Por otro lado, la función `library()` **no** acepta la notación vectorial. Observen el error al tratar de cargar ambos paquetes a la vez:
+
+```{r}
+#| eval: true
+#| echo: true
+#| error: true
+library(c(tidyverse,gapminder))
+```
+
+
+
+#### ¿Cómo darle un vistazo a los datos?
+
+La función `glimpse()` nos proporciona una vista rápida del número de filas y columnas, los nombres de las variables, sus tipos y algunos de sus valores.
+
+
+```{r}
+#| eval: true
+#| echo: true
+glimpse(gapminder)
+```
+
+
+Pueden comparar `glimpse(gapminder)` con `head(gapminder)`. Mientras que `glimpse()` nos muestra un resumen de todas las variables, `head()` solo nos muestra las primeras filas del dataset.
+
+
+
+## Ejercicio 2
+
+
+Grafiquen las siguientes 4 gráficas usando la consola. ¿Cuál eligirían y por qué? Escriban el código de la gráfica elegida en el script y respondan a las preguntas usando comentarios precedidos por `#`.
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + 
+  geom_point()
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, size = continent)) + 
+  geom_point()
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, shape = continent)) + 
+  geom_point()
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, alpha = continent)) + 
+  geom_point()
+```
+
+
+En este ejercicio, la idea es que observen cómo cambian los atributos dentro del mapeo estético según la variable `continent`. Como pueden ver en los gráficos de abajo, excepto en la gráfica que cambia el atributo color, el resto no permite distinguir claramente cada continente. Quiero destacar cómo en cada gráfica la función `ggplot()` genera automáticamente una leyenda a la derecha, explicando cómo el atributo varía según el continente.
+
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+#| fig-width: 14
+#| fig-height: 10
+
+library(patchwork)
+
+p1 <- ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + 
+  geom_point() + labs(title = "Modificando color")
+
+p2 <- ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, size = continent)) + 
+  geom_point() + labs(title = "Modificando size")
+
+p3 <- ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, shape = continent)) + 
+  geom_point() + labs(title = "Modificando shape")
+
+p4 <- ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, alpha = continent)) + 
+  geom_point() + labs(title = "Modificando alpha")
+
+(p1 + p2) /
+ (p3 + p4)
+```
+
+
+Acá no había respuesta correcta, sin embargo, debería aparecer en su R Script algo como esto:
+
+```{r}
+#| eval: false
+#| echo: true
+
+### Ejercicio 2
+
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp, color = continent)) + 
+  geom_point()
+
+# Elijo esta gráfica porque con el resto de atributos (size, shape, alpha) no es posible distinguir
+# cada continente
+
+```
+
+
+## Ejercicio 3 {.medium}
+
+Hagamos un gráfico de barras sencillo para visualizar la cantidad de observaciones por continente en los datos `gapminder`. 
+
+#### Punto 1
+
+Usen `geom_bar()` como objeto geométrico y mapeen el eje `x` a `continent`.
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = gapminder) + 
+  geom_bar(aes(x=continent)) 
+```
+:::
+
+::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig.align: 'center'
+ggplot(data = gapminder) + 
+  geom_bar(aes(x=continent)) 
+```
+:::
+:::
+
+
+#### Punto 2
+
+Los gráficos llenos de gris no son muy atractivos. Vamos a agregar color al gráfico mapeando el atributo `fill` a `continent`.
+
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = gapminder) + 
+  geom_bar(aes(x=continent, fill=continent)) 
+```
+:::
+
+::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig.align: 'center'
+ggplot(data = gapminder) + 
+  geom_bar(aes(x=continent, fill=continent)) 
+```
+:::
+:::
+
+
+
+#### Punto 3
+
+Ahora que el gráfico tiene color, vamos a mejorar aún más su estética. Revisen la página de [paletas de colores Brewer](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html){target="_blank"}, elijan una de las paletas de colores que allí encuentran y agreguen la capa `scale_fill_brewer(palette = "nombre_de_paleta")`. 
+
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = gapminder) + 
+  geom_bar(aes(x=continent, fill=continent)) +
+  scale_fill_brewer(palette = "Set2") + 
+
+```
+:::
+
+::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig.align: 'center'
+ggplot(data = gapminder) + 
+  geom_bar(aes(x=continent, fill=continent)) +
+  scale_fill_brewer(palette = "Set2") 
+```
+:::
+:::
+
+
+
+#### Punto 4
+
+Para ser más claros, modifiquen los nombres de los ejes a `y = "Frequency"` y `x = "Continent"`. La diapositiva 41 tiene un ejemplo de cómo hacerlo. 
+
+Esto se realiza con la opción `labs()`
+
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(data = gapminder) + 
+  geom_bar(aes(x=continent, fill=continent)) +
+  scale_fill_brewer(palette = "Set2") + 
+  labs(y = "Frequency", x = "Continent")
+
+```
+:::
+
+::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig.align: 'center'
+ggplot(data = gapminder) + 
+  geom_bar(aes(x=continent, fill=continent)) +
+  scale_fill_brewer(palette = "Set2") + 
+  labs(y = "Frequency", x = "Continent")
+```
+:::
+:::
+
+
+#### Punto 5
+
+En este caso la guía de los continentes parece innecesaria. Eliminémosla agregando la capa `guides(fill=FALSE)`.
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(gapminder) + 
+  geom_bar(aes(x=continent, fill=continent)) + 
+  scale_fill_brewer(palette = "Set2") + 
+  labs(x = "Continent", y = "Frequency") + 
+  guides(fill=FALSE)
+```
+:::
+
+::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig.align: 'center'
+ggplot(gapminder) + 
+  geom_bar(aes(x=continent, fill=continent)) + 
+  scale_fill_brewer(palette = "Set2") + 
+  labs(x = "Continent", y = "Frequency") + 
+  guides(fill=FALSE)
+```
+:::
+:::
+
+
+
+#### Punto 6
+
+`ggplot` usa un fondo gris por defecto. Elijan entre `theme_minimal()` o `theme_classic()` como última capa.
+
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(gapminder) + 
+  geom_bar(aes(x=continent, fill=continent)) + 
+  scale_fill_brewer(palette = "Set2") + 
+  labs(x = "Continent", y = "Frequency") + 
+  guides(fill=FALSE) +
+  theme_classic()
+```
+:::
+
+::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig.align: 'center'
+ggplot(gapminder) + 
+  geom_bar(aes(x=continent, fill=continent)) + 
+  scale_fill_brewer(palette = "Set2") + 
+  labs(x = "Continent", y = "Frequency") + 
+  guides(fill=FALSE) +
+  theme_classic()
+```
+:::
+:::
+
+Noten cómo en la última gráfica cambié `ggplot(data = gapminder)` por `ggplot(gapminder)`. La función `ggplot()` reconoce que su primer argumento siempre es el conjunto de datos. Además, los argumentos dentro de cada capa se separan con comas, como en `geom_bar(aes(x = continent, fill = continent))` o `labs(x = "Continent", y = "Frequency")`.
+
+
+
+## Ejercicio 4  {.medium}
+
+Para los datos de `gapminder`, usen `filter()` y operadores lógicos para seleccionar:
+
+#### Punto 1
+
+Los datos para el siguiente país que quisieran visitar
+
+```{r}
+#| echo: true
+gapminder |>
+  filter(country == "Argentina")
+```
+
+En este punto podrían utilizar la función `View(gapminder)` para buscar el país que les llamara la atención. 
+
+#### Punto 2
+
+¿Por qué ese país?
+
+```{r}
+#| echo: true
+# Acá valía cualquier cosa. Ejemplo: Me encanta el fútbol!
+```
+
+#### Punto 3
+
+Todos los datos en el año 2007 y para el continente del país en los puntos anteriores
+
+```{r}
+#| echo: true
+gapminder |>
+  filter(year == 2007,
+  continent == "Americas")
+```
+
+#### Punto 4
+
+Filas donde la expectativa de vida sea mayor a 82 en el año 2007 y que no sean Oceanía
+
+```{r}
+#| echo: true
+gapminder |>
+  filter(year == 2007,
+  lifeExp > 82,
+  continent != "Oceania")
+```
+
+
+Al igual que en `ggplot()`, los argumentos dentro de los verbos del paquete `dplyr` van separados por comas. Es importante notar cómo el código se vuelve más legible cuando cada argumento se coloca en una línea distinta, en lugar de escribir todo en una sola línea. Por ejemplo, el siguiente código es más difícil de leer que el anterior:
+
+```{r}
+#| echo: true
+#| eval: false
+gapminder |> filter(year == 2007, lifeExp > 82, continent != "Oceania")
+```
+
+
+## Ejercicio 5 {.medium}
+
+#### Punto 1
+
+¿Cuál es la expectativa de vida más baja en `gapminder`? ¿Qué país la tiene y en qué año?
+
+```{r}
+#| echo: true
+gapminder |>
+  arrange(lifeExp)
+```
+
+La expectativa más baja en todo el conjunto de datos la tiene Rwanda en 1992.
+
+#### Punto 2
+
+¿Cuál es la expectativa de vida más alta en `gapminder`? ¿Qué país la tiene y en qué año?
+
+Acá usamos la opción `desc()` de la función para cambiar el orden de mayor a menor.
+
+```{r}
+#| echo: true
+gapminder |>
+  arrange(desc(lifeExp))
+```
+
+La expectativa más alta en todo el conjunto de datos la tiene Japón en 2007.
+
+
+## Ejercicio 6  {.medium}
+
+#### Punto 1
+
+Seleccionen solo las columnas `year`, `lifeExp` y `country` en `gapminder`
+
+```{r}
+#| echo: true
+gapminder |>
+  select(year, lifeExp, country)
+```
+
+Nuevamente, los argumentos van separados por comas.
+
+#### Punto 2
+
+Seleccionen todas las columnas *excepto* `year`, `lifeExp` y `country` en `gapminder`
+
+Recuerden que el signo `-` se usa para descartar variables en `select()`. Como en muchos otros casos, hay varias maneras de hacerlo. Por ejemplo:
+
+```{r}
+#| echo: true
+gapminder |>
+  select(-year, -lifeExp, -country)
+```
+
+Otra alternativa es usar notación de vectores:
+
+```{r}
+#| echo: true
+gapminder |>
+  select(-c(year, lifeExp, country))
+```
+
+
+
+
+## Ejercicio 7  {.medium}
+
+#### Punto 1
+
+Creen una variable llamada `africa` que sea `TRUE` si el país está en el continente africano
+
+En `r fontawesome::fa("r-project")`, la expresión `continent == "Africa"` evalúa si cada elemento de la variable `continent` es igual a `"Africa"`. Esto genera un vector lógico (de valores `TRUE` o `FALSE`) del mismo tamaño que la columna `continent.` Luego, `mutate()` agrega este vector como una nueva variable llamada `africa` en el dataset gapminder.
+
+```{r}
+#| echo: true
+gapminder |>
+  mutate(africa = continent =="Africa")
+```
+
+#### Punto 2
+
+Agreguen una columna que sea el logaritmo del GDP per cápita (Pista: usen la función `log()`)
+
+El nombre de la nueva variable es libre. En este caso, la llamaremos `log_gdp`:
+
+```{r}
+#| echo: true
+gapminder |>
+  mutate(log_gdp = log(gdpPercap))
+```
+
+#### Punto 3
+
+Conviertan la expectativa de vida de años a *meses*
+
+Aquí no se crea una nueva variable, sino que se modifica `lifeExp`, que ya existe en los datos:
+
+```{r}
+#| echo: true
+gapminder |>
+  mutate(lifeExp = lifeExp * 12)
+```
+
+
+**Nota:** Todo esto se podía hacer dentro de una sola llamada a `mutate()`:
+
+
+```{r}
+#| echo: true
+gapminder |>
+  mutate(africa = continent == "Africa",
+  log_gdp = log(gdpPercap),
+  lifeExp = lifeExp * 12)
+```
+
+
+## Ejercicio 8  {.medium}
+
+#### Punto 1
+
+Calculen el GDP per cápita promedio en 1977 para cada continente
+
+¿Cómo pensar este procedimiento desde el uso del operador pipe?
+
+Lo primero es seleccionar las observaciones para el año 1977 con la función `filter()` de la siguiente manera:
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+gapminder |>
+  filter(year == 1977)
+```
+:::
+
+::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| warning: false
+gapminder |>
+  filter(year == 1977)
+```
+:::
+:::
+
+
+Lo segundo es agrupar por la variable `continent` con la función `group_by`:
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+gapminder |>
+  filter(year == 1977) |>
+  group_by(continent)
+```
+:::
+
+::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| warning: false
+gapminder |>
+  filter(year == 1977) |>
+  group_by(continent)
+```
+:::
+:::
+
+Noten que en este punto, `r fontawesome::fa("r-project")` no realiza ninguna modificación por continente, ya que aún no le hemos dicho qué hacer con esa agrupación. El siguiente proceso complementa el uso de `group_by`.
+
+
+Finalmente, usamos la función `summarise()` para calcular el GDP per cápita promedio. En este caso le di el nombre de `gdp_mean` a la nueva variable. Es útil recordar brevemente que `na.rm = TRUE` ignora los valores faltantes en la columna, lo cual puede ser crucial si los datos contienen valores `NA`. 
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+gapminder |>
+  filter(year == 1977) |>
+  group_by(continent) |>
+  summarise(gdp_mean = mean(gdpPercap, na.rm = TRUE))
+```
+:::
+
+::: {.column  width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+gapminder |>
+  filter(year == 1977) |>
+  group_by(continent) |>
+  summarise(gdp_mean = mean(gdpPercap, na.rm = TRUE))
+```
+:::
+:::
+
+
+
+#### Punto 2
+
+¿Por qué el siguiente código no funciona? ¿Cómo lo pueden arreglar?
+
+
+```{r}
+#| echo: true
+#| eval: false
+gapminder |>
+  summarize(meanLifeExp = mean(lifeExp)) |>
+  group_by(year)
+```
+
+En el código anterior, el orden de las operaciones es incorrecto. Primero debemos agrupar los datos por `year` antes de calcular la media, ya que `summarize()` reduce el número de filas y, una vez aplicado, no podemos agrupar los datos después. La manera correcta es la siguiente:
+
+
+```{r}
+#| echo: true
+#| eval: true
+gapminder |>
+  group_by(year) |>
+  summarize(meanLifeExp = mean(lifeExp))
+
+```
+
