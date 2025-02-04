@@ -20,17 +20,15 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
     - [Soluciones](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/db14214acaba503c69826b00c82e8092d524d70b/ejercicios/slides_sol/sol01/index.html)
 2. ggplot y tidyverse \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/diapositivas/02_ggplot_tidy/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/diapositivas/02_ggplot_tidy/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/6ccf6062a232749bfe8365895b5f3958bc2c0c64/diapositivas/02_ggplot_tidy/index.qmd)\]
     - Lecturas: R4DS 1-3
+    - [Soluciones](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/5217e32de76abad7c65a087f7efb46e28c0c9d8b/ejercicios/slides_sol/sol02/index.html)
 3. Explorando datos numéricos \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/151dedba482da0b83e3b4a2c2236330abd140e66/diapositivas/03_numerical/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/151dedba482da0b83e3b4a2c2236330abd140e66/diapositivas/03_numerical/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/151dedba482da0b83e3b4a2c2236330abd140e66/diapositivas/03_numerical/index.qmd)\]
     - Lecturas: IMS 5
-    - [Ejercicios](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/estatdesc/ejercicios.pdf), [Respuestas](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/estatdesc/soluciones.pdf)
 4. Explorando datos categóricos y la Distribución Normal \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/151dedba482da0b83e3b4a2c2236330abd140e66/diapositivas/04_categorical/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/151dedba482da0b83e3b4a2c2236330abd140e66/diapositivas/04_categorical/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/151dedba482da0b83e3b4a2c2236330abd140e66/diapositivas/04_categorical/index.qmd)\]
     - Lecturas: IMS 4 y 6
 5. Distribución muestral e intervalos de confianza
     - Lecturas: OIS 5.1 - 5.2
-    - [Ejercicios con respuestas](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/int_conf/ejercicios.pdf)
 6. Pruebas de hipótesis
     - Lecturas: OIS 5.3
-    - [Ejercicios con respuestas](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/99f0cd7da92299cce8d2ad5aee79119a6fb2be81/ejercicios/p_hipotesis/ejercicios.pdf)
 7. Muestreo y encuestas
     - Lecturas: IMS 2
 8. Intro al Modelo de Regresión Lineal
