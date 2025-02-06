@@ -118,7 +118,11 @@ $$
 
 Para responder a esta pregunta, utilicemos el siguiente ejemplo:
 
-100 estudiantes están tomando Analítica de los Negocios y la universidad quiere saber el número de horas de estudio de todo ellos. Asumamos que tenemos los datos para todos los estudiantes.
+- 100 estudiantes están tomando Analítica de los Negocios y la universidad quiere saber el número de horas de estudio de todo ellos. Asumamos que tenemos los datos para todos los estudiantes
+
+. . .
+
+- Luego tomemos muestras de 30 estudiantes y miremos cómo el número de horas de estudio varían entre ellas
 
 ## La distribución poblacional de horas de estudio {.medium}
 
@@ -372,7 +376,7 @@ tibble(mean = sample_means) |>
 
 
 
-## Gráfico de barras {.medium}
+## Variabilidad de las Medias Muestrales {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -412,7 +416,7 @@ Ya es claro que la distribución tiende a ser normal...
 :::
 
 
-## Gráfico de barras {.medium}
+## Variabilidad de las Medias Muestrales {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -453,7 +457,7 @@ tibble(mean = sample_means) |>
 
 
 
-## Gráfico de barras {.medium}
+## Variabilidad de las Medias Muestrales con un n mayor {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -493,7 +497,7 @@ La variabilidad de las medias muestrales es menor.
 :::
 
 
-## Gráfico de barras {.medium}
+## Variabilidad de las Medias Muestrales con un n mayor {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -565,8 +569,15 @@ Esto se llama el *error estándar* (SE) de la media.
 Básicamente el teorema es:
 
 $$\bar{x}\sim N(\mu,\dfrac{\sigma}{\sqrt{n}})$$
+E identifica las tres caracterízticas básicas de una distribución:
 
-## Ejemplo {.medium}
+1. Forma $\rightarrow$ Normal
+
+2. Tendencia central $\rightarrow$ $\mu$
+
+3. Dispersión $\rightarrow$ $\dfrac{\sigma}{\sqrt{n}}$
+
+## Horas de Estudio y el TLC {.medium}
 
 
 Volviendo al ejemplo de nuestros estudiantes, la media es `r round(pop_df |> summarize(mean=mean(x, na.rm = T)),1)` y la desviación estándar es `r round(pop_df |> summarize(sd=sd(x, na.rm = T)),1)`. Entonces la distribución muestral de $\bar{x}_{30}$ es aproximadamente:
@@ -589,7 +600,7 @@ Dado que el TLC dice que la distribución de las medias muestrales es normal, po
 $$P(\bar{x}_{30}>10)=?$$
 
 
-## Ejemplo {.medium}
+## Horas de Estudio y el TLC {.medium}
 
 $$P(\bar{x}_{30}>10)\approx 0.43$$
 
@@ -622,7 +633,7 @@ Este número se acerca a la aproximación con el TLC, el cual establece que son 
 
 ✅  `Tamaño de la muestra /Distribución`
 
-- Si los datos son numéricos, usualmente $n>30$ es una muestra suficiente para que el TLC se aplique
+- Si los datos son numéricos, usualmente $n\geq30$ es una muestra suficiente para que el TLC se aplique
 
 - Si sabemos que los datos se distribuyen como una normal, la distribución de las medias muestrales también será normal, sin importar $n$
 
@@ -784,7 +795,9 @@ $$\bar{x}\pm 1.96\times\dfrac{{\color{orange} s}}{\sqrt{n}}$$
 
 
 
-## Ejemplo: gapminder {.medium}
+## Ejemplo: Expectativa de Vida en 2007 {.medium}
+
+Primero, tomemos la población de países en 2007:
 
 ```{r}
 #| echo: true
@@ -793,39 +806,49 @@ library(gapminder)
 library(tidyverse)
 gapminder_2007 <- gapminder |>
   filter(year==2007)
-gapminder_2007
+```
 
+. . . 
 
-# Calculamos la media poblacional
+¿Cuál es la expectativa de vida promedio ese año? (Media poblacional)
+
+```{r}
+#| echo: true
+#| out-width: 100%
+
 pop_mean <- mean(gapminder_2007$lifeExp, na.rm = TRUE)
 pop_mean
 ```
 
 
-## Calcular un IC en R {.medium}
+## Ejemplo: Expectativa de Vida en 2007 {.medium}
+
+Seleccionemos una muestra de 30 países de manera aleatoria y calculemos los estadísticos muestrales:
 
 ```{r}
 #| fig.align: 'center'
 #| echo: true
 #| eval: true
 
-# Set seed for reproducibility
-set.seed(123)
-# Tomamos una muestra de 100 canciones
-sample <- gapminder_2007 %>% sample_n(30)
-
+# Establecer una semilla garantiza que la muestra va a ser la misma
+set.seed(1)
+# Tomamos una muestra de 30 países
+sample_gapminder <- gapminder_2007 |>
+  sample_n(30)
 # Calculamos la media muestral
-sample_mean <- mean(sample$lifeExp, na.rm = TRUE)
+sample_mean <- mean(sample_gapminder$lifeExp, na.rm = TRUE)
 sample_mean
 
-# Calculamos el error estÃ¡ndar
-std_error <- sd(sample$lifeExp, na.rm = TRUE) / sqrt(nrow(sample))
+# Calculamos el error estándar
+std_error <- sd(sample_gapminder$lifeExp, na.rm = TRUE) / sqrt(nrow(sample_gapminder))
 std_error
 
 ```
 
+$$\bar{x}=70.16 \quad \dfrac{s}{\sqrt{n}}=1.81$$
 
-## Calcular un IC en R {.medium}
+
+## Ejemplo: Expectativa de Vida en 2007 {.medium}
 
 ```{r}
 #| fig.align: 'center'
@@ -837,78 +860,52 @@ std_error
 ic_inf <- sample_mean - 1.96 * std_error
 ic_sup <- sample_mean + 1.96 * std_error
 
-# Definamoslo como intervalo
-ci <- c(ic_inf, ic_sup)
-ci
-
+# Definámoslo como intervalo
+ic <- c(ic_inf, ic_sup)
+ic
 ```
 
-## Ejemplo: gapminder {.medium}
+
+$$
+\begin{array}{cl}
+\bar{x}\pm 1.96\times\dfrac{s}{\sqrt{n}} &=& 70.16\pm 1.96\times 1.81  \\  
+&\sim& 70.16 \pm 3.54 = (66.61, 73.71) \\  
+\end{array}
+$$
+
+## Ejemplo: Expectativa de Vida en 2007 {.medium}
+
+Otra manera de calcular el intervalo de confianza es con la función `t.test()`:
 
 
 ```{r}
 #| fig.align: 'center'
 #| echo: true
 #| eval: true
-
-
-## Otra manera es usando el comando t.test 
-result <- t.test(sample$lifeExp, conf.level = 0.95)
+result <- t.test(sample_gapminder$lifeExp, conf.level = 0.95)
 result
-
 
 # Extraemos los intervalos
 ic_2 <- result$conf.int
 ic_2
-
 ```
 
 
-## IC con distintos niveles de confianza {.medium}
-
-```{r}
-#| fig.align: 'center'
-#| echo: false
-#| eval: true
-
-# Calculate confidence intervals at different levels
-result_95 <- t.test(sample$lifeExp , conf.level = 0.95)
-result_90 <- t.test(sample$lifeExp , conf.level = 0.90)
-result_99 <- t.test(sample$lifeExp, conf.level = 0.99)
-
-# Extract confidence intervals
-ic_95 <- result_95$conf.int
-ic_90 <- result_90$conf.int
-ic_99 <- result_99$conf.int
-
-# Combine the confidence intervals into a data frame
-ci_df <- data.frame(
-  Level = c("90%", "95%", "99%"),
-  Lower = c(ic_90[1], ic_95[1], ic_99[1]),
-  Upper = c(ic_90[2], ic_95[2], ic_99[2])
-)
+## ¿Qué significa "nivel de confianza al 95%"? {.medium}
 
 
-ggplot(ci_df, aes(x = Level, ymin = Lower, ymax = Upper)) +
-  geom_linerange(size = 1.5, aes(color = Level)) +           # Plot confidence intervals
-  geom_point(aes(y = Lower), size = 3) +                    # Add lower bound points
-  geom_point(aes(y = Upper), size = 3) +                    # Add upper bound points
-  geom_hline(aes(yintercept = pop_mean, linetype = "Media Poblacional"), 
-             color = "black", size = 1) +                   # Add dashed line for population mean
-  scale_linetype_manual(name = "", values = "dashed") +     # Customize dashed line in legend
-  labs(title = "Intervalos de Confianza para la Danceability promedio",
-       x = "Nivel de Confianza",
-       y = "Danceability",
-       color = "Nivel de Confianza") +
-  theme_minimal() +
-  theme(legend.position = "right")
+### ¿Qué es lo que tiene un 95% de probabilidad de ocurrir?
 
-```
+- Es el procedimiento para construir el intervalo del 95%
 
+- Aproximadamente el 95% de los intervalos construidos siguiendo el procedimiento explicado anteriormente cubrirán el verdadero valor de la media poblacional $\mu$
+  
+- Después de tomar la muestra y construir un intervalo, el intervalo construido cubre $\mu$ o no lo cubre. No lo sabemos. Solo Dios lo sabe.
+  
+- Es como la lotería: antes de elegir los números y comprar un boleto, tenemos alguna probabilidad de ganar el premio. Después de obtener el boleto, o ganamos o perdemos
+  
 
-
-
-## 95% IC para 100 muestras {.medium}
+## Simulación de Intervalos de Confianza del 95% para 100 muestras {.medium}
 
 ```{r}
 #| fig.align: 'center'
@@ -952,9 +949,9 @@ ggplot(ci_df, aes(x = sample, ymin = lower, ymax = upper, color = include_mean))
              color = "navy", size = 1) +
   scale_color_manual(values = c("#FFBF00", "#365E32"), labels = c("No", "Si")) +
   scale_linetype_manual(name = "", values = c("Media Poblacional" = "dashed")) +
-  labs(title = "100 Intervalos de Confianza para el Danceability promedio",
+  labs(title = "100 Intervalos de Confianza para la Expectativa de Vida promedio",
        x = "Muestra",
-       y = "Intervalo de Confianza",
+       y = "Expectativa de Vida",
        color = "Incluye la Media Poblacional") +
   ylim(50, 80) +  # Set y-axis limits
   theme_minimal()
@@ -962,7 +959,121 @@ ggplot(ci_df, aes(x = sample, ymin = lower, ymax = upper, color = include_mean))
 ```
 
 
-## 90% IC para 100 muestras {.medium}
+
+## IC a otros niveles de confianza {.medium}
+
+Para un nivel de confianza $(1-\alpha)$, queremos encontrar el $z^*$ tal que:
+
+
+::: {.columns}
+::: {.column width=45%}
+
+$$P(-z^*<Z<z^*)=1-\alpha$$
+
+:::
+
+::: {.column width=55%}
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+# Define the x-axis range and normal distribution
+x <- seq(-4, 4, length = 1000)
+y <- dnorm(x)
+
+# Create a data frame
+df <- data.frame(x = x, y = y)
+
+# Plot the normal distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(aes(x = ifelse(x >= -1.96 & x <= 1.96, x, NA)), fill = "yellow", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x < -1.96, x, NA)), fill = "navy", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x > 1.96, x, NA)), fill = "navy", alpha = 0.5) +
+  geom_line(color = "black", size = 1) +
+  scale_x_continuous(
+    breaks = c(-1.96, 1.96),
+    labels = c(expression(Z^{"*"}), expression(Z^{"*"}))
+  ) +
+  labs(x = "", y = "") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  ) +
+  # Add annotations
+  annotate("text", x = 0, y = 0.15, label = expression(1 - alpha), size = 6) + # Inside yellow area
+  annotate("text", x = -2.5, y = 0.05, label = expression(alpha/2), size = 6, color = "navy") + # Left navy area
+  annotate("text", x = 2.5, y = 0.05, label = expression(alpha/2), size = 6, color = "navy")    # Right navy area
+```
+
+:::
+:::
+
+
+## IC a otros niveles de confianza {.medium}
+
+
+En general, un intervalo de confianza al nivel $(1-\alpha)$ es 
+
+  $$\bar{x}+z^*\times \dfrac{s}{\sqrt{n}}$$
+
+- $z^*\times \dfrac{s}{\sqrt{n}}$ es conocido como el [margen de error]{.marker-hl}
+
+- Los niveles de confianza más usados son:
+
+  - 90% IC: $\alpha=0.1$, $z^*=1.64$ 
+  - 95% IC: $\alpha=0.05$, $z^*=1.96$
+  - 99% IC: $\alpha=0.01$, $z^*=2.58$
+
+
+
+## IC con distintos niveles de confianza {.medium}
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+
+# Calculate confidence intervals at different levels
+result_95 <- t.test(sample_gapminder$lifeExp , conf.level = 0.95)
+result_90 <- t.test(sample_gapminder$lifeExp , conf.level = 0.90)
+result_99 <- t.test(sample_gapminder$lifeExp, conf.level = 0.99)
+
+# Extract confidence intervals
+ic_95 <- result_95$conf.int
+ic_90 <- result_90$conf.int
+ic_99 <- result_99$conf.int
+
+# Combine the confidence intervals into a data frame
+ci_df <- data.frame(
+  Level = c("90%", "95%", "99%"),
+  Lower = c(ic_90[1], ic_95[1], ic_99[1]),
+  Upper = c(ic_90[2], ic_95[2], ic_99[2])
+)
+
+
+ggplot(ci_df, aes(x = Level, ymin = Lower, ymax = Upper)) +
+  geom_linerange(size = 1.5, aes(color = Level)) +           # Plot confidence intervals
+  geom_point(aes(y = Lower), size = 3) +                    # Add lower bound points
+  geom_point(aes(y = Upper), size = 3) +                    # Add upper bound points
+  geom_hline(aes(yintercept = pop_mean, linetype = "Media Poblacional"), 
+             color = "black", size = 1) +                   # Add dashed line for population mean
+  scale_linetype_manual(name = "", values = "dashed") +     # Customize dashed line in legend
+  labs(title = "Intervalos de Confianza para la Expectativa de Vida promedio",
+       x = "Nivel de Confianza",
+       y = "Expectativa de Vida",
+       color = "Nivel de Confianza") + 
+  ylim(60, 80) +  # Set y-axis limits 
+  theme_minimal() +
+  theme(legend.position = "right")
+
+```
+
+
+## Simulación de Intervalos de Confianza del 90% para 100 muestras {.medium}
 
 ```{r}
 #| fig.align: 'center'
@@ -1006,11 +1117,20 @@ ggplot(ci_df, aes(x = sample, ymin = lower, ymax = upper, color = include_mean))
              color = "navy", size = 1) +
   scale_color_manual(values = c("#FFBF00", "#365E32"), labels = c("No", "Si")) +
   scale_linetype_manual(name = "", values = c("Media Poblacional" = "dashed")) +
-  labs(title = "100 Intervalos de Confianza para el Danceability promedio",
+  labs(title = "100 Intervalos de Confianza para la Expectativa de Vida promedio",
        x = "Muestra",
-       y = "Intervalo de Confianza",
+       y = "Expectativa de Vida",
        color = "Incluye la Media Poblacional") +
   ylim(50, 80) +  # Set y-axis limits
   theme_minimal()
 
 ```
+
+Menor Confianza, Mayor Riesgo de Error
+
+## ¿Qué tan informativo es un IC? {.medium}
+
+Pero... un intervalo demasiado amplio no dice mucho
+
+![](img/garfield.jpg){height="400"}
+

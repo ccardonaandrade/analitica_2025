@@ -477,7 +477,14 @@ Carlos Cardona Andrade
 <section id="por-qué-nos-importa-tanto-la-población-vs-la-muestra-1" class="slide level2 medium">
 <h2>¿Por qué nos importa tanto la población vs la muestra?</h2>
 <p>Para responder a esta pregunta, utilicemos el siguiente ejemplo:</p>
-<p>100 estudiantes están tomando Analítica de los Negocios y la universidad quiere saber el número de horas de estudio de todo ellos. Asumamos que tenemos los datos para todos los estudiantes.</p>
+<ul>
+<li>100 estudiantes están tomando Analítica de los Negocios y la universidad quiere saber el número de horas de estudio de todo ellos. Asumamos que tenemos los datos para todos los estudiantes</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Luego tomemos muestras de 30 estudiantes y miremos cómo el número de horas de estudio varían entre ellas</li>
+</ul>
+</div>
 </section>
 <section id="la-distribución-poblacional-de-horas-de-estudio" class="slide level2 medium">
 <h2>La distribución poblacional de horas de estudio</h2>
@@ -605,8 +612,8 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
-<section id="gráfico-de-barras" class="slide level2 medium">
-<h2>Gráfico de barras</h2>
+<section id="variabilidad-de-las-medias-muestrales-3" class="slide level2 medium">
+<h2>Variabilidad de las Medias Muestrales</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
@@ -622,8 +629,8 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
-<section id="gráfico-de-barras-1" class="slide level2 medium">
-<h2>Gráfico de barras</h2>
+<section id="variabilidad-de-las-medias-muestrales-4" class="slide level2 medium">
+<h2>Variabilidad de las Medias Muestrales</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
@@ -639,8 +646,8 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
-<section id="gráfico-de-barras-2" class="slide level2 medium">
-<h2>Gráfico de barras</h2>
+<section id="variabilidad-de-las-medias-muestrales-con-un-n-mayor" class="slide level2 medium">
+<h2>Variabilidad de las Medias Muestrales con un n mayor</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
@@ -656,8 +663,8 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
-<section id="gráfico-de-barras-3" class="slide level2 medium">
-<h2>Gráfico de barras</h2>
+<section id="variabilidad-de-las-medias-muestrales-con-un-n-mayor-1" class="slide level2 medium">
+<h2>Variabilidad de las Medias Muestrales con un n mayor</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
@@ -704,17 +711,22 @@ Carlos Cardona Andrade
 <section id="teorema-del-límite-central-1" class="slide level2 medium">
 <h2>Teorema del Límite Central</h2>
 <p>Básicamente el teorema es:</p>
-<p><span class="math display">\[\bar{x}\sim N(\mu,\dfrac{\sigma}{\sqrt{n}})\]</span></p>
+<p><span class="math display">\[\bar{x}\sim N(\mu,\dfrac{\sigma}{\sqrt{n}})\]</span> E identifica las tres caracterízticas básicas de una distribución:</p>
+<ol type="1">
+<li><p>Forma <span class="math inline">\(\rightarrow\)</span> Normal</p></li>
+<li><p>Tendencia central <span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(\mu\)</span></p></li>
+<li><p>Dispersión <span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(\dfrac{\sigma}{\sqrt{n}}\)</span></p></li>
+</ol>
 </section>
-<section id="ejemplo" class="slide level2 medium">
-<h2>Ejemplo</h2>
+<section id="horas-de-estudio-y-el-tlc" class="slide level2 medium">
+<h2>Horas de Estudio y el TLC</h2>
 <p>Volviendo al ejemplo de nuestros estudiantes, la media es 9.9 y la desviación estándar es 3.6. Entonces la distribución muestral de <span class="math inline">\(\bar{x}_{30}\)</span> es aproximadamente:</p>
 <p><span class="math display">\[\bar{x}_{30}\sim N(9.9,\dfrac{3.6}{\sqrt{30}})=N(9.9 , 0.65)\]</span></p>
 <p>Dado que el TLC dice que la distribución de las medias muestrales es normal, podemos calcular probabilidades bajo la curva. Por ejemplo:</p>
 <p><span class="math display">\[P(\bar{x}_{30}&gt;10)=?\]</span></p>
 </section>
-<section id="ejemplo-1" class="slide level2 medium">
-<h2>Ejemplo</h2>
+<section id="horas-de-estudio-y-el-tlc-1" class="slide level2 medium">
+<h2>Horas de Estudio y el TLC</h2>
 <p><span class="math display">\[P(\bar{x}_{30}&gt;10)\approx 0.43\]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">pnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="fl">9.9</span>, <span class="at">sd =</span> <span class="fl">0.65</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -744,7 +756,7 @@ Carlos Cardona Andrade
 <h2>Condiciones para el TLC</h2>
 <p>✅ <code>Tamaño de la muestra /Distribución</code></p>
 <ul>
-<li><p>Si los datos son numéricos, usualmente <span class="math inline">\(n&gt;30\)</span> es una muestra suficiente para que el TLC se aplique</p></li>
+<li><p>Si los datos son numéricos, usualmente <span class="math inline">\(n\geq30\)</span> es una muestra suficiente para que el TLC se aplique</p></li>
 <li><p>Si sabemos que los datos se distribuyen como una normal, la distribución de las medias muestrales también será normal, sin importar <span class="math inline">\(n\)</span></p></li>
 </ul>
 </section></section>
@@ -839,116 +851,161 @@ Carlos Cardona Andrade
 </ul>
 </div>
 </section>
-<section id="ejemplo-gapminder" class="slide level2 medium">
-<h2>Ejemplo: gapminder</h2>
+<section id="ejemplo-expectativa-de-vida-en-2007" class="slide level2 medium">
+<h2>Ejemplo: Expectativa de Vida en 2007</h2>
+<p>Primero, tomemos la población de países en 2007:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(gapminder)</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb5-3"><a href="#cb5-3"></a>gapminder_2007 <span class="ot">&lt;-</span> gapminder <span class="sc">|&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>)</span>
-<span id="cb5-5"><a href="#cb5-5"></a>gapminder_2007</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 142 × 6
-   country     continent  year lifeExp       pop gdpPercap
-   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
- 1 Afghanistan Asia       2007    43.8  31889923      975.
- 2 Albania     Europe     2007    76.4   3600523     5937.
- 3 Algeria     Africa     2007    72.3  33333216     6223.
- 4 Angola      Africa     2007    42.7  12420476     4797.
- 5 Argentina   Americas   2007    75.3  40301927    12779.
- 6 Australia   Oceania    2007    81.2  20434176    34435.
- 7 Austria     Europe     2007    79.8   8199783    36126.
- 8 Bahrain     Asia       2007    75.6    708573    29796.
- 9 Bangladesh  Asia       2007    64.1 150448339     1391.
-10 Belgium     Europe     2007    79.4  10392226    33693.
-# ℹ 132 more rows</code></pre>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">filter</span>(year<span class="sc">==</span><span class="dv">2007</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Calculamos la media poblacional</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>pop_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(gapminder_2007<span class="sc">$</span>lifeExp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a>pop_mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p>¿Cuál es la expectativa de vida promedio ese año? (Media poblacional)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>pop_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(gapminder_2007<span class="sc">$</span>lifeExp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>pop_mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 67.00742</code></pre>
 </div>
 </div>
-</section>
-<section id="calcular-un-ic-en-r" class="slide level2 medium">
-<h2>Calcular un IC en R</h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Set seed for reproducibility</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="co"># Tomamos una muestra de 100 canciones</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>sample <span class="ot">&lt;-</span> gapminder_2007 <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">30</span>)</span>
-<span id="cb9-5"><a href="#cb9-5"></a></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="co"># Calculamos la media muestral</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample<span class="sc">$</span>lifeExp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb9-8"><a href="#cb9-8"></a>sample_mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 67.00323</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Calculamos el error estÃ¡ndar</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>std_error <span class="ot">&lt;-</span> <span class="fu">sd</span>(sample<span class="sc">$</span>lifeExp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(sample))</span>
-<span id="cb11-3"><a href="#cb11-3"></a>std_error</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.132951</code></pre>
-</div>
 </div>
 </section>
-<section id="calcular-un-ic-en-r-1" class="slide level2 medium">
-<h2>Calcular un IC en R</h2>
+<section id="ejemplo-expectativa-de-vida-en-2007-1" class="slide level2 medium">
+<h2>Ejemplo: Expectativa de Vida en 2007</h2>
+<p>Seleccionemos una muestra de 30 países de manera aleatoria y calculemos los estadísticos muestrales:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Calculamos los intervalos de confianza</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>ic_inf <span class="ot">&lt;-</span> sample_mean <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> std_error</span>
-<span id="cb13-3"><a href="#cb13-3"></a>ic_sup <span class="ot">&lt;-</span> sample_mean <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> std_error</span>
-<span id="cb13-4"><a href="#cb13-4"></a></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="co"># Definamoslo como intervalo</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a>ci <span class="ot">&lt;-</span> <span class="fu">c</span>(ic_inf, ic_sup)</span>
-<span id="cb13-7"><a href="#cb13-7"></a>ci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Establecer una semilla garantiza que la muestra va a ser la misma</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co"># Tomamos una muestra de 30 países</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>sample_gapminder <span class="ot">&lt;-</span> gapminder_2007 <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">sample_n</span>(<span class="dv">30</span>)</span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co"># Calculamos la media muestral</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample_gapminder<span class="sc">$</span>lifeExp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-8"><a href="#cb8-8"></a>sample_mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 62.82265 71.18382</code></pre>
+<pre><code>[1] 70.161</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Calculamos el error estándar</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>std_error <span class="ot">&lt;-</span> <span class="fu">sd</span>(sample_gapminder<span class="sc">$</span>lifeExp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(sample_gapminder))</span>
+<span id="cb10-3"><a href="#cb10-3"></a>std_error</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.811705</code></pre>
 </div>
 </div>
+<p><span class="math display">\[\bar{x}=70.16 \quad \dfrac{s}{\sqrt{n}}=1.81\]</span></p>
 </section>
-<section id="ejemplo-gapminder-1" class="slide level2 medium">
-<h2>Ejemplo: gapminder</h2>
+<section id="ejemplo-expectativa-de-vida-en-2007-2" class="slide level2 medium">
+<h2>Ejemplo: Expectativa de Vida en 2007</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="do">## Otra manera es usando el comando t.test </span></span>
-<span id="cb15-2"><a href="#cb15-2"></a>result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(sample<span class="sc">$</span>lifeExp, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb15-3"><a href="#cb15-3"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Calculamos los intervalos de confianza</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>ic_inf <span class="ot">&lt;-</span> sample_mean <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> std_error</span>
+<span id="cb12-3"><a href="#cb12-3"></a>ic_sup <span class="ot">&lt;-</span> sample_mean <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> std_error</span>
+<span id="cb12-4"><a href="#cb12-4"></a></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="co"># Definámoslo como intervalo</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a>ic <span class="ot">&lt;-</span> <span class="fu">c</span>(ic_inf, ic_sup)</span>
+<span id="cb12-7"><a href="#cb12-7"></a>ic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 66.61006 73.71194</code></pre>
+</div>
+</div>
+<p><span class="math display">\[
+\begin{array}{cl}
+\bar{x}\pm 1.96\times\dfrac{s}{\sqrt{n}} &amp;=&amp; 70.16\pm 1.96\times 1.81  \\  
+&amp;\sim&amp; 70.16 \pm 3.54 = (66.61, 73.71) \\  
+\end{array}
+\]</span></p>
+</section>
+<section id="ejemplo-expectativa-de-vida-en-2007-3" class="slide level2 medium">
+<h2>Ejemplo: Expectativa de Vida en 2007</h2>
+<p>Otra manera de calcular el intervalo de confianza es con la función <code>t.test()</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(sample_gapminder<span class="sc">$</span>lifeExp, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb14-2"><a href="#cb14-2"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
 
-data:  sample$lifeExp
-t = 31.413, df = 29, p-value &lt; 2.2e-16
+data:  sample_gapminder$lifeExp
+t = 38.727, df = 29, p-value &lt; 2.2e-16
 alternative hypothesis: true mean is not equal to 0
 95 percent confidence interval:
- 62.64086 71.36561
+ 66.45565 73.86635
 sample estimates:
 mean of x 
- 67.00323 </code></pre>
+   70.161 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Extraemos los intervalos</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a>ic_2 <span class="ot">&lt;-</span> result<span class="sc">$</span>conf.int</span>
-<span id="cb17-3"><a href="#cb17-3"></a>ic_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Extraemos los intervalos</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>ic_2 <span class="ot">&lt;-</span> result<span class="sc">$</span>conf.int</span>
+<span id="cb16-3"><a href="#cb16-3"></a>ic_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 62.64086 71.36561
+<pre><code>[1] 66.45565 73.86635
 attr(,"conf.level")
 [1] 0.95</code></pre>
 </div>
 </div>
 </section>
+<section id="qué-significa-nivel-de-confianza-al-95" class="slide level2 medium">
+<h2>¿Qué significa “nivel de confianza al 95%”?</h2>
+<h3 id="qué-es-lo-que-tiene-un-95-de-probabilidad-de-ocurrir">¿Qué es lo que tiene un 95% de probabilidad de ocurrir?</h3>
+<ul>
+<li><p>Es el procedimiento para construir el intervalo del 95%</p></li>
+<li><p>Aproximadamente el 95% de los intervalos construidos siguiendo el procedimiento explicado anteriormente cubrirán el verdadero valor de la media poblacional <span class="math inline">\(\mu\)</span></p></li>
+<li><p>Después de tomar la muestra y construir un intervalo, el intervalo construido cubre <span class="math inline">\(\mu\)</span> o no lo cubre. No lo sabemos. Solo Dios lo sabe.</p></li>
+<li><p>Es como la lotería: antes de elegir los números y comprar un boleto, tenemos alguna probabilidad de ganar el premio. Después de obtener el boleto, o ganamos o perdemos</p></li>
+</ul>
+</section>
+<section id="simulación-de-intervalos-de-confianza-del-95-para-100-muestras" class="slide level2 medium">
+<h2>Simulación de Intervalos de Confianza del 95% para 100 muestras</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-26-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="ic-a-otros-niveles-de-confianza" class="slide level2 medium">
+<h2>IC a otros niveles de confianza</h2>
+<p>Para un nivel de confianza <span class="math inline">\((1-\alpha)\)</span>, queremos encontrar el <span class="math inline">\(z^*\)</span> tal que:</p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="math display">\[P(-z^*&lt;Z&lt;z^*)=1-\alpha\]</span></p>
+</div><div class="column" style="width:55%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ic-a-otros-niveles-de-confianza-1" class="slide level2 medium">
+<h2>IC a otros niveles de confianza</h2>
+<p>En general, un intervalo de confianza al nivel <span class="math inline">\((1-\alpha)\)</span> es</p>
+<p><span class="math display">\[\bar{x}+z^*\times \dfrac{s}{\sqrt{n}}\]</span></p>
+<ul>
+<li><p><span class="math inline">\(z^*\times \dfrac{s}{\sqrt{n}}\)</span> es conocido como el <span class="marker-hl">margen de error</span></p></li>
+<li><p>Los niveles de confianza más usados son:</p>
+<ul>
+<li>90% IC: <span class="math inline">\(\alpha=0.1\)</span>, <span class="math inline">\(z^*=1.64\)</span></li>
+<li>95% IC: <span class="math inline">\(\alpha=0.05\)</span>, <span class="math inline">\(z^*=1.96\)</span></li>
+<li>99% IC: <span class="math inline">\(\alpha=0.01\)</span>, <span class="math inline">\(z^*=2.58\)</span></li>
+</ul></li>
+</ul>
+</section>
 <section id="ic-con-distintos-niveles-de-confianza" class="slide level2 medium">
 <h2>IC con distintos niveles de confianza</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="576" class="r-stretch quarto-figure-center"></section>
-<section id="ic-para-100-muestras" class="slide level2 medium">
-<h2>95% IC para 100 muestras</h2>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="simulación-de-intervalos-de-confianza-del-90-para-100-muestras" class="slide level2 medium">
+<h2>Simulación de Intervalos de Confianza del 90% para 100 muestras</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-26-1.png" width="576" class="r-stretch quarto-figure-center"></section>
-<section id="ic-para-100-muestras-1" class="slide level2 medium">
-<h2>90% IC para 100 muestras</h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="576" class="r-stretch quarto-figure-center"><div class="footer footer-default">
+<img data-src="index_files/figure-revealjs/unnamed-chunk-29-1.png" width="576" class="r-stretch quarto-figure-center"><p>Menor Confianza, Mayor Riesgo de Error</p>
+</section>
+<section id="qué-tan-informativo-es-un-ic" class="slide level2 medium">
+<h2>¿Qué tan informativo es un IC?</h2>
+<p>Pero… un intervalo demasiado amplio no dice mucho</p>
+<p><img data-src="img/garfield.jpg" height="400"></p>
+<div class="footer footer-default">
 
 </div>
 </section></section>
