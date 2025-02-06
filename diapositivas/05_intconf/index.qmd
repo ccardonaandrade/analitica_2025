@@ -794,6 +794,53 @@ library(tidyverse)
 gapminder_2007 <- gapminder |>
   filter(year==2007)
 gapminder_2007
+
+
+# Calculamos la media poblacional
+pop_mean <- mean(gapminder_2007$lifeExp, na.rm = TRUE)
+pop_mean
+```
+
+
+## Calcular un IC en R {.medium}
+
+```{r}
+#| fig.align: 'center'
+#| echo: true
+#| eval: true
+
+# Set seed for reproducibility
+set.seed(123)
+# Tomamos una muestra de 100 canciones
+sample <- gapminder_2007 %>% sample_n(30)
+
+# Calculamos la media muestral
+sample_mean <- mean(sample$lifeExp, na.rm = TRUE)
+sample_mean
+
+# Calculamos el error estÃ¡ndar
+std_error <- sd(sample$lifeExp, na.rm = TRUE) / sqrt(nrow(sample))
+std_error
+
+```
+
+
+## Calcular un IC en R {.medium}
+
+```{r}
+#| fig.align: 'center'
+#| echo: true
+#| eval: true
+
+
+# Calculamos los intervalos de confianza
+ic_inf <- sample_mean - 1.96 * std_error
+ic_sup <- sample_mean + 1.96 * std_error
+
+# Definamoslo como intervalo
+ci <- c(ic_inf, ic_sup)
+ci
+
 ```
 
 ## Ejemplo: gapminder {.medium}
@@ -804,17 +851,11 @@ gapminder_2007
 #| echo: true
 #| eval: true
 
-# Calculamos la media poblacional
-pop_mean <- mean(gapminder_2007$lifeExp, na.rm = TRUE)
-pop_mean
-
-# Set seed for reproducibility
-set.seed(123)
-# Tomamos una muestra de 100 canciones
-sample <- gapminder_2007 %>% sample_n(30)
 
 ## Otra manera es usando el comando t.test 
 result <- t.test(sample$lifeExp, conf.level = 0.95)
+result
+
 
 # Extraemos los intervalos
 ic_2 <- result$conf.int

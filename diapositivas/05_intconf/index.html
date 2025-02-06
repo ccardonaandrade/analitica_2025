@@ -863,28 +863,73 @@ Carlos Cardona Andrade
 10 Belgium     Europe     2007    79.4  10392226    33693.
 # ℹ 132 more rows</code></pre>
 </div>
-</div>
-</section>
-<section id="ejemplo-gapminder-1" class="slide level2 medium">
-<h2>Ejemplo: gapminder</h2>
-<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Calculamos la media poblacional</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>pop_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(gapminder_2007<span class="sc">$</span>lifeExp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb7-3"><a href="#cb7-3"></a>pop_mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 67.00742</code></pre>
 </div>
+</div>
+</section>
+<section id="calcular-un-ic-en-r" class="slide level2 medium">
+<h2>Calcular un IC en R</h2>
+<div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Set seed for reproducibility</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb9-3"><a href="#cb9-3"></a><span class="co"># Tomamos una muestra de 100 canciones</span></span>
 <span id="cb9-4"><a href="#cb9-4"></a>sample <span class="ot">&lt;-</span> gapminder_2007 <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">30</span>)</span>
 <span id="cb9-5"><a href="#cb9-5"></a></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="do">## Otra manera es usando el comando t.test </span></span>
-<span id="cb9-7"><a href="#cb9-7"></a>result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(sample<span class="sc">$</span>lifeExp, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb9-8"><a href="#cb9-8"></a></span>
-<span id="cb9-9"><a href="#cb9-9"></a><span class="co"># Extraemos los intervalos</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a>ic_2 <span class="ot">&lt;-</span> result<span class="sc">$</span>conf.int</span>
-<span id="cb9-11"><a href="#cb9-11"></a>ic_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co"># Calculamos la media muestral</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(sample<span class="sc">$</span>lifeExp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-8"><a href="#cb9-8"></a>sample_mean</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 67.00323</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Calculamos el error estÃ¡ndar</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>std_error <span class="ot">&lt;-</span> <span class="fu">sd</span>(sample<span class="sc">$</span>lifeExp, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">nrow</span>(sample))</span>
+<span id="cb11-3"><a href="#cb11-3"></a>std_error</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.132951</code></pre>
+</div>
+</div>
+</section>
+<section id="calcular-un-ic-en-r-1" class="slide level2 medium">
+<h2>Calcular un IC en R</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Calculamos los intervalos de confianza</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>ic_inf <span class="ot">&lt;-</span> sample_mean <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> std_error</span>
+<span id="cb13-3"><a href="#cb13-3"></a>ic_sup <span class="ot">&lt;-</span> sample_mean <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> std_error</span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co"># Definamoslo como intervalo</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>ci <span class="ot">&lt;-</span> <span class="fu">c</span>(ic_inf, ic_sup)</span>
+<span id="cb13-7"><a href="#cb13-7"></a>ci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 62.82265 71.18382</code></pre>
+</div>
+</div>
+</section>
+<section id="ejemplo-gapminder-1" class="slide level2 medium">
+<h2>Ejemplo: gapminder</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="do">## Otra manera es usando el comando t.test </span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(sample<span class="sc">$</span>lifeExp, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  sample$lifeExp
+t = 31.413, df = 29, p-value &lt; 2.2e-16
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 62.64086 71.36561
+sample estimates:
+mean of x 
+ 67.00323 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Extraemos los intervalos</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>ic_2 <span class="ot">&lt;-</span> result<span class="sc">$</span>conf.int</span>
+<span id="cb17-3"><a href="#cb17-3"></a>ic_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 62.64086 71.36561
 attr(,"conf.level")
@@ -895,15 +940,15 @@ attr(,"conf.level")
 <section id="ic-con-distintos-niveles-de-confianza" class="slide level2 medium">
 <h2>IC con distintos niveles de confianza</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="576" class="r-stretch quarto-figure-center"></section>
 <section id="ic-para-100-muestras" class="slide level2 medium">
 <h2>95% IC para 100 muestras</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-24-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-26-1.png" width="576" class="r-stretch quarto-figure-center"></section>
 <section id="ic-para-100-muestras-1" class="slide level2 medium">
 <h2>90% IC para 100 muestras</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="576" class="r-stretch quarto-figure-center"><div class="footer footer-default">
+<img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="576" class="r-stretch quarto-figure-center"><div class="footer footer-default">
 
 </div>
 </section></section>
