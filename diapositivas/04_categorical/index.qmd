@@ -1463,7 +1463,7 @@ ggplot(normals |> filter(group == 2), aes(x = x)) +
 
 Las dos distribuciones entonces se escribirían $N(1,0)$ y $N(19,4)$.
 
-::: {.absolute top="40%" left="-20%" width="360px" .textbox .fragment .fade-up style="font-size:1.7rem;padding:0.5rem 1rem;" .altlist}
+::: {.absolute top="40%" left="-25%" width="360px" .textbox .fragment .fade-up style="font-size:1.7rem;padding:0.5rem 1rem;" .altlist}
 $N(1,0)$ es conocida como la dist. normal estandarizada
 :::
 
