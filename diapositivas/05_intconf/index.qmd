@@ -286,12 +286,12 @@ La media **muestral** es `r round(pop_df |> filter(s3 == T) |> summarize(mean=me
 Cuando tomamos una muestra, no sabemos si esta es una *buena* muestra ($\bar{x}$ está cerca a $\mu$) o una *mala* ($\bar{x}$ difiere mucho de $\mu$).
 
 
-## Variabilidad de las Medias Muestrales {.medium}
+## Distribución Muestral de la Media {.medium}
 
 Para entender cómo varían las medias muestrales de tamaño $n=30$ de nuestro ejemplo, tomemos 10 muestras y grafiquemos el histograma...
 
 
-## Variabilidad de las Medias Muestrales {.medium}
+## Distribución Muestral de la Media para 10 muestras {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -334,7 +334,7 @@ Sin embargo, no se pueden sacar muchas conclusiones con base en el gráfico.
 
 
 
-## Variabilidad de las Medias Muestrales {.medium}
+## Distribución Muestral de la Media para 100 muestras {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -376,7 +376,7 @@ tibble(mean = sample_means) |>
 
 
 
-## Variabilidad de las Medias Muestrales {.medium}
+## Distribución Muestral de la Media para 1000 muestras {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -416,7 +416,7 @@ Ya es claro que la distribución tiende a ser normal...
 :::
 
 
-## Variabilidad de las Medias Muestrales {.medium}
+## Distribución Muestral de la Media para 10000 muestras {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -448,7 +448,7 @@ tibble(mean = sample_means) |>
 ¿Qué pasa si tomamos 10000 muestras?
 
 ::: {.fragment}
-...y que la media de la distribución de medias muestrales es la media poblacional (la línea punteada)
+...y que la media de la distribución de medias muestrales se ubica muy cerca de la media poblacional (la línea punteada)
 :::
 
 :::
@@ -457,7 +457,7 @@ tibble(mean = sample_means) |>
 
 
 
-## Variabilidad de las Medias Muestrales con un n mayor {.medium}
+## Distribución Muestral de la Media con un n mayor {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -497,7 +497,7 @@ La variabilidad de las medias muestrales es menor.
 :::
 
 
-## Variabilidad de las Medias Muestrales con un n mayor {.medium}
+## Distribución Muestral de la Media con un n mayor {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -646,7 +646,7 @@ Este número se acerca a la aproximación con el TLC, el cual establece que son 
 
 ::: {.columns}
 ::: {.column width=50%}
-![](img/murky_lake.png){height="450"}
+![](img/murky_lake.png){height="400"}
 :::
 
 ::: {.column width=50%}
@@ -666,7 +666,7 @@ Este número se acerca a la aproximación con el TLC, el cual establece que son 
 
 ::: {.columns}
 ::: {.column width=50%}
-![](img/fisher.png){height="450"}
+![](img/fisher.png){height="400"}
 :::
 
 ::: {.column width=50%}
