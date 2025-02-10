@@ -976,7 +976,7 @@ gapminder |>
 
 ## 💪 Ejercicio 3  {.medium}
 
-1. Calculen la media y la mediana para cada `neighbourhood_group`.
+1. Calculen la media y la mediana de la variable `price` para cada `neighbourhood_group`.
 
 2. Basado en el punto anterior, ¿qué tipo de sesgo tiene cada barrio?
 
@@ -1262,11 +1262,11 @@ ggplot(gapminder) +
 
 ## 💪 Ejercicio 4  {.medium}
 
-1. Grafiquen los diagramas de caja para cada `neighbourhood_group`.
+1. Grafiquen los diagramas de caja de la variable `price` para cada `neighbourhood_group`.
 
-2. Describan con 3 aspectos las 5 gráficas. Dos ejemplos: todos los barrios tienen una presencia fuerte de outliers y Manhattan tiene la mediana mayor.
+2. Describan con 3 aspectos las 5 gráficas. Dos ejemplos: todos los barrios tienen una presencia fuerte de outliers y Manhattan tiene la mayor mediana.
 
-3. Usando la función `IQR()`, calculen el rango intercuartílico para cada barrio.
+3. Usando la función `IQR()`, calculen el rango intercuartílico de la variable `price` para cada barrio.
 
 4. ¿Qué pueden decir a partir del punto anterior?
 
