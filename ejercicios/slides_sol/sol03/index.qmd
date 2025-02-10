@@ -1,0 +1,394 @@
+---
+title: "Explorando datos numéricos - Soluciones"
+
+lang: es
+
+format: 
+  closeread-html:
+   css: msaz.css
+   code-tools: false
+   fig-format: svg
+   toc: true
+   linkcolor: tomato
+---
+
+
+Estas son las soluciones para las ejercicios en las diapositivas de [Explorando datos numéricos](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/151dedba482da0b83e3b4a2c2236330abd140e66/diapositivas/03_numerical/index.html#/title-slide){target="_blank"}
+
+     
+## Ejercicio 1
+
+Abran un R Script, y utilizando la siguiente plantilla, carguen los paquetes `tidyverse` y `gapminder`. Instálenlos desde la consola si es la primera vez que usan su PC actual.
+
+```{r}
+#| eval: true
+#| echo: true
+## ------------------------------
+## Taller 1
+##
+## Autor: 
+##
+## Fecha: 
+## ------------------------------
+
+## establecemos el directorio de trabajo
+setwd("C:/Users/ccard/OneDrive/Documentos/GitHub/analitica_2025/data/airbnb")
+   
+## cargamos todos los paquetes que usaremos en la sesión:
+
+library(tidyverse)
+
+## ---------------------------
+
+### Ejercicio 1
+
+airbnb <- read.csv("airbnb_ny_2019.csv")
+glimpse(airbnb)
+
+```
+
+La idea de tener esta plantilla es ayudarlos a que mantengan un orden y puedan leer su código de mejor manera.
+
+## Ejercicio 2
+
+
+::: {.columns}
+::: {.column width=50%}
+```{r}
+#| echo: true
+#| eval: false
+
+ggplot(airbnb) +
+  geom_histogram(aes(x=price),
+                 fill = "lightblue",
+                 color = "darkblue")+
+  labs(y = "Frequency",
+       x = "Price (dollars)") +
+  theme_minimal()
+
+```
+
+:::
+
+::: {.column width=50%}
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+
+ggplot(airbnb) +
+  geom_histogram(aes(x=price),
+                 fill = "lightblue",
+                 color = "darkblue") +
+  labs(y = "Frequency",
+       x = "Price (dollars)") +
+  theme_minimal()
+
+```
+:::
+:::
+
+
+
+::: {.columns}
+::: {.column width=50%}
+```{r}
+#| echo: true
+#| eval: false
+
+ggplot(airbnb) +
+  geom_histogram(aes(x=price),
+                 fill = "lightblue",
+                 color = "darkblue",
+                 bins = 50) +
+  labs(y = "Frequency",
+       x = "Price (dollars)") +
+  theme_minimal()
+
+
+```
+
+:::
+
+::: {.column width=50%}
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+
+ggplot(airbnb) +
+  geom_histogram(aes(x=price),
+                 fill = "lightblue",
+                 color = "darkblue",
+                 bins = 50) +
+  labs(y = "Frequency",
+       x = "Price (dollars)") +
+  theme_minimal()
+
+```
+:::
+:::
+
+
+#### Punto 3
+
+
+```{r}
+#| echo: true
+#| eval: true
+
+newdata <- airbnb |>
+  filter(price<3*sd(price, na.rm = TRUE))
+```
+
+
+Comparemos el número de observaciones en cada conjunto de datos:
+
+
+```{r}
+#| echo: true
+nrow(airbnb)
+nrow(newdata)
+```
+
+
+#### Punto 4
+
+
+::: {.columns}
+::: {.column width=50%}
+```{r}
+#| echo: true
+#| eval: false
+
+ggplot(newdata) +
+  geom_histogram(aes(x=price),
+                 fill = "lightblue",
+                 color = "darkblue",
+                 bins = 30) +
+  labs(y = "Frequency",
+       x = "Price (dollars)") +
+  theme_minimal()
+
+
+```
+
+:::
+
+::: {.column width=50%}
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+
+ggplot(newdata) +
+  geom_histogram(aes(x=price),
+                 fill = "lightblue",
+                 color = "darkblue",
+                 bins = 30) +
+  labs(y = "Frequency",
+       x = "Price (dollars)") +
+  theme_minimal()
+
+```
+:::
+:::
+
+
+::: {.columns}
+::: {.column width=50%}
+```{r}
+#| echo: true
+#| eval: false
+
+ggplot(newdata) +
+  geom_histogram(aes(x=price),
+                 fill = "lightblue",
+                 color = "darkblue",
+                 bins = 50) +
+  labs(y = "Frequency",
+       x = "Price (dollars)") +
+  theme_minimal()
+
+
+```
+
+:::
+
+::: {.column width=50%}
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+
+ggplot(newdata) +
+  geom_histogram(aes(x=price),
+                 fill = "lightblue",
+                 color = "darkblue",
+                 bins = 50) +
+  labs(y = "Frequency",
+       x = "Price (dollars)") +
+  theme_minimal()
+
+```
+:::
+:::
+
+
+## Ejercicio 3
+
+
+```{r}
+#| echo: true
+newdata |>
+  group_by(neighbourhood_group) |>
+   summarise(mean_price = mean(price),
+             median_price = median(price))
+```
+
+
+
+## Ejercicio 4
+
+#### Punto 1
+
+::: {.columns}
+::: {.column width=50%}
+```{r}
+#| echo: true
+#| eval: false
+
+ggplot(newdata) +
+  geom_boxplot(aes(x=price , y=neighbourhood_group)) +
+  labs(x = "Price (dollars)",
+       y = "Neighbourhood") +
+  theme_minimal()
+
+
+```
+
+:::
+
+::: {.column width=50%}
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+
+ggplot(newdata) +
+  geom_boxplot(aes(x=price , y=neighbourhood_group)) +
+  labs(x = "Price (dollars)",
+       y = "Neighbourhood") +
+  theme_minimal()
+
+```
+:::
+:::
+
+
+#### Punto  3
+
+
+```{r}
+#| echo: true
+newdata |>
+  group_by(neighbourhood_group) |>
+   summarise(iqr_price = IQR(price))
+```
+
+
+## Ejercicio 5
+
+#### Punto 1
+
+```{r}
+#| echo: true
+newdata <- newdata |>
+  mutate(within_1SD = price >= mean(price, na.rm = TRUE) - sd(price, na.rm = TRUE) &
+         price <= mean(price, na.rm = TRUE) + sd(price, na.rm = TRUE))
+```
+
+
+#### Punto 3
+
+```{r}
+#| echo: true
+mean(newdata$within_1SD, na.rm = TRUE)
+```
+
+
+## Ejercicio 6
+
+#### Punto 1
+
+::: {.columns}
+::: {.column width=50%}
+```{r}
+#| echo: true
+#| eval: false
+
+ggplot(newdata)+
+  geom_point(aes(x=price, y=number_of_reviews)) + 
+  labs(x = "Price (dollars)",
+       y = "Number of reviews") +
+  theme_minimal()
+
+
+```
+
+:::
+
+::: {.column width=50%}
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+
+ggplot(newdata)+
+  geom_point(aes(x=price, y=number_of_reviews)) + 
+  labs(x = "Price (dollars)",
+       y = "Number of reviews") +
+  theme_minimal()
+
+```
+:::
+:::
+
+
+
+#### Punto 3
+
+::: {.columns}
+::: {.column width=50%}
+```{r}
+#| echo: true
+#| eval: false
+
+ggplot(newdata) +
+  geom_smooth(aes(y=number_of_reviews, x=price)) +
+  theme_minimal()
+
+```
+
+:::
+
+::: {.column width=50%}
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+
+ggplot(newdata) +
+  geom_smooth(aes(y=number_of_reviews, x=price)) +
+  theme_minimal()
+
+```
+:::
+:::
