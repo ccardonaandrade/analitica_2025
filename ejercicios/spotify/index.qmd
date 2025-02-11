@@ -1,0 +1,198 @@
+---
+title: "Análisis de Datos de Spotify"
+
+lang: es
+
+format: 
+  closeread-html:
+   css: msaz.css
+   code-tools: false
+   fig-format: svg
+   toc: true
+   linkcolor: tomato
+---
+
+📅 **Fecha Límite:** Febrero 17 al mediodía
+
+**Formato de Entrega:** Me envían el R Script al correo con el formato usual `nombre_apellido.R`. Si realizan el trabajo en parejas, nombren el archivo `nombre1_apellido1_nombre2_apellido2.R`. *Antes de enviar, asegúrense de que su código se ejecuta correctamente en un nuevo R Script limpio*.
+
+
+**Criterios de evaluación:**
+
+✔ Código correcto y bien estructurado: si el código no ejecuta, descuento la mitad del punto.
+
+✔ Gráficos generados correctamente: Uso de `ggplot2` con etiquetas claras y colores adecuados.
+
+✔ Interpretación y análisis: Respuesta clara a las preguntas en comentarios y que sea concisa. Si su respuesta tiene más de 3 líneas es **muy** larga.
+
+✔ Formato y organización: Código limpio, comentado y con títulos adecuados en el documento.
+
+
+## Descripción del Dataset de Spotify
+
+El conjunto de datos contiene información sobre diversas canciones disponibles en Spotify, incluyendo características musicales, metadatos del artista y medidas de popularidad. A continuación, se detallan las principales variables:
+
+1. **Metadatos de la canción**:
+
+`artist`: Nombre del artista o banda.
+
+`song`: Nombre de la canción.
+
+`year`: Año de lanzamiento.
+
+`genre`: Género musical de la canción.
+
+
+2. **Popularidad y métricas generales**:
+
+`popularity`: Medida de popularidad en una escala de 0 a 100, donde valores más altos indican mayor popularidad.
+
+`explicit`: Indica si la canción tiene contenido explícito (TRUE o FALSE).
+
+`duration_ms`: Duración de la canción en milisegundos.
+
+3. **Características musicales**:
+
+`danceability`: Medida de qué tan bailable es una canción (0 a 1).
+
+`energy`: Nivel de intensidad y actividad de la canción (0 a 1).
+
+`tempo`: Velocidad de la canción en beats por minuto (BPM).
+
+`key`: La tonalidad en la que está la canción, representada por un número (0 = C, 1 = C♯/D♭, 2 = D, etc.).
+
+`mode`: Modalidad de la canción (1 = mayor, 0 = menor).
+
+`loudness`: Volumen promedio de la canción en decibeles (dB).
+
+4. **Otras características sonoras**:
+
+`speechiness`: Detecta la presencia de palabras habladas en una canción (0 a 1).
+
+`acousticness`: Indica qué tan acústica es una canción (0 a 1).
+
+`instrumentalness`: Mide la probabilidad de que una canción no tenga voces (0 a 1).
+
+`liveness`: Estima si una canción fue grabada en vivo (0 a 1).
+
+`valence`: Mide qué tan positiva o feliz es una canción (0 a 1).
+     
+## Ejercicio 1
+
+Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete `tidyverse`. Instálenlos desde la consola si es la primera vez que usan su PC actual.
+
+```{r}
+#| eval: false
+#| echo: true
+## ------------------------------
+## Análisis de Spotify
+##
+## Autor(es): 
+##
+## Fecha: 
+## ------------------------------
+
+## establecemos el directorio de trabajo
+## En esta carpeta deberían estar los datos
+setwd("C:/Users/nombre_apellido/OneDrive/Documentos/analitica_spotify/data")
+   
+## cargamos todos los paquetes que usaremos en la sesión:
+
+library(tidyverse)
+
+## ---------------------------
+
+### Ejercicio 1
+
+spotify <- read.csv("spotify_data.csv")
+glimpse(spotify)
+
+```
+
+Calculen la media, mediana, desviación estándar (sd) y rango intercuartílico (IQR) de la variable `popularity`. Interpreten los resultados.
+
+
+## Ejercicio 2
+
+Creen un histograma de `popularity` con un número de barras adecuado y colores personalizados. Agreguen una línea vertical que represente la media y la mediana (para esto usen la función `geom_vline()`).¿Qué nos dice el gráfico?
+
+
+## Ejercicio 3
+
+Creen un diagrama de caja para la variable `popularity`. ¿La distribución tiene valores atípicos? 
+
+## Ejercicio 4
+
+Creen un diagrama de caja de la variable `popularity` agrupado por la variable `explicit`. Comparen la mediana de popularidad entre canciones explícitas y no explícitas. ¿Las canciones explícitas son generalmente más o menos populares?
+
+## Ejercicio 5
+
+Creen un gráfico de dispersión con `danceability` en el eje x y `energy` en el eje y. El gráfico final debe tener una línea de tendencia suavizada (`geom_smooth()`) además de los puntos. Adicional a esto, calculen la correlación entre ambas variables. ¿Las canciones con mayor energía tienden a ser más bailables?
+
+## Ejercicio 6
+
+Basados en la gráfica que resulta de ejecturar el siguiente código y usando la función `filter()`, seleccionen los datos para el año que evidencie menor presencia de datos atípicos (*outliers*) en su opinión. A esta nueva base de datos llámenla `spotify_new`.
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(spotify) +
+  geom_histogram(aes(x=popularity)) +
+  labs(x = "Popularity Score", y = "Frequency") +
+  facet_wrap(~ year) + 
+  theme_minimal()
+```
+
+
+## Ejercicio 7
+
+Usando los datos `spotify_new`, calculen la media y la mediana de `popularity` dependiendo de si la canción es o no explícita (`explicit`). ¿Cambia su respuesta con respecto al Ejercicio 4?
+
+
+## Ejercicio 8
+
+Usando los datos `spotify_new`, creen un gráfico de dispersión con `popularity` en el eje x y elijan entre `loudness`, `speechiness` o `acousticness` para el eje y. ¿Qué relación observan en el gráfico?¿Tiene sentido o va en contra de lo que ustedes habrían esperado?
+
+## Ejercicio 9
+
+Volvamos a los datos originales `spotify` y creemos la variable `new_genre` de la siguiente manera:
+
+```{r}
+#| echo: true
+#| eval: false
+spotify <- spotify |>
+  mutate(new_genre = case_when(
+    str_detect(genre, "latin") ~ "Latin",
+    str_detect(genre, "rock") ~ "Rock",
+    TRUE ~ "Other"
+  ))
+```
+
+El número total de casos para las tres categorías que creamos con el código anterior es:
+
+```{r}
+#| echo: true
+#| eval: false
+spotify |> 
+  group_by(new_genre) |> 
+  count()
+``` 
+
+Grafiquen un diagrama de caja de la variable `danceability` para las tres categorías de `new_genre`. ¿Tiene sentido el gráfico?¿Por qué?
+
+## Ejercicio 10
+
+Usando la función `mutate()`:
+
+1. Conviertan la duración de las canciones (`duration_ms`) de milisegundos a minutos y guárdenla en una nueva variable llamada `duration_min`.
+
+2. Creen una variable categórica llamada `song_length` que clasifique las canciones en:
+
+  - "Short" si la duración es menor a 2.5 minutos.
+  
+  - "Medium" si está entre 2.5 y 4 minutos.
+  
+  - "Long" si dura más de 4 minutos.
+  
+3. Generen un gráfico de barras que muestre la cantidad de canciones en cada categoría (`song_length`).
+
