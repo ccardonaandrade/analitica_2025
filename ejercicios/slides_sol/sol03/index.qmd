@@ -18,13 +18,14 @@ Estas son las soluciones para las ejercicios en las diapositivas de [Explorando 
      
 ## Ejercicio 1
 
-Abran un R Script, y utilizando la siguiente plantilla, carguen los paquetes `tidyverse` y `gapminder`. Instálenlos desde la consola si es la primera vez que usan su PC actual.
+Usando la plantilla con la que ya hemos trabajado anteriormente, establezcan el directorio de trabajo (la carpeta donde guardaron los datos de airbnb) como se muestra abajo. En esta sesión sólo usaremos el paquete `tidyverse` así que asegúrense de cargarlo al inicio.
 
 ```{r}
 #| eval: true
 #| echo: true
+#| warning: false
 ## ------------------------------
-## Taller 1
+## Taller 2
 ##
 ## Autor: 
 ##
@@ -47,10 +48,11 @@ glimpse(airbnb)
 
 ```
 
-La idea de tener esta plantilla es ayudarlos a que mantengan un orden y puedan leer su código de mejor manera.
+La idea de usar `glimpse()` es saber el nombre de las variables y su tipo.
 
 ## Ejercicio 2
 
+El gráfico muestra una distribuición sesgada a la derecha.
 
 ::: {.columns}
 ::: {.column width=50%}
@@ -90,6 +92,7 @@ ggplot(airbnb) +
 :::
 
 
+Incluso si aumentamos el número de barras a 50, el nivel de información no cambia precisamente por la intensidad del sesgo que presenta la distribución.
 
 ::: {.columns}
 ::: {.column width=50%}
@@ -153,8 +156,16 @@ nrow(airbnb)
 nrow(newdata)
 ```
 
+La diferencia entre ambas bases de datos es de 575 observaciones. Filtrar las observaciones que se encuentren dentro de 3 desviaciones estándar es una forma común de eliminar datos atípicos.
+
+¿Es esta la mejor manera de hacerlo? No siempre. En este caso, aplico este criterio por razones prácticas, principalmente para mejorar la visualización de los gráficos. Sin embargo, es fundamental ser cuidadosos al manejar datos atípicos, ya que su eliminación puede afectar la interpretación y las conclusiones del análisis.
+
+
+
 
 #### Punto 4
+
+Como pueden ver, el nivel de sesgo se ha reducido. Sin embargo, al aumentar de 30 a 50 barras, no obtenemos una ganancia significativa en términos de información. Esto resalta la importancia de elegir cuidadosamente el número de barras al crear un histograma.
 
 
 ::: {.columns}
@@ -242,6 +253,10 @@ ggplot(newdata) +
 ## Ejercicio 3
 
 
+#### Punto 1
+
+Acá agrupamos por barrio usando `group_by()` y calculamos la media y la mediana usando `summarise()`:
+
 ```{r}
 #| echo: true
 newdata |>
@@ -250,11 +265,16 @@ newdata |>
              median_price = median(price))
 ```
 
+#### Punto 2
 
+La media siempre es mayor que la mediana en todos los barrios. Por lo tanto, cada distribución debe presentar un sesgo a la derecha. Entre mayor sea esa diferencia, es más probable que el sesgo sea mayor.
 
 ## Ejercicio 4
 
+
 #### Punto 1
+
+En `geom_boxplot()`, asignamos el eje `y` a la variable del barrio mediante el mapeo estético.
 
 ::: {.columns}
 ::: {.column width=50%}
@@ -291,8 +311,17 @@ ggplot(newdata) +
 :::
 
 
-#### Punto  3
+#### Punto 2
 
+Basados en los 5 diagramas de caja, podemos decir:
+
+1. Todos los barrios presentan datos atípicos
+2. Manhattan tiene la mayor mediana
+3. Manhattan presenta la mayor variabilidad al tener el Rango Intercuartílico (RIC) más grande
+4. Bronx tiene la menor mediana
+5. Bronx también presenta la menor variabilidad al tener el menor RIC
+
+#### Punto  3
 
 ```{r}
 #| echo: true
@@ -300,6 +329,10 @@ newdata |>
   group_by(neighbourhood_group) |>
    summarise(iqr_price = IQR(price))
 ```
+
+#### Punto  4
+
+Como lo mencionamos en el punto 2, Manhattan presenta la mayor variabilidad al tener un RIC de 115 y el Bronx la menor con un RIC de 54.
 
 
 ## Ejercicio 5
@@ -313,8 +346,51 @@ newdata <- newdata |>
          price <= mean(price, na.rm = TRUE) + sd(price, na.rm = TRUE))
 ```
 
+Con el código anterior, calculamos la proporción de observaciones dentro del cuadro rojo en el histograma. Es decir, aquellas que se encuentran a una desviación estándar de la media (línea punteada roja) en el intervalo:
+
+$$[\bar{x}-s_x, \bar{x}+s_x]$$
+
+
+```{r}
+#| echo: false
+#| warning: false
+# Compute mean and standard deviation for each continent
+mean_median_values <- newdata |>
+  summarise(
+    mean_lifeExp = mean(price, na.rm = TRUE),
+    sd_lifeExp = sd(price, na.rm = TRUE)
+  )
+
+# Create a dataset for the polygons (±1 SD around the mean)
+polygon_data <- mean_median_values |>
+  mutate(
+    x_min = mean_lifeExp - sd_lifeExp,
+    x_max = mean_lifeExp + sd_lifeExp,
+    y_min = 0,
+    y_max = 8750  # Adjust based on the histogram's scale
+  )
+
+# Plot histogram with polygon and mean line
+ggplot(newdata) +
+  geom_histogram(aes(x = price), bins = 30, fill = "lightblue", color = "darkblue") +
+  geom_rect(
+    data = polygon_data,
+    aes(xmin = x_min, xmax = x_max, ymin = y_min, ymax = y_max), fill= "red",
+    alpha = 0.2
+  ) +  
+  geom_vline(
+    data = mean_median_values, 
+    aes(xintercept = mean_lifeExp), color="darkred",
+    linetype = "dashed", size = 1
+  ) +
+  labs(x= "Price (dollars)", y = "Frequency") + 
+  theme_minimal()  # Removes all legends
+
+```
 
 #### Punto 3
+
+En nuestro caso, el 84% de las observaciones están a 1 desviación estándar de la media. Dado el sesgo a la derecha que existe en la distribución, la regla del 68% no se cumple para la variable `price`.
 
 ```{r}
 #| echo: true
@@ -326,6 +402,8 @@ mean(newdata$within_1SD, na.rm = TRUE)
 
 #### Punto 1
 
+Basados en este gráfico, no hay una relación clara entre las dos variables.
+
 ::: {.columns}
 ::: {.column width=50%}
 ```{r}
@@ -360,10 +438,27 @@ ggplot(newdata)+
 :::
 :::
 
+
+#### Punto 2
+
+Lo correlación es de -0.05 confirmando nuestro análisis anterior. Entre más cerca la correlación a 0, es menos evidente una relación lineal entre dos variables.
+
+
+```{r}
+#| echo: true
+#| eval: true
+#| warning: false
+
+cor(newdata$price, newdata$number_of_reviews)
+
+```
 
 
 #### Punto 3
 
+Según esta gráfica, hay una relación cóncava entre el precio del Airbnb y el número de reseñas. Inicialmente, a medida que el precio aumenta, también lo hace el número de reseñas. Sin embargo, a partir de cierto umbral, el número de reseñas comienza a disminuir.
+
+
 ::: {.columns}
 ::: {.column width=50%}
 ```{r}
@@ -372,6 +467,8 @@ ggplot(newdata)+
 
 ggplot(newdata) +
   geom_smooth(aes(y=number_of_reviews, x=price)) +
+  labs(x = "Price (dollars)",
+       y = "Number of reviews") +
   theme_minimal()
 
 ```
@@ -387,8 +484,23 @@ ggplot(newdata) +
 
 ggplot(newdata) +
   geom_smooth(aes(y=number_of_reviews, x=price)) +
+  labs(x = "Price (dollars)",
+       y = "Number of reviews") +
   theme_minimal()
 
 ```
 :::
 :::
+
+
+Este patrón puede tener varias explicaciones teóricas:
+
+1. Mayor demanda en precios intermedios: Los Airbnbs con precios moderados pueden atraer a un mayor número de viajeros, lo que se traduce en más reservas y, por lo tanto, más reseñas.
+
+2. Menos demanda en precios muy altos: A partir de cierto punto, los Airbnbs más caros pueden tener una clientela más exclusiva, lo que reduce la frecuencia de reservas y, por ende, la cantidad de reseñas.
+
+3. Sesgo en la retroalimentación: Los viajeros que pagan precios más altos podrían ser menos propensos a dejar reseñas, ya sea porque esperan un estándar más alto y solo comentan experiencias excepcionales (positivas o negativas) o porque buscan más privacidad.
+
+4.  Efectos de disponibilidad: Airbnbs con precios muy bajos pueden tener una alta rotación de huéspedes, pero si el precio es demasiado bajo, podría haber problemas de calidad que desincentiven las reseñas.
+
+Si esta relación cóncava tiene sentido o no depende de la hipótesis inicial que tengamos sobre la relación entre precio y reseñas. Si esperábamos una relación lineal positiva (mayor precio → más reseñas porque implica mejor calidad), entonces el resultado puede parecer inesperado. En cambio, si consideramos factores como accesibilidad y nicho de mercado, esta forma cóncava puede tener una explicación lógica.

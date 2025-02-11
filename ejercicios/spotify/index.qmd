@@ -12,9 +12,9 @@ format:
    linkcolor: tomato
 ---
 
-📅 **Fecha Límite:** Febrero 17 al mediodía
+📅 **Fecha Límite:** Martes 18 de febrero, 6:00 p.m.
 
-**Formato de Entrega:** Me envían el R Script al correo con el formato usual `nombre_apellido.R`. Si realizan el trabajo en parejas, nombren el archivo `nombre1_apellido1_nombre2_apellido2.R`. *Antes de enviar, asegúrense de que su código se ejecuta correctamente en un nuevo R Script limpio*.
+**Formato de Entrega:** Me envían el R Script al correo con el formato usual `nombre_apellido.R`. Si realizan el trabajo en parejas, nombren el archivo `nombre1_apellido1_nombre2_apellido2.R`. *Antes de enviar el archivo, asegúrense de que su código se ejecuta correctamente en un nuevo R Script limpio*.
 
 
 **Criterios de evaluación:**
