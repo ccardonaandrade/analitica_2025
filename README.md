@@ -23,6 +23,7 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
     - [Soluciones](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/5217e32de76abad7c65a087f7efb46e28c0c9d8b/ejercicios/slides_sol/sol02/index.html)
 3. Explorando datos numéricos \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/3ee4a2330e49066e3b973f23d6cc6c9865045f12/diapositivas/03_numerical/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/3ee4a2330e49066e3b973f23d6cc6c9865045f12/diapositivas/03_numerical/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/3ee4a2330e49066e3b973f23d6cc6c9865045f12/diapositivas/03_numerical/index.qmd)\]
     - Lecturas: IMS 5
+    - [Soluciones](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/9584d69b8dee757b40e4191d0a8c5bd92f016d85/ejercicios/slides_sol/sol03/index.html)
 4. Explorando datos categóricos y la Distribución Normal \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/70174b95d024c7dd9c9cf9dd6a0ee0f4d3aa161d/diapositivas/04_categorical/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/70174b95d024c7dd9c9cf9dd6a0ee0f4d3aa161d/diapositivas/04_categorical/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/70174b95d024c7dd9c9cf9dd6a0ee0f4d3aa161d/diapositivas/04_categorical/index.qmd)\]
     - Lecturas: IMS 4 y 6
 5. Distribución muestral e intervalos de confianza
