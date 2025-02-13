@@ -1,0 +1,91 @@
+---
+title: Analítica de los Negocios
+author: Carlos Cardona Andrade
+subtitle: Pruebas de Hipótesis
+execute:
+  freeze: auto
+  echo: true
+  fig-width: 6
+  fig-height: 5
+format:
+  revealjs: 
+   theme: ../slides.scss
+   header-includes: |
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"/>
+   slide-number: true
+   show-slide-number: all
+   transition: fade
+   progress: true
+   multiplex: false
+   scrollable: false
+   preview-links: false
+   hide-inactive-cursor: true
+   highlight-style: printing
+   pause: true
+---
+     
+
+
+
+## Plan para hoy
+
+1. [Pruebas de Hipótesis](#prueba)
+
+2. [Intervalos de Confianza](#intconf)
+
+
+
+
+# Pruebas de Hipótesis {#prueba}
+
+## Ejemplo: Número de horas que estudian Analítica {.medium}
+
+- Retomemos el ejemplo de la muestra de 30 estudiantes del total de inscritos en la materia de Analítica
+
+- Uno de los profesores cree que los estudiantes deberían estudiar 9 horas
+
+- El número promedio de horas que estudian los alumnos de esa muestra son 9.8 y la desviación estándar es 0.7
+
+- ¿Son estos datos suficientes para probar que los alumnos estudian más de lo que el profesor considera recomendable?
+
+
+
+## Hipótesis {.medium}
+
+- `Población`: todos los estudiantes inscritos en Analítica
+- El `parámetro de interés` $\color{purple}\mu$ es el número promedio de horas de estudio de *todos* los estudiantes
+- Hay dos explicaciones de por qué la media muestral es mayor
+que las 9 horas recomendadas por el profesor:
+  1. La media real de la población es diferente.
+  2. La media real de la población es 9, y la diferencia entre la media real de la población y la media de la muestra se debe simplemente a la variabilidad natural del muestreo.
+- $\color{blue}{H_0}$ $: \mu = 9$ (El número de horas de estudio es 9)
+- $\color{blue}{H_A}$ $: \mu > 9.9$ (El número de horas de estudio es $>$ 9)
+
+
+## Maneras incorrectas de establecer las hipótesis {.medium}
+
+- $H_0$ y $H_A$ **SIEMPRE** se expresan en términos de parámetros de población, no de estadísticas de muestra.
+- Ni:
+
+$$H_0 : \bar{x} = 9, \quad H_A : \bar{x} > 9$$
+
+- ni:
+
+$H_0 :$ el número de horas de estudio `en la muestra` es 9
+
+$H_A :$ el número de horas de estudio `en la muestra` es 9
+
+son correctas. 
+
+
+## Maneras incorrectas de establecer las hipótesis {.medium}
+
+Las hipótesis son:
+
+$$H_0 : \mu = 9, \quad H_A : \mu > 9$$
+También siempre **especifíquen claramente** qué es $\mu$
+
+e.g., $\mu$ es el número promedio de horas de estudio de los alumnos en Analítica
+
+
+
