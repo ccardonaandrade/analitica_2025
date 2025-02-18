@@ -26,6 +26,7 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
     - [Soluciones](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/9584d69b8dee757b40e4191d0a8c5bd92f016d85/ejercicios/slides_sol/sol03/index.html)
 4. Explorando datos categóricos y la Distribución Normal \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/70174b95d024c7dd9c9cf9dd6a0ee0f4d3aa161d/diapositivas/04_categorical/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/70174b95d024c7dd9c9cf9dd6a0ee0f4d3aa161d/diapositivas/04_categorical/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/70174b95d024c7dd9c9cf9dd6a0ee0f4d3aa161d/diapositivas/04_categorical/index.qmd)\]
     - Lecturas: IMS 4 y 6
+    - [Soluciones](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/71b0df1fc4a6bc3f5bfd4ea881e9129b8a19b37b/ejercicios/slides_sol/sol04/index.html)
 5. Distribución muestral e intervalos de confianza
     - Lecturas: OIS 5.1 - 5.2
 6. Pruebas de hipótesis
