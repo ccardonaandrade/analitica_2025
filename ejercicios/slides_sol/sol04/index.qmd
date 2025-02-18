@@ -1,0 +1,487 @@
+---
+title: "Explorando datos numéricos - Soluciones"
+
+lang: es
+
+format: 
+  closeread-html:
+   css: msaz.css
+   code-tools: false
+   fig-format: svg
+   toc: true
+   linkcolor: tomato
+---
+
+
+Estas son las soluciones para las ejercicios en las diapositivas de [Explorando datos categóricos y la Distribución Normal](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/70174b95d024c7dd9c9cf9dd6a0ee0f4d3aa161d/diapositivas/04_categorical/index.html#/title-slide){target="_blank"}
+
+     
+## Ejercicio 1
+
+Usando la plantilla con la que ya hemos trabajado anteriormente, establezcan el directorio de trabajo y carguen los paquetes `tidyverse` y `janitor` (Este último instálenlo por lo que es la primera vez que lo usamos).
+
+#### Puntos 1-3
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+## ------------------------------
+## Taller 3
+##
+## Autor: 
+##
+## Fecha: 
+## ------------------------------
+
+## establecemos el directorio de trabajo
+setwd("C:/Users/ccard/OneDrive/Documentos/GitHub/analitica_2025/data/credit_default")
+   
+## cargamos todos los paquetes que usaremos en la sesión:
+
+library(tidyverse)
+
+## Si aún no está instalado no olviden:
+## install.packages("janitor")
+library(janitor)
+
+## ---------------------------
+
+### Ejercicio 1
+
+credit <- read.csv("credit_demographics.csv")
+glimpse(credit)
+
+```
+
+#### Punto 4
+
+El [paquete janitor](https://github.com/sfirke/janitor){target="_blank"} ayuda a que el proceso de limpieza de datos sea más eficiente. Los nombres de las variables están en mayúsculas y separadas por puntos. La función `clean_names()` pasa esos nombres a minúsculas, sustituye espacios por guiones bajos, y otro sinfín de sustituciones para los nombres de columna de un dataframe. Para nuestro caso:
+
+
+```{r}
+#| eval: true
+#| echo: true
+
+credit <- credit |>
+  clean_names()
+
+glimpse(credit)
+``` 
+
+Como pueden ver, los nombres están en minúscula y en un formato que es más fácil de utilizar. 
+
+#### Punto 5
+
+Como pueden notar en el punto anterior, la variable `default` contiene 0s y 1s. Vamos a convertirla en una variable de texto (`string`) para que sea más fácil de interpretar en los gráficos. Ejecuten el siguiente código para crear una nueva variable:
+
+
+```{r}
+#| eval: true
+#| echo: true
+
+credit <- credit |>
+  mutate(
+    default_string = case_when(
+      default == 1 ~ "Default",
+      default == 0 ~ "No Default",
+      TRUE ~ NA_character_  # Assign NA for any unmatched values
+    ))
+
+
+credit |>
+  count(default, default_string)
+``` 
+
+**Siempre** que construyan una nueva variable, revisen los datos con la función `View()`. En este caso, uso la función `count()` para mostrarles como las dos variables `default` y `default_string` coinciden en sus valores:
+
+
+```{r}
+#| eval: true
+#| echo: true
+
+credit |>
+  count(default, default_string)
+``` 
+
+#### Punto 6
+
+Usando esta nueva variable `default_string` y el paquete `ggplot`, construyan un gráfico de barras para visualizar cuántos clientes están en default y cuántos no. Asegúrense de incluir etiquetas y un título para hacer el gráfico más informativo.
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| out-width: 100%
+ggplot(credit, aes(x = default_string)) +
+  geom_bar(fill = "gold") +
+  labs(title = "Proportion of Clients in Default",
+       y = "Frequency",
+       x = "") +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| out-width: 100%
+ggplot(credit, aes(x = default_string)) +
+  geom_bar(fill = "gold") +
+  labs(title = "Proportion of Clients in Default",
+       y = "Frequency",
+       x = "") +
+  theme_minimal()
+```
+
+:::
+:::
+
+De los 30,000 clientes en nuestra base de datos, 6,636 están en situación de default.
+
+
+## Ejercicio 2
+
+
+#### Punto 1
+
+Con base en el código con el que crearon la variable `default_string`, generen la variable `marriage_string` según los valores de la variable `marriage`:
+
+```{r}
+#| eval: true
+#| echo: true
+
+credit <- credit |>
+  mutate(
+    marriage_string = case_when(
+      marriage == 1 ~ "Married",
+      marriage == 2 ~ "Single",
+      marriage == 3 ~ "Other",
+      TRUE ~ NA_character_  # Assign NA for any unmatched values
+    ))
+
+
+credit |>
+  count(marriage, marriage_string)
+``` 
+
+
+#### Punto 2
+
+
+Creen un gráfico de barras (apilados, dobles o estandarizado) para visualizar la relación entre el estado civil (`marriage_string`) y si el cliente está en default (`default_string`).
+
+Acá les presento las dos maneras en que se podría hacer el gráfico. La primera es con `default_string` en el eje `x` y con `marital_string` en el atributo `fill`. 
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| out-width: 100%
+ggplot(credit, aes(x = default_string,
+                  fill = marriage_string)) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = c("darkred",
+                               "gold",
+                               "yellow",
+                               "gray")) +
+  labs(x = "Default Status",
+       y = "Frequency",
+       fill = "Marital Status",
+       title = "Marital and Default Status") +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| out-width: 100%
+ggplot(credit, aes(x = default_string,
+                  fill = marriage_string)) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = c("darkred",
+                               "gold",
+                               "yellow",
+                               "gray")) +
+  labs(x = "Default Status",
+       y = "Frequency",
+       fill = "Marital Status",
+       title = "Marital and Default Status") +
+  theme_minimal()
+```
+
+:::
+:::
+
+
+Otra forma, sugerida por una compañera de clase, es colocar `marriage_string` en el eje `x` y `default_string` en el atributo `fill`. Este gráfico facilita la comparación y permite notar que hay más personas solteras sin default en comparación con las casadas. Además, hay pocos clientes con un estado marital `other` y pocos datos faltantes (missings - `NA`).
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| out-width: 100%
+ggplot(credit, aes(x = marriage_string,
+                  fill = default_string)) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = c("darkred",
+                               "gold")) +
+  labs(x = "Marital Status",
+       y = "Frequency",
+       fill = "Default Status",
+       title = "Marital and Default Status") +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| out-width: 100%
+ggplot(credit, aes(x = marriage_string,
+                  fill = default_string)) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = c("darkred",
+                               "gold")) +
+  labs(x = "Marital Status",
+       y = "Frequency",
+       fill = "Default Status",
+       title = "Marital and Default Status") +
+  theme_minimal()
+```
+
+:::
+:::
+
+
+## Ejercicio 3
+
+#### Punto 1
+
+Completen el siguiente código que crea una variable igual a 1 si el credito está fuera del rango $1.5 \times RIC$ y 0 en caso contrario.
+
+Para este punto, lo primero es recordar que la función `fivenum()` devuelve un vector con cinco valores: el mínimo, el primer cuartil ($q_1$), la mediana, el tercer cuartil ($q_3$) y el máximo:
+
+```{r}
+#| echo: true
+fivenum(credit$limit_bal, na.rm = TRUE)
+```
+
+En este caso, necesitamos el primer cuartil ($q_1$) y el tercer cuartil ($q_3$) para calcular el rango intercuartílico. El primer cuartil corresponde al segundo elemento del vector resultante luego de usar la función `fivenum()`, mientras que el tercer cuartil es el cuarto elemento. 
+
+Para acceder a una posición específica dentro de un vector en `r fontawesome::fa("r-project")`, se utiliza la notación `x[n]`. Aplicando esto, podemos calcular el rango intercuartílico ($RIC=q_3-q_1$) de la siguiente manera:
+
+```{r}
+#| echo: true
+
+# fivenum() devuelve: min, Q1, mediana, Q3, max
+q1 <- fivenum(credit$limit_bal, na.rm = TRUE)[2]
+q3 <- fivenum(credit$limit_bal, na.rm = TRUE)[4]
+ric <- q3-q1
+```
+
+
+La otra manera de calcular el rango intercuartílico es utilizando la función `IQR()`:
+
+```{r}
+#| echo: true
+ric_2 <- IQR(credit$limit_bal, na.rm = TRUE)
+```
+
+¿Son ambos valores iguales?
+
+```{r}
+#| echo: true
+ric == ric_2
+```
+
+Como pueden observar, ambos valores son iguales. Por lo tanto, en el siguiente código podríamos utilizar `ric` o `ric_2`:
+
+
+```{r}
+#| echo: true
+
+credit <- credit |> 
+  mutate(
+    # Identificar outliers por RIC
+    outlier_ric = ifelse(limit_bal < (q1 - 1.5 * ric) | limit_bal > (q3 + 1.5 * ric), 1, 0),
+  ) 
+
+credit |> 
+  count(outlier_ric)
+```
+
+
+::: columns
+::: {.column width="50%"}
+
+¿Qué tipo de variable estamos creando en este punto? Los 167 casos que vemos en la tabla anterior, son los puntos que aparecen en el diagrama de caja a la derecha. 
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| out-width: 100%
+ggplot(credit, aes(x = limit_bal)) +
+  geom_boxplot() +
+  labs(x="Amount of given credit (dollars)") +
+  theme_minimal()
+```
+
+:::
+:::
+
+
+#### Punto 2
+
+Completen el siguiente código que crea una variable igual a 1 si $|ZScore_i|>3$
+ y 0 en caso contrario.
+ 
+ 
+```{r}
+#| echo: true
+#| eval: true
+#| out-width: 100%
+credit <- credit |> 
+  mutate(
+    z_score = (limit_bal - mean(limit_bal, na.rm = TRUE)) / sd(limit_bal, na.rm = TRUE),
+    outlier_zscore = ifelse(abs(z_score) > 3, 1, 0)
+  )
+```
+
+Acá simplemente estamos utilizando la fórmula del Z score para estandarizar la variable `limit_bal`:
+
+$$Z=\dfrac{x-\mu}{\sigma}$$
+
+Para luego crear una variable igual a 1 si $|Z|>3$ y cero en caso contrario:
+
+```{r}
+#| echo: true
+
+credit |> 
+  count(outlier_zscore)
+```
+
+#### Punto 3
+
+¿Coinciden ambos criterios?
+
+```{r}
+#| echo: true
+#| eval: true
+#| out-width: 100%
+credit |> 
+  count(outlier_zscore, outlier_ric)
+```
+
+Ambas maneras de identificar outliers coinciden en 130 casos, mientras que hay 37 casos de más cuando identificamos outliers basados en el rango intercuartílico (`outlier_ric`).
+
+## Ejercicio 4
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+library(openintro)
+```
+
+#### Punto 1
+
+Suponga que el límite de crédito `limit_bal`$\sim N(150000,50000)$. Calcule de dos maneras diferentes la probabilidad de que un cliente seleccionado al azar tenga un límite de crédito superior a 240000.
+
+Basados en la gráfica de la distribución de la variable `limit_bal`, lo que queremos calcular es el área azul:
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| error: false
+#| fig-asp: 0.4
+#| out-width: 60%
+#| fig-align: center
+#| fig-width: 5
+
+par(mar = c(2, 0, 0, 0))
+normTail(m = 150, s = 50, U = 240, col = IMSCOL["blue", "full"])
+```
+
+
+
+¿Cómo podemos hacerlo?
+
+Una manera sería calculando el z-score y luego usando la función `pnorm()`:
+
+1. Calcular el Z-score:
+
+```{r}
+#| echo: true
+(240-150)/50
+```
+
+$$Z=\dfrac{240-150}{50}=1.8$$
+
+2. Calcular el área bajo la distribución normal estandarizada:
+
+```{r}
+#| echo: true
+pnorm(1.8)
+ 1 - pnorm(1.8)
+```
+
+Otra manera es usando la opción `lower.tail=FALSE` de la función `pnorm()` para calcular la parte superior de la distribución:
+
+```{r}
+#| echo: true
+pnorm(1.8, lower.tail=FALSE)
+```
+
+
+Finalmente, podemos usar los valores particulares de nuestra distribución en la opciones de la función `pnorm()`:
+
+```{r}
+#| echo: true
+pnorm(240000,
+      mean = 150000,
+      sd = 50000,
+      lower.tail=FALSE)
+```
+
+Sin importar el método, la probabilidad de seleccionar una persona que deba más de 240,000 dólares es 3.5%.
+
+#### Punto 2
+
+Encuentren el límite de crédito que corresponde al percentil 95.
+
+En este caso, buscamos el valor que corresponde al percentil 95, es decir, el valor por debajo del cual se encuentran el 95% de los datos. Gráficamente, esto equivale a identificar el valor en el eje x que separa el área azul (que representa el 95%) del área blanca:
+
+```{r}
+#| fig-asp: 0.4
+#| out-width: 60%
+#| fig-align: center
+#| fig-width: 5
+#| echo: false
+par(mar = c(2, 0, 0, 0))
+normTail(150, 50, L = qnorm(0.95, 150, 50), col = IMSCOL["blue", "full"])
+```
+
+Utilizando la función `qnorm()`, encontramos que el percentil 95 es 232,242 dólares:
+
+```{r}
+#| echo: true
+qnorm(0.95, mean = 150000, sd = 50000)
+```
