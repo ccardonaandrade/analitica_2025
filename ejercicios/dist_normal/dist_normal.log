@@ -1,7 +1,7 @@
-This is LuaHBTeX, Version 1.18.1 (MiKTeX 24.4) (format=lualatex 2024.12.23)  18 FEB 2025 10:11
+This is LuaHBTeX, Version 1.18.1 (MiKTeX 24.4) (format=lualatex 2024.12.23)  18 FEB 2025 10:10
  restricted system commands enabled.
-**ejercicios.tex
-(./ejercicios.tex
+**dist_normal.tex
+(./dist_normal.tex
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
 Lua module: luaotfload 2024-02-14 v3.28 Lua based OpenType font support
@@ -452,8 +452,8 @@ File: l3backend-luatex.def 2024-05-08 L3 backend support: PDF output (LuaTeX)
 Inserting `l3color' in `luaotfload.parse_color'.
 \l__pdf_internal_box=\box65
 )
-(./ejercicios.aux)
-\openout1 = ejercicios.aux
+(./dist_normal.aux)
+\openout1 = dist_normal.aux
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
@@ -532,9 +532,7 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 
 {C:/Users/ccard/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
 
-[2]
-
-[3] (./ejercicios.aux)
+[2] (./dist_normal.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
@@ -542,27 +540,25 @@ L3 programming layer <2024-11-02>
 )
 
 Here is how much of LuaTeX's memory you used:
- 13537 strings out of 475630
+ 13232 strings out of 475630
  100000,794899 words of node,token memory allocated
- 515 words of node memory still in use:
-   6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 13 attribute, 52 glue_spec
-, 13 attribute_list, 2 write nodes
-   avail lists: 1:1,2:1079,3:683,4:46,5:283,6:31,7:7345,8:35,9:309,10:11,11:488
- 36075 multiletter control sequences out of 65536+600000
- 47 fonts using 3268151 bytes
- 102i,6n,101p,894b,718s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/program files/miktex/fonts/opentype/public/lm/lmroman10-italic.otf><c:/progr
-am files/miktex/fonts/opentype/public/lm/lmroman10-bold.otf><c:/program files/mi
-ktex/fonts/opentype/public/lm/lmroman10-regular.otf><c:/program files/miktex/fon
-ts/opentype/public/lm/lmroman12-regular.otf><c:/program files/miktex/fonts/opent
-ype/public/lm/lmroman12-bold.otf><C:/Program Files/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi
-7.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Prog
-ram Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on ejercicios.pdf (3 pages, 84652 bytes).
+ 491 words of node memory still in use:
+   6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 7 attribute, 52 glue_spec,
+ 7 attribute_list, 2 write nodes
+   avail lists: 1:1,2:622,3:215,4:114,5:212,6:54,7:5015,8:9,9:253,10:5,11:287
+ 35770 multiletter control sequences out of 65536+600000
+ 45 fonts using 3004775 bytes
+ 102i,6n,101p,391b,282s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/program files/miktex/fonts/opentype/public/lm/lmroman10-bold.otf><c:/program
+ files/miktex/fonts/opentype/public/lm/lmroman10-regular.otf><c:/program files/m
+iktex/fonts/opentype/public/lm/lmroman12-regular.otf><c:/program files/miktex/fo
+nts/opentype/public/lm/lmroman12-bold.otf><C:/Program Files/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfont
+s/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pf
+b>
+Output written on dist_normal.pdf (2 pages, 54062 bytes).
 
-PDF statistics: 70 PDF objects out of 1000 (max. 8388607)
+PDF statistics: 52 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
  16 words of extra memory for PDF output out of 10000 (max. 100000000)
 

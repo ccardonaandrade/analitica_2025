@@ -1,0 +1,80 @@
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[margin=3cm]{geometry}
+\usepackage{tikz}
+
+
+\begin{document}
+
+\title{{\bf Ejercicios}} 
+\author{Analítica de Datos  \\
+	Pontificia Universidad Javeriana}
+
+\date{}
+
+\maketitle
+
+
+\section{Distribución Normal}
+
+Utilizen la función \textcolor{purple}{pnorm()} y \textcolor{purple}{qnorm()} en R para resolver los siguientes ejercicios:
+
+
+\begin{enumerate}
+	\item Encuentre cada una de las siguientes probabilidades para la distribución normal.
+	\begin{enumerate}
+		\item $P(z>1.25)$ {\bf p=0.105}
+		\item $P(z>-0.6)$ {\bf p=0.725}
+		\item $P(z<0.7)$ {\bf p=0.758}
+		\item $P(z<-1.3)$ {\bf p=0.096}
+	\end{enumerate}
+	
+	\item ¿Qué proporción de la distribución normal se ubica entre cada uno de los siguiente intervalos?
+	\begin{enumerate}
+		\item $z= -0.25$ y $z=0.25$  {\bf p=0.197}
+		\item $z=-0.67$ y $z=0.67$  {\bf p=0.497}
+		\item $z= -1.20$ y $z=1.20$  {\bf p=0.769}
+	\end{enumerate}
+	
+	\item Para un examen que se distribuye normal con media $\mu=3$ y desviación estándar $\sigma=0.5$, encuentre la proporción de la población que corresponde a cada uno de lo siguiente:
+	\begin{enumerate}
+		\item Notas mayores a $3.25$ {\bf p=0.308}
+		\item Notas menores a $3.4$ {\bf p=0.788}
+		\item Notas entre $2.5$ y $3.5$ {\bf p=0.682}
+	\end{enumerate}
+	
+	\item La distribución de ingresos para Colombia es normal con $\mu=500$ (en miles de pesos) y $\sigma=100$ (en miles de pesos).
+	\begin{enumerate}
+		\item ¿Qué valor de ingreso, separa el 15\% más rico de la distribución del resto? {\bf RTA=603.64}
+		\item ¿Qué valor de ingreso, separa el 10\% más rico de la distribución del resto? {\bf RTA=628.15}
+		\item ¿Qué valor de ingreso, separa el 2\% más rico de la distribución del resto? {\bf RTA=705.37}
+	\end{enumerate}
+
+\item Las personas en Colombia sonríen en promedio $\mu=62$ veces por día. Asumiendo que la distribución de sonrisas es aproximadamente normal con una desviación estándar $\sigma=18$, encuentre cada uno de los siguientes valores:
+\begin{enumerate}
+	\item ¿Qué proporción de los colombianos sonríe más de 80 veces al día? {\bf p=0.159}
+	\item ¿Que proporción de los colombianos sonríe menos de 50 veces al día? {\bf p=0.255}
+	\item ¿Qué proporción de los colombianos sonríe entre 40 veces y 75 veces al día? {\bf p=0.653}
+	\item ¿Cuántas sonrisas al día corresponden al percentil 30 de la distribución? {\bf z=-0.53 - 52.46 sonrisas}
+	\item Si el enunciado se basa en un estudio realizado a 2000 colombianos, ¿cuántas personas del estudio aproximadamente sonríen menos de 30 veces al día? {\bf p=0.038 - 76 personas}
+\end{enumerate}
+\item La Secretaría de Transporte de Bogotá reporta que la edad promedio de los conductores bogotanos es $\mu=45.7$ años con una desviación estándar $\sigma=12.5$ años. Asumiendo que la distribución de la edad de los conductores es aproximadamente normal.
+\begin{enumerate}
+	\item ¿Qué proporción de los conductores es menor a 30 años? {\bf p=0.104}
+	\item ¿Qué proporción de los conductores tiene entre 30 y 40 años? {\bf p=0.22}
+	\item ¿Qué edad corresponde al percentil 60 de la distribución? {\bf z=0.25 - 48.82 años}
+	\item Suponga que en Bogotá hay 3 millones de conductores, ¿cuántos conductores aproximadamente tienen entre 60 y 70 años? {\bf p=0.101 - 303000 conductores}
+\end{enumerate}
+
+\item Una encuesta a consumidores indica que los hogares gastan en promedioo $\mu=\$ 185000$ en productos a la semana. La distribución del dinero gastado es aproximadamente normal con una desviación estándar de $\sigma=\$ 25000$. Basándose en esta distribución:
+\begin{enumerate}
+	\item ¿Qué proporción de la población gasta entre 120000 y 150000 pesos a la semana? {\bf p=0.076}
+	\item ¿Qué nivel de gasto corresponde al percentil 25? {\bf z=-0.67 - 168.250 pesos}
+	\item ¿Qué nivel de gasto corresponde al percentil 85? {\bf z=1.04 - 211.000 pesos}
+	\item Asumiendo que en la encuesta participaron 1000 personas, ¿cuántas personas gastan menos de 210000 pesos? {\bf p=0.841 - 841 personas}
+	\item Asumiendo que en la encuesta participaron 1000 personas, ¿cuántas personas gastan entre 200000 y 240000 pesos? {\bf p=0.26 - 260 personas}
+\end{enumerate} 
+\end{enumerate}
+
+\end{document}
