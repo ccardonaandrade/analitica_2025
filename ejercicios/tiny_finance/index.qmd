@@ -1,0 +1,285 @@
+---
+title: "Análisis de Datos - Precio de Acciones"
+
+lang: es
+
+format: 
+  closeread-html:
+   css: msaz.css
+   code-tools: false
+   fig-format: svg
+   toc: true
+   linkcolor: tomato
+---
+
+📅 **Fecha Límite:** Martes 18 de febrero, 6:00 p.m.
+
+**Formato de Entrega:** Me envían el R Script al correo con el formato usual `nombre_apellido.R`. Si realizan el trabajo en parejas, nombren el archivo `nombre1_apellido1_nombre2_apellido2.R`. *Antes de enviar el archivo, asegúrense de que su código se ejecuta correctamente en un nuevo R Script limpio*.
+
+
+**Criterios de evaluación:**
+
+✔ Código correcto y bien estructurado: si el código no ejecuta, descuento la mitad del punto.
+
+✔ Gráficos generados correctamente: Uso de `ggplot2` con etiquetas claras y colores adecuados.
+
+✔ Interpretación y análisis: Respuesta clara a las preguntas en comentarios y que sea concisa. Si su respuesta tiene más de 3 líneas es **muy** larga.
+
+✔ Formato y organización: Código limpio, comentado y con títulos adecuados en el documento.
+
+     
+## Ejercicio 1
+
+Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete `tidyverse`. Instálenlos desde la consola si es la primera vez que usan su PC actual.
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+## ------------------------------
+## Análisis del Precio de Acciones
+##
+## Autor(es): 
+##
+## Fecha: 
+## ------------------------------
+
+
+## cargamos todos los paquetes que usaremos en la sesión:
+
+library(tidyverse)
+library(tidyfinance)
+library(scales)
+library(patchwork)
+
+## ---------------------------
+
+### Ejercicio 1
+
+price_data <- download_data(
+  type = "stock_prices",
+  symbols = c("AMZN","META","NVDA","AAPL","TSLA","NFLX", "MSFT"),
+  start_date = "2000-01-01",
+  end_date = "2023-12-31"
+)
+
+glimpse(price_data)
+
+```
+
+
+Observemos qué tienen nuestros datos:
+
+## Ejercicio
+
+Completen el código a la izquierda para obtener la gráfica de la derecha:
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| out-width: 100%
+price_data |>
+  ggplot(aes(x = date, y = adjusted_close, color = ______)) +
+  geom_line() +
+  labs(
+    x = NULL,
+    y = NULL,
+    color = "_______",
+    title = "Stock prices between beginning of 2000 and end of 2023"
+  ) + 
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+price_data |>
+  ggplot(aes(x = date, y = adjusted_close, color = symbol)) +
+  geom_line() +
+  labs(
+    x = NULL,
+    y = NULL,
+    color = "Company",
+    title = "Stock prices between beginning of 2000 and end of 2023"
+  ) + 
+  theme_minimal()
+```
+
+
+:::
+:::
+
+## Ejercicio
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| fig-align: center
+#| fig-width: 12
+
+p1 <- price_data |>
+  filter(symbol=="NFLX") |>
+  ggplot(aes(x=adjusted_close)) +
+  geom_boxplot() + 
+  labs(x="Distribution of daily Netflix stock prices") +
+  theme_minimal()
+
+p2 <- price_data |>
+  filter(symbol=="NFLX") |>
+  ggplot(aes(x=adjusted_close)) +
+  geom_histogram(fill="lightblue", color="darkblue") + 
+  labs(x="Distribution of daily Netflix stock prices") +
+  theme_minimal()
+
+p1+p2
+```
+
+## Ejercicio
+
+
+Utilizando la variable `adjusted_close` y la función `lag()`, vamos a crear el retorno del precio de la acción:
+
+  $$r_t=\dfrac{p_t-p_{t-1}}{p_{t-1}}=\dfrac{p_t}{p_{t-1}}-1$$
+
+Completen el siguiente código que crea una nueva base de datos `returns` con el retorno para una de las empresas. Seleccionen la compañía que les interese más.
+
+
+```{r}
+#| echo: true
+#| eval: false
+returns <- price_data |>
+  filter(symbol == "______") |>
+  arrange(date) |>
+  mutate(______ = adjusted_close / lag(______) - 1) |>
+  select(symbol, date, return)
+```
+
+Por ejemplo, yo elegí a Netflix. Mis datos `returns` se verían de la siguiente manera:
+
+```{r}
+#| echo: false
+#| eval: true
+returns <- price_data |>
+  filter(symbol == "NFLX") |>
+  arrange(date) |>
+  mutate(return = adjusted_close / lag(adjusted_close) - 1) |>
+  select(symbol, date, return)
+
+returns
+```
+
+
+## Ejercicio
+
+¿Qué tal se ve la distribución del retorno para Netflix?
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| fig-align: center
+returns |>
+  ggplot(aes(x=return)) +
+  geom_boxplot() + 
+  labs(x="Distribution of daily Netflix stock returns") +
+  theme_minimal()
+```
+
+Construyan el mismo gráfico para la compañía que elegieron en el punto anterior.
+
+## Ejercicio
+
+Por ahora, vamos a eliminar los datos faltantes. Recuerden que esto **no es trivial** ya que pueden existir razones por las cuales no tenemos información de los precios para ciertos días.
+
+```{r}
+#| echo: true
+#| eval: true
+#| warning: false
+returns <- returns |>
+  drop_na(return)
+```
+
+
+## Ejercicio
+
+La función `quantile()` nos permite calcular cualquier percentil de la distribución de un vector. Calculemos el percentil 5 al completar el siguiente código:
+
+```{r}
+#| echo: true
+#| eval: false
+#| warning: false
+#| fig-align: center
+percentile_5 <- quantile(______$return, probs = 0.05)
+```
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| fig-align: center
+percentile_5 <- quantile(returns$return, probs = 0.05)
+```
+
+En el caso de Netflix, el percentil 5 es: `r round(percentile_5, 3)`.
+
+## Ejercicio
+
+Completen el código a la izquierda para obtener la gráfica de la derecha:
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| out-width: 100%
+returns |>
+  ggplot(aes(x = ________)) +
+  geom_histogram(fill="lightblue",
+                 color="darkblue",
+                 bins = 100) +
+  geom_vline(aes(xintercept = percentile_5),
+             linetype = "dashed") +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "________"
+  ) +
+  scale_x_continuous(labels = percent) +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+returns |>
+  ggplot(aes(x = return)) +
+  geom_histogram(fill="lightblue",
+                 color="darkblue",
+                 bins = 100) +
+  geom_vline(aes(xintercept = percentile_5),
+             linetype = "dashed") +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Distribution of daily Netflix stock returns"
+  ) +
+  scale_x_continuous(labels = percent) +
+  theme_minimal()
+```
+
+
+:::
+:::
