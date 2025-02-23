@@ -67,22 +67,47 @@ pop_sd <- as.numeric(round(pop_df |> summarize(sd=sd(x, na.rm = T)),1))
 ```
 
 
+## ¿Qué hemos visto hasta ahora? {.medium}
+
+- Una (muy!) breve introducción a <i class="fa-brands fa-r-project"></i>
+
+. . .
+
+- Los paquetes `ggplot` y `dplyr` para visualizar y transformar datos
+
+. . .
+
+- Cómo visualizar y describir variables numéricas
+  
+  - Tendencia central, dispersión, histogramas, gráficos de dispersión, etc
+  
+. . .
+
+- Cómo visualizar y describir variables categóricas
+
+  - Tablas de frecuencia, gráficos de barras, etc
+  
+. . . 
+
+- La Distribución Normal
+
+
 ## Plan para hoy
 
-1. [Datos categóricos](#intro)
+1. [Distribución Muestral](#sampdist)
 
 2. [Intervalos de Confianza](#intconf)
 
 
-
-
-# Datos categóricos {#intro}
+# Distribución Muestral {#sampdist}
 
 ## Población y Muestra {.medium}
 
-- Los estadísticos descriptivos discutidos anteriormente describen una **muestra**, pero no a la **población**. 
+- Los estadísticos descriptivos discutidos anteriormente describen una **muestra**, pero no a la **población**
 
-- Las medidas que describen a una población se llaman `parámetros`. Utilizamos letras griegas para referirnos a ellos. 
+- Las medidas que describen a una población se llaman `parámetros`. Utilizamos letras griegas para referirnos a ellos
+
+. . .
 
 ::: {.tbl-classic .tbl-larger .center-text}
 
@@ -97,11 +122,11 @@ pop_sd <- as.numeric(round(pop_df |> summarize(sd=sd(x, na.rm = T)),1))
 
 ## ¿Por qué nos importa tanto la población vs la muestra? {.medium}
 
-- La inferencia estadística es el acto de generalizar a partir de una muestra para sacar conclusiones sobre una población.
+- La inferencia estadística es el acto de generalizar a partir de una muestra para sacar conclusiones sobre una población
 
 . . .
 
-- Nos interesan los parámetros poblacionales, los cuales no observamos. En su lugar, debemos calcular estadísticas a partir de nuestra muestra para aprender sobre ellos.
+- Nos interesan los parámetros de la población, pero no podemos observarlos directamente. En su lugar, calculamos estadísticas a partir de una muestra para hacer inferencias sobre ellos
 
 $$
 \bar{x} \xrightarrow{\text{🤞 ojalá 🤞}} \mu
@@ -110,7 +135,7 @@ $$
 . . .
 
 
-- Como parte de este proceso, debemos cuantificar el grado de incertidumbre en nuestra estadística muestral.
+- Como parte de este proceso, es importante cuantificar la incertidumbre asociada a los estadísticos muestrales
 
 
 
@@ -273,22 +298,22 @@ La media **muestral** es `r round(pop_df |> filter(s3 == T) |> summarize(mean=me
 
 ## ¿Por qué nos importa tanto la población vs la muestra? {.medium}
 
-- Como vimos en los anteriores ejemplos, algunas muestras pueden estar lejos del valor real del parámetro poblacional (el número de horas de estudio promedio para todos los estudiantes tomando Analítica).
+- Como vimos en los anteriores ejemplos, algunas muestras pueden estar lejos del verdadero valor del parámetro poblacional (el número de horas de estudio promedio para todos los estudiantes tomando Analítica).
 
-- Diferencias entre muestras individuales y la población llevan a la **incertidumbre** para el que está analizando el problema
+- Diferencias entre muestras individuales y la población generan **incertidumbre** para quien analiza el problema
 
 . . .
 
 ### ¿Por qué nos importa tanto la población vs la muestra?
 
-**Respuesta:** la incertidumbre importa!
+**Respuesta:** !Porque la incertidumbre importa!
 
-Cuando tomamos una muestra, no sabemos si esta es una *buena* muestra ($\bar{x}$ está cerca a $\mu$) o una *mala* ($\bar{x}$ difiere mucho de $\mu$).
+Cuando tomamos una muestra, no sabemos si es una *buena* muestra ($\bar{x}$ está cerca a $\mu$) o una *mala* muestra ($\bar{x}$ difiere mucho de $\mu$)
 
 
 ## Distribución Muestral de la Media {.medium}
 
-Para entender cómo varían las medias muestrales de tamaño $n=30$ de nuestro ejemplo, tomemos 10 muestras y grafiquemos el histograma...
+Para analizar la variabilidad de las medias muestrales con $n=30$ en nuestro ejemplo, tomemos 10 muestras, calculemos la media de horas de estudio en cada una y representemos los resultados con un histograma...
 
 
 ## Distribución Muestral de la Media para 10 muestras {.medium}
@@ -320,7 +345,7 @@ geom_vline(xintercept = pop_mean, linetype = "dashed", color = "darkred", linewi
 
 ::: {.column width="50%"}
 
-Así luce la distribución de las medias muestrales para 10 muestras. 
+Así se ve la distribución de las medias muestrales para 10 muestras, con la media poblacional representada por la línea punteada (9.9 horas de estudio en promedio). 
 
 
 ::: {.fragment}
@@ -409,7 +434,7 @@ tibble(mean = sample_means) |>
 
 
 ::: {.fragment}
-Ya es claro que la distribución tiende a ser normal...
+Ya es claro que la distribución de las medias muestrales tiende a ser normal...
 :::
 
 :::
@@ -448,7 +473,7 @@ tibble(mean = sample_means) |>
 ¿Qué pasa si tomamos 10000 muestras?
 
 ::: {.fragment}
-...y que la media de la distribución de medias muestrales se ubica muy cerca de la media poblacional (la línea punteada)
+...y que la distribución está centrada en la media poblacional.
 :::
 
 :::
@@ -530,7 +555,7 @@ tibble(mean = sample_means) |>
 ¿Qué pasa si tomamos 10000 muestras pero de 70 estudiantes?
 
 ::: {.fragment}
-A medida que el tamaño de la muestra $n$ es mayor, las muestras van a tener menos probabilidad de estar lejos del parámetro poblacional
+A medida que el tamaño de la muestra $n$ aumenta, las medias muestrales tienden a concentrarse más alrededor del parámetro poblacional
 :::
 
 
@@ -556,7 +581,7 @@ A medida que el tamaño de la muestra $n$ es mayor, las muestras van a tener men
 
 Para una población con una media bien definida $\mu$ y una desviación estándar $\sigma$ se cumplen estas tres propiedades para la distribución de la media muestral $\bar{x}$, siempre que se cumplan ciertas condiciones:
 
-1. La media de la distribución muestral de la media es idéntica a la media poblacional $\mu$.
+1. La media de la distribución muestral de la media tiende a la media poblacional $\mu$.
 
 2. La desviación estándar de la distribución de las medias muestrales es $\dfrac{\sigma}{\sqrt{n}}$
 
@@ -566,10 +591,10 @@ Esto se llama el *error estándar* (SE) de la media.
 
 ## Teorema del Límite Central {.medium}
 
-Básicamente el teorema es:
+Básicamente el teorema se resume de la siguiente manera:
 
 $$\bar{x}\sim N(\mu,\dfrac{\sigma}{\sqrt{n}})$$
-E identifica las tres caracterízticas básicas de una distribución:
+E identifica las tres características básicas de una distribución:
 
 1. Forma $\rightarrow$ Normal
 
@@ -620,7 +645,7 @@ En nuestra simulación con las 1000 muestras simuladas de $\bar{x}$, ¿cuántas 
 sum(sample_means > 10)
 ```
 
-Este número se acerca a la aproximación con el TLC, el cual establece que son aproximadamente 43% ($1000\times0.43\approx430$) de las medias muestrales.
+Este número se acerca a la aproximación con el TLC, el cual establece que son aproximadamente 43% ($1000\times0.438\approx438$) de las medias muestrales.
 
 ## Condiciones para el TLC {.medium}
 
@@ -683,7 +708,10 @@ Este número se acerca a la aproximación con el TLC, el cual establece que son 
 
 ## ¿Qué es un intervalo de confianza? {.medium}
 
-Con un [intervalo de confianza]{.marker-hl} tomamos una estimación puntual de la muestra y, con el conocimiento que tenemos sobre las distribuciones muestrales, tratamos de acercarnos al parámetro muestral
+Con un [intervalo de confianza]{.marker-hl} tomamos una estimación puntual de la muestra y, con el conocimiento que tenemos sobre las distribuciones muestrales, tratamos de acercarnos al parámetro poblacional
+
+![](img/ci_graph.png){height="400" fig-align="center"}
+
 
 
 ## ¿Qué es un intervalo de confianza? {.medium}
@@ -820,6 +848,8 @@ pop_mean <- mean(gapminder_2007$lifeExp, na.rm = TRUE)
 pop_mean
 ```
 
+$$\mu=67\text{ años}$$
+
 
 ## Ejemplo: Expectativa de Vida en 2007 {.medium}
 
@@ -855,7 +885,6 @@ $$\bar{x}=70.16 \quad \dfrac{s}{\sqrt{n}}=1.81$$
 #| echo: true
 #| eval: true
 
-
 # Calculamos los intervalos de confianza
 ic_inf <- sample_mean - 1.96 * std_error
 ic_sup <- sample_mean + 1.96 * std_error
@@ -868,10 +897,33 @@ ic
 
 $$
 \begin{array}{cl}
-\bar{x}\pm 1.96\times\dfrac{s}{\sqrt{n}} &=& 70.16\pm 1.96\times 1.81  \\  
+\bar{x}\pm 1.96\times\dfrac{{\color{orange} s}}{\sqrt{n}} &=& 70.16\pm 1.96\times 1.81  \\  
 &\sim& 70.16 \pm 3.54 = (66.61, 73.71) \\  
 \end{array}
 $$
+
+## ¿Qué pasa si calculamos el IC con la desviación estándar poblacional? {.medium}
+
+```{r}
+#| fig.align: 'center'
+#| echo: true
+#| eval: true
+
+# Calculamos el error estándar con la desviación estándar poblacional
+std_error_2 <- sd(gapminder_2007$lifeExp, na.rm = TRUE) / sqrt(nrow(sample_gapminder))
+
+# Calculamos los intervalos de confianza
+ic_inf_2 <- sample_mean - 1.96 * std_error_2
+ic_sup_2 <- sample_mean + 1.96 * std_error_2
+
+# Definámoslo como intervalo
+ic_pop <- c(ic_inf_2, ic_sup_2)
+ic_pop
+```
+
+
+$$ \bar{x}\pm 1.96\times\dfrac{{\color{orange} \sigma}}{\sqrt{n}}=(65.84, 74.48)$$
+
 
 ## Ejemplo: Expectativa de Vida en 2007 {.medium}
 
@@ -894,7 +946,7 @@ ic_2
 ## ¿Qué significa "nivel de confianza al 95%"? {.medium}
 
 
-### ¿Qué es lo que tiene un 95% de probabilidad de ocurrir?
+### ¿Qué es lo que tiene un 95% de probabilidad de ocurrir? 
 
 - Es el procedimiento para construir el intervalo del 95%
 
@@ -993,7 +1045,7 @@ ggplot(df, aes(x = x, y = y)) +
   geom_line(color = "black", size = 1) +
   scale_x_continuous(
     breaks = c(-1.96, 1.96),
-    labels = c(expression(Z^{"*"}), expression(Z^{"*"}))
+    labels = c(expression(-Z^{"*"}), expression(Z^{"*"}))
   ) +
   labs(x = "", y = "") +
   theme_minimal() +
@@ -1018,7 +1070,7 @@ ggplot(df, aes(x = x, y = y)) +
 
 En general, un intervalo de confianza al nivel $(1-\alpha)$ es 
 
-  $$\bar{x}+z^*\times \dfrac{s}{\sqrt{n}}$$
+  $$\bar{x}\pm z^*\times \dfrac{s}{\sqrt{n}}$$
 
 - $z^*\times \dfrac{s}{\sqrt{n}}$ es conocido como el [margen de error]{.marker-hl}
 
