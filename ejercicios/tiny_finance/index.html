@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Análisis de Datos - Precio de Acciones</title>
+<title>Analítica de los Negocios - Precio de Acciones</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Análisis de Datos - Precio de Acciones</h1>
+<h1 class="title">Analítica de los Negocios - Precio de Acciones</h1>
 </div>
 
 
@@ -125,7 +125,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>📅 <strong>Fecha Límite:</strong> Martes 18 de febrero, 6:00 p.m.</p>
+<p>📅 <strong>Fecha Límite:</strong> Viernes 28 de febrero, 11:59 a.m.</p>
 <p><strong>Formato de Entrega:</strong> Me envían el R Script al correo con el formato usual <code>nombre_apellido.R</code>. Si realizan el trabajo en parejas, nombren el archivo <code>nombre1_apellido1_nombre2_apellido2.R</code>. <em>Antes de enviar el archivo, asegúrense de que su código se ejecuta correctamente en un nuevo R Script limpio</em>.</p>
 <p><strong>Criterios de evaluación:</strong></p>
 <p>✔ Código correcto y bien estructurado: si el código no ejecuta, descuento la mitad del punto.</p>
@@ -134,6 +134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>✔ Formato y organización: Código limpio, comentado y con títulos adecuados en el documento.</p>
 <section id="ejercicio-1" class="level2">
 <h2 class="anchored" data-anchor-id="ejercicio-1">Ejercicio 1</h2>
+<p>En este Taller, exploraremos datos financieros utilizando el paquete <code>tidyfinance</code>, una herramienta para obtener y manipular datos de mercados financieros en <svg aria-hidden="true" role="img" viewbox="0 0 581 512" style="height:1em;width:1.13em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M581 226.6C581 119.1 450.9 32 290.5 32S0 119.1 0 226.6C0 322.4 103.3 402 239.4 418.1V480h99.1v-61.5c24.3-2.7 47.6-7.4 69.4-13.9L448 480h112l-67.4-113.7c54.5-35.4 88.4-84.9 88.4-139.7zm-466.8 14.5c0-73.5 98.9-133 220.8-133s211.9 40.7 211.9 133c0 50.1-26.5 85-70.3 106.4-2.4-1.6-4.7-2.9-6.4-3.7-10.2-5.2-27.8-10.5-27.8-10.5s86.6-6.4 86.6-92.7-90.6-87.9-90.6-87.9h-199V361c-74.1-21.5-125.2-67.1-125.2-119.9zm225.1 38.3v-55.6c57.8 0 87.8-6.8 87.8 27.3 0 36.5-38.2 28.3-87.8 28.3zm-.9 72.5H365c10.8 0 18.9 11.7 24 19.2-16.1 1.9-33 2.8-50.6 2.9v-22.1z"></path></svg> de manera ordenada. A lo largo del ejercicio, descargaremos datos de precios históricos de varias acciones, calcularemos rendimientos y analizaremos la evolución del mercado. Si quieren profundizar en el uso de este paquete revisen <a href="https://www.tidy-finance.org/" target="_blank">https://www.tidy-finance.org/</a>.</p>
 <p>Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete <code>tidyverse</code>, <code>tidyfinance</code> y <code>scales</code>. Instalen los dos últimos paquetes desde la consola ya que es la primera vez que los vamos a utilizar.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ------------------------------</span></span>
@@ -272,7 +273,7 @@ $ adjusted_close &lt;dbl&gt; 4.468750, 4.096875, 3.487500, 3.278125, 3.478125, 3
 <p>Imaginen que no tenemos acceso a los datos de precios para todos los días. En este caso, solo disponemos de datos para 100 días y necesitamos estimar el precio promedio de la acción durante el período 2015-2023.</p>
 <p>La función <code>sample_n()</code> toma una muestra aleatoria de los precios de las acciones de Netflix. En este caso, especificamos que el tamaño de la muestra sea de 100 días. Hagan lo mismo para su compañía.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Establezcamos la semillar para elegir siempre la misma muestra:</span></span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Establezcamos la semilla para elegir siempre la misma muestra:</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>netflix_sample <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(netflix_data, <span class="dv">100</span>)  </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -290,7 +291,7 @@ $ adjusted_close &lt;dbl&gt; 4.468750, 4.096875, 3.487500, 3.278125, 3.478125, 3
 </section>
 <section id="ejercicio-7" class="level2">
 <h2 class="anchored" data-anchor-id="ejercicio-7">Ejercicio 7</h2>
-<p>Utilizando el comando <code>t.test()</code>, estimen un intervalo de confianza para el precio de las acciones de su compañía basado en la muestra de 100 días.</p>
+<p>Utilizando el comando <code>t.test()</code>, estimen un intervalo de confianza al 95% para el precio de las acciones de su compañía basado en la muestra de 100 días.</p>
 <p>En el caso de Netflix, el resultado de la función es:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">

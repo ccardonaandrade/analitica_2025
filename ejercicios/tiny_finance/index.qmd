@@ -1,5 +1,5 @@
 ---
-title: "Análisis de Datos - Precio de Acciones"
+title: "Analítica de los Negocios - Precio de Acciones"
 
 lang: es
 
@@ -12,7 +12,7 @@ format:
    linkcolor: tomato
 ---
 
-📅 **Fecha Límite:** Martes 18 de febrero, 6:00 p.m.
+📅 **Fecha Límite:** Viernes 28 de febrero, 11:59 a.m.
 
 **Formato de Entrega:** Me envían el R Script al correo con el formato usual `nombre_apellido.R`. Si realizan el trabajo en parejas, nombren el archivo `nombre1_apellido1_nombre2_apellido2.R`. *Antes de enviar el archivo, asegúrense de que su código se ejecuta correctamente en un nuevo R Script limpio*.
 
@@ -27,8 +27,12 @@ format:
 
 ✔ Formato y organización: Código limpio, comentado y con títulos adecuados en el documento.
 
+
+
      
 ## Ejercicio 1
+
+En este Taller, exploraremos datos financieros utilizando el paquete `tidyfinance`, una herramienta para obtener y manipular datos de mercados financieros en `r fontawesome::fa("r-project")` de manera ordenada. A lo largo del ejercicio, descargaremos datos de precios históricos de varias acciones, calcularemos rendimientos y analizaremos la evolución del mercado. Si quieren profundizar en el uso de este paquete revisen [https://www.tidy-finance.org/](https://www.tidy-finance.org/){target="_blank"}.
 
 Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete `tidyverse`, `tidyfinance` y `scales`. Instalen los dos últimos paquetes desde la consola ya que es la primera vez que los vamos a utilizar.
 
@@ -220,7 +224,7 @@ La función `sample_n()` toma una muestra aleatoria de los precios de las accion
 ```{r}
 #| echo: true
 #| eval: true
-#Establezcamos la semillar para elegir siempre la misma muestra:
+#Establezcamos la semilla para elegir siempre la misma muestra:
 set.seed(123)
 
 netflix_sample <- sample_n(netflix_data, 100)  
@@ -248,7 +252,7 @@ netflix_sample |>
 
 ## Ejercicio 7
 
-Utilizando el comando `t.test()`, estimen un intervalo de confianza para el precio de las acciones de su compañía basado en la muestra de 100 días.
+Utilizando el comando `t.test()`, estimen un intervalo de confianza al 95% para el precio de las acciones de su compañía basado en la muestra de 100 días.
 
 En el caso de Netflix, el resultado de la función es:
 
