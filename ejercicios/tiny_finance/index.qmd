@@ -30,7 +30,7 @@ format:
      
 ## Ejercicio 1
 
-Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete `tidyverse`. Instálenlos desde la consola si es la primera vez que usan su PC actual.
+Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete `tidyverse`, `tidyfinance` y `scales`. Instalen los dos últimos paquetes desde la consola ya que es la primera vez que los vamos a utilizar.
 
 ```{r}
 #| eval: true
@@ -50,11 +50,20 @@ Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete `tidy
 library(tidyverse)
 library(tidyfinance)
 library(scales)
-library(patchwork)
 
 ## ---------------------------
 
 ### Ejercicio 1
+```
+
+
+
+Primero descargamos los precios diarios de varias acciones, como Amazon (AMZN), Meta (META), NVIDIA (NVDA), Apple (AAPL), Tesla (TSLA), Netflix (NFLX) y Microsoft (MSFT), directamente desde el proveedor de datos Yahoo Finance. Para descargar los datos, usamos la función `download_data`. Para profundizar en su uso, revisen el archivo de ayuda con `?download_data`. Recomiendo especialmente la sección de ejemplos en la documentación. Solicitamos datos diarios para un período de 23 años.
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
 
 price_data <- download_data(
   type = "stock_prices",
@@ -62,15 +71,20 @@ price_data <- download_data(
   start_date = "2000-01-01",
   end_date = "2023-12-31"
 )
-
-glimpse(price_data)
-
 ```
+
+`download_data(type = "stock_prices")` descarga datos del mercado de valores desde Yahoo Finance. La función devuelve un *tibble* con ocho columnas bastante autoexplicativas: `symbol`, `date`, el volumen diario (en número de acciones negociadas), los precios de mercado de apertura, máximo, mínimo, cierre y el precio ajustado en USD. Los precios ajustados están corregidos por cualquier factor que pueda afectar el precio de la acción después del cierre del mercado, como divisiones de acciones y dividendos. Estas acciones afectan los precios cotizados, pero no tienen un impacto directo en los inversionistas que poseen la acción. Por lo tanto, a menudo nos basamos en los precios ajustados al analizar los rendimientos que un inversionista habría obtenido al mantener la acción de forma continua.
 
 
 Observemos qué tienen nuestros datos:
 
-## Ejercicio
+```{r}
+#| echo: true
+#| eval: true
+glimpse(price_data)
+```
+
+## Ejercicio 2
 
 Completen el código a la izquierda para obtener la gráfica de la derecha:
 
@@ -90,6 +104,7 @@ price_data |>
     color = "_______",
     title = "Stock prices between beginning of 2000 and end of 2023"
   ) + 
+  scale_y_continuous(labels = label_dollar()) +
   theme_minimal()
 ```
 :::
@@ -108,6 +123,7 @@ price_data |>
     color = "Company",
     title = "Stock prices between beginning of 2000 and end of 2023"
   ) + 
+  scale_y_continuous(labels = label_dollar()) +
   theme_minimal()
 ```
 
@@ -115,8 +131,55 @@ price_data |>
 :::
 :::
 
-## Ejercicio
+Describan el gráfico anterior con 3 hechos puntuales.
 
+**Nota:** `labels = label_dollar()` es una función del paquete `scales` que, como pueden ver en el gráfico, añade el símbolo de dólar a los números en el eje.
+
+
+## Ejercicio 3
+
+Es claro que muchos de los precios son cero antes del año 2015. Elijan una de las empresas a partir del año 2015 basándose en el siguiente código donde elijo a Netflix:
+
+
+```{r}
+#| echo: true
+netflix_data <-  price_data |>
+  filter(symbol=="NFLX" & year(date)>2014)
+```
+
+La variable `date` está en formato de fecha. Para poder usar el año, necesitamos la función `year()` como lo muestra el anterior código. Mis datos se ven así:
+
+```{r}
+#| echo: true
+netflix_data
+```
+
+## Ejercicio 4
+
+Basándose en el código del Ejercicio 2, grafiquemos nuevamente la evolución de los precios de las acciones para la compañía que ustedes escogieron. En el caso de Netflix, la gráfica se ve de la siguiente manera:
+
+
+```{r}
+#| echo: false
+#| out-width: 100%
+#| fig-align: center
+netflix_data |>
+  ggplot(aes(x = date, y = adjusted_close)) +
+  geom_line(color="darkred") +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Netflix stock prices"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  theme_minimal()
+```
+
+Describan el comportamiento de los precios de su compañía con 3 hechos puntuales.
+
+## Ejercicio 5
+
+Construyan el diagrama de caja y el histograma para el precio de las acciones de la empresa que escogieron. Para el caso de Netflix, los dos gráficos se ven así:
 
 ```{r}
 #| echo: false
@@ -125,32 +188,106 @@ price_data |>
 #| fig-align: center
 #| fig-width: 12
 
-p1 <- price_data |>
-  filter(symbol=="NFLX") |>
+library(patchwork)
+
+p1 <- netflix_data |>
   ggplot(aes(x=adjusted_close)) +
   geom_boxplot() + 
-  labs(x="Distribution of daily Netflix stock prices") +
+  labs(x="Distribution of daily Netflix stock prices") + 
+  scale_x_continuous(labels = label_dollar()) +
   theme_minimal()
 
-p2 <- price_data |>
-  filter(symbol=="NFLX") |>
+p2 <- netflix_data |>
   ggplot(aes(x=adjusted_close)) +
   geom_histogram(fill="lightblue", color="darkblue") + 
-  labs(x="Distribution of daily Netflix stock prices") +
+  labs(x="Distribution of daily Netflix stock prices",
+       y="Frequency") + 
+  scale_x_continuous(labels = label_dollar()) +
   theme_minimal()
 
 p1+p2
 ```
 
-## Ejercicio
+
+Describan la distribución de los precios de las acciones de su compañía con 3 hechos puntuales.
+
+## Ejercicio 6
+
+Imaginen que no tenemos acceso a los datos de precios para todos los días. En este caso, solo disponemos de datos para 100 días y necesitamos estimar el precio promedio de la acción durante el período 2015-2023.
+
+La función `sample_n()` toma una muestra aleatoria de los precios de las acciones de Netflix. En este caso, especificamos que el tamaño de la muestra sea de 100 días. Hagan lo mismo para su compañía.
+
+```{r}
+#| echo: true
+#| eval: true
+#Establezcamos la semillar para elegir siempre la misma muestra:
+set.seed(123)
+
+netflix_sample <- sample_n(netflix_data, 100)  
+```
 
 
-Utilizando la variable `adjusted_close` y la función `lag()`, vamos a crear el retorno del precio de la acción:
+Basándose en el siguiente gráfico, construyan la distribución de los precios de su compañía para la muestra. ¿Cómo cambia la distribución de los precios de la muestra con respecto a la distribución de la población en el punto anterior?
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| fig-align: center
+netflix_sample |>
+  ggplot(aes(x=adjusted_close)) +
+  geom_histogram(fill="lightblue", color="darkblue") + 
+  labs(x="Distribution of daily Netflix stock prices (sample)",
+       y="Frequency") + 
+  scale_x_continuous(labels = label_dollar()) +
+  theme_minimal()
+```
+
+
+
+
+## Ejercicio 7
+
+Utilizando el comando `t.test()`, estimen un intervalo de confianza para el precio de las acciones de su compañía basado en la muestra de 100 días.
+
+En el caso de Netflix, el resultado de la función es:
+
+```{r}
+#| echo: false
+#| eval: true
+
+t.test(netflix_sample$adjusted_close, conf.level = 0.95)
+```
+
+El intervalo de confianza al 95% es:
+
+$$IC=[257.79, 312.49]$$
+
+¿Captura este intervalo el parámetro problacional (el precio promedio de las acciones)?
+
+```{r}
+#| echo: true
+#| eval: true
+
+mean(netflix_data$adjusted_close, na.rm = TRUE)
+```
+
+El precio promedio de las acciones es 298.63. Por lo tanto, para el caso de Netflix, el intervalo de confianza sí incluye el parámetro poblacional. 
+
+Hagan este mismo análisis para la compañía que eligieron.
+
+## Ejercicio 8
+
+Repitan el mismo análisis del punto anterior pero con un nivel de confianza del 90%.
+
+
+## Ejercicio 9
+
+Utilizando la variable `adjusted_close` y la función `lag()` (que devuelve el valor anterior en un vector), calculamos los rendimientos netos diarios, definidos como:
 
   $$r_t=\dfrac{p_t-p_{t-1}}{p_{t-1}}=\dfrac{p_t}{p_{t-1}}-1$$
 
-Completen el siguiente código que crea una nueva base de datos `returns` con el retorno para una de las empresas. Seleccionen la compañía que les interese más.
-
+Completen el siguiente código para crear una nueva base de datos `returns` con el rendimiento de una de las empresas. Seleccionen la compañía con la que han trabajado en los puntos anteriores.
 
 ```{r}
 #| echo: true
@@ -162,7 +299,15 @@ returns <- price_data |>
   select(symbol, date, return)
 ```
 
-Por ejemplo, yo elegí a Netflix. Mis datos `returns` se verían de la siguiente manera:
+Expliquen paso a paso qué hace el código anterior. Por ejemplo:
+
+1. La primera línea crea un nuevo objeto llamado `returns` a partir de los datos `price_data`.
+
+2. ...
+
+## Ejercicio 10
+
+Por ejemplo, los datos `returns` se verían de la siguiente manera para Netflix:
 
 ```{r}
 #| echo: false
@@ -177,8 +322,6 @@ returns
 ```
 
 
-## Ejercicio
-
 ¿Qué tal se ve la distribución del retorno para Netflix?
 
 ```{r}
@@ -186,16 +329,24 @@ returns
 #| eval: true
 #| warning: false
 #| fig-align: center
+
 returns |>
-  ggplot(aes(x=return)) +
-  geom_boxplot() + 
-  labs(x="Distribution of daily Netflix stock returns") +
+  ggplot(aes(x = return)) +
+  geom_histogram(fill="lightblue",
+                 color="darkblue",
+                 bins = 100) +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Distribution of daily Netflix stock returns"
+  ) +
+  scale_x_continuous(labels = percent) +
   theme_minimal()
 ```
 
-Construyan el mismo gráfico para la compañía que elegieron en el punto anterior.
+Construyan el mismo gráfico para su compañía y descríbanlo con 2 hechos puntuales.
 
-## Ejercicio
+## Ejercicio 11
 
 Por ahora, vamos a eliminar los datos faltantes. Recuerden que esto **no es trivial** ya que pueden existir razones por las cuales no tenemos información de los precios para ciertos días.
 
@@ -208,7 +359,9 @@ returns <- returns |>
 ```
 
 
-## Ejercicio
+## Ejercicio 12
+
+A continuación, construyamos la distribución de los rendimientos diarios en un histograma como en el Ejercicio 10. Sin embargo, le añadimos una línea discontinua que indica el percentil del 5% de los rendimientos diarios, que es una aproximación (rudimentaria) del peor rendimiento de la acción con una probabilidad de, como máximo, 5%. El percentil 5 está estrechamente relacionado con el value-at-risk (VaR) histórico, una medida de riesgo que suele ser monitoreada por los reguladores.
 
 La función `quantile()` nos permite calcular cualquier percentil de la distribución de un vector. Calculemos el percentil 5 al completar el siguiente código:
 
@@ -231,9 +384,9 @@ percentile_5 <- quantile(returns$return, probs = 0.05)
 
 En el caso de Netflix, el percentil 5 es: `r round(percentile_5, 3)`.
 
-## Ejercicio
+## Ejercicio 13
 
-Completen el código a la izquierda para obtener la gráfica de la derecha:
+Completen el código a la izquierda para obtener la gráfica de la derecha para su compañía:
 
 ::: columns
 ::: {.column width="50%"}
@@ -283,3 +436,83 @@ returns |>
 
 :::
 :::
+
+**Nota:** `labels = percent` es una función del paquete `scales` que, como pueden ver en el gráfico, añade el símbolo de porcentaje a los números en el eje.
+
+
+## Ejercicio 14
+
+Completen el siguiente código para calcular el volumen total de transacciones diarias en el mercado, definiéndolo como la suma del producto entre el número de acciones negociadas (`volume`) y el precio ajustado (`adjusted_close`) para cada día.
+
+```{r}
+#| echo: true
+#| eval: false
+#| warning: false
+trading_volume <- price_data |>
+  group_by(____) |>
+  summarize(trading_volume = sum(_____ * ___________))
+```
+
+
+
+## Ejercicio 15
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+trading_volume <- price_data |>
+  group_by(date) |>
+  summarize(trading_volume = sum(volume * adjusted_close))
+```
+
+Completen el siguiente código para generar un gráfico de dispersión que analice la persistencia en el volumen de transacciones diarias. En el eje X, coloque el volumen total de transacciones del día anterior y en el eje Y, el volumen total del día actual.
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| out-width: 100%
+trading_volume |>
+  ggplot(aes(x = lag(___________), y = trading_volume)) +
+  geom_point() +
+  labs(
+    x = "Previous day aggregate trading volume",
+    y = "__________________",
+    title = "Persistence in daily trading volume of 8 companies"
+  ) + 
+  scale_x_continuous(labels = unit_format(unit = "B", scale = 1e-9)) +
+  scale_y_continuous(labels = unit_format(unit = "B", scale = 1e-9)) +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+#| warning: false
+trading_volume |>
+  ggplot(aes(x = lag(trading_volume), y = trading_volume)) +
+  geom_point() +
+  labs(
+    x = "Previous day aggregate trading volume",
+    y = "Aggregate trading volume",
+    title = "Persistence in daily trading volume of 8 companies"
+  ) + 
+  scale_x_continuous(labels = unit_format(unit = "B", scale = 1e-9)) +
+  scale_y_continuous(labels = unit_format(unit = "B", scale = 1e-9)) +
+  theme_minimal()
+```
+
+
+:::
+:::
+
+¿Qué patrones observan en la relación entre estos valores? Calculen la correlación entre ambas variables para respaldar su análisis y explicar el patrón observado.
+
+
+**Nota:** `labels = unit_format(unit = "B", scale = 1e-9)` es un argumento del paquete `scales` que, como pueden ver en el gráfico, formatea los valores para que se expresen en billones.

@@ -89,13 +89,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#ejercicio-1" id="toc-ejercicio-1" class="nav-link active" data-scroll-target="#ejercicio-1">Ejercicio 1</a></li>
-  <li><a href="#ejercicio" id="toc-ejercicio" class="nav-link" data-scroll-target="#ejercicio">Ejercicio</a></li>
-  <li><a href="#ejercicio-2" id="toc-ejercicio-2" class="nav-link" data-scroll-target="#ejercicio-2">Ejercicio</a></li>
-  <li><a href="#ejercicio-3" id="toc-ejercicio-3" class="nav-link" data-scroll-target="#ejercicio-3">Ejercicio</a></li>
-  <li><a href="#ejercicio-4" id="toc-ejercicio-4" class="nav-link" data-scroll-target="#ejercicio-4">Ejercicio</a></li>
-  <li><a href="#ejercicio-5" id="toc-ejercicio-5" class="nav-link" data-scroll-target="#ejercicio-5">Ejercicio</a></li>
-  <li><a href="#ejercicio-6" id="toc-ejercicio-6" class="nav-link" data-scroll-target="#ejercicio-6">Ejercicio</a></li>
-  <li><a href="#ejercicio-7" id="toc-ejercicio-7" class="nav-link" data-scroll-target="#ejercicio-7">Ejercicio</a></li>
+  <li><a href="#ejercicio-2" id="toc-ejercicio-2" class="nav-link" data-scroll-target="#ejercicio-2">Ejercicio 2</a></li>
+  <li><a href="#ejercicio-3" id="toc-ejercicio-3" class="nav-link" data-scroll-target="#ejercicio-3">Ejercicio 3</a></li>
+  <li><a href="#ejercicio-4" id="toc-ejercicio-4" class="nav-link" data-scroll-target="#ejercicio-4">Ejercicio 4</a></li>
+  <li><a href="#ejercicio-5" id="toc-ejercicio-5" class="nav-link" data-scroll-target="#ejercicio-5">Ejercicio 5</a></li>
+  <li><a href="#ejercicio-6" id="toc-ejercicio-6" class="nav-link" data-scroll-target="#ejercicio-6">Ejercicio 6</a></li>
+  <li><a href="#ejercicio-7" id="toc-ejercicio-7" class="nav-link" data-scroll-target="#ejercicio-7">Ejercicio 7</a></li>
+  <li><a href="#ejercicio-8" id="toc-ejercicio-8" class="nav-link" data-scroll-target="#ejercicio-8">Ejercicio 8</a></li>
+  <li><a href="#ejercicio-9" id="toc-ejercicio-9" class="nav-link" data-scroll-target="#ejercicio-9">Ejercicio 9</a></li>
+  <li><a href="#ejercicio-10" id="toc-ejercicio-10" class="nav-link" data-scroll-target="#ejercicio-10">Ejercicio 10</a></li>
+  <li><a href="#ejercicio-11" id="toc-ejercicio-11" class="nav-link" data-scroll-target="#ejercicio-11">Ejercicio 11</a></li>
+  <li><a href="#ejercicio-12" id="toc-ejercicio-12" class="nav-link" data-scroll-target="#ejercicio-12">Ejercicio 12</a></li>
+  <li><a href="#ejercicio-13" id="toc-ejercicio-13" class="nav-link" data-scroll-target="#ejercicio-13">Ejercicio 13</a></li>
+  <li><a href="#ejercicio-14" id="toc-ejercicio-14" class="nav-link" data-scroll-target="#ejercicio-14">Ejercicio 14</a></li>
+  <li><a href="#ejercicio-15" id="toc-ejercicio-15" class="nav-link" data-scroll-target="#ejercicio-15">Ejercicio 15</a></li>
   </ul>
 </nav>
 </div>
@@ -127,7 +134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>✔ Formato y organización: Código limpio, comentado y con títulos adecuados en el documento.</p>
 <section id="ejercicio-1" class="level2">
 <h2 class="anchored" data-anchor-id="ejercicio-1">Ejercicio 1</h2>
-<p>Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete <code>tidyverse</code>. Instálenlos desde la consola si es la primera vez que usan su PC actual.</p>
+<p>Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete <code>tidyverse</code>, <code>tidyfinance</code> y <code>scales</code>. Instalen los dos últimos paquetes desde la consola ya que es la primera vez que los vamos a utilizar.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ------------------------------</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Análisis del Precio de Acciones</span></span>
@@ -143,20 +150,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyfinance)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="do">## ---------------------------</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="do">### Ejercicio 1</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>price_data <span class="ot">&lt;-</span> <span class="fu">download_data</span>(</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"stock_prices"</span>,</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">symbols =</span> <span class="fu">c</span>(<span class="st">"AMZN"</span>,<span class="st">"META"</span>,<span class="st">"NVDA"</span>,<span class="st">"AAPL"</span>,<span class="st">"TSLA"</span>,<span class="st">"NFLX"</span>, <span class="st">"MSFT"</span>),</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">start_date =</span> <span class="st">"2000-01-01"</span>,</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">end_date =</span> <span class="st">"2023-12-31"</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(price_data)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="do">## ---------------------------</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="do">### Ejercicio 1</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Primero descargamos los precios diarios de varias acciones, como Amazon (AMZN), Meta (META), NVIDIA (NVDA), Apple (AAPL), Tesla (TSLA), Netflix (NFLX) y Microsoft (MSFT), directamente desde el proveedor de datos Yahoo Finance. Para descargar los datos, usamos la función <code>download_data</code>. Para profundizar en su uso, revisen el archivo de ayuda con <code>?download_data</code>. Recomiendo especialmente la sección de ejemplos en la documentación. Solicitamos datos diarios para un período de 23 años.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>price_data <span class="ot">&lt;-</span> <span class="fu">download_data</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"stock_prices"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">symbols =</span> <span class="fu">c</span>(<span class="st">"AMZN"</span>,<span class="st">"META"</span>,<span class="st">"NVDA"</span>,<span class="st">"AAPL"</span>,<span class="st">"TSLA"</span>,<span class="st">"NFLX"</span>, <span class="st">"MSFT"</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">start_date =</span> <span class="st">"2000-01-01"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">end_date =</span> <span class="st">"2023-12-31"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>download_data(type = "stock_prices")</code> descarga datos del mercado de valores desde Yahoo Finance. La función devuelve un <em>tibble</em> con ocho columnas bastante autoexplicativas: <code>symbol</code>, <code>date</code>, el volumen diario (en número de acciones negociadas), los precios de mercado de apertura, máximo, mínimo, cierre y el precio ajustado en USD. Los precios ajustados están corregidos por cualquier factor que pueda afectar el precio de la acción después del cierre del mercado, como divisiones de acciones y dividendos. Estas acciones afectan los precios cotizados, pero no tienen un impacto directo en los inversionistas que poseen la acción. Por lo tanto, a menudo nos basamos en los precios ajustados al analizar los rendimientos que un inversionista habría obtenido al mantener la acción de forma continua.</p>
+<p>Observemos qué tienen nuestros datos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(price_data)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 35,910
 Columns: 8
@@ -170,59 +181,169 @@ $ close          &lt;dbl&gt; 4.468750, 4.096875, 3.487500, 3.278125, 3.478125, 3
 $ adjusted_close &lt;dbl&gt; 4.468750, 4.096875, 3.487500, 3.278125, 3.478125, 3.459…</code></pre>
 </div>
 </div>
-<p>Observemos qué tienen nuestros datos:</p>
 </section>
-<section id="ejercicio" class="level2">
-<h2 class="anchored" data-anchor-id="ejercicio">Ejercicio</h2>
+<section id="ejercicio-2" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-2">Ejercicio 2</h2>
 <p>Completen el código a la izquierda para obtener la gráfica de la derecha:</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>price_data <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> adjusted_close, <span class="at">color =</span> ______)) <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"_______"</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Stock prices between beginning of 2000 and end of 2023"</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>price_data <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> adjusted_close, <span class="at">color =</span> ______)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"_______"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Stock prices between beginning of 2000 and end of 2023"</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="fu">label_dollar</span>()) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.svg" class="quarto-discovered-preview-image img-fluid" style="width:100.0%"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.svg" class="quarto-discovered-preview-image img-fluid" style="width:100.0%"></p>
 </div>
 </div>
+</div>
+</div>
+<p>Describan el gráfico anterior con 3 hechos puntuales.</p>
+<p><strong>Nota:</strong> <code>labels = label_dollar()</code> es una función del paquete <code>scales</code> que, como pueden ver en el gráfico, añade el símbolo de dólar a los números en el eje.</p>
+</section>
+<section id="ejercicio-3" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-3">Ejercicio 3</h2>
+<p>Es claro que muchos de los precios son cero antes del año 2015. Elijan una de las empresas a partir del año 2015 basándose en el siguiente código donde elijo a Netflix:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>netflix_data <span class="ot">&lt;-</span>  price_data <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(symbol<span class="sc">==</span><span class="st">"NFLX"</span> <span class="sc">&amp;</span> <span class="fu">year</span>(date)<span class="sc">&gt;</span><span class="dv">2014</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>La variable <code>date</code> está en formato de fecha. Para poder usar el año, necesitamos la función <code>year()</code> como lo muestra el anterior código. Mis datos se ven así:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>netflix_data</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,264 × 8
+   symbol date         volume  open   low  high close adjusted_close
+   &lt;chr&gt;  &lt;date&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;
+ 1 NFLX   2015-01-02 13475000  49.2  48.7  50.3  49.8           49.8
+ 2 NFLX   2015-01-05 18165000  49.3  47.1  49.3  47.3           47.3
+ 3 NFLX   2015-01-06 16037700  47.3  45.7  47.6  46.5           46.5
+ 4 NFLX   2015-01-07  9849700  47.3  46.3  47.4  46.7           46.7
+ 5 NFLX   2015-01-08  9601900  47.1  46.5  47.8  47.8           47.8
+ 6 NFLX   2015-01-09  9578100  47.6  46.9  48.0  47.0           47.0
+ 7 NFLX   2015-01-12 12944400  47.1  45.3  47.2  45.5           45.5
+ 8 NFLX   2015-01-13 18721500  46.0  45.9  47.0  46.3           46.3
+ 9 NFLX   2015-01-14 19884900  47.1  45.7  47.4  46.3           46.3
+10 NFLX   2015-01-15 11669000  46.5  45.8  46.8  46.3           46.3
+# ℹ 2,254 more rows</code></pre>
 </div>
 </div>
 </section>
-<section id="ejercicio-2" class="level2">
-<h2 class="anchored" data-anchor-id="ejercicio-2">Ejercicio</h2>
+<section id="ejercicio-4" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-4">Ejercicio 4</h2>
+<p>Basándose en el código del Ejercicio 2, grafiquemos nuevamente la evolución de los precios de las acciones para la compañía que ustedes escogieron. En el caso de Netflix, la gráfica se ve de la siguiente manera:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.svg" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Describan el comportamiento de los precios de su compañía con 3 hechos puntuales.</p>
+</section>
+<section id="ejercicio-5" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-5">Ejercicio 5</h2>
+<p>Construyan el diagrama de caja y el histograma para el precio de las acciones de la empresa que escogieron. Para el caso de Netflix, los dos gráficos se ven así:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Describan la distribución de los precios de las acciones de su compañía con 3 hechos puntuales.</p>
+</section>
+<section id="ejercicio-6" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-6">Ejercicio 6</h2>
+<p>Imaginen que no tenemos acceso a los datos de precios para todos los días. En este caso, solo disponemos de datos para 100 días y necesitamos estimar el precio promedio de la acción durante el período 2015-2023.</p>
+<p>La función <code>sample_n()</code> toma una muestra aleatoria de los precios de las acciones de Netflix. En este caso, especificamos que el tamaño de la muestra sea de 100 días. Hagan lo mismo para su compañía.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Establezcamos la semillar para elegir siempre la misma muestra:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>netflix_sample <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(netflix_data, <span class="dv">100</span>)  </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Basándose en el siguiente gráfico, construyan la distribución de los precios de su compañía para la muestra. ¿Cómo cambia la distribución de los precios de la muestra con respecto a la distribución de la población en el punto anterior?</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-11-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="ejercicio-3" class="level2">
-<h2 class="anchored" data-anchor-id="ejercicio-3">Ejercicio</h2>
-<p>Utilizando la variable <code>adjusted_close</code> y la función <code>lag()</code>, vamos a crear el retorno del precio de la acción:</p>
-<p><span class="math display">\[r_t=\dfrac{p_t-p_{t-1}}{p_{t-1}}=\dfrac{p_t}{p_{t-1}}-1\]</span></p>
-<p>Completen el siguiente código que crea una nueva base de datos <code>returns</code> con el retorno para una de las empresas. Seleccionen la compañía que les interese más.</p>
+<section id="ejercicio-7" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-7">Ejercicio 7</h2>
+<p>Utilizando el comando <code>t.test()</code>, estimen un intervalo de confianza para el precio de las acciones de su compañía basado en la muestra de 100 días.</p>
+<p>En el caso de Netflix, el resultado de la función es:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>returns <span class="ot">&lt;-</span> price_data <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(symbol <span class="sc">==</span> <span class="st">"______"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">______ =</span> adjusted_close <span class="sc">/</span> <span class="fu">lag</span>(______) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(symbol, date, return)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  netflix_sample$adjusted_close
+t = 20.685, df = 99, p-value &lt; 2.2e-16
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 257.7900 312.4947
+sample estimates:
+mean of x 
+ 285.1424 </code></pre>
 </div>
-<p>Por ejemplo, yo elegí a Netflix. Mis datos <code>returns</code> se verían de la siguiente manera:</p>
+</div>
+<p>El intervalo de confianza al 95% es:</p>
+<p><span class="math display">\[IC=[257.79, 312.49]\]</span></p>
+<p>¿Captura este intervalo el parámetro problacional (el precio promedio de las acciones)?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(netflix_data<span class="sc">$</span>adjusted_close, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 298.6398</code></pre>
+</div>
+</div>
+<p>El precio promedio de las acciones es 298.63. Por lo tanto, para el caso de Netflix, el intervalo de confianza sí incluye el parámetro poblacional.</p>
+<p>Hagan este mismo análisis para la compañía que eligieron.</p>
+</section>
+<section id="ejercicio-8" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-8">Ejercicio 8</h2>
+<p>Repitan el mismo análisis del punto anterior pero con un nivel de confianza del 90%.</p>
+</section>
+<section id="ejercicio-9" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-9">Ejercicio 9</h2>
+<p>Utilizando la variable <code>adjusted_close</code> y la función <code>lag()</code> (que devuelve el valor anterior en un vector), calculamos los rendimientos netos diarios, definidos como:</p>
+<p><span class="math display">\[r_t=\dfrac{p_t-p_{t-1}}{p_{t-1}}=\dfrac{p_t}{p_{t-1}}-1\]</span></p>
+<p>Completen el siguiente código para crear una nueva base de datos <code>returns</code> con el rendimiento de una de las empresas. Seleccionen la compañía con la que han trabajado en los puntos anteriores.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>returns <span class="ot">&lt;-</span> price_data <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(symbol <span class="sc">==</span> <span class="st">"______"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date) <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">______ =</span> adjusted_close <span class="sc">/</span> <span class="fu">lag</span>(______) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(symbol, date, return)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Expliquen paso a paso qué hace el código anterior. Por ejemplo:</p>
+<ol type="1">
+<li><p>La primera línea crea un nuevo objeto llamado <code>returns</code> a partir de los datos <code>price_data</code>.</p></li>
+<li><p>…</p></li>
+</ol>
+</section>
+<section id="ejercicio-10" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-10">Ejercicio 10</h2>
+<p>Por ejemplo, los datos <code>returns</code> se verían de la siguiente manera para Netflix:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5,439 × 3
@@ -241,66 +362,103 @@ $ adjusted_close &lt;dbl&gt; 4.468750, 4.096875, 3.487500, 3.278125, 3.478125, 3
 # ℹ 5,429 more rows</code></pre>
 </div>
 </div>
-</section>
-<section id="ejercicio-4" class="level2">
-<h2 class="anchored" data-anchor-id="ejercicio-4">Ejercicio</h2>
 <p>¿Qué tal se ve la distribución del retorno para Netflix?</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-7-1.svg" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.svg" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Construyan el mismo gráfico para la compañía que elegieron en el punto anterior.</p>
+<p>Construyan el mismo gráfico para su compañía y descríbanlo con 2 hechos puntuales.</p>
 </section>
-<section id="ejercicio-5" class="level2">
-<h2 class="anchored" data-anchor-id="ejercicio-5">Ejercicio</h2>
+<section id="ejercicio-11" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-11">Ejercicio 11</h2>
 <p>Por ahora, vamos a eliminar los datos faltantes. Recuerden que esto <strong>no es trivial</strong> ya que pueden existir razones por las cuales no tenemos información de los precios para ciertos días.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>returns <span class="ot">&lt;-</span> returns <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(return)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>returns <span class="ot">&lt;-</span> returns <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(return)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="ejercicio-6" class="level2">
-<h2 class="anchored" data-anchor-id="ejercicio-6">Ejercicio</h2>
+<section id="ejercicio-12" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-12">Ejercicio 12</h2>
+<p>A continuación, construyamos la distribución de los rendimientos diarios en un histograma como en el Ejercicio 10. Sin embargo, le añadimos una línea discontinua que indica el percentil del 5% de los rendimientos diarios, que es una aproximación (rudimentaria) del peor rendimiento de la acción con una probabilidad de, como máximo, 5%. El percentil 5 está estrechamente relacionado con el value-at-risk (VaR) histórico, una medida de riesgo que suele ser monitoreada por los reguladores.</p>
 <p>La función <code>quantile()</code> nos permite calcular cualquier percentil de la distribución de un vector. Calculemos el percentil 5 al completar el siguiente código:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>percentile_5 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(______<span class="sc">$</span>return, <span class="at">probs =</span> <span class="fl">0.05</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>percentile_5 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(______<span class="sc">$</span>return, <span class="at">probs =</span> <span class="fl">0.05</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>En el caso de Netflix, el percentil 5 es: -0.045.</p>
 </section>
-<section id="ejercicio-7" class="level2">
-<h2 class="anchored" data-anchor-id="ejercicio-7">Ejercicio</h2>
-<p>Completen el código a la izquierda para obtener la gráfica de la derecha:</p>
+<section id="ejercicio-13" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-13">Ejercicio 13</h2>
+<p>Completen el código a la izquierda para obtener la gráfica de la derecha para su compañía:</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>returns <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ________)) <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">"lightblue"</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"darkblue"</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">bins =</span> <span class="dv">100</span>) <span class="sc">+</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> percentile_5),</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"________"</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>returns <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ________)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">"lightblue"</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color=</span><span class="st">"darkblue"</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">bins =</span> <span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> percentile_5),</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"________"</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-12-1.svg" class="img-fluid" style="width:100.0%"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-21-1.svg" class="img-fluid" style="width:100.0%"></p>
 </div>
 </div>
 </div>
 </div>
+<p><strong>Nota:</strong> <code>labels = percent</code> es una función del paquete <code>scales</code> que, como pueden ver en el gráfico, añade el símbolo de porcentaje a los números en el eje.</p>
+</section>
+<section id="ejercicio-14" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-14">Ejercicio 14</h2>
+<p>Completen el siguiente código para calcular el volumen total de transacciones diarias en el mercado, definiéndolo como la suma del producto entre el número de acciones negociadas (<code>volume</code>) y el precio ajustado (<code>adjusted_close</code>) para cada día.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>trading_volume <span class="ot">&lt;-</span> price_data <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(____) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">trading_volume =</span> <span class="fu">sum</span>(_____ <span class="sc">*</span> ___________))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ejercicio-15" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-15">Ejercicio 15</h2>
+<p>Completen el siguiente código para generar un gráfico de dispersión que analice la persistencia en el volumen de transacciones diarias. En el eje X, coloque el volumen total de transacciones del día anterior y en el eje Y, el volumen total del día actual.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>trading_volume <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">lag</span>(___________), <span class="at">y =</span> trading_volume)) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Previous day aggregate trading volume"</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"__________________"</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Persistence in daily trading volume of 8 companies"</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> <span class="fu">unit_format</span>(<span class="at">unit =</span> <span class="st">"B"</span>, <span class="at">scale =</span> <span class="fl">1e-9</span>)) <span class="sc">+</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="fu">unit_format</span>(<span class="at">unit =</span> <span class="st">"B"</span>, <span class="at">scale =</span> <span class="fl">1e-9</span>)) <span class="sc">+</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-25-1.svg" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+</div>
+</div>
+<p>¿Qué patrones observan en la relación entre estos valores? Calculen la correlación entre ambas variables para respaldar su análisis y explicar el patrón observado.</p>
+<p><strong>Nota:</strong> <code>labels = unit_format(unit = "B", scale = 1e-9)</code> es un argumento del paquete <code>scales</code> que, como pueden ver en el gráfico, formatea los valores para que se expresen en billones.</p>
 </section>
 
 </main>
