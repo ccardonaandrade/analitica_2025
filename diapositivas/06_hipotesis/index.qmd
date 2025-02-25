@@ -34,32 +34,306 @@ format:
 2. [Intervalos de Confianza](#intconf)
 
 
+## Intervalos de Confianza - Muestra 1 {.medium}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 10
+
+library(tidyverse)
+library(tidyfinance)
+library(scales)
+library(patchwork)
+
+price_data <- download_data(
+  type = "stock_prices",
+  symbols = c("AMZN","META","NVDA","AAPL","TSLA","NFLX", "MSFT"),
+  start_date = "2000-01-01",
+  end_date = "2023-12-31"
+)
+
+
+
+netflix_data <-  price_data |>
+  filter(symbol=="NFLX" & year(date)>2014)
+
+
+p1 <- netflix_data |>
+  ggplot(aes(x = date, y = adjusted_close)) +
+  geom_line(color="darkred") +
+  geom_hline(yintercept = mean(netflix_data$adjusted_close, na.rm = TRUE),
+             linetype = "dashed", color = "darkblue") + 
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Netflix stock prices"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  theme_minimal()
+
+
+# Get the limits from the original netflix_data plot
+x_limits <- range(netflix_data$date, na.rm = TRUE)
+y_limits <- range(netflix_data$adjusted_close, na.rm = TRUE)
+
+
+set.seed(123)
+
+netflix_sample <- sample_n(netflix_data, 100)  
+
+
+result <- t.test(netflix_sample$adjusted_close, conf.level = 0.95)
+ci <- result$conf.int
+
+p2 <- ggplot(netflix_sample, aes(x = date, y = adjusted_close)) +
+  geom_point(color = "darkgreen", alpha = 0.6) +  # Plot the 100 sampled points
+  # Add the confidence interval as a shaded ribbon
+  geom_ribbon(aes(x = date, ymin = ci[1], ymax = ci[2]), fill = "skyblue", alpha = 0.3, color = NA) +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "100 Sampled Days with 95% Confidence Interval"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  scale_x_date(limits = x_limits) +  # Apply the same x-axis limits as the original plot
+  coord_cartesian(ylim = y_limits) +  # Apply the same y-axis limits as the original plot
+  theme_minimal()
+
+
+
+result2 <- t.test(netflix_sample$adjusted_close, conf.level = 0.90)
+ci2 <- result2$conf.int
+
+p3 <- ggplot(netflix_sample, aes(x = date, y = adjusted_close)) +
+  geom_point(color = "darkgreen", alpha = 0.6) +  # Plot the 100 sampled points
+  # Add the confidence interval as a shaded ribbon
+  geom_ribbon(aes(x = date,ymin = ci2[1], ymax = ci2[2]), fill = "skyblue", alpha = 0.3, color = NA) +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "100 Sampled Days with 90% Confidence Interval"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  scale_x_date(limits = x_limits) +  # Apply the same x-axis limits as the original plot
+  coord_cartesian(ylim = y_limits) +  # Apply the same y-axis limits as the original plot
+  theme_minimal()
+
+
+p4 <- ggplot(netflix_sample, aes(x = date, y = adjusted_close)) +
+  geom_point(color = "darkgreen", alpha = 0.6) + 
+  geom_hline(yintercept = mean(netflix_sample$adjusted_close, na.rm = TRUE),
+             linetype = "dashed", color = "darkblue") +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "100 Sampled Days of Netflix Stock Prices"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  scale_x_date(limits = x_limits) +  # Apply the same x-axis limits as the original plot
+  coord_cartesian(ylim = y_limits) +  # Apply the same y-axis limits as the original plot
+  theme_minimal()
+
+p1+p4
+
+```
+
+El precio promedio de las acciones de Netflix fue `r round(mean(netflix_data$adjusted_close, na.rm = TRUE),2)`
+
+## Intervalos de Confianza - Muestra 1 {.medium}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 10
+
+p1+p2
+```
+
+El intervalo de confianza al 95% es [`r round(ci,2)`]
+
+## Intervalos de Confianza - Muestra 1 {.medium}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 10
+
+p1+p3
+```
+
+El intervalo de confianza al 90% es [`r round(ci2,2)`]
+
+## Intervalos de Confianza - Muestra 2 {.medium}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 10
+
+set.seed(10)
+
+netflix_sample <- sample_n(netflix_data, 100)  
+
+
+result <- t.test(netflix_sample$adjusted_close, conf.level = 0.95)
+ci <- result$conf.int
+
+p2 <- ggplot(netflix_sample, aes(x = date, y = adjusted_close)) +
+  geom_point(color = "darkgreen", alpha = 0.6) +  # Plot the 100 sampled points
+  # Add the confidence interval as a shaded ribbon
+  geom_ribbon(aes(x = date, ymin = ci[1], ymax = ci[2]), fill = "skyblue", alpha = 0.3, color = NA) +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "100 Sampled Days with 95% Confidence Interval"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  scale_x_date(limits = x_limits) +  # Apply the same x-axis limits as the original plot
+  coord_cartesian(ylim = y_limits) +  # Apply the same y-axis limits as the original plot
+  theme_minimal()
+
+
+
+result2 <- t.test(netflix_sample$adjusted_close, conf.level = 0.90)
+ci2 <- result2$conf.int
+
+p3 <- ggplot(netflix_sample, aes(x = date, y = adjusted_close)) +
+  geom_point(color = "darkgreen", alpha = 0.6) +  # Plot the 100 sampled points
+  # Add the confidence interval as a shaded ribbon
+  geom_ribbon(aes(x = date, ymin = ci2[1], ymax = ci2[2]), fill = "skyblue", alpha = 0.3, color = NA) +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "100 Sampled Days with 90% Confidence Interval"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  scale_x_date(limits = x_limits) +  # Apply the same x-axis limits as the original plot
+  coord_cartesian(ylim = y_limits) +  # Apply the same y-axis limits as the original plot
+  theme_minimal()
+
+
+p4 <- ggplot(netflix_sample, aes(x = date, y = adjusted_close)) +
+  geom_point(color = "darkgreen", alpha = 0.6) + 
+  geom_hline(yintercept = mean(netflix_sample$adjusted_close, na.rm = TRUE),
+             linetype = "dashed", color = "darkblue") +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "100 Sampled Days of Netflix Stock Prices"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  scale_x_date(limits = x_limits) +  # Apply the same x-axis limits as the original plot
+  coord_cartesian(ylim = y_limits) +  # Apply the same y-axis limits as the original plot
+  theme_minimal()
+
+p1+p4
+
+```
+
+
+
+## Intervalos de Confianza - Muestra 2 {.medium}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 10
+
+p1+p2
+```
+
+El intervalo de confianza al 95% es [`r round(ci,2)`]
+
+
+## Intervalos de Confianza - Muestra 2 {.medium}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 10
+
+p1+p3
+```
+
+El intervalo de confianza al 90% es [`r round(ci2,2)`]
 
 
 # Pruebas de Hipótesis {#prueba}
 
+
+## Ejemplo: Precio de la acción de Netflix 2015-2023 {.medium}
+
+- Retomemos el ejemplo de la muestra de los 100 días de precios de la acción de Netflix
+
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+
+library(tidyfinance)
+
+# Descargamos los datos de 2015 a 2023
+netflix_data <- download_data(
+  type = "stock_prices",
+  symbols = "NFLX",
+  start_date = "2015-01-01",
+  end_date = "2023-12-31"
+)
+
+
+# Establecemos la semilla
+set.seed(10)
+
+# Tomamos la muestra de 100 días
+netflix_sample <- sample_n(netflix_data, 100)  
+```
+
+
+
+## ¿Cómo es la distribución de esos datos?
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 8
+
+ggplot(netflix_sample, aes(x = date, y = adjusted_close)) +
+  geom_point(color = "darkgreen", alpha = 0.6) + 
+  geom_hline(yintercept = mean(netflix_sample$adjusted_close, na.rm = TRUE),
+             linetype = "dashed", color = "darkblue") +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "100 Sampled Days of Netflix Stock Prices"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  scale_x_date(limits = x_limits) +  # Apply the same x-axis limits as the original plot
+  coord_cartesian(ylim = y_limits) +  # Apply the same y-axis limits as the original plot
+  theme_minimal()
+```
+
+
 ## Ejemplo: Número de horas que estudian Analítica {.medium}
 
-- Retomemos el ejemplo de la muestra de 30 estudiantes del total de inscritos en la materia de Analítica
+- Uno de sus colegas cree que el precio promedio de la acción de Netflix fue 310
 
-- Uno de los profesores cree que los estudiantes deberían estudiar 9 horas
+- El precio promedio de la acción para la muestra es `r round(mean(netflix_sample$adjusted_close, na.rm = TRUE),2)` y la desviación estándar es `r round(sd(netflix_sample$adjusted_close, na.rm = TRUE),2)`
 
-- El número promedio de horas que estudian los alumnos de esa muestra son 9.8 y la desviación estándar es 0.7
-
-- ¿Son estos datos suficientes para probar que los alumnos estudian más de lo que el profesor considera recomendable?
-
+- ¿Son estos datos suficientes para probar que el precio de la acción es mayor al precio que su considera fue el real durante ese periodo?
 
 
 ## Hipótesis {.medium}
 
-- `Población`: todos los estudiantes inscritos en Analítica
-- El `parámetro de interés` $\color{purple}\mu$ es el número promedio de horas de estudio de *todos* los estudiantes
+- `Población`: todos los días de 2015 a 2023
+- El `parámetro de interés` $\color{purple}\mu$ es el precio promedio de la acción en *todos* los días de ese período
 - Hay dos explicaciones de por qué la media muestral es mayor
-que las 9 horas recomendadas por el profesor:
+que el precio estimado por su colega:
   1. La media real de la población es diferente.
-  2. La media real de la población es 9, y la diferencia entre la media real de la población y la media de la muestra se debe simplemente a la variabilidad natural del muestreo.
-- $\color{blue}{H_0}$ $: \mu = 9$ (El número de horas de estudio es 9)
-- $\color{blue}{H_A}$ $: \mu > 9.9$ (El número de horas de estudio es $>$ 9)
+  2. La media real de la población es 310, y la diferencia entre la media real de la población y la media de la muestra se debe simplemente a la variabilidad natural del muestreo.
+- $\color{blue}{H_0}$ $: \mu = 310$ (El precio promedio de la acción es 310)
+- $\color{blue}{H_A}$ $: \mu > 310$ (El precio promedio de la acción es $>$ 310)
 
 
 ## Maneras incorrectas de establecer las hipótesis {.medium}
@@ -67,13 +341,13 @@ que las 9 horas recomendadas por el profesor:
 - $H_0$ y $H_A$ **SIEMPRE** se expresan en términos de parámetros de población, no de estadísticas de muestra.
 - Ni:
 
-$$H_0 : \bar{x} = 9, \quad H_A : \bar{x} > 9$$
+$$H_0 : \bar{x} = 310, \quad H_A : \bar{x} > 310$$
 
 - ni:
 
-$H_0 :$ el número de horas de estudio `en la muestra` es 9
+$H_0 :$ el número de horas de estudio `en la muestra` es 310
 
-$H_A :$ el número de horas de estudio `en la muestra` es 9
+$H_A :$ el número de horas de estudio `en la muestra` es 310
 
 son correctas. 
 
@@ -82,10 +356,392 @@ son correctas.
 
 Las hipótesis son:
 
-$$H_0 : \mu = 9, \quad H_A : \mu > 9$$
+$$H_0 : \mu = 310, \quad H_A : \mu > 310$$
 También siempre **especifíquen claramente** qué es $\mu$
 
-e.g., $\mu$ es el número promedio de horas de estudio de los alumnos en Analítica
+e.g., $\mu$ es el precio promedio de la acción de Netflix entre 2015 y 2023
 
 
+## El estadístico de la prueba {.medium}
+
+Por el TLC, bajo $H_0:\mu=310$, la distribución de la media muestral es:
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+
+# Define the x-axis range and normal distribution
+x <- seq(-4, 4, length = 1000)
+y <- dnorm(x)
+
+# Create a data frame
+df <- data.frame(x = x, y = y)
+
+# Plot the normal distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_line(color = "black", size = 1) +
+  scale_x_continuous(breaks = c(0, 2.06),
+                         labels = c(expression(mu == 310), expression(bar(x) == 342))) +
+  labs(x = "", y= "") +
+  geom_vline(xintercept = 2.06, linetype = "dashed", color = "darkblue") +  # Vertical dashed line
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank())
+
+```
+
+
+Para medir qué tan *inusual* es la media muestral observada $\bar{x}=342$ en relación con su distribución muestral, la estadística de prueba que usamos es el z-score.
+
+
+## El estadístico de la prueba {.medium}
+
+  $$Z=\dfrac{\bar{x}-\mu}{\dfrac{s_x}{\sqrt{n}}}=\dfrac{342-310}{\dfrac{154.71}{\sqrt{100}}}\approx2.06$$
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+
+
+# Plot the normal distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_line(color = "black", size = 1) +
+  scale_x_continuous(breaks = c(0, 2.06),
+                         labels = c(expression(mu == 0), expression(Z == 2.06))) +
+  labs(x = "", y= "") +
+  geom_vline(xintercept = 2.06, linetype = "dashed", color = "darkblue") +  # Vertical dashed line
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank())
+
+```
+
+## El estadístico de la prueba {.medium}
+
+
+::: {.columns}
+::: {.column width=50%}
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+
+
+# Plot the normal distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(aes(x = ifelse(x < 1.96, x, NA)), fill = "white", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x > 1.96, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_line(color = "black", size = 1) +
+  scale_x_continuous(breaks = c(1.96),
+                         labels = c( expression(Z^{"*"}))) +
+  labs(x = "", y= "") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()) + 
+  annotate("text", x = 0, y = 0.12, label = expression("No se rechaza H0"), size = 6) +
+  annotate("text", x = 2.8, y = 0.08, label = expression("Región"), size = 6, color = "darkred") +
+  annotate("text", x = 3, y = 0.06, label = expression("de Rechazo"), size = 6, color = "darkred") 
+
+```
+:::
+
+::: {.column width=50%}
+
+- Las medias muestrales que son probables de obtener si $H_0$ es cierta son las medias muestrales cercanas a la hipótesis nula.
+
+- Las medias muestrales que son poco probables de obtener si $H_0$ es cierta son aquellas lejanas a la hipótesis nula
+
+:::
+:::
+
+
+
+## ¿ Qué significa “alta” y “baja” probabilidad? {.medium}
+
+
+- Esto se establece a partir de una probabilidad específica, la cual se conoce como nivel de significancia (se denota con $\alpha$), para la prueba de hipótesis.
+
+- El valor $\alpha$ es una probabilidad pequeña que se utiliza para identificar muestras de poca probabilidad o inusuales.
+
+- Por convención, los valores $\alpha$
+ más comunes son 0,05 o 0,01
+ 
+- Por ejemplo, si usamos $\alpha$ = 0,05, separamos el 5% de las medias más improbables (valores extremos) del 95% de las medias muestrales más probables (valores centrales).
+
+
+## Región y Z-scores críticos {.medium}
+
+- Los valores extremos que son poco probables, definidos por el nivel de significancia, constituyen lo que se conoce como **región crítica**.
+
+- Estos valores son inconsistentes con la hipótesis nula. También se pueden interpretar como valores muestrales que proveen evidencia convincente de que el tratamiento/condición tienen algún efecto.
+
+- Al igual que con los intervalos de confianza, para determinar la ubicación exacta de los límites se utilizan el $\alpha$ y la distribución normal para encontrar el z-score crítico.
+
+## ¿Cuál es nuestro $z^*$ crítico? {.medium}
+
+Si nuestro $\alpha$ = 0.05, el z-crítico será 1.64 de acuerdo a la tabla de la distribución normal
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+qnorm(0.95, mean = 0, sd = 1)
+```
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+
+
+# Plot the normal distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(aes(x = ifelse(x < 1.64, x, NA)), fill = "yellow", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x > 1.64, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_line(color = "black", size = 1) +
+  scale_x_continuous(breaks = c(1.64),
+                         labels = c( expression(Z^{"*"}==1.64))) +
+  labs(x = "", y= "") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()) 
+
+```
+
+
+## ¿Cuál es el resultado de la prueba? {.medium}
+
+La media muestral se ubica en la región crítica!
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+
+
+# Plot the normal distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(aes(x = ifelse(x < 1.64, x, NA)), fill = "yellow", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x > 1.64, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_line(color = "black", size = 1) +
+  scale_x_continuous(breaks = c(1.64),
+                         labels = c( expression(Z^{"*"}==1.64))) +
+  labs(x = "", y= "") +
+  geom_vline(xintercept = 2.06, linetype = "dashed", color = "darkblue") +  # Vertical dashed line
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank())  + 
+  annotate("text", x = 2.8, y = 0.25, label = expression(Z==2.06), size = 6, color = "darkblue")
+
+```
+
+
+## ¿Cuál es el resultado de la prueba? {.medium}
+
+$$Z=2.06>1.64=Z_{\alpha=0.05}$$
+
+- [Rechazamos $H_0$]{.marker-hl}
+
+- Los datos proveen evidencia convincente de que el precio promedio de las acciones de Netflix entre 2015 y 2023 es mayor a 310
+
+- En otras palabras, la media muestral es **estadísticamente diferente** de 310
+
+## Prueba de hipótesis a dos colas {.medium}
+
+Si quisieramos saber si los datos proveen evidencia consistente que el precio promedio de las acciones de Netflix es `diferente` que el 310 descrito por el colega, la hipótesis alternativa cambiaría:
+
+
+$$H_0: \mu = 310$$
+
+$$H_0: \mu \neq 310$$
+
+## Prueba de hipótesis a dos colas {.medium}
+
+Si nuestro $\alpha$ = 0.05, el z-crítico será 1.96 de acuerdo a la tabla de la distribución normal
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+qnorm(0.975, mean = 0, sd = 1)
+```
+
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+
+
+# Plot the normal distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(aes(x = ifelse(x >= -1.96 & x <= 1.96, x, NA)), fill = "white", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x < -1.96, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x > 1.96, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_line(color = "black", size = 1) + 
+  scale_x_continuous(breaks = c(-1.96, 1.96),
+                         labels = c(expression(Z^{"*"}==-1.96), expression(Z^{"*"}==1.96))) +
+  labs(x = "", y= "") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank())+ 
+  annotate("text", x = 0, y = 0.12, label = expression("No se rechaza H0"), size = 6) +
+  annotate("text", x = 2.8, y = 0.08, label = expression("Región"), size = 6, color = "darkred") +
+  annotate("text", x = 3, y = 0.06, label = expression("de Rechazo"), size = 6, color = "darkred") +
+  annotate("text", x = -2.8, y = 0.08, label = expression("Región"), size = 6, color = "darkred") +
+  annotate("text", x = -3, y = 0.06, label = expression("de Rechazo"), size = 6, color = "darkred")
+
+```
+
+
+## Prueba de hipótesis a dos colas {.medium}
+
+- En este caso, una media muestra $\bar{x}$ mucho menor a 310 también sería evidencia en favor de $H_A$
+
+- Como $Z=2.06>1.96=Z_{\alpha=0.05}$, seguimos rechazando $H_0$
+
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+
+
+# Plot the normal distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(aes(x = ifelse(x >= -1.96 & x <= 1.96, x, NA)), fill = "yellow", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x < -1.96, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x > 1.96, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_line(color = "black", size = 1) +
+  geom_vline(xintercept = 2.06, linetype = "dashed", color = "darkblue") +  # Vertical dashed line
+  scale_x_continuous(breaks = c(-1.96, 1.96),
+                         labels = c(expression(Z^{"*"}==-1.96), expression(Z^{"*"}==1.96))) +
+  labs(x = "", y= "") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank())+ 
+    annotate("text", x = 2.8, y = 0.25, label = expression(Z==2.06), size = 6, color = "darkblue")
+
+
+```
+
+
+## p-value {.medium}
+
+
+
+
+::: {.columns}
+::: {.column width=50%}
+
+- El z-score tiene una probabilidad asociada dada la forma de la distribución normal.
+
+- Por ende, la decisión de una prueba de hipótesis puede basarse tanto en el z-score como en su probabilidad asociada (p-value).
+
+
+:::
+
+::: {.column width=50%}
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+
+
+# Plot the normal distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(aes(x = ifelse(x < 2.06, x, NA)), fill = "white", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x > 2.06, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_line(color = "black", size = 1) +
+  scale_x_continuous(breaks = c(2.06),
+                         labels = c( expression(Z==2.06))) +
+  labs(x = "", y= "") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()) 
+
+```
+
+:::
+:::
+
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+pnorm(2.06, mean = 0, sd = 1, lower.tail = FALSE)
+```
+
+
+## p-value {.medium}
+
+- Para nuestro $z=2.06$, sabemos que p−value=0.019
+
+- Si $\alpha$=0.05, se rechaza la hipótesis nula dado que 0.019<0.05
+
+- Esto sucede para un nivel de significancia del 5%, ¿qué sucede si este cambia a 1%?
+
+- El p-value es la probabilidad de observar los estadísticos de los datos ($\bar{x}$=310) si la hipótesis nula fuera cierta.
+
+
+## Resumen - Prueba de hipótesis {.medium}
+
+::: {.columns}
+::: {.column width=50%}
+
+1. Establezca las hipótesis
+    - $H_0:\mu=\mu_o$
+    - $H_A:\mu$< o > o $\neq\mu_o$
+    
+2. Revise los supuestos y condiciones
+    - Independencia
+    - Normalidad: $n>30$
+
+
+:::
+
+::: {.column .fragment width=50%}
+
+3. Calcular el z-score y el p-value (dibujen la gráfica!)
+
+$$Z_{\bar{X}}=\dfrac{\bar{X}-\mu_0}{s_X/\sqrt{n}}$$
+
+4. Tomen una decisión:
+
+    - Si $Z_{\bar{X}} \geq Z_{\alpha} \rightarrow p \leq \alpha$ : Se rechaza $H_0$
+    - Si $Z_{\bar{X}} < Z_{\alpha} \rightarrow p > \alpha$ : No se rechaza $H_0$
+    
+:::
+:::
+
+    
 
