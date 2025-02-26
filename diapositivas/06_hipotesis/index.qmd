@@ -743,5 +743,214 @@ $$Z_{\bar{X}}=\dfrac{\bar{X}-\mu_0}{s_X/\sqrt{n}}$$
 :::
 :::
 
-    
 
+
+
+    
+## Prueba de Hipótesis de dos Muestras {.medium}
+
+```{r}
+#| echo: true
+
+prices_data <- download_data(
+  type = "stock_prices",
+  symbols = c("AAPL", "AMZN"),
+  start_date = "2015-01-01",
+  end_date = "2023-12-31"
+)
+
+# Establecemos la semilla para reproducibilidad
+set.seed(123)
+
+# Tomamos una muestra de 100 días para cada empresa
+prices_sample <- prices_data %>%
+  group_by(symbol) %>%
+  sample_n(100) %>%
+  ungroup()
+
+# Verificamos la muestra
+nrow(prices_sample)
+
+```
+
+
+
+## Prueba de Hipótesis de dos Muestras {.medium}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 8
+
+
+# Get the limits from the original netflix_data plot
+x_limits <- range(prices_data$date, na.rm = TRUE)
+y_limits <- range(prices_data$adjusted_close, na.rm = TRUE)
+
+apple_mean <- prices_data |> 
+  filter(symbol == "AAPL") |> 
+  summarise(mean_price = mean(adjusted_close, na.rm = TRUE)) |> 
+  pull(mean_price)
+
+amazon_mean <- prices_data |> 
+  filter(symbol == "AMZN") |> 
+  summarise(mean_price = mean(adjusted_close, na.rm = TRUE)) |> 
+  pull(mean_price)
+
+p1 <- prices_data |>
+  filter(symbol == "AAPL")  |>
+  ggplot(aes(x = date, y = adjusted_close)) +
+  geom_line(color="darkred") +
+  geom_hline(yintercept = apple_mean,
+             linetype = "dashed", color = "darkblue") + 
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Apple stock prices"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  scale_x_date(limits = x_limits) +  # Apply the same x-axis limits as the original plot
+  coord_cartesian(ylim = y_limits) +  # Apply the same y-axis limits as the original plot
+  theme_minimal()
+
+p2 <- prices_data |>
+  filter(symbol == "AMZN")  |>
+  ggplot(aes(x = date, y = adjusted_close)) +
+  geom_line(color="darkred") +
+  geom_hline(yintercept = amazon_mean,
+             linetype = "dashed", color = "darkblue") + 
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Amazon stock prices"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  scale_x_date(limits = x_limits) +  # Apply the same x-axis limits as the original plot
+  coord_cartesian(ylim = y_limits) +  # Apply the same y-axis limits as the original plot
+  theme_minimal()
+
+p1+p2
+
+```
+
+
+## Prueba de Hipótesis de dos Muestras {.medium}
+
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 8
+
+
+apple_mean <- prices_sample |> 
+  filter(symbol == "AAPL") |> 
+  summarise(mean_price = mean(adjusted_close, na.rm = TRUE)) |> 
+  pull(mean_price)
+
+amazon_mean <- prices_sample |> 
+  filter(symbol == "AMZN") |> 
+  summarise(mean_price = mean(adjusted_close, na.rm = TRUE)) |> 
+  pull(mean_price)
+
+
+p1 <- prices_sample |>
+  filter(symbol == "AAPL") |>
+ggplot(aes(x = date, y = adjusted_close)) +
+  geom_point(color = "darkgreen", alpha = 0.6) + 
+  geom_hline(yintercept = apple_mean,
+             linetype = "dashed", color = "darkblue") +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "100 Sampled Days of Apple Stock Prices"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  scale_x_date(limits = x_limits) +  # Apply the same x-axis limits as the original plot
+  coord_cartesian(ylim = y_limits) +  # Apply the same y-axis limits as the original plot
+  theme_minimal()
+
+p2 <- prices_sample |>
+  filter(symbol == "AMZN") |>
+ggplot(aes(x = date, y = adjusted_close)) +
+  geom_point(color = "darkgreen", alpha = 0.6) + 
+  geom_hline(yintercept = amazon_mean,
+             linetype = "dashed", color = "darkblue") +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "100 Sampled Days of Amazon Stock Prices"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  scale_x_date(limits = x_limits) +  # Apply the same x-axis limits as the original plot
+  coord_cartesian(ylim = y_limits) +  # Apply the same y-axis limits as the original plot
+  theme_minimal()
+
+p1+p2
+
+```
+
+
+## Prueba de hipótesis en R
+
+```{r}
+#| echo: true
+
+# Calculemos el test
+test_resultado <- t.test(adjusted_close ~ symbol, data = prices_sample)
+test_resultado
+
+# p-value
+test_resultado$p.value<0.05
+
+```
+
+
+## IC con distintos niveles de confianza {.medium}
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+
+
+# Function to compute confidence intervals and mean
+compute_ci <- function(data, symbol, levels = c(0.90, 0.95, 0.99)) {
+  ci_list <- lapply(levels, function(conf) {
+    test_result <- t.test(data$adjusted_close, conf.level = conf)
+    data.frame(
+      Symbol = symbol,
+      Level = paste0(conf * 100, "%"),
+      Lower = test_result$conf.int[1],
+      Upper = test_result$conf.int[2],
+      Mean = mean(data$adjusted_close, na.rm = TRUE)  # Compute the mean
+    )
+  })
+  bind_rows(ci_list)
+}
+
+# Filter data for Apple and Amazon
+apple_data <- prices_sample |> filter(symbol == "AAPL")
+amazon_data <- prices_sample |> filter(symbol == "AMZN")
+
+# Compute confidence intervals and means for both companies
+ci_apple <- compute_ci(apple_data, "Apple")
+ci_amazon <- compute_ci(amazon_data, "Amazon")
+
+# Combine data
+ci_df <- bind_rows(ci_apple, ci_amazon)
+
+# Plot confidence intervals with mean points
+ggplot(ci_df, aes(x = Level, ymin = Lower, ymax = Upper, color = Symbol)) +
+  geom_linerange(size = 1.5, position = position_dodge(width = 0.3)) +  
+  geom_point(aes(y = Lower), size = 3, position = position_dodge(width = 0.3), shape = 15) +  # Lower bound
+  geom_point(aes(y = Upper), size = 3, position = position_dodge(width = 0.3), shape = 15) +  # Upper bound
+  geom_point(aes(y = Mean), size = 3, position = position_dodge(width = 0.3), shape = 16) +   # Mean point
+  labs(
+    title = "Confidence Intervals for Apple and Amazon Stock Prices",
+    x = "Confidence Level",
+    y = "Stock Price",
+    color = "Company"
+  ) + 
+  theme_minimal()
+```
