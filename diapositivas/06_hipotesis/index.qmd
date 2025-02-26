@@ -29,10 +29,14 @@ format:
 
 ## Plan para hoy
 
-1. [Pruebas de Hipótesis](#prueba)
+1. [Intervalos de Confianza](#intconf)
 
-2. [Intervalos de Confianza](#intconf)
+2. [Intro a Pruebas de Hipótesis](#prueba)
 
+3. [Pruebas de Hipótesis con dos muestras](#prueba2)
+
+
+# Intervalos de Confianza {#intconf}
 
 ## Intervalos de Confianza - Muestra 1 {.medium}
 
@@ -259,7 +263,7 @@ p1+p3
 El intervalo de confianza al 90% es [`r round(ci2,2)`]
 
 
-# Pruebas de Hipótesis {#prueba}
+# Intro a Pruebas de Hipótesis {#prueba}
 
 
 ## Ejemplo: Precio de la acción de Netflix 2015-2023 {.medium}
@@ -649,6 +653,90 @@ ggplot(df, aes(x = x, y = y)) +
 
 ```
 
+## IC y prueba de hipótesis a dos colas {.medium}
+
+En una prueba de hipótesis a dos colas:
+
+$$H_0:\mu=\mu_0 \quad versus \quad H_A:\mu\neq\mu_0$$
+
+No rechazar la hipótesis nula es equivalente a que $\mu_0$ esté dentro del intervalo de confianza del $100(1-\alpha)$\% para $\mu$. Es decir:
+
+
+  $$\bar{x}-z^*\dfrac{s}{\sqrt{n}}<\mu_0<\bar{x}+z^*\dfrac{s}{\sqrt{n}}$$
+
+## IC y prueba de hipótesis a dos colas {.medium}
+
+
+
+::: {.columns}
+::: {.column width=25%}
+Retomemos:
+
+$$H_0: \mu = 310$$
+
+$$H_0: \mu \neq 310$$
+Rechazamos cuando:
+
+$$\alpha=0.1\text{?}$$
+
+$$\alpha=0.05\text{?}$$
+
+$$\alpha=0.01\text{?}$$
+
+
+
+:::
+
+::: {.column width=75%}
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+#| fig-width: 6
+
+# Given data
+null_mean <- 310
+sd_sample <- sd(netflix_sample$adjusted_close, na.rm = TRUE)
+n_sample <- length(netflix_sample$adjusted_close)
+se <- sd_sample / sqrt(n_sample)
+
+# Confidence intervals
+z_values <- c(1.645, 1.96, 2.576)  # Critical values for 90%, 95%, 99%
+levels <- c("90%", "95%", "99%")
+lower_bounds <- null_mean - z_values * se
+upper_bounds <- null_mean + z_values * se
+
+# Create data frame
+ci_df <- data.frame(
+  Level = levels,
+  Lower = lower_bounds,
+  Upper = upper_bounds
+)
+
+# Plot
+ggplot(ci_df, aes(x = Level, ymin = Lower, ymax = Upper)) +
+  geom_linerange(size = 1.5, aes(color = Level)) +  # Plot confidence intervals
+  geom_point(aes(y = Lower), size = 3) +  # Lower bound points
+  geom_point(aes(y = Upper), size = 3) +  # Upper bound points
+  geom_point(aes(y = null_mean, fill = Level), size = 3, shape = 21) +  # Dot for 310
+  geom_hline(aes(yintercept = 342, linetype = "mean"), 
+             color = "black", size = 1) +  # Dashed line for null hypothesis
+  scale_linetype_manual(name = "", values = "dashed", 
+                        labels = expression(bar(x) == 342)) +  # Customize legend
+  labs(title = expression("Confidence Interval for " ~ mu ~ "= 310"),
+       x = "Confidence Level",
+       y = "Netflix Stock Price",
+       color = "Confidence Level") + 
+  theme_minimal() +
+  theme(legend.position = "right") +
+  guides(fill = "none")
+
+```
+
+:::
+:::
+
 
 ## p-value {.medium}
 
@@ -744,10 +832,51 @@ $$Z_{\bar{X}}=\dfrac{\bar{X}-\mu_0}{s_X/\sqrt{n}}$$
 :::
 
 
+# Pruebas de Hipótesis con dos muestras {#prueba2}
+
+## Prueba de hipótesis con dos muestras {.medium}
+
+:::incremental
+
+- ¿Las empresas que cotizan en NYSE tienen mayores rendimientos promedio de acciones que las que cotizan en NASDAQ?
+
+- ¿Las tasas de interés de las hipotecas ofrecidas por el banco A son más bajas que las ofrecidas por el banco B?
+
+- ¿Los salarios promedio de los empleados en empresas tecnológicas son diferentes de los de las empresas manufactureras?
+
+- El objetivo ahora es comparar las medias (o alguna cantidad) $\mu_1$ y $\mu_2$ de dos poblaciones
+
+:::
+
+## Muestras independientes y relacionadas {.medium}
 
 
+
+- Las hipótesis en este caso son:
+
+  - $H_0:\mu_A-\mu_B=0$
+  - $H_A:\mu_A-\mu_B\neq0$
+  
+:::incremental
+  
+- Las muestras pueden ser:
+
+    1. Independientes: medición de unidades en distintos grupos.
+
+    2. Relacionadas: medición de la misma unidad antes y después de alguna intervención/suceso. 
+
+:::
+
+## Ejemplo: Apple and Amazon stock prices {.medium}
+
+- Volvamos a los datos de precios de las acciones en el período 2015-2023.
+
+- Seleccionemos una muestra de 100 días de los precios de Apple y Amazon.
+
+- Basádos en la muestra, ¿fueron iguales los precios promedio de estas dos compañías durante este período?
     
-## Prueba de Hipótesis de dos Muestras {.medium}
+
+## Ejemplo: Apple and Amazon stock prices {.medium}
 
 ```{r}
 #| echo: true
@@ -763,10 +892,9 @@ prices_data <- download_data(
 set.seed(123)
 
 # Tomamos una muestra de 100 días para cada empresa
-prices_sample <- prices_data %>%
-  group_by(symbol) %>%
-  sample_n(100) %>%
-  ungroup()
+prices_sample <- prices_data |>
+  group_by(symbol) |>
+  sample_n(100)
 
 # Verificamos la muestra
 nrow(prices_sample)
@@ -775,7 +903,7 @@ nrow(prices_sample)
 
 
 
-## Prueba de Hipótesis de dos Muestras {.medium}
+## Ejemplo: Apple and Amazon stock prices {.medium}
 
 ```{r}
 #| echo: false
@@ -834,7 +962,7 @@ p1+p2
 ```
 
 
-## Prueba de Hipótesis de dos Muestras {.medium}
+## Ejemplo: Apple and Amazon stock prices {.medium}
 
 
 ```{r}
@@ -890,17 +1018,37 @@ p1+p2
 
 ```
 
+## Prueba de hipótesis en R {.medium}
 
-## Prueba de hipótesis en R
+  $$H_0:\mu_{apple}-\mu_{amazon}=0$$
+  
+  $$H_0:\mu_{apple}-\mu_{amazon}\neq0$$
+    
+Nuestra hipótesis nula es que no existe diferencia en el precio promedio de las acciones de ambas empresas durante el periodo.
+
+## Prueba de hipótesis en R {.medium}
+
+Nuevamente usamos el comando `t.test()`:
 
 ```{r}
 #| echo: true
 
 # Calculemos el test
-test_resultado <- t.test(adjusted_close ~ symbol, data = prices_sample)
+test_resultado <- t.test(adjusted_close ~ symbol, data = prices_sample, conf.level = 0.95)
 test_resultado
 
-# p-value
+```
+
+Observen que el intervalo de confianza no incluye al cero. Por lo tanto **Rechazamos $H_0$**
+
+## Prueba de hipótesis en R {.medium}
+
+¿Cuánto es el p-value?¿Es $p<\alpha$?
+
+```{r}
+#| echo: true
+test_resultado$p.value
+
 test_resultado$p.value<0.05
 
 ```
@@ -954,3 +1102,22 @@ ggplot(ci_df, aes(x = Level, ymin = Lower, ymax = Upper, color = Symbol)) +
   ) + 
   theme_minimal()
 ```
+
+
+## Errores Tipo I y II {.medium}
+
+<div style="margin-top: 100px;"></div>
+
+
+::: {.tbl-classic .tbl-larger .center-text}
+
+
+|                  | **Decisión: Rechaza $H_0$** | **Decisión: No Rechazar $H_0$** |
+|------------------|------------------------------|-------------------------------------|
+| **$H_0$ es verdadera**  | Error Tipo I (Falso Positivo) |            😊                       |
+| **$H_0$ es falsa** |            😊                 | Error Tipo II (Falso Negativo)     |
+
+:::
+
+
+- (Casi) Nunca sabremos si $H_0$ o $H_A$ son verdaderas, pero se necesita considerar todas las posibilidades

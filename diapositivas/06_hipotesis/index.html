@@ -406,9 +406,15 @@ Carlos Cardona Andrade
 <section id="plan-para-hoy" class="slide level2">
 <h2>Plan para hoy</h2>
 <ol type="1">
-<li><p><a href="#/prueba">Pruebas de Hipótesis</a></p></li>
 <li><p><a href="#/intconf">Intervalos de Confianza</a></p></li>
+<li><p><a href="#/prueba">Intro a Pruebas de Hipótesis</a></p></li>
+<li><p><a href="#/prueba2">Pruebas de Hipótesis con dos muestras</a></p></li>
 </ol>
+</section>
+<section>
+<section id="intconf" class="title-slide slide level1 center">
+<h1>Intervalos de Confianza</h1>
+
 </section>
 <section id="intervalos-de-confianza---muestra-1" class="slide level2 medium">
 <h2>Intervalos de Confianza - Muestra 1</h2>
@@ -438,10 +444,10 @@ Carlos Cardona Andrade
 <h2>Intervalos de Confianza - Muestra 2</h2>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch quarto-figure-center"><p>El intervalo de confianza al 90% es [316.47, 367.84]</p>
-</section>
+</section></section>
 <section>
 <section id="prueba" class="title-slide slide level1 center">
-<h1>Pruebas de Hipótesis</h1>
+<h1>Intro a Pruebas de Hipótesis</h1>
 
 </section>
 <section id="ejemplo-precio-de-la-acción-de-netflix-2015-2023" class="slide level2 medium">
@@ -613,6 +619,36 @@ Carlos Cardona Andrade
 </ul>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="ic-y-prueba-de-hipótesis-a-dos-colas" class="slide level2 medium">
+<h2>IC y prueba de hipótesis a dos colas</h2>
+<p>En una prueba de hipótesis a dos colas:</p>
+<p><span class="math display">\[H_0:\mu=\mu_0 \quad versus \quad H_A:\mu\neq\mu_0\]</span></p>
+<p>No rechazar la hipótesis nula es equivalente a que <span class="math inline">\(\mu_0\)</span> esté dentro del intervalo de confianza del <span class="math inline">\(100(1-\alpha)\)</span>% para <span class="math inline">\(\mu\)</span>. Es decir:</p>
+<p><span class="math display">\[\bar{x}-z^*\dfrac{s}{\sqrt{n}}&lt;\mu_0&lt;\bar{x}+z^*\dfrac{s}{\sqrt{n}}\]</span></p>
+</section>
+<section id="ic-y-prueba-de-hipótesis-a-dos-colas-1" class="slide level2 medium">
+<h2>IC y prueba de hipótesis a dos colas</h2>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p>Retomemos:</p>
+<p><span class="math display">\[H_0: \mu = 310\]</span></p>
+<p><span class="math display">\[H_0: \mu \neq 310\]</span> Rechazamos cuando:</p>
+<p><span class="math display">\[\alpha=0.1\text{?}\]</span></p>
+<p><span class="math display">\[\alpha=0.05\text{?}\]</span></p>
+<p><span class="math display">\[\alpha=0.01\text{?}\]</span></p>
+</div><div class="column" style="width:75%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="p-value" class="slide level2 medium">
 <h2>p-value</h2>
 <div class="columns">
@@ -626,7 +662,7 @@ Carlos Cardona Andrade
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -679,9 +715,52 @@ Carlos Cardona Andrade
 </ol>
 </div>
 </div>
+</section></section>
+<section>
+<section id="prueba2" class="title-slide slide level1 center">
+<h1>Pruebas de Hipótesis con dos muestras</h1>
+
 </section>
-<section id="prueba-de-hipótesis-de-dos-muestras" class="slide level2 medium">
-<h2>Prueba de Hipótesis de dos Muestras</h2>
+<section id="prueba-de-hipótesis-con-dos-muestras" class="slide level2 medium">
+<h2>Prueba de hipótesis con dos muestras</h2>
+<div>
+<ul>
+<li class="fragment"><p>¿Las empresas que cotizan en NYSE tienen mayores rendimientos promedio de acciones que las que cotizan en NASDAQ?</p></li>
+<li class="fragment"><p>¿Las tasas de interés de las hipotecas ofrecidas por el banco A son más bajas que las ofrecidas por el banco B?</p></li>
+<li class="fragment"><p>¿Los salarios promedio de los empleados en empresas tecnológicas son diferentes de los de las empresas manufactureras?</p></li>
+<li class="fragment"><p>El objetivo ahora es comparar las medias (o alguna cantidad) <span class="math inline">\(\mu_1\)</span> y <span class="math inline">\(\mu_2\)</span> de dos poblaciones</p></li>
+</ul>
+</div>
+</section>
+<section id="muestras-independientes-y-relacionadas" class="slide level2 medium">
+<h2>Muestras independientes y relacionadas</h2>
+<ul>
+<li><p>Las hipótesis en este caso son:</p>
+<ul>
+<li><span class="math inline">\(H_0:\mu_A-\mu_B=0\)</span></li>
+<li><span class="math inline">\(H_A:\mu_A-\mu_B\neq0\)</span></li>
+</ul></li>
+</ul>
+<div>
+<ul>
+<li class="fragment"><p>Las muestras pueden ser:</p>
+<ol type="1">
+<li class="fragment"><p>Independientes: medición de unidades en distintos grupos.</p></li>
+<li class="fragment"><p>Relacionadas: medición de la misma unidad antes y después de alguna intervención/suceso.</p></li>
+</ol></li>
+</ul>
+</div>
+</section>
+<section id="ejemplo-apple-and-amazon-stock-prices" class="slide level2 medium">
+<h2>Ejemplo: Apple and Amazon stock prices</h2>
+<ul>
+<li><p>Volvamos a los datos de precios de las acciones en el período 2015-2023.</p></li>
+<li><p>Seleccionemos una muestra de 100 días de los precios de Apple y Amazon.</p></li>
+<li><p>Basádos en la muestra, ¿fueron iguales los precios promedio de estas dos compañías durante este período?</p></li>
+</ul>
+</section>
+<section id="ejemplo-apple-and-amazon-stock-prices-1" class="slide level2 medium">
+<h2>Ejemplo: Apple and Amazon stock prices</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>prices_data <span class="ot">&lt;-</span> <span class="fu">download_data</span>(</span>
 <span id="cb8-2"><a href="#cb8-2"></a>  <span class="at">type =</span> <span class="st">"stock_prices"</span>,</span>
@@ -694,31 +773,37 @@ Carlos Cardona Andrade
 <span id="cb8-9"><a href="#cb8-9"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb8-10"><a href="#cb8-10"></a></span>
 <span id="cb8-11"><a href="#cb8-11"></a><span class="co"># Tomamos una muestra de 100 días para cada empresa</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a>prices_sample <span class="ot">&lt;-</span> prices_data <span class="sc">%&gt;%</span></span>
-<span id="cb8-13"><a href="#cb8-13"></a>  <span class="fu">group_by</span>(symbol) <span class="sc">%&gt;%</span></span>
-<span id="cb8-14"><a href="#cb8-14"></a>  <span class="fu">sample_n</span>(<span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-15"><a href="#cb8-15"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb8-16"><a href="#cb8-16"></a></span>
-<span id="cb8-17"><a href="#cb8-17"></a><span class="co"># Verificamos la muestra</span></span>
-<span id="cb8-18"><a href="#cb8-18"></a><span class="fu">nrow</span>(prices_sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-12"><a href="#cb8-12"></a>prices_sample <span class="ot">&lt;-</span> prices_data <span class="sc">|&gt;</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>  <span class="fu">group_by</span>(symbol) <span class="sc">|&gt;</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a>  <span class="fu">sample_n</span>(<span class="dv">100</span>)</span>
+<span id="cb8-15"><a href="#cb8-15"></a></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co"># Verificamos la muestra</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="fu">nrow</span>(prices_sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 200</code></pre>
 </div>
 </div>
 </section>
-<section id="prueba-de-hipótesis-de-dos-muestras-1" class="slide level2 medium">
-<h2>Prueba de Hipótesis de dos Muestras</h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-21-1.png" width="768" class="r-stretch quarto-figure-center"></section>
-<section id="prueba-de-hipótesis-de-dos-muestras-2" class="slide level2 medium">
-<h2>Prueba de Hipótesis de dos Muestras</h2>
+<section id="ejemplo-apple-and-amazon-stock-prices-2" class="slide level2 medium">
+<h2>Ejemplo: Apple and Amazon stock prices</h2>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" width="768" class="r-stretch quarto-figure-center"></section>
-<section id="prueba-de-hipótesis-en-r" class="slide level2">
+<section id="ejemplo-apple-and-amazon-stock-prices-3" class="slide level2 medium">
+<h2>Ejemplo: Apple and Amazon stock prices</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="prueba-de-hipótesis-en-r" class="slide level2 medium">
 <h2>Prueba de hipótesis en R</h2>
+<p><span class="math display">\[H_0:\mu_{apple}-\mu_{amazon}=0\]</span></p>
+<p><span class="math display">\[H_0:\mu_{apple}-\mu_{amazon}\neq0\]</span></p>
+<p>Nuestra hipótesis nula es que no existe diferencia en el precio promedio de las acciones de ambas empresas durante el periodo.</p>
+</section>
+<section id="prueba-de-hipótesis-en-r-1" class="slide level2 medium">
+<h2>Prueba de hipótesis en R</h2>
+<p>Nuevamente usamos el comando <code>t.test()</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Calculemos el test</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>test_resultado <span class="ot">&lt;-</span> <span class="fu">t.test</span>(adjusted_close <span class="sc">~</span> symbol, <span class="at">data =</span> prices_sample)</span>
+<span id="cb10-2"><a href="#cb10-2"></a>test_resultado <span class="ot">&lt;-</span> <span class="fu">t.test</span>(adjusted_close <span class="sc">~</span> symbol, <span class="at">data =</span> prices_sample, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
 <span id="cb10-3"><a href="#cb10-3"></a>test_resultado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -728,13 +813,23 @@ data:  adjusted_close by symbol
 t = -2.0925, df = 191.3, p-value = 0.03771
 alternative hypothesis: true difference in means between group AAPL and group AMZN is not equal to 0
 95 percent confidence interval:
- -29.9290893  -0.8839637
+ -29.9290911  -0.8839658
 sample estimates:
 mean in group AAPL mean in group AMZN 
           81.52729           96.93382 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># p-value</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a>test_resultado<span class="sc">$</span>p.value<span class="sc">&lt;</span><span class="fl">0.05</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Observen que el intervalo de confianza no incluye al cero. Por lo tanto <strong>Rechazamos <span class="math inline">\(H_0\)</span></strong></p>
+</section>
+<section id="prueba-de-hipótesis-en-r-2" class="slide level2 medium">
+<h2>Prueba de hipótesis en R</h2>
+<p>¿Cuánto es el p-value?¿Es <span class="math inline">\(p&lt;\alpha\)</span>?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>test_resultado<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03771284</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>test_resultado<span class="sc">$</span>p.value<span class="sc">&lt;</span><span class="fl">0.05</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
@@ -743,7 +838,44 @@ mean in group AAPL mean in group AMZN
 <section id="ic-con-distintos-niveles-de-confianza" class="slide level2 medium">
 <h2>IC con distintos niveles de confianza</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-24-1.png" width="576" class="r-stretch quarto-figure-center"><div class="footer footer-default">
+<img data-src="index_files/figure-revealjs/unnamed-chunk-26-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="errores-tipo-i-y-ii" class="slide level2 medium">
+<h2>Errores Tipo I y II</h2>
+<div style="margin-top: 100px;">
+
+</div>
+<div class="tbl-classic tbl-larger center-text">
+<table>
+<colgroup>
+<col style="width: 21%">
+<col style="width: 35%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Decisión: Rechaza <span class="math inline">\(H_0\)</span></strong></th>
+<th><strong>Decisión: No Rechazar <span class="math inline">\(H_0\)</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong><span class="math inline">\(H_0\)</span> es verdadera</strong></td>
+<td>Error Tipo I (Falso Positivo)</td>
+<td>😊</td>
+</tr>
+<tr class="even">
+<td><strong><span class="math inline">\(H_0\)</span> es falsa</strong></td>
+<td>😊</td>
+<td>Error Tipo II (Falso Negativo)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>(Casi) Nunca sabremos si <span class="math inline">\(H_0\)</span> o <span class="math inline">\(H_A\)</span> son verdaderas, pero se necesita considerar todas las posibilidades</li>
+</ul>
+<div class="footer footer-default">
 
 </div>
 </section></section>
