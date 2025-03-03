@@ -142,7 +142,7 @@ p1+p4
 
 ```
 
-El precio promedio de las acciones de Netflix fue `r round(mean(netflix_data$adjusted_close, na.rm = TRUE),2)`
+El precio promedio de las acciones de Netflix fue $\mu=$ `r round(mean(netflix_data$adjusted_close, na.rm = TRUE),2)`
 
 ## Intervalos de Confianza - Muestra 1 {.medium}
 
@@ -265,6 +265,45 @@ El intervalo de confianza al 90% es [`r round(ci2,2)`]
 
 # Intro a Pruebas de Hipótesis {#prueba}
 
+## Muriel Bristol y las tazas de té {.medium}
+
+::: {.columns}
+::: {.column width=50%}
+![](img/tea_exp.jpg){height="400"}
+:::
+
+::: {.column width=50%}
+
+En la década de 1920, la botánica inglesa Muriel Bristol afirmó que podía distinguir si la leche se había agregado antes o después del té en una taza.  El estadístico Ronald Fisher, diseñó un experimento para poner a prueba su afirmación.
+
+Fisher le presentó ocho tazas de té, cuatro con la leche agregada antes y cuatro después, y le pidió que identificara cuáles pertenecían a cada grupo.
+
+:::
+:::
+
+
+## ¿Por qué es importante? {.medium}
+
+Este experimento marca el nacimiento del concepto de prueba de hipótesis en estadística. Fisher planteó dos hipótesis:
+
+- [Hipótesis nula ($H_0$)]{.marker-hl}: La mujer elige al azar
+
+- [Hipótesis alternativa ($H_A$)]{.marker-hl}: La mujer realmente distingue la diferencia
+
+Si ella identifica correctamente las tazas más veces de lo que se esperaría por azar, Fisher rechazaría la hipótesis nula en favor de la alternativa.
+
+
+## ¿Cuáles son los elementos de una prueba de hipótesis? {.medium}
+
+- Hipótesis nula ($H_0$): Es la suposición inicial que se pone a prueba.
+
+- Hipótesis alternativa ($H_A$): Es la afirmación que se intenta demostrar.
+
+- Estadístico de prueba: Un valor calculado a partir de los datos que permite evaluar la evidencia en contra de $H_0$.
+
+- Nivel de significancia ($\alpha$): La probabilidad de rechazar $H_0$ cuando en realidad es verdadera.
+
+- Regla de decisión: Un criterio basado en el estadístico de prueba para determinar si se rechaza o no $H_0$.
 
 ## Ejemplo: Precio de la acción de Netflix 2015-2023 {.medium}
 
@@ -296,7 +335,7 @@ netflix_sample <- sample_n(netflix_data, 100)
 
 
 
-## ¿Cómo es la distribución de esos datos?
+## ¿Cómo es la distribución el precio de la acción de Netflix?
 
 ```{r}
 #| echo: false
@@ -319,13 +358,16 @@ ggplot(netflix_sample, aes(x = date, y = adjusted_close)) +
 ```
 
 
-## Ejemplo: Número de horas que estudian Analítica {.medium}
+## Ejemplo: Precio de la acción de Netflix 2015-2023 {.medium}
 
-- Uno de sus colegas cree que el precio promedio de la acción de Netflix fue 310
+- Uno de sus colegas *cree* que el precio promedio de la acción de Netflix fue 310
 
 - El precio promedio de la acción para la muestra es `r round(mean(netflix_sample$adjusted_close, na.rm = TRUE),2)` y la desviación estándar es `r round(sd(netflix_sample$adjusted_close, na.rm = TRUE),2)`
 
 - ¿Son estos datos suficientes para probar que el precio de la acción es mayor al precio que su considera fue el real durante ese periodo?
+
+- Elaboremos una prueba de hipótesis con un nivel de significancia del 5% ($\alpha=0.05$) para evaluar esta afirmación
+
 
 
 ## Hipótesis {.medium}
@@ -356,11 +398,13 @@ $H_A :$ el número de horas de estudio `en la muestra` es 310
 son correctas. 
 
 
-## Maneras incorrectas de establecer las hipótesis {.medium}
+## La manera correcta de establecer las hipótesis {.medium}
 
 Las hipótesis son:
 
-$$H_0 : \mu = 310, \quad H_A : \mu > 310$$
+$$H_0 : \mu = 310$$
+
+$$H_A : \mu > 310$$
 También siempre **especifíquen claramente** qué es $\mu$
 
 e.g., $\mu$ es el precio promedio de la acción de Netflix entre 2015 y 2023
@@ -368,7 +412,7 @@ e.g., $\mu$ es el precio promedio de la acción de Netflix entre 2015 y 2023
 
 ## El estadístico de la prueba {.medium}
 
-Por el TLC, bajo $H_0:\mu=310$, la distribución de la media muestral es:
+Por el TLC y asumiendo que $H_0:\mu=310$ es cierta, la distribución de la media muestral es:
 
 ```{r}
 #| fig.align: 'center'
@@ -399,7 +443,13 @@ ggplot(df, aes(x = x, y = y)) +
 ```
 
 
-Para medir qué tan *inusual* es la media muestral observada $\bar{x}=342$ en relación con su distribución muestral, la estadística de prueba que usamos es el z-score.
+. . .
+
+Para medir qué tan *inusual* es la media muestral observada $\bar{x}=342$ en relación con su distribución muestral, el estadístico de prueba que usamos es el z-score.
+
+::: {.fragment .fade-in}
+[Por ahora usamos el z-score porque $n\geq30$!]{.bubble .bubble-bottom-left .absolute bottom="22%" right="-15%" style="--bubcol: var(--bubcol-red);max-width:350px;font-size:1.2rem;"}
+:::
 
 
 ## El estadístico de la prueba {.medium}
@@ -475,21 +525,23 @@ ggplot(df, aes(x = x, y = y)) +
 ## ¿ Qué significa “alta” y “baja” probabilidad? {.medium}
 
 
-- Esto se establece a partir de una probabilidad específica, la cual se conoce como nivel de significancia (se denota con $\alpha$), para la prueba de hipótesis.
+- Esto se establece a partir de una probabilidad específica, la cual se conoce como [nivel de significancia]{.marker-hl} (se denota con $\alpha$), para la prueba de hipótesis.
 
 - El valor $\alpha$ es una probabilidad pequeña que se utiliza para identificar muestras de poca probabilidad o inusuales.
 
 - Por convención, los valores $\alpha$
- más comunes son 0,05 o 0,01
+ más comunes son:
+ 
+ $$\alpha=0,05 \quad \text{o} \quad \alpha=0,01$$
  
 - Por ejemplo, si usamos $\alpha$ = 0,05, separamos el 5% de las medias más improbables (valores extremos) del 95% de las medias muestrales más probables (valores centrales).
 
 
 ## Región y Z-scores críticos {.medium}
 
-- Los valores extremos que son poco probables, definidos por el nivel de significancia, constituyen lo que se conoce como **región crítica**.
+- Los valores extremos que son poco probables, definidos por el nivel de significancia, constituyen lo que se conoce como **región crítica**
 
-- Estos valores son inconsistentes con la hipótesis nula. También se pueden interpretar como valores muestrales que proveen evidencia convincente de que el tratamiento/condición tienen algún efecto.
+- Estos valores son **inconsistentes** con la hipótesis nula
 
 - Al igual que con los intervalos de confianza, para determinar la ubicación exacta de los límites se utilizan el $\alpha$ y la distribución normal para encontrar el z-score crítico.
 
@@ -577,7 +629,7 @@ $$H_0: \mu = 310$$
 
 $$H_0: \mu \neq 310$$
 
-## Prueba de hipótesis a dos colas {.medium}
+## Prueba de hipótesis a dos colas: z-crítico {.medium}
 
 Si nuestro $\alpha$ = 0.05, el z-crítico será 1.96 de acuerdo a la tabla de la distribución normal
 
@@ -619,7 +671,7 @@ ggplot(df, aes(x = x, y = y)) +
 ```
 
 
-## Prueba de hipótesis a dos colas {.medium}
+## Prueba de hipótesis a dos colas: resultado al 5% {.medium}
 
 - En este caso, una media muestra $\bar{x}$ mucho menor a 310 también sería evidencia en favor de $H_A$
 
@@ -653,13 +705,48 @@ ggplot(df, aes(x = x, y = y)) +
 
 ```
 
+
+## Prueba de hipótesis a dos colas: resultado al 1% {.medium}
+
+- ¿Qué pasa con el resultado de la prueba si el nivel de significancia cambia a $\alpha=0.01$?
+
+- Como $Z=2.06<2.57=Z_{\alpha=0.01}$, ya no rechazamos $H_0$
+
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+
+
+# Plot the normal distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(aes(x = ifelse(x >= -2.57 & x <= 2.57, x, NA)), fill = "yellow", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x < -2.57, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x > 2.57, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_line(color = "black", size = 1) +
+  geom_vline(xintercept = 2.06, linetype = "dashed", color = "darkblue") +  # Vertical dashed line
+  scale_x_continuous(breaks = c(-2.57, 2.57),
+                         labels = c(expression(Z^{"*"}==-2.57), expression(Z^{"*"}==2.57))) +
+  labs(x = "", y= "") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank())+ 
+    annotate("text", x = 2.8, y = 0.25, label = expression(Z==2.06), size = 6, color = "darkblue")
+
+
+```
+
 ## IC y prueba de hipótesis a dos colas {.medium}
 
 En una prueba de hipótesis a dos colas:
 
 $$H_0:\mu=\mu_0 \quad versus \quad H_A:\mu\neq\mu_0$$
 
-No rechazar la hipótesis nula es equivalente a que $\mu_0$ esté dentro del intervalo de confianza del $100(1-\alpha)$\% para $\mu$. Es decir:
+No rechazar la hipótesis nula es equivalente a que $\mu_0$ esté dentro del intervalo de confianza del $100(1-\alpha)$\% para $\bar{x}$. Es decir:
 
 
   $$\bar{x}-z^*\dfrac{s}{\sqrt{n}}<\mu_0<\bar{x}+z^*\dfrac{s}{\sqrt{n}}$$
@@ -674,7 +761,7 @@ Retomemos:
 
 $$H_0: \mu = 310$$
 
-$$H_0: \mu \neq 310$$
+$$H_A: \mu \neq 310$$
 Rechazamos cuando:
 
 $$\alpha=0.1\text{?}$$
@@ -697,6 +784,7 @@ $$\alpha=0.01\text{?}$$
 
 # Given data
 null_mean <- 310
+mean_sample <- mean(netflix_sample$adjusted_close, na.rm = TRUE)
 sd_sample <- sd(netflix_sample$adjusted_close, na.rm = TRUE)
 n_sample <- length(netflix_sample$adjusted_close)
 se <- sd_sample / sqrt(n_sample)
@@ -704,8 +792,8 @@ se <- sd_sample / sqrt(n_sample)
 # Confidence intervals
 z_values <- c(1.645, 1.96, 2.576)  # Critical values for 90%, 95%, 99%
 levels <- c("90%", "95%", "99%")
-lower_bounds <- null_mean - z_values * se
-upper_bounds <- null_mean + z_values * se
+lower_bounds <- mean_sample - z_values * se
+upper_bounds <- mean_sample + z_values * se
 
 # Create data frame
 ci_df <- data.frame(
@@ -719,12 +807,12 @@ ggplot(ci_df, aes(x = Level, ymin = Lower, ymax = Upper)) +
   geom_linerange(size = 1.5, aes(color = Level)) +  # Plot confidence intervals
   geom_point(aes(y = Lower), size = 3) +  # Lower bound points
   geom_point(aes(y = Upper), size = 3) +  # Upper bound points
-  geom_point(aes(y = null_mean, fill = Level), size = 3, shape = 21) +  # Dot for 310
-  geom_hline(aes(yintercept = 342, linetype = "mean"), 
+  geom_point(aes(y = mean_sample, fill = Level), size = 3, shape = 21) +  # Dot for 310
+  geom_hline(aes(yintercept = 310, linetype = "mean"), 
              color = "black", size = 1) +  # Dashed line for null hypothesis
   scale_linetype_manual(name = "", values = "dashed", 
-                        labels = expression(bar(x) == 342)) +  # Customize legend
-  labs(title = expression("Confidence Interval for " ~ mu ~ "= 310"),
+                        labels = expression(mu == 310)) +  # Customize legend
+  labs(title = expression("Confidence Interval for " ~ bar(x) ~ "= 342"),
        x = "Confidence Level",
        y = "Netflix Stock Price",
        color = "Confidence Level") + 
@@ -736,6 +824,17 @@ ggplot(ci_df, aes(x = Level, ymin = Lower, ymax = Upper)) +
 
 :::
 :::
+
+## 💪 Ejercicio 1  {.medium}
+
+1. Utilicen el código de la diapositiva 14 para generar una muestra aleatoria de 100 días pero con `set.seed(1)`
+
+2. Usando el comando `t.test()`, evalúen nuevamente la hipótesis de que el precio promedio de la acción entre 2015 y 2023 fue 310 dólares:
+
+  - A un nivel de significancia del 5%
+
+  - A un nivel de significancia del 1%
+
 
 
 ## p-value {.medium}
@@ -792,14 +891,22 @@ pnorm(2.06, mean = 0, sd = 1, lower.tail = FALSE)
 
 ## p-value {.medium}
 
-- Para nuestro $z=2.06$, sabemos que p−value=0.019
+- Una prueba de hipótesis se rechaza si:
 
-- Si $\alpha$=0.05, se rechaza la hipótesis nula dado que 0.019<0.05
+$$p\leq\alpha$$
+
+
+- Para nuestro $z=2.06$, sabemos que $p=0.019$
+
+- Si $\alpha$=0.05, se rechaza la hipótesis nula dado que $0.019<0.05$
 
 - Esto sucede para un nivel de significancia del 5%, ¿qué sucede si este cambia a 1%?
 
-- El p-value es la probabilidad de observar los estadísticos de los datos ($\bar{x}$=310) si la hipótesis nula fuera cierta.
+. . .
 
+<center>
+[El p-value es la probabilidad de observar nuestros datos ($\bar{x}$=342) si la hipótesis nula fuera cierta ($\mu=310$)]{.hl .hl-dred}
+<center>
 
 ## Resumen - Prueba de hipótesis {.medium}
 
@@ -812,7 +919,7 @@ pnorm(2.06, mean = 0, sd = 1, lower.tail = FALSE)
     
 2. Revise los supuestos y condiciones
     - Independencia
-    - Normalidad: $n>30$
+    - Normalidad: $n\geq30$
 
 
 :::
@@ -844,7 +951,7 @@ $$Z_{\bar{X}}=\dfrac{\bar{X}-\mu_0}{s_X/\sqrt{n}}$$
 
 - ¿Los salarios promedio de los empleados en empresas tecnológicas son diferentes de los de las empresas manufactureras?
 
-- El objetivo ahora es comparar las medias (o alguna cantidad) $\mu_1$ y $\mu_2$ de dos poblaciones
+- El objetivo ahora es comparar las medias (o alguna cantidad) $\mu_A$ y $\mu_B$ de dos poblaciones
 
 :::
 
@@ -852,7 +959,7 @@ $$Z_{\bar{X}}=\dfrac{\bar{X}-\mu_0}{s_X/\sqrt{n}}$$
 
 
 
-- Las hipótesis en este caso son:
+- Para dos poblaciones de interés $A$ y $B$, las hipótesis en este caso son:
 
   - $H_0:\mu_A-\mu_B=0$
   - $H_A:\mu_A-\mu_B\neq0$
@@ -1053,55 +1160,15 @@ test_resultado$p.value<0.05
 
 ```
 
+## 💪 Ejercicio 2  {.medium}
 
-## IC con distintos niveles de confianza {.medium}
+1. Utilicen el código de la diapositiva 42 para generar una muestra aleatoria de 100 días para dos empresas diferentes. Pueden encontrar las siglas de las dos empresas acá: [Yahoo Finance](https://finance.yahoo.com/lookup/){target="_blank"}.
 
-```{r}
-#| fig.align: 'center'
-#| echo: false
-#| eval: true
+2. Usando el comando `t.test()`, evalúen nuevamente la hipótesis de que el precio promedio de ambas acciones entre 2015 y 2023 fue diferente:
 
+  - A un nivel de significancia del 5% y utilizando el p-value para la decisión de rechazar o no
 
-# Function to compute confidence intervals and mean
-compute_ci <- function(data, symbol, levels = c(0.90, 0.95, 0.99)) {
-  ci_list <- lapply(levels, function(conf) {
-    test_result <- t.test(data$adjusted_close, conf.level = conf)
-    data.frame(
-      Symbol = symbol,
-      Level = paste0(conf * 100, "%"),
-      Lower = test_result$conf.int[1],
-      Upper = test_result$conf.int[2],
-      Mean = mean(data$adjusted_close, na.rm = TRUE)  # Compute the mean
-    )
-  })
-  bind_rows(ci_list)
-}
-
-# Filter data for Apple and Amazon
-apple_data <- prices_sample |> filter(symbol == "AAPL")
-amazon_data <- prices_sample |> filter(symbol == "AMZN")
-
-# Compute confidence intervals and means for both companies
-ci_apple <- compute_ci(apple_data, "Apple")
-ci_amazon <- compute_ci(amazon_data, "Amazon")
-
-# Combine data
-ci_df <- bind_rows(ci_apple, ci_amazon)
-
-# Plot confidence intervals with mean points
-ggplot(ci_df, aes(x = Level, ymin = Lower, ymax = Upper, color = Symbol)) +
-  geom_linerange(size = 1.5, position = position_dodge(width = 0.3)) +  
-  geom_point(aes(y = Lower), size = 3, position = position_dodge(width = 0.3), shape = 15) +  # Lower bound
-  geom_point(aes(y = Upper), size = 3, position = position_dodge(width = 0.3), shape = 15) +  # Upper bound
-  geom_point(aes(y = Mean), size = 3, position = position_dodge(width = 0.3), shape = 16) +   # Mean point
-  labs(
-    title = "Confidence Intervals for Apple and Amazon Stock Prices",
-    x = "Confidence Level",
-    y = "Stock Price",
-    color = "Company"
-  ) + 
-  theme_minimal()
-```
+  - A un nivel de significancia del 1% y utilizando el intervalo de confianza para la decisión de rechazar o no
 
 
 ## Errores Tipo I y II {.medium}
@@ -1121,3 +1188,14 @@ ggplot(ci_df, aes(x = Level, ymin = Lower, ymax = Upper, color = Symbol)) +
 
 
 - (Casi) Nunca sabremos si $H_0$ o $H_A$ son verdaderas, pero se necesita considerar todas las posibilidades
+
+## Errores Tipo I y II {.medium}
+
+
+![](img/type_errors.png){height="500" fig-align="center"}
+
+
+## 💪 Ejercicio 3  {.medium}
+
+1. Retomemos la situación en la que su colega piensa que el precio promedio de la acción de Netflix entre 2015 y 2023 fue de 310 dólares y nuestra muestra indica que el precio es mayor. En este contexto, ¿sería preferible cometer un error tipo I o tipo II? ¿Por qué?
+

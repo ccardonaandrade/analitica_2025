@@ -419,7 +419,7 @@ Carlos Cardona Andrade
 <section id="intervalos-de-confianza---muestra-1" class="slide level2 medium">
 <h2>Intervalos de Confianza - Muestra 1</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-discovered-preview-image r-stretch quarto-figure-center" width="960"><p>El precio promedio de las acciones de Netflix fue 298.64</p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-discovered-preview-image r-stretch quarto-figure-center" width="960"><p>El precio promedio de las acciones de Netflix fue <span class="math inline">\(\mu=\)</span> 298.64</p>
 </section>
 <section id="intervalos-de-confianza---muestra-1-1" class="slide level2 medium">
 <h2>Intervalos de Confianza - Muestra 1</h2>
@@ -450,6 +450,36 @@ Carlos Cardona Andrade
 <h1>Intro a Pruebas de Hipótesis</h1>
 
 </section>
+<section id="muriel-bristol-y-las-tazas-de-té" class="slide level2 medium">
+<h2>Muriel Bristol y las tazas de té</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="img/tea_exp.jpg" height="400"></p>
+</div><div class="column" style="width:50%;">
+<p>En la década de 1920, la botánica inglesa Muriel Bristol afirmó que podía distinguir si la leche se había agregado antes o después del té en una taza. El estadístico Ronald Fisher, diseñó un experimento para poner a prueba su afirmación.</p>
+<p>Fisher le presentó ocho tazas de té, cuatro con la leche agregada antes y cuatro después, y le pidió que identificara cuáles pertenecían a cada grupo.</p>
+</div>
+</div>
+</section>
+<section id="por-qué-es-importante" class="slide level2 medium">
+<h2>¿Por qué es importante?</h2>
+<p>Este experimento marca el nacimiento del concepto de prueba de hipótesis en estadística. Fisher planteó dos hipótesis:</p>
+<ul>
+<li><p><span class="marker-hl">Hipótesis nula (<span class="math inline">\(H_0\)</span>)</span>: La mujer elige al azar</p></li>
+<li><p><span class="marker-hl">Hipótesis alternativa (<span class="math inline">\(H_A\)</span>)</span>: La mujer realmente distingue la diferencia</p></li>
+</ul>
+<p>Si ella identifica correctamente las tazas más veces de lo que se esperaría por azar, Fisher rechazaría la hipótesis nula en favor de la alternativa.</p>
+</section>
+<section id="cuáles-son-los-elementos-de-una-prueba-de-hipótesis" class="slide level2 medium">
+<h2>¿Cuáles son los elementos de una prueba de hipótesis?</h2>
+<ul>
+<li><p>Hipótesis nula (<span class="math inline">\(H_0\)</span>): Es la suposición inicial que se pone a prueba.</p></li>
+<li><p>Hipótesis alternativa (<span class="math inline">\(H_A\)</span>): Es la afirmación que se intenta demostrar.</p></li>
+<li><p>Estadístico de prueba: Un valor calculado a partir de los datos que permite evaluar la evidencia en contra de <span class="math inline">\(H_0\)</span>.</p></li>
+<li><p>Nivel de significancia (<span class="math inline">\(\alpha\)</span>): La probabilidad de rechazar <span class="math inline">\(H_0\)</span> cuando en realidad es verdadera.</p></li>
+<li><p>Regla de decisión: Un criterio basado en el estadístico de prueba para determinar si se rechaza o no <span class="math inline">\(H_0\)</span>.</p></li>
+</ul>
+</section>
 <section id="ejemplo-precio-de-la-acción-de-netflix-2015-2023" class="slide level2 medium">
 <h2>Ejemplo: Precio de la acción de Netflix 2015-2023</h2>
 <ul>
@@ -474,16 +504,17 @@ Carlos Cardona Andrade
 <span id="cb1-16"><a href="#cb1-16"></a>netflix_sample <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(netflix_data, <span class="dv">100</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="cómo-es-la-distribución-de-esos-datos" class="slide level2">
-<h2>¿Cómo es la distribución de esos datos?</h2>
+<section id="cómo-es-la-distribución-el-precio-de-la-acción-de-netflix" class="slide level2">
+<h2>¿Cómo es la distribución el precio de la acción de Netflix?</h2>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" width="768" class="r-stretch quarto-figure-center"></section>
-<section id="ejemplo-número-de-horas-que-estudian-analítica" class="slide level2 medium">
-<h2>Ejemplo: Número de horas que estudian Analítica</h2>
+<section id="ejemplo-precio-de-la-acción-de-netflix-2015-2023-1" class="slide level2 medium">
+<h2>Ejemplo: Precio de la acción de Netflix 2015-2023</h2>
 <ul>
-<li><p>Uno de sus colegas cree que el precio promedio de la acción de Netflix fue 310</p></li>
+<li><p>Uno de sus colegas <em>cree</em> que el precio promedio de la acción de Netflix fue 310</p></li>
 <li><p>El precio promedio de la acción para la muestra es 342.16 y la desviación estándar es 154.71</p></li>
 <li><p>¿Son estos datos suficientes para probar que el precio de la acción es mayor al precio que su considera fue el real durante ese periodo?</p></li>
+<li><p>Elaboremos una prueba de hipótesis con un nivel de significancia del 5% (<span class="math inline">\(\alpha=0.05\)</span>) para evaluar esta afirmación</p></li>
 </ul>
 </section>
 <section id="hipótesis" class="slide level2 medium">
@@ -514,17 +545,23 @@ Carlos Cardona Andrade
 <p><span class="math inline">\(H_A :\)</span> el número de horas de estudio <code>en la muestra</code> es 310</p>
 <p>son correctas.</p>
 </section>
-<section id="maneras-incorrectas-de-establecer-las-hipótesis-1" class="slide level2 medium">
-<h2>Maneras incorrectas de establecer las hipótesis</h2>
+<section id="la-manera-correcta-de-establecer-las-hipótesis" class="slide level2 medium">
+<h2>La manera correcta de establecer las hipótesis</h2>
 <p>Las hipótesis son:</p>
-<p><span class="math display">\[H_0 : \mu = 310, \quad H_A : \mu &gt; 310\]</span> También siempre <strong>especifíquen claramente</strong> qué es <span class="math inline">\(\mu\)</span></p>
+<p><span class="math display">\[H_0 : \mu = 310\]</span></p>
+<p><span class="math display">\[H_A : \mu &gt; 310\]</span> También siempre <strong>especifíquen claramente</strong> qué es <span class="math inline">\(\mu\)</span></p>
 <p>e.g., <span class="math inline">\(\mu\)</span> es el precio promedio de la acción de Netflix entre 2015 y 2023</p>
 </section>
 <section id="el-estadístico-de-la-prueba" class="slide level2 medium">
 <h2>El estadístico de la prueba</h2>
-<p>Por el TLC, bajo <span class="math inline">\(H_0:\mu=310\)</span>, la distribución de la media muestral es:</p>
+<p>Por el TLC y asumiendo que <span class="math inline">\(H_0:\mu=310\)</span> es cierta, la distribución de la media muestral es:</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="576" class="r-stretch quarto-figure-center"><p>Para medir qué tan <em>inusual</em> es la media muestral observada <span class="math inline">\(\bar{x}=342\)</span> en relación con su distribución muestral, la estadística de prueba que usamos es el z-score.</p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="576" class="r-stretch quarto-figure-center"><div class="fragment">
+<p>Para medir qué tan <em>inusual</em> es la media muestral observada <span class="math inline">\(\bar{x}=342\)</span> en relación con su distribución muestral, el estadístico de prueba que usamos es el z-score.</p>
+<div class="fragment fade-in">
+<p><span class="bubble bubble-bottom-left absolute" style="--bubcol: var(--bubcol-red);max-width:350px;font-size:1.2rem;bottom: 22%; right: -15%; ">Por ahora usamos el z-score porque <span class="math inline">\(n\geq30\)</span>!</span></p>
+</div>
+</div>
 </section>
 <section id="el-estadístico-de-la-prueba-1" class="slide level2 medium">
 <h2>El estadístico de la prueba</h2>
@@ -555,17 +592,20 @@ Carlos Cardona Andrade
 <section id="qué-significa-alta-y-baja-probabilidad" class="slide level2 medium">
 <h2>¿ Qué significa “alta” y “baja” probabilidad?</h2>
 <ul>
-<li><p>Esto se establece a partir de una probabilidad específica, la cual se conoce como nivel de significancia (se denota con <span class="math inline">\(\alpha\)</span>), para la prueba de hipótesis.</p></li>
+<li><p>Esto se establece a partir de una probabilidad específica, la cual se conoce como <span class="marker-hl">nivel de significancia</span> (se denota con <span class="math inline">\(\alpha\)</span>), para la prueba de hipótesis.</p></li>
 <li><p>El valor <span class="math inline">\(\alpha\)</span> es una probabilidad pequeña que se utiliza para identificar muestras de poca probabilidad o inusuales.</p></li>
-<li><p>Por convención, los valores <span class="math inline">\(\alpha\)</span> más comunes son 0,05 o 0,01</p></li>
-<li><p>Por ejemplo, si usamos <span class="math inline">\(\alpha\)</span> = 0,05, separamos el 5% de las medias más improbables (valores extremos) del 95% de las medias muestrales más probables (valores centrales).</p></li>
+<li><p>Por convención, los valores <span class="math inline">\(\alpha\)</span> más comunes son:</p></li>
+</ul>
+<p><span class="math display">\[\alpha=0,05 \quad \text{o} \quad \alpha=0,01\]</span></p>
+<ul>
+<li>Por ejemplo, si usamos <span class="math inline">\(\alpha\)</span> = 0,05, separamos el 5% de las medias más improbables (valores extremos) del 95% de las medias muestrales más probables (valores centrales).</li>
 </ul>
 </section>
 <section id="región-y-z-scores-críticos" class="slide level2 medium">
 <h2>Región y Z-scores críticos</h2>
 <ul>
-<li><p>Los valores extremos que son poco probables, definidos por el nivel de significancia, constituyen lo que se conoce como <strong>región crítica</strong>.</p></li>
-<li><p>Estos valores son inconsistentes con la hipótesis nula. También se pueden interpretar como valores muestrales que proveen evidencia convincente de que el tratamiento/condición tienen algún efecto.</p></li>
+<li><p>Los valores extremos que son poco probables, definidos por el nivel de significancia, constituyen lo que se conoce como <strong>región crítica</strong></p></li>
+<li><p>Estos valores son <strong>inconsistentes</strong> con la hipótesis nula</p></li>
 <li><p>Al igual que con los intervalos de confianza, para determinar la ubicación exacta de los límites se utilizan el <span class="math inline">\(\alpha\)</span> y la distribución normal para encontrar el z-score crítico.</p></li>
 </ul>
 </section>
@@ -600,8 +640,8 @@ Carlos Cardona Andrade
 <p><span class="math display">\[H_0: \mu = 310\]</span></p>
 <p><span class="math display">\[H_0: \mu \neq 310\]</span></p>
 </section>
-<section id="prueba-de-hipótesis-a-dos-colas-1" class="slide level2 medium">
-<h2>Prueba de hipótesis a dos colas</h2>
+<section id="prueba-de-hipótesis-a-dos-colas-z-crítico" class="slide level2 medium">
+<h2>Prueba de hipótesis a dos colas: z-crítico</h2>
 <p>Si nuestro <span class="math inline">\(\alpha\)</span> = 0.05, el z-crítico será 1.96 de acuerdo a la tabla de la distribución normal</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">qnorm</span>(<span class="fl">0.975</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -611,19 +651,27 @@ Carlos Cardona Andrade
 </div>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="576" class="r-stretch quarto-figure-center"></section>
-<section id="prueba-de-hipótesis-a-dos-colas-2" class="slide level2 medium">
-<h2>Prueba de hipótesis a dos colas</h2>
+<section id="prueba-de-hipótesis-a-dos-colas-resultado-al-5" class="slide level2 medium">
+<h2>Prueba de hipótesis a dos colas: resultado al 5%</h2>
 <ul>
 <li><p>En este caso, una media muestra <span class="math inline">\(\bar{x}\)</span> mucho menor a 310 también sería evidencia en favor de <span class="math inline">\(H_A\)</span></p></li>
 <li><p>Como <span class="math inline">\(Z=2.06&gt;1.96=Z_{\alpha=0.05}\)</span>, seguimos rechazando <span class="math inline">\(H_0\)</span></p></li>
 </ul>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="prueba-de-hipótesis-a-dos-colas-resultado-al-1" class="slide level2 medium">
+<h2>Prueba de hipótesis a dos colas: resultado al 1%</h2>
+<ul>
+<li><p>¿Qué pasa con el resultado de la prueba si el nivel de significancia cambia a <span class="math inline">\(\alpha=0.01\)</span>?</p></li>
+<li><p>Como <span class="math inline">\(Z=2.06&lt;2.57=Z_{\alpha=0.01}\)</span>, ya no rechazamos <span class="math inline">\(H_0\)</span></p></li>
+</ul>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="576" class="r-stretch quarto-figure-center"></section>
 <section id="ic-y-prueba-de-hipótesis-a-dos-colas" class="slide level2 medium">
 <h2>IC y prueba de hipótesis a dos colas</h2>
 <p>En una prueba de hipótesis a dos colas:</p>
 <p><span class="math display">\[H_0:\mu=\mu_0 \quad versus \quad H_A:\mu\neq\mu_0\]</span></p>
-<p>No rechazar la hipótesis nula es equivalente a que <span class="math inline">\(\mu_0\)</span> esté dentro del intervalo de confianza del <span class="math inline">\(100(1-\alpha)\)</span>% para <span class="math inline">\(\mu\)</span>. Es decir:</p>
+<p>No rechazar la hipótesis nula es equivalente a que <span class="math inline">\(\mu_0\)</span> esté dentro del intervalo de confianza del <span class="math inline">\(100(1-\alpha)\)</span>% para <span class="math inline">\(\bar{x}\)</span>. Es decir:</p>
 <p><span class="math display">\[\bar{x}-z^*\dfrac{s}{\sqrt{n}}&lt;\mu_0&lt;\bar{x}+z^*\dfrac{s}{\sqrt{n}}\]</span></p>
 </section>
 <section id="ic-y-prueba-de-hipótesis-a-dos-colas-1" class="slide level2 medium">
@@ -632,7 +680,7 @@ Carlos Cardona Andrade
 <div class="column" style="width:25%;">
 <p>Retomemos:</p>
 <p><span class="math display">\[H_0: \mu = 310\]</span></p>
-<p><span class="math display">\[H_0: \mu \neq 310\]</span> Rechazamos cuando:</p>
+<p><span class="math display">\[H_A: \mu \neq 310\]</span> Rechazamos cuando:</p>
 <p><span class="math display">\[\alpha=0.1\text{?}\]</span></p>
 <p><span class="math display">\[\alpha=0.05\text{?}\]</span></p>
 <p><span class="math display">\[\alpha=0.01\text{?}\]</span></p>
@@ -641,13 +689,24 @@ Carlos Cardona Andrade
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" width="576"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </div>
+</section>
+<section id="ejercicio-1" class="slide level2 medium">
+<h2>💪 Ejercicio 1</h2>
+<ol type="1">
+<li><p>Utilicen el código de la diapositiva 14 para generar una muestra aleatoria de 100 días pero con <code>set.seed(1)</code></p></li>
+<li><p>Usando el comando <code>t.test()</code>, evalúen nuevamente la hipótesis de que el precio promedio de la acción entre 2015 y 2023 fue 310 dólares:</p></li>
+</ol>
+<ul>
+<li><p>A un nivel de significancia del 5%</p></li>
+<li><p>A un nivel de significancia del 1%</p></li>
+</ul>
 </section>
 <section id="p-value" class="slide level2 medium">
 <h2>p-value</h2>
@@ -662,7 +721,7 @@ Carlos Cardona Andrade
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-20-1.png" width="576"></p>
 </figure>
 </div>
 </div>
@@ -679,11 +738,19 @@ Carlos Cardona Andrade
 <section id="p-value-1" class="slide level2 medium">
 <h2>p-value</h2>
 <ul>
-<li><p>Para nuestro <span class="math inline">\(z=2.06\)</span>, sabemos que p−value=0.019</p></li>
-<li><p>Si <span class="math inline">\(\alpha\)</span>=0.05, se rechaza la hipótesis nula dado que 0.019&lt;0.05</p></li>
-<li><p>Esto sucede para un nivel de significancia del 5%, ¿qué sucede si este cambia a 1%?</p></li>
-<li><p>El p-value es la probabilidad de observar los estadísticos de los datos (<span class="math inline">\(\bar{x}\)</span>=310) si la hipótesis nula fuera cierta.</p></li>
+<li>Una prueba de hipótesis se rechaza si:</li>
 </ul>
+<p><span class="math display">\[p\leq\alpha\]</span></p>
+<ul>
+<li><p>Para nuestro <span class="math inline">\(z=2.06\)</span>, sabemos que <span class="math inline">\(p=0.019\)</span></p></li>
+<li><p>Si <span class="math inline">\(\alpha\)</span>=0.05, se rechaza la hipótesis nula dado que <span class="math inline">\(0.019&lt;0.05\)</span></p></li>
+<li><p>Esto sucede para un nivel de significancia del 5%, ¿qué sucede si este cambia a 1%?</p></li>
+</ul>
+<div class="fragment">
+<center>
+<span class="hl hl-dred">El p-value es la probabilidad de observar nuestros datos (<span class="math inline">\(\bar{x}\)</span>=342) si la hipótesis nula fuera cierta (<span class="math inline">\(\mu=310\)</span>)</span>
+<center>
+</center></center></div>
 </section>
 <section id="resumen---prueba-de-hipótesis" class="slide level2 medium">
 <h2>Resumen - Prueba de hipótesis</h2>
@@ -698,7 +765,7 @@ Carlos Cardona Andrade
 <li>Revise los supuestos y condiciones
 <ul>
 <li>Independencia</li>
-<li>Normalidad: <span class="math inline">\(n&gt;30\)</span></li>
+<li>Normalidad: <span class="math inline">\(n\geq30\)</span></li>
 </ul></li>
 </ol>
 </div><div class="column fragment" style="width:50%;">
@@ -728,14 +795,14 @@ Carlos Cardona Andrade
 <li class="fragment"><p>¿Las empresas que cotizan en NYSE tienen mayores rendimientos promedio de acciones que las que cotizan en NASDAQ?</p></li>
 <li class="fragment"><p>¿Las tasas de interés de las hipotecas ofrecidas por el banco A son más bajas que las ofrecidas por el banco B?</p></li>
 <li class="fragment"><p>¿Los salarios promedio de los empleados en empresas tecnológicas son diferentes de los de las empresas manufactureras?</p></li>
-<li class="fragment"><p>El objetivo ahora es comparar las medias (o alguna cantidad) <span class="math inline">\(\mu_1\)</span> y <span class="math inline">\(\mu_2\)</span> de dos poblaciones</p></li>
+<li class="fragment"><p>El objetivo ahora es comparar las medias (o alguna cantidad) <span class="math inline">\(\mu_A\)</span> y <span class="math inline">\(\mu_B\)</span> de dos poblaciones</p></li>
 </ul>
 </div>
 </section>
 <section id="muestras-independientes-y-relacionadas" class="slide level2 medium">
 <h2>Muestras independientes y relacionadas</h2>
 <ul>
-<li><p>Las hipótesis en este caso son:</p>
+<li><p>Para dos poblaciones de interés <span class="math inline">\(A\)</span> y <span class="math inline">\(B\)</span>, las hipótesis en este caso son:</p>
 <ul>
 <li><span class="math inline">\(H_0:\mu_A-\mu_B=0\)</span></li>
 <li><span class="math inline">\(H_A:\mu_A-\mu_B\neq0\)</span></li>
@@ -787,11 +854,11 @@ Carlos Cardona Andrade
 <section id="ejemplo-apple-and-amazon-stock-prices-2" class="slide level2 medium">
 <h2>Ejemplo: Apple and Amazon stock prices</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="ejemplo-apple-and-amazon-stock-prices-3" class="slide level2 medium">
 <h2>Ejemplo: Apple and Amazon stock prices</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-24-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="prueba-de-hipótesis-en-r" class="slide level2 medium">
 <h2>Prueba de hipótesis en R</h2>
 <p><span class="math display">\[H_0:\mu_{apple}-\mu_{amazon}=0\]</span></p>
@@ -813,7 +880,7 @@ data:  adjusted_close by symbol
 t = -2.0925, df = 191.3, p-value = 0.03771
 alternative hypothesis: true difference in means between group AAPL and group AMZN is not equal to 0
 95 percent confidence interval:
- -29.9290911  -0.8839658
+ -29.9290902  -0.8839648
 sample estimates:
 mean in group AAPL mean in group AMZN 
           81.52729           96.93382 </code></pre>
@@ -827,7 +894,7 @@ mean in group AAPL mean in group AMZN
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>test_resultado<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.03771284</code></pre>
+<pre><code>[1] 0.03771285</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>test_resultado<span class="sc">$</span>p.value<span class="sc">&lt;</span><span class="fl">0.05</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -835,10 +902,17 @@ mean in group AAPL mean in group AMZN
 </div>
 </div>
 </section>
-<section id="ic-con-distintos-niveles-de-confianza" class="slide level2 medium">
-<h2>IC con distintos niveles de confianza</h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-26-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="ejercicio-2" class="slide level2 medium">
+<h2>💪 Ejercicio 2</h2>
+<ol type="1">
+<li><p>Utilicen el código de la diapositiva 42 para generar una muestra aleatoria de 100 días para dos empresas diferentes. Pueden encontrar las siglas de las dos empresas acá: <a href="https://finance.yahoo.com/lookup/" target="_blank">Yahoo Finance</a>.</p></li>
+<li><p>Usando el comando <code>t.test()</code>, evalúen nuevamente la hipótesis de que el precio promedio de ambas acciones entre 2015 y 2023 fue diferente:</p></li>
+</ol>
+<ul>
+<li><p>A un nivel de significancia del 5% y utilizando el p-value para la decisión de rechazar o no</p></li>
+<li><p>A un nivel de significancia del 1% y utilizando el intervalo de confianza para la decisión de rechazar o no</p></li>
+</ul>
+</section>
 <section id="errores-tipo-i-y-ii" class="slide level2 medium">
 <h2>Errores Tipo I y II</h2>
 <div style="margin-top: 100px;">
@@ -875,6 +949,20 @@ mean in group AAPL mean in group AMZN
 <ul>
 <li>(Casi) Nunca sabremos si <span class="math inline">\(H_0\)</span> o <span class="math inline">\(H_A\)</span> son verdaderas, pero se necesita considerar todas las posibilidades</li>
 </ul>
+</section>
+<section id="errores-tipo-i-y-ii-1" class="slide level2 medium">
+<h2>Errores Tipo I y II</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/type_errors.png" height="500"></p>
+</figure>
+</div>
+</section>
+<section id="ejercicio-3" class="slide level2 medium">
+<h2>💪 Ejercicio 3</h2>
+<ol type="1">
+<li>Retomemos la situación en la que su colega piensa que el precio promedio de la acción de Netflix entre 2015 y 2023 fue de 310 dólares y nuestra muestra indica que el precio es mayor. En este contexto, ¿sería preferible cometer un error tipo I o tipo II? ¿Por qué?</li>
+</ol>
 <div class="footer footer-default">
 
 </div>
