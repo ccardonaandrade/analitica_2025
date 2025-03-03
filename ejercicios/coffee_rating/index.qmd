@@ -22,9 +22,7 @@ format:
 
 En este taller, asumiremos el rol de analistas de calidad para una empresa que asesora a tostadores y distribuidores de café de especialidad. Se nos ha proporcionado una base de datos con evaluaciones de distintos cafés de diversas regiones del mundo. Nuestro objetivo es analizar estos datos para identificar patrones en la calidad del café y ofrecer recomendaciones a nuestros clientes.
 
-La base de datos contiene información detallada sobre las características sensoriales del café, como aroma, sabor, acidez, cuerpo y balance, así como la calificación general (total_cup_points). También incluye variables como el país de origen y el nivel de humedad del grano.
-
-El conjunto de datos contiene información sobre diversas canciones disponibles en Spotify, incluyendo características musicales, metadatos del artista y medidas de popularidad. A continuación, se detallan las principales variables:
+La base de datos contiene información detallada sobre las características sensoriales del café, como aroma, sabor, acidez, cuerpo y balance, así como la calificación general (total_cup_points). También incluye variables como el país de origen y el nivel de humedad del grano. A continuación, se detallan las principales variables:
 
 
 `total_cup_points`: Puntuación total del café en una escala de 0 a 100.
@@ -37,7 +35,7 @@ El conjunto de datos contiene información sobre diversas canciones disponibles 
 
 `flavor`: Calificación otorgada al sabor del café.
 
-`aftertaste`: Calificación otorgada al retrogusto del café.
+`aftertaste`: Calificación otorgada al sabor residual del café.
 
 `acidity`: Calificación otorgada a la acidez del café.
 
@@ -59,7 +57,7 @@ El conjunto de datos contiene información sobre diversas canciones disponibles 
 
 
 
-## Ejercicio
+## Ejercicio 1
 
 
 Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete `tidyverse` y `corrplot`. Instalen `corrplot` porque es la primera vez que lo utilizamos.
@@ -93,7 +91,7 @@ glimpse(coffee_data)
 
 ```
 
-## Ejercicio 
+## Ejercicio 2
 
 Reescriban los datos `coffee_data` de manera que sólo tengan las variables:
 
@@ -107,7 +105,7 @@ Reescriban los datos `coffee_data` de manera que sólo tengan las variables:
 
 - `altitude_mean_meters`
 
-## Ejercicio 
+## Ejercicio 3
 
 Construyan el histograma de la variable `total_cup_points`. 
 
@@ -123,20 +121,26 @@ coffee_data <- coffee_data |>
 ```
 
 
-## Ejercicio 
+## Ejercicio 4
 
 Construyan un diagrama de caja para `total_cup_points` e incluyan una línea vertical punteada que indique la calidad promedio de los cafés producidos en Colombia. Analicen la posición de esta línea en comparación con la distribución general de la calidad del café en la muestra. ¿Qué podemos concluir sobre la calidad de los cafés colombianos en relación con los demás?
 
-## Ejercicio
+## Ejercicio 5
 
 Uno de nuestros clientes cree que la calidad promedio del café en el mundo es de **80 puntos**. Usando los datos, realicen una prueba de hipótesis con un nivel de significancia del 5% para evaluar esta afirmación. ¿Podemos rechazar la hipótesis nula o no? Expliquen su conclusión.
 
-## Ejercicio
+## Ejercicio 6
+
+- Si rechazamos la hipótesis nula cuando en realidad es verdadera, ¿qué tipo de error estaríamos cometiendo? Explica las consecuencias de este error en el contexto de la calidad del café.
+
+- Si no logramos rechazar la hipótesis nula cuando en realidad es falsa, ¿qué tipo de error estaríamos cometiendo? ¿Qué implicaciones tendría esto para la industria del café?
+
+## Ejercicio 7
 
 Construyan un histograma y un diagrama de caja para la variable altitude_mean_meters. Además, calculen los cinco números resumen: mínimo, primer cuartil (Q1), mediana, tercer cuartil (Q3) y máximo.
 Con base en las gráficas y los estadísticos descriptivos, describan la forma de la distribución (simétrica, sesgada, presencia de valores atípicos, etc.).
 
-## Ejercicio
+## Ejercicio 8
 
 Estimen un intervalo de confianza para la media de `altitude_mean_meters` al 90% y 95%.
 
@@ -145,7 +149,7 @@ Estimen un intervalo de confianza para la media de `altitude_mean_meters` al 90%
 - ¿Cuál recomendarían para estimar la altitud promedio de los cultivos de café en el mundo y por qué?
 
 
-## Ejercicio
+## Ejercicio 9
 
 Uno de nuestros clientes cree que la altitud promedio de los cultivos de café en el mundo es de **1300 metros**. Usando los datos, realicen una prueba de hipótesis con un nivel de significancia del 5% para evaluar esta afirmación.
 
@@ -153,8 +157,12 @@ Uno de nuestros clientes cree que la altitud promedio de los cultivos de café e
 
 - Expliquen su conclusión en términos sencillos para el cliente.
 
+## Ejercicio 10
 
-## Ejercicio 
+Si rechazamos la hipótesis nula y concluimos que la altitud promedio de los cultivos de café es diferente de 1300 metros, el cliente podría decidir invertir en nuevas plantaciones a diferentes altitudes. Sin embargo, si en realidad la altitud promedio sí es 1300 metros, ¿qué tipo de error estaríamos cometiendo y qué consecuencias podría tener esta decisión para el cliente?
+
+
+## Ejercicio 11
 
 1. Creen una variable llamada `colombia`, que tome el valor `TRUE` si el país de origen del café es Colombia y `FALSE` en caso contrario.
 
@@ -166,11 +174,16 @@ $$H_A: \mu_{\text{Colombia}}\neq\mu_{\text{No Colombia}}$$
 
 3. Basándose en el intervalo de confianza del `t.test()`, decidan si pueden rechazar la hipótesis nula con un nivel de significancia del 5%. Expliquen su conclusión en términos sencillos.
 
-## Ejercicio 
+## Ejercicio 12
+
+Dado que no rechazamos la hipótesis nula, estamos concluyendo que la calidad promedio del café colombiano no es significativamente diferente de la de otros países. Sin embargo, si en realidad sí hubiera una diferencia en la calidad, ¿qué tipo de error estaríamos cometiendo? ¿Qué impacto podría tener esta conclusión en las decisiones de exportación y marketing del café colombiano?
+
+
+## Ejercicio 13
 
 Construyan un diagrama de caja para comparar la distribución de `total_cup_points` entre los cafés colombianos y los de otros países. ¿Cómo se compara la calidad del café colombiano con la de los demás cafés en la muestra?
 
-## Ejercicio 
+## Ejercicio 14
 
 ¿Los cafés colombianos crecen, en promedio, a una altitud mayor que los demás cafés?
 
@@ -189,7 +202,7 @@ Como queremos comprobar si la altitud promedio de los cafés colombianos es mayo
 
   - ¿Qué significa esto en términos de la altitud promedio de los cafés colombianos?
 
-## Ejercicio 
+## Ejercicio 15
 
 Ejecuten el siguiente código para ver la matriz de correlaciones. El paquete `corrplot` es una buena manera de visualizar la matriz.
 
