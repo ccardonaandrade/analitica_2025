@@ -1,5 +1,5 @@
 ---
-title: "Análisis de Datos de Spotify"
+title: "Análisis de la Calidad del Café"
 
 lang: es
 
@@ -12,80 +12,63 @@ format:
    linkcolor: tomato
 ---
 
-📅 **Fecha Límite:** Martes 18 de febrero, 6:00 p.m.
-
-**Formato de Entrega:** Me envían el R Script al correo con el formato usual `nombre_apellido.R`. Si realizan el trabajo en parejas, nombren el archivo `nombre1_apellido1_nombre2_apellido2.R`. *Antes de enviar el archivo, asegúrense de que su código se ejecuta correctamente en un nuevo R Script limpio*.
+📅 **Fecha Límite:** No hay fecha de entrega. Estos ejercicios son para que estudien. Los resolveremos en las clases del 3 y 10 de Marzo.
 
 
-**Criterios de evaluación:**
+## Análisis de Calidad del Café para Clientes Especializados
 
-✔ Código correcto y bien estructurado: si el código no ejecuta, descuento la mitad del punto.
+::: {.column-screen style="background-image:url(https://camo.githubusercontent.com/02ffb0ea07c6b9661808ff3fd1bec90a45e2f9112077119b0d15c80fd1956813/68747470733a2f2f696d616765732e756e73706c6173682e636f6d2f70686f746f2d313535303638313536302d6166396263316362333339653f69786c69623d72622d312e322e3126697869643d65794a6863484266615751694f6a45794d446439266175746f3d666f726d6174266669743d63726f7026773d3133353026713d3830); background-size: 100vw; height: 800px; background-position: center +15%; background-repeat: no-repeat;"}
+:::
 
-✔ Gráficos generados correctamente: Uso de `ggplot2` con etiquetas claras y colores adecuados.
+En este taller, asumiremos el rol de analistas de calidad para una empresa que asesora a tostadores y distribuidores de café de especialidad. Se nos ha proporcionado una base de datos con evaluaciones de distintos cafés de diversas regiones del mundo. Nuestro objetivo es analizar estos datos para identificar patrones en la calidad del café y ofrecer recomendaciones a nuestros clientes.
 
-✔ Interpretación y análisis: Respuesta clara a las preguntas en comentarios y que sea concisa. Si su respuesta tiene más de 3 líneas es **muy** larga.
-
-✔ Formato y organización: Código limpio, comentado y con títulos adecuados en el documento.
-
-
-## Descripción del Dataset de Spotify
+La base de datos contiene información detallada sobre las características sensoriales del café, como aroma, sabor, acidez, cuerpo y balance, así como la calificación general (total_cup_points). También incluye variables como el país de origen y el nivel de humedad del grano.
 
 El conjunto de datos contiene información sobre diversas canciones disponibles en Spotify, incluyendo características musicales, metadatos del artista y medidas de popularidad. A continuación, se detallan las principales variables:
 
-1. **Metadatos de la canción**:
 
-`artist`: Nombre del artista o banda.
+`total_cup_points`: Puntuación total del café en una escala de 0 a 100.
 
-`song`: Nombre de la canción.
+`species`: Especie de grano de café (por ejemplo, arábica o robusta).
 
-`year`: Año de lanzamiento.
+`country_of_origin`: País de origen del grano de café.
 
-`genre`: Género musical de la canción.
+`aroma`: Calificación otorgada al aroma del café.
+
+`flavor`: Calificación otorgada al sabor del café.
+
+`aftertaste`: Calificación otorgada al retrogusto del café.
+
+`acidity`: Calificación otorgada a la acidez del café.
+
+`body`: Calificación otorgada al cuerpo del café (sensación en boca).
+
+`balance`: Calificación otorgada al balance del café (equilibrio entre atributos).
+
+`uniformity`: Calificación otorgada a la uniformidad del café.
+
+`clean_cup`: Calificación otorgada a la limpieza de la taza (ausencia de defectos).
+
+`sweetness`: Calificación otorgada a la dulzura del café.
+
+`cupper_points`: Puntuación otorgada por el catador en la evaluación final.
+
+`moisture`: Nivel de humedad del grano de café.
+
+`altitude_mean_meters`: Altitud promedio (en metros) a la que se cultivó el café.
 
 
-2. **Popularidad y métricas generales**:
 
-`popularity`: Medida de popularidad en una escala de 0 a 100, donde valores más altos indican mayor popularidad.
+## Ejercicio
 
-`explicit`: Indica si la canción tiene contenido explícito (TRUE o FALSE).
 
-`duration_ms`: Duración de la canción en milisegundos.
-
-3. **Características musicales**:
-
-`danceability`: Medida de qué tan bailable es una canción (0 a 1).
-
-`energy`: Nivel de intensidad y actividad de la canción (0 a 1).
-
-`tempo`: Velocidad de la canción en beats por minuto (BPM).
-
-`key`: La tonalidad en la que está la canción, representada por un número (0 = C, 1 = C♯/D♭, 2 = D, etc.).
-
-`mode`: Modalidad de la canción (1 = mayor, 0 = menor).
-
-`loudness`: Volumen promedio de la canción en decibeles (dB).
-
-4. **Otras características sonoras**:
-
-`speechiness`: Detecta la presencia de palabras habladas en una canción (0 a 1).
-
-`acousticness`: Indica qué tan acústica es una canción (0 a 1).
-
-`instrumentalness`: Mide la probabilidad de que una canción no tenga voces (0 a 1).
-
-`liveness`: Estima si una canción fue grabada en vivo (0 a 1).
-
-`valence`: Mide qué tan positiva o feliz es una canción (0 a 1).
-     
-## Ejercicio 1
-
-Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete `tidyverse`. Instálenlos desde la consola si es la primera vez que usan su PC actual.
+Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete `tidyverse` y `corrplot`. Instalen `corrplot` porque es la primera vez que lo utilizamos.
 
 ```{r}
 #| eval: false
 #| echo: true
 ## ------------------------------
-## Análisis de Spotify
+## Análisis de Café
 ##
 ## Autor(es): 
 ##
@@ -94,105 +77,168 @@ Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete `tidy
 
 ## establecemos el directorio de trabajo
 ## En esta carpeta deberían estar los datos
-setwd("C:/Users/nombre_apellido/OneDrive/Documentos/analitica_spotify/data")
+setwd("C:/Users/nombre_apellido/OneDrive/Documentos/analitica_cafe/data")
    
 ## cargamos todos los paquetes que usaremos en la sesión:
 
 library(tidyverse)
+library(corrplot)
 
 ## ---------------------------
 
 ### Ejercicio 1
 
-spotify <- read.csv("spotify_data.csv")
-glimpse(spotify)
+coffee_data <- read.csv("coffee_ratings.csv")
+glimpse(coffee_data)
 
 ```
 
-Calculen la media, mediana, desviación estándar (sd) y rango intercuartílico (IQR) de la variable `popularity`. Interpreten los resultados.
+## Ejercicio 
 
+Reescriban los datos `coffee_data` de manera que sólo tengan las variables:
 
-## Ejercicio 2
+- `total_cup_points`
 
-Creen un histograma de `popularity` con un número de barras adecuado y colores personalizados. Agreguen una línea vertical que represente la media y la mediana (para esto usen la función `geom_vline()`).¿Qué nos dice el gráfico?
+- `species`
 
+- `country_of_origin`
 
-## Ejercicio 3
+- De `aroma` a `moisture`
 
-Creen un diagrama de caja para la variable `popularity`. ¿La distribución tiene valores atípicos? 
+- `altitude_mean_meters`
 
-## Ejercicio 4
+## Ejercicio 
 
-Creen un diagrama de caja de la variable `popularity` agrupado por la variable `explicit`. Comparen la mediana de popularidad entre canciones explícitas y no explícitas. ¿Las canciones explícitas son generalmente más o menos populares?
+Construyan el histograma de la variable `total_cup_points`. 
 
-## Ejercicio 5
+De acuerdo al histograma, ¿cuál es el valor del dato atípico?
 
-Creen un gráfico de dispersión con `danceability` en el eje x y `energy` en el eje y. El gráfico final debe tener una línea de tendencia suavizada (`geom_smooth()`) además de los puntos. Adicional a esto, calculen la correlación entre ambas variables. ¿Las canciones con mayor energía tienden a ser más bailables?
-
-## Ejercicio 6
-
-Basados en la gráfica que resulta de ejecturar el siguiente código y usando la función `filter()`, seleccionen los datos para el año que evidencie menor presencia de datos atípicos (*outliers*) en su opinión. A esta nueva base de datos llámenla `spotify_new`.
+Ejecuten el siquiente código para eliminar ese sesgo:
 
 ```{r}
 #| echo: true
 #| eval: false
-ggplot(spotify) +
-  geom_histogram(aes(x=popularity)) +
-  labs(x = "Popularity Score", y = "Frequency") +
-  facet_wrap(~ year) + 
+coffee_data <- coffee_data |>
+  filter(total_cup_points>50)
+```
+
+
+## Ejercicio 
+
+Construyan un diagrama de caja para `total_cup_points` e incluyan una línea vertical punteada que indique la calidad promedio de los cafés producidos en Colombia. Analicen la posición de esta línea en comparación con la distribución general de la calidad del café en la muestra. ¿Qué podemos concluir sobre la calidad de los cafés colombianos en relación con los demás?
+
+## Ejercicio
+
+Uno de nuestros clientes cree que la calidad promedio del café en el mundo es de **80 puntos**. Usando los datos, realicen una prueba de hipótesis con un nivel de significancia del 5% para evaluar esta afirmación. ¿Podemos rechazar la hipótesis nula o no? Expliquen su conclusión.
+
+## Ejercicio
+
+Construyan un histograma y un diagrama de caja para la variable altitude_mean_meters. Además, calculen los cinco números resumen: mínimo, primer cuartil (Q1), mediana, tercer cuartil (Q3) y máximo.
+Con base en las gráficas y los estadísticos descriptivos, describan la forma de la distribución (simétrica, sesgada, presencia de valores atípicos, etc.).
+
+## Ejercicio
+
+Estimen un intervalo de confianza para la media de `altitude_mean_meters` al 90% y 95%.
+
+- ¿Los intervalos son muy diferentes?
+
+- ¿Cuál recomendarían para estimar la altitud promedio de los cultivos de café en el mundo y por qué?
+
+
+## Ejercicio
+
+Uno de nuestros clientes cree que la altitud promedio de los cultivos de café en el mundo es de **1300 metros**. Usando los datos, realicen una prueba de hipótesis con un nivel de significancia del 5% para evaluar esta afirmación.
+
+- ¿Podemos rechazar la hipótesis nula o no?
+
+- Expliquen su conclusión en términos sencillos para el cliente.
+
+
+## Ejercicio 
+
+1. Creen una variable llamada `colombia`, que tome el valor `TRUE` si el país de origen del café es Colombia y `FALSE` en caso contrario.
+
+2. Realicen una prueba de hipótesis para comparar la calidad promedio (`total_cup_points`) del café colombiano vs. los demás cafés usando `t.test()`:
+
+$$H_0: \mu_{\text{Colombia}}=\mu_{\text{No Colombia}}$$
+$$H_A: \mu_{\text{Colombia}}\neq\mu_{\text{No Colombia}}$$
+
+
+3. Basándose en el intervalo de confianza del `t.test()`, decidan si pueden rechazar la hipótesis nula con un nivel de significancia del 5%. Expliquen su conclusión en términos sencillos.
+
+## Ejercicio 
+
+Construyan un diagrama de caja para comparar la distribución de `total_cup_points` entre los cafés colombianos y los de otros países. ¿Cómo se compara la calidad del café colombiano con la de los demás cafés en la muestra?
+
+## Ejercicio 
+
+¿Los cafés colombianos crecen, en promedio, a una altitud mayor que los demás cafés?
+
+1. Formulen las hipótesis para comparar la altitud promedio (`altitude_mean_meters`) de los cafés colombianos vs. los no colombianos.
+
+$$H_0: \mu_{\text{Colombia}}=\mu_{\text{No Colombia}}$$
+$$H_A: \mu_{\text{Colombia}}>\mu_{\text{No Colombia}}$$
+
+2. Realicen la prueba de hipótesis usando `t.test()`. 
+
+Como queremos comprobar si la altitud promedio de los cafés colombianos es mayor que la de los demás cafés, realizaremos una *prueba de una cola*. Para ello, deben agregar la opción `alternative = "greater"` en el comando.
+
+3. Interpreten el p-value:
+
+  - ¿Podemos rechazar la hipótesis nula al 5%?
+
+  - ¿Qué significa esto en términos de la altitud promedio de los cafés colombianos?
+
+## Ejercicio 
+
+Ejecuten el siguiente código para ver la matriz de correlaciones. El paquete `corrplot` es una buena manera de visualizar la matriz.
+
+
+```{r}
+#| echo: true
+#| eval: false
+coffee_vars_cor <- coffee_data |>
+  select(total_cup_points, aroma, flavor, aftertaste,
+         acidity, body, balance, uniformity, sweetness, cupper_points, moisture)
+corrplot(cor(coffee_vars_cor), method = 'number', type = "upper")
+
+```
+
+Elijan una variable que se correlacione de manera débil con `total_cup_points` y una que se correlacione de manera fuerte.  Basados en los siguientes códigos, construyan un diagrama de dispersión con cada una de estas variables en el eje `x` y `total_cup_points` en el eje `y`. Reemplacen `__________` con las variables que seleccionaron. 
+
+¿Los patrones observados en los gráficos reflejan la magnitud de las correlaciones?
+
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(coffee_data) +
+  geom_point(aes(y=total_cup_points,x=__________)) +
+  xlim(0,10)+ ylim(50,100)+
+  labs(y="Total Cup Points",
+       x="_________", 
+       title = "Low Correlation")+
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+ggplot(coffee_data) +
+  geom_point(aes(y=total_cup_points,x=__________)) +
+  xlim(0,10)+ ylim(50,100)+
+  labs(y="Total Cup Points",
+       x="_________", 
+       title = "High Correlation")+
   theme_minimal()
 ```
 
-
-## Ejercicio 7
-
-Usando los datos `spotify_new`, calculen la media y la mediana de `popularity` dependiendo de si la canción es o no explícita (`explicit`). ¿Cambia su respuesta con respecto al Ejercicio 4?
-
-
-## Ejercicio 8
-
-Usando los datos `spotify_new`, creen un gráfico de dispersión con `popularity` en el eje x y elijan entre `loudness`, `speechiness` o `acousticness` para el eje y. ¿Qué relación observan en el gráfico?¿Tiene sentido o va en contra de lo que ustedes habrían esperado?
-
-## Ejercicio 9
-
-Volvamos a los datos originales `spotify` y creemos la variable `new_genre` de la siguiente manera:
-
-```{r}
-#| echo: true
-#| eval: false
-spotify <- spotify |>
-  mutate(new_genre = case_when(
-    str_detect(genre, "latin") ~ "Latin",
-    str_detect(genre, "rock") ~ "Rock",
-    TRUE ~ "Other"
-  ))
-```
-
-El número total de casos para las tres categorías que creamos con el código anterior es:
-
-```{r}
-#| echo: true
-#| eval: false
-spotify |> 
-  group_by(new_genre) |> 
-  count()
-``` 
-
-Grafiquen un diagrama de caja de la variable `danceability` para las tres categorías de `new_genre`. ¿Tiene sentido el gráfico?¿Por qué?
-
-## Ejercicio 10
-
-Usando la función `mutate()`:
-
-1. Conviertan la duración de las canciones (`duration_ms`) de milisegundos a minutos y guárdenla en una nueva variable llamada `duration_min`.
-
-2. Creen una variable categórica llamada `song_length` que clasifique las canciones en:
-
-  - "Short" si la duración es menor a 2.5 minutos.
-  
-  - "Medium" si está entre 2.5 y 4 minutos.
-  
-  - "Long" si dura más de 4 minutos.
-  
-3. Generen un gráfico de barras que muestre la cantidad de canciones en cada categoría (`song_length`).
+:::
+:::
 
