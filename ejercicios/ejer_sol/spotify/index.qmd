@@ -1,0 +1,409 @@
+---
+title: "Soluciones - Análisis de Datos de Spotify"
+
+lang: es
+
+format: 
+  closeread-html:
+   css: msaz.css
+   code-tools: false
+   fig-format: svg
+   toc: true
+   linkcolor: tomato
+---
+
+     
+## Ejercicio 1
+
+Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete `tidyverse`. Instálenlos desde la consola si es la primera vez que usan su PC actual.
+
+```{r}
+#| eval: true
+#| echo: false
+setwd("C:/Users/ccard/OneDrive/Documentos/GitHub/analitica_2025/data/spotify")
+```
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+## establecemos el directorio de trabajo
+## En esta carpeta deberían estar los datos
+setwd("C:/Users/ccard/OneDrive/Documentos/GitHub/analitica_2025/data/spotify")
+   
+## cargamos todos los paquetes que usaremos en la sesión:
+
+library(tidyverse)
+
+## ---------------------------
+
+### Ejercicio 1
+
+spotify <- read.csv("spotify_data.csv")
+glimpse(spotify)
+```
+
+Calculen la media, mediana, desviación estándar (sd) y rango intercuartílico (IQR) de la variable `popularity`. Interpreten los resultados.
+
+```{r}
+#| eval: true
+#| echo: true
+
+# media
+mean(spotify$popularity, na.rm = TRUE)
+
+# desviación estándar
+sd(spotify$popularity, na.rm = TRUE)
+
+# RIC
+IQR(spotify$popularity, na.rm = TRUE)
+```
+
+
+- La media de 59 puntos nos da una idea general del nivel de popularidad, pero la desviación estándar nos indica que hay canciones con popularidad mucho mayor y mucho menor.
+
+- El RIC sugiere que la mayoría de las canciones tienen una popularidad relativamente concentrada dentro de un rango de 17 puntos alrededor de la mediana.
+
+- Si la desviación estándar es mayor que el IQR, puede ser indicativo de que hay valores extremos (outliers) que afectan la dispersión de los datos.
+
+## Ejercicio 2
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+
+# Calcular estadísticos
+media_pop <- mean(spotify$popularity, na.rm = TRUE)
+mediana_pop <- median(spotify$popularity, na.rm = TRUE)
+
+# Crear el histograma
+ggplot(spotify, aes(x = popularity)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "black", alpha = 0.7) +
+  geom_vline(aes(xintercept = media_pop), color = "darkred", linetype = "dashed", linewidth = 1.2) +
+  geom_vline(aes(xintercept = mediana_pop), color = "darkgreen", linetype = "dashed", linewidth = 1.2) +
+  labs(
+    title = "Distribución de la Popularidad de Canciones en Spotify",
+    x = "Popularidad",
+    y = "Frecuencia"
+  ) +
+  theme_minimal()
+```
+
+
+El gráfico muestra la distribución de la popularidad de las canciones en Spotify y nos permite extraer varias conclusiones:
+
+1. **Distribución sesgada a la izquierda**:
+
+La mayoría de las canciones tienen una popularidad alta (entre 50 y 80), mientras que hay una menor cantidad de canciones con popularidad baja.
+Se observa una acumulación significativa de canciones cerca del valor de 75-80.
+
+
+2. **Diferencia entre media y mediana**:
+
+La media (línea roja discontinua) está a la izquierda de la mediana (línea verde punteada). Esto indica que la distribución es ligeramente sesgada a la izquierda, lo que significa que hay algunas canciones con popularidad baja que están reduciendo el promedio general.
+
+
+3. **Presencia de canciones con popularidad baja**:
+
+Se observa una barra alta en 0, lo que sugiere que hay muchas canciones con una popularidad de 0, posiblemente porque no tienen reproducciones o están inactivas en la plataforma.
+
+En resumen, aunque la mayoría de las canciones tienen una popularidad relativamente alta, hay un grupo de canciones con valores muy bajos que afectan el promedio, pero no la mediana.
+
+## Ejercicio 3
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+
+# Crear el diagrama de caja
+ggplot(spotify, aes(x = popularity)) +
+  geom_boxplot() +
+  labs(
+    title = "Distribución de la Popularidad de Canciones en Spotify",
+    x = "Popularidad") +
+  theme_minimal()
+```
+
+Sí, la distribución presenta valores atípicos menores con popularidad menor a 30. Incluso con popularidad de 0, confirmando lo visto en el histograma.
+
+## Ejercicio 4
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+
+# Crear el diagrama de caja para cada grupo
+ggplot(spotify, aes(x = popularity, y=explicit)) +
+  geom_boxplot() +
+  labs(
+    title = "Distribución de la Popularidad de Canciones en Spotify para canciones explícitas y no explícitas",
+    x = "Popularidad",
+    y = "Explicit") +
+  theme_minimal()
+```
+
+Ambas distribuciones tienen rangos intercuartílicos (RIC) similares, lo que indica una variabilidad parecida en la popularidad de las canciones explícitas y no explícitas. Sin embargo, parece que las canciones explícitas tienen una mediana ligeramente más alta que las no explícitas.
+
+
+## Ejercicio 5
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+#| warning: false
+
+# Crear el diagrama de caja para cada grupo
+ggplot(spotify, aes(x = danceability , y=energy)) +
+  geom_point() +
+  geom_smooth()+
+  labs(
+    title = "Dispersión entre Danceability y Energy",
+    x = "Danceability",
+    y = "Energy") +
+  theme_minimal()
+```
+
+La correlación es:
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+cor(spotify$danceability, spotify$energy)
+```
+
+
+La correlación entre `danceability` y `energy` es de aproximadamente -0.104, lo que indica una relación muy débil y negativa entre ambas variables. Esto sugiere que, en general, las canciones con mayor energía tienden a ser ligeramente menos bailables, pero la relación es *demasiado* débil para sacar una conclusión firme.
+
+El gráfico de dispersión con la curva de ajuste no lineal muestra que la relación no es completamente lineal. Se observa un ligero aumento en `energy` para valores bajos de `danceability`, seguido de una disminución cuando `danceability` es más alto. Sin embargo, la dispersión de los datos es bastante amplia, lo que indica que no hay una tendencia clara entre ambas variables.
+
+
+## Ejercicio 6
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 12
+#| warning: false
+
+ggplot(spotify) +
+  geom_histogram(aes(x=popularity)) +
+  labs(x = "Popularity Score", y = "Frequency") +
+  facet_wrap(~ year) + 
+  theme_minimal()
+```
+
+En este caso no había una respuesta correcta. La idea es tratar de buscar la distribución más simétrica o con menos cantidad de outliers. En este caso me quedo con el año 2002 por su número bajo de ceros:
+
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 12
+#| warning: false
+
+spotify_new <- spotify |> 
+  filter(year==2002)
+```
+
+
+## Ejercicio 7
+
+La media y la mediana serán:
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 12
+#| warning: false
+
+spotify_new |> 
+  group_by(explicit) |>
+  summarise(mean_pop=mean(popularity, na.rm=TRUE),
+            median_pop=median(popularity, na.rm=TRUE))
+```
+
+
+Ahora la diferencia en popularidad es un poco más clara:
+
+- Las canciones explícitas tienen, en promedio, una mayor popularidad (65.3 vs. 61.0). 
+
+-También tienen una mediana más alta (64 vs. 60), lo que indica que al menos la mitad de las canciones explícitas son más populares que la mitad de las canciones no explícitas.
+
+La diferencia en las medianas es más clara en un nuevo diagrama de caja:
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+
+# Crear el diagrama de caja para cada grupo
+ggplot(spotify_new, aes(x = popularity, y=explicit)) +
+  geom_boxplot() +
+  labs(
+    title = "Distribución de la Popularidad de Canciones en Spotify para canciones explícitas y no explícitas",
+    x = "Popularidad",
+    y = "Explicit") +
+  theme_minimal()
+```
+
+
+## Ejercicio 8
+
+Se observa una ligera tendencia entre `popularity`y `loudness` en la que:
+
+- Para valores bajos de Popularidad, el Loudness tiende a disminuir ligeramente.
+
+- A medida que la popularidad aumenta, el loudness parece estabilizarse.
+
+- Para valores muy altos de popularidad, se observa un ligero aumento en loudness.
+
+
+¿Tiene sentido este patrón?
+Podría tenerlo si consideramos que:
+
+- Canciones con baja popularidad pueden ser más diversas en términos de loudness (algunas muy suaves, otras más ruidosas).
+
+- Las canciones con popularidad media tienden a tener un loudness más uniforme.
+
+- Canciones muy populares pueden ser ligeramente más ruidosas, quizás debido a tendencias en producción musical
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+#| warning: false
+
+# Crear el diagrama de caja para cada grupo
+ggplot(spotify_new, aes(x = popularity  , y=loudness)) +
+  geom_point() +
+  geom_smooth()+
+  labs(
+    title = "Dispersión entre Popularity y Loudness",
+    x = "Popularity",
+    y = "Loudness") +
+  theme_minimal()
+```
+
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+#| warning: false
+
+# Crear el diagrama de caja para cada grupo
+ggplot(spotify_new, aes(x = popularity  , y=speechiness )) +
+  geom_point() +
+  geom_smooth()+
+  labs(
+    title = "Dispersión entre Popularity y Speechiness",
+    x = "Popularity",
+    y = "Speechiness ") +
+  theme_minimal()
+```
+
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+#| warning: false
+
+# Crear el diagrama de caja para cada grupo
+ggplot(spotify_new, aes(x = popularity  , y=acousticness )) +
+  geom_point() +
+  geom_smooth()+
+  labs(
+    title = "Dispersión entre Popularity y Acousticness",
+    x = "Popularity",
+    y = "Acousticness ") +
+  theme_minimal()
+```
+
+El análisis para el año 2002 es similar entre las 3 variables. Lo importante al analizar diagramas de dispersión es pensar si existe una correlación positiva o no entre ambas variables. En general, no se observa una correlación fuerte entre las variables en los gráficos. Sin embargo, en algunos casos pueden aparecer ligeras tendencias en ciertos rangos de los datos.
+
+## Ejercicio 9
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 12
+#| warning: false
+spotify <- spotify |>
+  mutate(new_genre = case_when(
+    str_detect(genre, "latin") ~ "Latin",
+    str_detect(genre, "rock") ~ "Rock",
+    TRUE ~ "Other"
+  ))
+
+spotify |> 
+  group_by(new_genre) |> 
+  count()
+```
+
+El diagrama de caja se ve así:
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+
+# Crear el diagrama de caja para cada grupo
+ggplot(spotify, aes(x = danceability, y=new_genre)) +
+  geom_boxplot() +
+  labs(
+    title = "Distribución de Danceability de Canciones en Spotify para canciones latinas y no latinas",
+    x = "Danceability",
+    y = "Género Musical") +
+  theme_minimal()
+```
+
+La mediana de Latin es más alta que la de los otros géneros, lo cual tiene lógica, ya que la música latina suele ser más bailable.
+Además, el rango intercuartílico de Latin está concentrado en valores altos de `danceability.`
+
+
+## Ejercicio 10
+
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 12
+#| warning: false
+
+spotify <- spotify |>
+  mutate(
+    duration_min = duration_ms / 60000,  # Convertir a minutos
+    song_length = case_when(
+      duration_min < 2.5 ~ "Short",
+      duration_min >= 2.5 & duration_min <= 4 ~ "Medium",
+      duration_min > 4 ~ "Long"
+    )
+  )
+
+
+spotify |> count(song_length)
+```
+
+El gráfico de barra se ve así:
+
+
+```{r}
+#| echo: true
+#| fig-align: center
+#| fig-width: 10
+
+# Crear el diagrama de caja para cada grupo
+ggplot(spotify, aes(x = song_length)) +
+  geom_bar(color="darkred", fill="gold") +
+  labs(
+    title = "Frecuencia de Duración de la Canción",
+    x = "Duración de la canción",
+    y = "Frecuencia") +
+  theme_minimal()
+```
