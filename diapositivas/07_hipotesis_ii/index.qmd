@@ -1,0 +1,648 @@
+---
+title: Analítica de los Negocios
+author: Carlos Cardona Andrade
+subtitle: Pruebas de Hipótesis II
+execute:
+  freeze: auto
+  echo: true
+  fig-width: 6
+  fig-height: 5
+format:
+  revealjs: 
+   theme: ../slides.scss
+   header-includes: |
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"/>
+   slide-number: true
+   show-slide-number: all
+   transition: fade
+   progress: true
+   multiplex: false
+   scrollable: false
+   preview-links: false
+   hide-inactive-cursor: true
+   highlight-style: printing
+   pause: true
+---
+     
+
+
+
+## Plan para hoy
+
+1. [Intervalos de Confianza](#intconf)
+
+2. [Intro a Pruebas de Hipótesis](#prueba)
+
+3. [Pruebas de Hipótesis con dos muestras](#prueba2)
+
+
+# Intervalos de Confianza {#intconf}
+
+## Recordemos el TLC {.medium}
+
+$$\bar{x}\sim N(\mu,\dfrac{\sigma}{\sqrt{n}})$$
+
+Esto significa que:
+
+$$Z=\dfrac{\bar{x}-\mu}{\dfrac{\sigma}{\sqrt{n}}}\sim N(0,1)$$
+
+. . .
+
+
+Como habíamos mencionado antes, el problema radica en que ${\color{orange} \sigma}$ usualmente es desconocida para nosotros...
+
+
+## ¿Qué pasa si $\sigma$ es desconocida? {.medium}
+
+En la práctica, nunca conocemos el valor verdadero de ${\color{orange} \sigma}$, por lo que lo estimamos a partir de nuestros datos con ${\color{orange} s}$
+
+Podemos construir el siguiente estadístico de prueba para contrastar la media poblacional de una sola muestra, la cual sigue una distribución $t$ con $n−1$ grados de libertad:
+
+$$T=\dfrac{\bar{x}-\mu}{\dfrac{{\color{orange} s}}{\sqrt{n}}}\sim t_{n-1}$$
+
+## La distribución $t$ {.medium}
+
+- La distribución t también es unimodal y simétrica, y está centrada en 0.
+
+- Tiene colas más gruesas que la distribución normal.
+
+- Esto compensa la variabilidad adicional introducida al usar ${\color{orange} s}$ en lugar de $\sigma$ en el cálculo del error estándar (SE).
+
+- Está definida por los grados de libertad $n-1$
+
+
+## Dist. Normal vs Dist. $t$ {.medium}
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 8
+library(tidyverse)
+
+# Define x-axis range
+x <- seq(-4, 4, length = 1000)
+
+# Define t-distributions with different degrees of freedom
+df_values <- c(1, 3, 8, 20)
+t_distributions <- lapply(df_values, function(df) data.frame(x = x, y = dt(x, df), df = paste(df, "df")))
+
+# Standard normal distribution
+normal_dist <- data.frame(x = x, y = dnorm(x), df = "Standard Normal")
+
+# Combine data
+df_plot <- bind_rows(t_distributions, normal_dist)
+
+
+# Convert 'df' column to factor with the desired order
+df_plot$df <- factor(df_plot$df, levels = c("1 df", "3 df", "8 df", "20 df", "Standard Normal"))
+
+
+# Define colors for the distributions
+colors <- c("1 df" = "purple", "3 df" = "blue", "8 df" = "red", "20 df" = "green", "Standard Normal" = "black")
+
+# Create the plot
+ggplot(df_plot, aes(x = x, y = y, color = df)) +
+  geom_line(size = 1) +
+  scale_color_manual(values = colors) +
+  labs(x = "T-score (no. standard deviations from the mean)", 
+       y = "Probability",
+       color = "") +
+  theme_minimal() +
+  theme(
+    legend.position = "right",
+    legend.text = element_text(size = 12),
+    axis.text = element_text(size = 14)
+  )
+```
+
+
+## Distribución $t$ {.medium}
+
+::: {.columns}
+::: {.column width=50%}
+¿Cómo encontrar probabilidades?
+```{r}
+#| echo: true
+#| eval: true
+#P(t < -1.96)
+pt(-1.96, df = 9)
+```
+
+
+```{r}
+#| echo: true
+#| eval: true
+#P(t > -1.96)
+pt(-1.96, df = 9, 
+   lower.tail = FALSE)
+```
+:::
+
+::: {.column .fragment width=50%}
+¿Cómo encontrar valores críticos?
+```{r}
+#| echo: true
+#| eval: true
+# Encontrando Q1
+qt(0.25, df = 9)
+```
+
+
+```{r}
+#| echo: true
+#| eval: true
+# Q3
+qt(0.75, df = 9)
+```
+
+:::
+:::
+
+
+## Distribución $t$
+
+::: {.columns}
+::: {.column width=50%}
+
+```{r}
+#| echo: true
+#| eval: true
+qnorm(0.975)
+```
+
+
+```{r}
+#| echo: false
+#| eval: true
+
+# Define the x-axis range and normal distribution
+x <- seq(-4, 4, length = 1000)
+y <- dnorm(x)
+
+# Create a data frame
+df <- data.frame(x = x, y = y)
+
+# Plot the normal distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(aes(x = ifelse(x >= -1.96 & x <= 1.96, x, NA)), fill = "yellow", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x < -1.96, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x > 1.96, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_line(color = "black", size = 1) +
+  scale_x_continuous(breaks = c(-1.96, 1.96),
+                         labels = c(expression(Z^{"*"}==-1.96), expression(Z^{"*"}==1.96))) +
+  labs(x = "", y= "") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank())
+
+```
+
+
+
+:::
+
+::: {.column .fragment width=50%}
+
+```{r}
+#| echo: true
+#| eval: true
+qt(0.975, df = 9)
+```
+
+
+```{r}
+#| echo: false
+#| eval: true
+# Define the x-axis range
+x <- seq(-4, 4, length = 1000)
+y <- dt(x, df = 9)  # t-distribution with df = 9
+
+# Create a data frame
+df <- data.frame(x = x, y = y)
+
+# Critical value for df = 9 at α = 0.05 (two-tailed test)
+critical_value <- 2.26
+
+# Plot the t-distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(aes(x = ifelse(x >= -critical_value & x <= critical_value, x, NA)), fill = "yellow", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x < -critical_value, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x > critical_value, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_line(color = "black", size = 1) +
+  scale_x_continuous(breaks = c(-critical_value, critical_value),
+                     labels = c(expression(t^{"*"}==-2.26), expression(t^{"*"}==2.26))) +
+  labs(x = "", y = "") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+```
+
+:::
+:::
+
+
+## Un ejemplo {.medium}
+
+Una empresa de gestión de activos recientemente cambió al gerente del fondo que administra un bono de alto rendimiento. Se espera que este cambio tenga un impacto positivo en los retornos del bono. Para evaluar si el cambio de manager ha mejorado significativamente los retornos del bono, se recogieron los retornos mensuales del bono durante 10 meses antes y 10 meses después del cambio de manager.
+
+  $$H_0:\mu_D-\mu_A=0$$
+  
+  $$H_A:\mu_D-\mu_A\neq0$$
+    
+Nuestra hipótesis nula es que no existe ningún cambio en el rendimiento promedio del bono con el cambio de gerente ($\mu_D-\mu_A=0$).
+    
+## Un ejemplo {.medium}
+
+```{r}
+#| echo: true
+#| eval: true
+
+# Retornos del bono antes del cambio de gerente
+antes <-c(200.1, 190.9, 192.7, 213, 241.4, 196.9, 172.2, 185.5, 205.2, 193.7)
+# Retornos del bono después del cambio de gerente
+despues <-c(392.9, 393.2, 345.1, 393, 434, 427.9, 422, 383.9, 392.3, 352.2)
+# Creamos el data frame
+bono <- tibble( 
+                grupo = rep(c("antes", "despues"), each = 10),
+                retorno = c(antes,  despues)
+                )
+bono
+```
+
+
+## Ejemplo - Gráfica {.medium}
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+
+# Retornos del bono antes del cambio de manager
+library(ggpubr)
+ggboxplot(bono, x = "grupo", y = "retorno", 
+          color = "grupo", palette = c("navy", "darkred"),
+          order = c("antes", "despues"),
+          ylab = "Retorno", xlab = "Grupos")
+
+```
+
+
+
+## Ejemplo - t.test en R {.medium}
+
+```{r}
+#| fig.align: 'center'
+#| echo: true
+#| eval: true
+
+# Calculemos el test
+test_resultado <- t.test(retorno ~ grupo, data = bono, conf.level=0.95)
+test_resultado
+
+```
+
+. . .
+
+
+¿Cuál es el valor crítico $t^*$?
+
+```{r}
+#| echo: true
+#| eval: true
+qt(0.975, df = 15)
+```
+
+## Ejemplo - Decisión basada en el estadístico $t$ {.medium}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: center
+#| fig-width: 8
+# Define the x-axis range
+x <- seq(-4, 4, length = 1000)
+y <- dt(x, df = 15)  # t-distribution with df = 20
+
+# Create a data frame
+df <- data.frame(x = x, y = y)
+
+# Critical value for df = 20 at α = 0.05 (two-tailed test)
+critical_value <- qt(0.975, df = 15)  # ≈ 2.086
+
+# Plot the t-distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(aes(x = ifelse(x >= -critical_value & x <= critical_value, x, NA)), 
+            fill = "yellow", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x < -critical_value, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x > critical_value, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_line(color = "black", size = 1) +
+  geom_vline(xintercept = -17, linetype = "dashed", color = "darkblue", size = 1) +  # Dashed line at t = -17
+  scale_x_continuous(breaks = c(-critical_value, critical_value, -17),
+                     labels = c(expression(t^{"*"}==-2.13), 
+                                expression(t^{"*"}==2.13), 
+                                expression(t[prueba]==-17.71))) +
+  labs(x = "", y = "") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+```
+
+Rechazamos $H_0$ porque $t<t^*_{\alpha=0.05}$
+
+## Ejemplo - Decisión basada en el IC {.medium}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: center
+# Perform the t-test
+test_resultado <- t.test(retorno ~ grupo, data = bono)
+
+# Extract confidence interval and mean difference
+ci_lower <- test_resultado$conf.int[1]
+ci_upper <- test_resultado$conf.int[2]
+mean_diff <- test_resultado$estimate[2] - test_resultado$estimate[1]  # Mean difference
+
+# Create a data frame for plotting
+ci_data <- data.frame(
+  Mean = mean_diff,
+  Lower = ci_lower,
+  Upper = ci_upper,
+  Level = "95% CI"
+)
+
+# Plot confidence interval
+ggplot(ci_data, aes(x = Level, y = Mean)) +
+  geom_linerange(aes(ymin = Lower, ymax = Upper, color = Level), size = 1.5) +  # Confidence interval
+  geom_point(aes(y = Lower), size = 3) +  # Lower bound
+  geom_point(aes(y = Upper), size = 3) +  # Upper bound
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red", size = 1) +  # Dashed line at 0
+  labs(y = "Difference in Mean Returns", x = "", title = "95% Confidence Interval for Mean Difference") +
+  theme_minimal() + ylim(-250, 150) +
+  theme(legend.position = "none", axis.text.x = element_blank(), axis.ticks.x = element_blank())
+```
+
+Rechazamos que sean iguales porque el IC no incluye el 0
+
+## Ejemplo - Decisión basada en el p-value $p$ {.medium}
+
+$$¿p<\alpha?$$
+
+```{r}
+#| echo: true
+#| eval: true
+# p-value
+test_resultado$p.value<0.05
+```
+
+Rechazamos porque $p<\alpha=0.05$
+
+## Consecuencias de los errores Tipo I y II {.medium}
+
+Los errores de tipo I y tipo II son diferentes tipos de equivocaciones y tienen consecuencias distintas:
+
+:::incremental
+
+- Generalmente, $H_0$ es el status quo, algo que generalmente creemos que es cierto. 
+
+- Si no se rechaza $H_0$, usualmente significa que el status quo está bien. No se necesita tomar ninguna acción. 
+
+- Rechazar $H_0$ significa que algo en lo que solíamos creer ha sido refutado. Podría ser un avance científico (por ejemplo, la identificación de una nueva estrategia de inversión). 
+
+- Un error de tipo I introduce una conclusión falsa en la comunidad científica y puede llevar a un tremendo desperdicio de recursos antes de que investigaciones posteriores invaliden el hallazgo original.
+
+:::
+
+
+## Consecuencias de los errores Tipo I y II {.medium}
+
+Un error de tipo II (no reconocer un avance científico o una nueva estrategia financiera) representa una oportunidad perdida para el progreso científico o para la empresa.
+
+- Los errores de tipo II también pueden ser costosos, pero generalmente pasan desapercibidos. 
+
+- Por eso, es más importante controlar la tasa de error de tipo I que la tasa de error de tipo II.
+
+
+## Nivel de significancia {.medium}
+
+¿Cuál es la probabilidad de rechazar $H_0$?
+
+```{r}
+#| fig.align: 'center'
+#| echo: false
+#| eval: true
+
+# Define the x-axis range and normal distribution
+x <- seq(-4, 4, length = 1000)
+y <- dnorm(x)
+
+# Create a data frame
+df <- data.frame(x = x, y = y)
+
+# Plot the normal distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(aes(x = ifelse(x >= -1.96 & x <= 1.96, x, NA)), fill = "white", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x < -1.96, x, NA)), fill = "darkgreen", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x > 1.96, x, NA)), fill = "darkgreen", alpha = 0.5) +
+  geom_line(color = "black", size = 1) +
+  scale_x_continuous(breaks = c(0),
+                         labels = c(expression(H[0]:mu==mu[0]))
+) +
+  labs(x = "", y= "") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank())
+
+```
+
+. . .
+
+<center>
+Es ${\color{green} \alpha}$!
+<center>
+
+## Nivel de significancia = p(Error Tipo I) {.medium}
+
+Esto significa que, si $H_0$ es verdadera, solo hay un $(100\times\alpha)$% de cometer el error Tipo I!
+
+
+$$\color{green}{P(\text{Error de tipo I} \mid H_0 \text{ verdadera}) = \alpha}$$
+
+
+- Por eso preferimos valores pequeños de $\alpha$ — aumentar $\alpha$ incrementa la tasa de error de tipo I
+
+- Sin embargo, el nivel de significancia no controla la tasa de error de tipo II
+
+
+## Reportando el p-value {.medium}
+
+No se limiten a reportar la conclusión de si se rechaza $H_0$. Muestren el p-value.
+
+:::incremental
+
+
+- Un p-value de 0.04 y un p-value de 0.000001 no son lo mismo. Aunque $H_0$ se rechace en ambos casos, la fuerza de la evidencia es muy diferente.
+
+- Reportar simplemente si $H_0$ es rechazada sin el p-value es como reportar la temperatura como "fría" o "caliente".
+
+- Es mucho mejor reportar el p-value y permitir que la gente elija su propio nivel de significancia. Es similar a decirle a alguien la temperatura y dejar que decida cómo interpretarla.
+
+:::
+
+## Reportando el p-value {.medium}
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: center
+#| fig-width: 8
+# Define the x-axis range
+x <- seq(-4, 4, length = 1000)
+y <- dt(x, df = 15)  # t-distribution with df = 20
+
+# Create a data frame
+df <- data.frame(x = x, y = y)
+
+# Critical value for df = 20 at α = 0.05 (two-tailed test)
+critical_value <- qt(0.975, df = 15)  # ≈ 2.086
+
+# Plot the t-distribution with highlighted regions
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(aes(x = ifelse(x >= -critical_value & x <= critical_value, x, NA)), 
+            fill = "yellow", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x < -critical_value, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_area(aes(x = ifelse(x > critical_value, x, NA)), fill = "darkred", alpha = 0.5) +
+  geom_line(color = "black", size = 1) +
+  geom_vline(xintercept = -17, linetype = "dashed", color = "darkblue", size = 1) +
+  geom_vline(xintercept = -2.2, linetype = "dashed", color = "darkblue", size = 1) +
+  scale_x_continuous(breaks = c(-17, -2.2),
+                     labels = c(expression(p[1] == 9 %*% 10^-12), 
+                                expression(p[2] == 0.02))) +
+  labs(x = "", y = "") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_text(size = 14),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  )
+```
+
+
+# Algunas ideas incorrectas sobre la prueba de hipótesis 
+
+## El método científico: prueba y refutación {.medium}
+
+- Hay una verdad sutil pero fundamental en el método científico, y es que nunca se puede realmente probar una hipótesis con él, solo `refutar` la hipótesis.
+
+- En palabras de Albert Einstein:
+
+> "No amount of experimentation can ever prove me right; a single experiment can prove me wrong."
+
+- Por lo tanto, nunca decimos que la hipótesis nula es verdadera.
+
+- Cuando la evidencia no es lo suficientemente fuerte como para rechazar la nula, no decimos "aceptamos la hipótesis nula", sino que decimos "no podemos rechazar la hipótesis nula"
+
+
+## Fallar al rechazar H_0 no prueba que H_0 sea cierta {.medium}
+
+Un error común es concluir a partir de un p-value alto que la $H_0$ es probablemente verdadera.
+
+:::incremental
+- Un p-value bajo es evidencia de que $H_0$ no es verdadera.
+- Si nuestro p-value es alto, ¿podemos concluir que $H_0$ es verdadera?
+    - No, podríamos cometer un error de tipo II al no rechazar $H_0$.
+    - Además, la tasa de error de tipo II suele ser considerablemente más alta en comparación con la tasa de error de tipo I, la cual se mantiene controlada a un nivel bajo.
+    - Es bastante común que $H_0$ no sea verdadera, pero los datos no la rechacen.
+
+- Cuando no rechazamos $H_0$, a menudo significa que los datos no son capaces de distinguir entre $H_0$ y $H_A$ (porque los datos son demasiado ruidosos, etc.).
+:::
+
+## Ejemplo de la vida real {.medium}
+
+::: incremental
+
+- Women’s Health Initiative encontró que las dietas bajas en grasa reducen el riesgo de cáncer de seno con un p-value de **0.07**.
+
+- El titular del New York Times: ["Estudio encuentra que las dietas bajas en grasa no detendrán el cáncer"](https://www.nytimes.com/2006/02/07/health/study-finds-lowfat-diet-wont-stop-cancer-or-heart-disease.html).
+
+- El editorial principal afirmó que el estudio presentaba "evidencia sólida de que la guerra contra las grasas fue en vano" y añadió "este es el fin para la creencia de que reducir el porcentaje de grasa total en la dieta es importante para la salud".
+
+- No encontrar evidencia del efecto de las dietas bajas en grasa no significa que las dietas bajas en grasa no tengan ningún efecto.
+
+:::
+
+## No tomen la significancia al 0.05 demasiado enserio {.medium}
+
+::: incremental
+
+- Un p-value de 0.049 y un p-value de 0.051 ofrecen casi la misma evidencia contra $H_0$.
+
+- Por ejemplo, un estudio famoso de 2009 sobre una vacuna que podría proteger contra el VIH reportó un p-value a dos colas de 0.08, mientras que el p-value a una cola fue 0.04.
+
+- Se desató mucho debate y controversia, en parte porque las dos formas de analizar los datos producen p-values a ambos lados de 0.05.
+
+- Gran parte de este debate y controversia es bastante inútil; ambos p-values te dicen esencialmente lo mismo: que la vacuna tiene potencial, pero que los resultados aún no son concluyentes.
+
+:::
+
+## Las pruebas de hipótesis no pueden decirnos... {.medium}
+
+Las pruebas de hipótesis no pueden decirnos:
+
+- si el diseño de un estudio está defectuoso
+- si los datos se han recolectado adecuadamente
+
+Por lo tanto, no podemos concluir a partir de un p-value pequeño si una variable tiene un efecto causal sobre otra variable o si la conclusión se puede generalizar a una población más grande.
+
+$$\text{Garbage In} \rightarrow \text{Garbage Out}$$
+
+## Significancia estadística no significa importancia práctica {.medium}
+
+Otro error es leer demasiado en el término "estadísticamente significativo".
+
+:::incremental
+
+- Decir que los resultados son estadísticamente significativos informa al lector que los hallazgos son poco probables de ser resultado del azar.
+
+- Sin embargo, no dice nada sobre la importancia práctica del hallazgo.
+
+- E.g., rechazar $H_0: \mu_1=\mu_2$ solo nos dice que $\mu_1\neq\mu_2$, pero no qué tan grande o importante es $\mu_1-\mu_2$. Puede ser que la diferencia no sea relevante por ser muy pequeña a pesar de ser significativa.
+
+- Remedio: `Reporten un intervalo de confianza` del parámetro para que la gente pueda decidir si la diferencia es lo suficientemente grande como para ser relevante.
+
+:::
+
+
+## Ejemplo {.medium}
+
+Un IC al 95% del contenido promedio de alcohol en este lote de cervezas será:
+
+$$\bar{X}\pm1.96\dfrac{s}{\sqrt{n}}=4.6\pm1.96\dfrac{0.5}{\sqrt{106}}\approx4.6\pm0.04=(4.55, 4.65 )$$
+del cual uno puede decidir si la diferencia con respecto al 4.5 es suficientemente grande para ser relevante.
+
+## En resumen... {.medium}
+
+- Rechazar $H_0$ no significa que estamos 100% seguros que $H_0$ es falsa. Podemos cometer errores Tipo I
+
+- El p-value no es la probabilidad de que H0 sea verdadera.
+
+- No rechazar $H_0$ no prueba que $H_0$ sea verdadera.
+- No tomen el nivel de significancia de 0.05 demasiado en serio.
+- Las pruebas de hipótesis no pueden decirnos si los datos se recolectaron adecuadamente o si el diseño de un estudio es malo.
+- La significancia estadística no se traducen en importancia práctica.
