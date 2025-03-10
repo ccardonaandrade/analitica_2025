@@ -403,18 +403,42 @@ Carlos Cardona Andrade
 </div>
 
 </section>
+<section id="qué-deberían-saber-para-el-parcial" class="slide level2 medium">
+<h2>¿Qué deberían saber para el parcial?</h2>
+<ol type="1">
+<li><p>Cargar un archivo y un paquete en R</p></li>
+<li><p>Los verbos del paquete <code>tidyverse</code>: filter, select, arrange, mutate, summarise</p></li>
+<li><p>Describir una distribución (medidas de tendencia central, dispersión)</p></li>
+<li><p>Interpretar una correlación</p></li>
+<li><p>Calcular probabilidades bajo la curva normal</p></li>
+<li><p>¿Qué es un intervalo de confianza?¿Qué es el nivel de confianza?</p></li>
+<li><p>¿Qué es una prueba de hipótesis?</p>
+<ul>
+<li>¿Cómo se rechaza?</li>
+<li>¿Qué implicaciones tiene rechazar o no rechazar?</li>
+</ul></li>
+</ol>
+</section>
 <section id="plan-para-hoy" class="slide level2">
 <h2>Plan para hoy</h2>
 <ol type="1">
-<li><p><a href="#/intconf">Intervalos de Confianza</a></p></li>
-<li><p><a href="#/prueba">Intro a Pruebas de Hipótesis</a></p></li>
-<li><p><a href="#/prueba2">Pruebas de Hipótesis con dos muestras</a></p></li>
+<li><p><a href="#/tdist">La Distribución <span class="math inline">\(t\)</span></a></p></li>
+<li><p><a href="#/consider">Consideraciones al elaborar pruebas de hipótesis</a></p></li>
+<li><p><a href="#/ideasmal">Algunas ideas incorrectas sobre la prueba de hipótesis</a></p></li>
 </ol>
 </section>
 <section>
-<section id="intconf" class="title-slide slide level1 center">
-<h1>Intervalos de Confianza</h1>
+<section id="tdist" class="title-slide slide level1 center">
+<h1>La Distribución <span class="math inline">\(t\)</span></h1>
 
+</section>
+<section id="william-gosset" class="slide level2 medium">
+<h2>William Gosset</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/guinness.jpg" class="quarto-discovered-preview-image" height="400"></p>
+</figure>
+</div>
 </section>
 <section id="recordemos-el-tlc" class="slide level2 medium">
 <h2>Recordemos el TLC</h2>
@@ -429,23 +453,23 @@ Carlos Cardona Andrade
 <h2>¿Qué pasa si <span class="math inline">\(\sigma\)</span> es desconocida?</h2>
 <p>En la práctica, nunca conocemos el valor verdadero de <span class="math inline">\({\color{orange} \sigma}\)</span>, por lo que lo estimamos a partir de nuestros datos con <span class="math inline">\({\color{orange} s}\)</span></p>
 <p>Podemos construir el siguiente estadístico de prueba para contrastar la media poblacional de una sola muestra, la cual sigue una distribución <span class="math inline">\(t\)</span> con <span class="math inline">\(n−1\)</span> grados de libertad:</p>
-<p><span class="math display">\[T=\dfrac{\bar{x}-\mu}{\dfrac{{\color{orange} s}}{\sqrt{n}}}\sim t_{n-1}\]</span></p>
+<p><span class="math display">\[t=\dfrac{\bar{x}-\mu}{\dfrac{{\color{orange} s}}{\sqrt{n}}}\sim t_{n-1}\]</span></p>
 </section>
 <section id="la-distribución-t" class="slide level2 medium">
 <h2>La distribución <span class="math inline">\(t\)</span></h2>
 <ul>
-<li><p>La distribución t también es unimodal y simétrica, y está centrada en 0.</p></li>
-<li><p>Tiene colas más gruesas que la distribución normal.</p></li>
-<li><p>Esto compensa la variabilidad adicional introducida al usar <span class="math inline">\({\color{orange} s}\)</span> en lugar de <span class="math inline">\(\sigma\)</span> en el cálculo del error estándar (SE).</p></li>
+<li><p>La distribución <span class="math inline">\(t\)</span> también es unimodal y simétrica, y está centrada en 0</p></li>
+<li><p>Tiene colas más gruesas que la distribución normal</p></li>
+<li><p>Esto compensa la variabilidad adicional introducida al usar <span class="math inline">\({\color{orange} s}\)</span> en lugar de <span class="math inline">\(\sigma\)</span> en el cálculo del error estándar (SE)</p></li>
 <li><p>Está definida por los grados de libertad <span class="math inline">\(n-1\)</span></p></li>
 </ul>
 </section>
 <section id="dist.-normal-vs-dist.-t" class="slide level2 medium">
 <h2>Dist. Normal vs Dist. <span class="math inline">\(t\)</span></h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-discovered-preview-image r-stretch quarto-figure-center" width="768"></section>
-<section id="distribución-t" class="slide level2 medium">
-<h2>Distribución <span class="math inline">\(t\)</span></h2>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-1-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="distribución-t-en-r" class="slide level2 medium">
+<h2>Distribución <span class="math inline">\(t\)</span> en R</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>¿Cómo encontrar probabilidades?</p>
@@ -483,8 +507,8 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
-<section id="distribución-t-1" class="slide level2">
-<h2>Distribución <span class="math inline">\(t\)</span></h2>
+<section id="dist.-normal-vs-dist.-t-valores-críticos" class="slide level2 medium">
+<h2>Dist. Normal vs Dist. <span class="math inline">\(t\)</span> (valores críticos)</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
@@ -513,15 +537,15 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
-<section id="un-ejemplo" class="slide level2 medium">
-<h2>Un ejemplo</h2>
+<section id="ejemplo-rendimiento-de-un-bono" class="slide level2 medium">
+<h2>Ejemplo: Rendimiento de un bono</h2>
 <p>Una empresa de gestión de activos recientemente cambió al gerente del fondo que administra un bono de alto rendimiento. Se espera que este cambio tenga un impacto positivo en los retornos del bono. Para evaluar si el cambio de manager ha mejorado significativamente los retornos del bono, se recogieron los retornos mensuales del bono durante 10 meses antes y 10 meses después del cambio de manager.</p>
 <p><span class="math display">\[H_0:\mu_D-\mu_A=0\]</span></p>
 <p><span class="math display">\[H_A:\mu_D-\mu_A\neq0\]</span></p>
-<p>Nuestra hipótesis nula es que no existe ningún cambio en el rendimiento promedio del bono con el cambio de gerente (<span class="math inline">\(\mu_D-\mu_A=0\)</span>).</p>
+<p>Nuestra hipótesis nula es que no existe ningún cambio en el rendimiento promedio del bono con el cambio de gerente (<span class="math inline">\(\mu_D=\mu_A\)</span>).</p>
 </section>
-<section id="un-ejemplo-1" class="slide level2 medium">
-<h2>Un ejemplo</h2>
+<section id="ejemplo-rendimiento-de-un-bono-1" class="slide level2 medium">
+<h2>Ejemplo: Rendimiento de un bono</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Retornos del bono antes del cambio de gerente</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a>antes <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fl">200.1</span>, <span class="fl">190.9</span>, <span class="fl">192.7</span>, <span class="dv">213</span>, <span class="fl">241.4</span>, <span class="fl">196.9</span>, <span class="fl">172.2</span>, <span class="fl">185.5</span>, <span class="fl">205.2</span>, <span class="fl">193.7</span>)</span>
@@ -560,12 +584,12 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
-<section id="ejemplo---gráfica" class="slide level2 medium">
-<h2>Ejemplo - Gráfica</h2>
+<section id="ejemplo-rendimiento-de-un-bono---gráfica" class="slide level2 medium">
+<h2>Ejemplo: Rendimiento de un bono - Gráfica</h2>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" width="576" class="r-stretch quarto-figure-center"></section>
-<section id="ejemplo---t.test-en-r" class="slide level2 medium">
-<h2>Ejemplo - t.test en R</h2>
+<section id="ejemplo-rendimiento-de-un-bono---t.test" class="slide level2 medium">
+<h2>Ejemplo: Rendimiento de un bono - t.test()</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># Calculemos el test</span></span>
 <span id="cb15-2"><a href="#cb15-2"></a>test_resultado <span class="ot">&lt;-</span> <span class="fu">t.test</span>(retorno <span class="sc">~</span> grupo, <span class="at">data =</span> bono, <span class="at">conf.level=</span><span class="fl">0.95</span>)</span>
@@ -602,10 +626,10 @@ sample estimates:
 <section id="ejemplo---decisión-basada-en-el-ic" class="slide level2 medium">
 <h2>Ejemplo - Decisión basada en el IC</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="576" class="r-stretch quarto-figure-center"><p>Rechazamos que sean iguales porque el IC no incluye el 0</p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="576" class="r-stretch quarto-figure-center"><p>Rechazamos la <span class="math inline">\(H_0\)</span> porque el IC no incluye el 0</p>
 </section>
-<section id="ejemplo---decisión-basada-en-el-p-value-p" class="slide level2 medium">
-<h2>Ejemplo - Decisión basada en el p-value <span class="math inline">\(p\)</span></h2>
+<section id="ejemplo---decisión-basada-en-el-p-value" class="slide level2 medium">
+<h2>Ejemplo - Decisión basada en el p-value</h2>
 <p><span class="math display">\[¿p&lt;\alpha?\]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># p-value</span></span>
@@ -615,29 +639,36 @@ sample estimates:
 </div>
 </div>
 <p>Rechazamos porque <span class="math inline">\(p&lt;\alpha=0.05\)</span></p>
+</section></section>
+<section>
+<section id="consider" class="title-slide slide level1 center">
+<h1>Consideraciones al elaborar pruebas de hipótesis</h1>
+
 </section>
 <section id="consecuencias-de-los-errores-tipo-i-y-ii" class="slide level2 medium">
 <h2>Consecuencias de los errores Tipo I y II</h2>
 <p>Los errores de tipo I y tipo II son diferentes tipos de equivocaciones y tienen consecuencias distintas:</p>
 <div>
 <ul>
-<li class="fragment"><p>Generalmente, <span class="math inline">\(H_0\)</span> es el status quo, algo que generalmente creemos que es cierto.</p></li>
-<li class="fragment"><p>Si no se rechaza <span class="math inline">\(H_0\)</span>, usualmente significa que el status quo está bien. No se necesita tomar ninguna acción.</p></li>
-<li class="fragment"><p>Rechazar <span class="math inline">\(H_0\)</span> significa que algo en lo que solíamos creer ha sido refutado. Podría ser un avance científico (por ejemplo, la identificación de una nueva estrategia de inversión).</p></li>
-<li class="fragment"><p>Un error de tipo I introduce una conclusión falsa en la comunidad científica y puede llevar a un tremendo desperdicio de recursos antes de que investigaciones posteriores invaliden el hallazgo original.</p></li>
+<li class="fragment"><p><span class="math inline">\(H_0\)</span> representa el <strong>status quo</strong>, lo que generalmente creemos cierto</p></li>
+<li class="fragment"><p>No rechazar <span class="math inline">\(H_0\)</span> significa que el status quo se mantiene</p></li>
+<li class="fragment"><p>Rechazar <span class="math inline">\(H_0\)</span> indica que se refuta algo previamente creído, como un avance científico o una nueva estrategia de inversión</p></li>
+<li class="fragment"><p>Un error de tipo I puede llevar a conclusiones falsas y desperdicio de recursos hasta que se invalide el hallazgo</p></li>
 </ul>
 </div>
 </section>
 <section id="consecuencias-de-los-errores-tipo-i-y-ii-1" class="slide level2 medium">
 <h2>Consecuencias de los errores Tipo I y II</h2>
 <p>Un error de tipo II (no reconocer un avance científico o una nueva estrategia financiera) representa una oportunidad perdida para el progreso científico o para la empresa.</p>
+<div>
 <ul>
-<li><p>Los errores de tipo II también pueden ser costosos, pero generalmente pasan desapercibidos.</p></li>
-<li><p>Por eso, es más importante controlar la tasa de error de tipo I que la tasa de error de tipo II.</p></li>
+<li class="fragment"><p>Los errores de tipo II también pueden ser costosos, pero generalmente pasan desapercibidos</p></li>
+<li class="fragment"><p>Por eso, es más importante controlar la tasa de error de tipo I que la tasa de error de tipo II</p></li>
 </ul>
+</div>
 </section>
-<section id="nivel-de-significancia" class="slide level2 medium">
-<h2>Nivel de significancia</h2>
+<section id="cuál-es-la-probabilidad-del-error-tipo-i" class="slide level2 medium">
+<h2>¿Cuál es la probabilidad del error Tipo I?</h2>
 <p>¿Cuál es la probabilidad de rechazar <span class="math inline">\(H_0\)</span>?</p>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="576" class="r-stretch quarto-figure-center"><div class="fragment">
@@ -660,59 +691,55 @@ Es <span class="math inline">\({\color{green} \alpha}\)</span>!
 <p>No se limiten a reportar la conclusión de si se rechaza <span class="math inline">\(H_0\)</span>. Muestren el p-value.</p>
 <div>
 <ul>
-<li class="fragment"><p>Un p-value de 0.04 y un p-value de 0.000001 no son lo mismo. Aunque <span class="math inline">\(H_0\)</span> se rechace en ambos casos, la fuerza de la evidencia es muy diferente.</p></li>
-<li class="fragment"><p>Reportar simplemente si <span class="math inline">\(H_0\)</span> es rechazada sin el p-value es como reportar la temperatura como “fría” o “caliente”.</p></li>
-<li class="fragment"><p>Es mucho mejor reportar el p-value y permitir que la gente elija su propio nivel de significancia. Es similar a decirle a alguien la temperatura y dejar que decida cómo interpretarla.</p></li>
+<li class="fragment"><p>Un p-value de 0.04 y un p-value de 0.000001 no son lo mismo. Aunque <span class="math inline">\(H_0\)</span> se rechace en ambos casos, la fuerza de la evidencia es muy diferente</p></li>
+<li class="fragment"><p>Concluir simplemente si <span class="math inline">\(H_0\)</span> es rechazada sin el p-value es como concluir que la temperatura es “fría” o “caliente”</p></li>
+<li class="fragment"><p>Es mucho mejor reportar el p-value y permitir que la gente elija su propio nivel de significancia. Es similar a decirle a alguien la temperatura y dejar que decida cómo interpretarla</p></li>
 </ul>
 </div>
 </section>
-<section id="reportando-el-p-value-1" class="slide level2 medium">
-<h2>Reportando el p-value</h2>
+<section id="reportando-el-p-valuecuál-gerente-preferirían" class="slide level2 medium">
+<h2>Reportando el p-value:¿Cuál gerente preferirían?</h2>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="768" class="r-stretch quarto-figure-center"></section></section>
 <section>
-<section id="algunas-ideas-incorrectas-sobre-la-prueba-de-hipótesis" class="title-slide slide level1 center">
+<section id="ideasmal" class="title-slide slide level1 center">
 <h1>Algunas ideas incorrectas sobre la prueba de hipótesis</h1>
 
 </section>
 <section id="el-método-científico-prueba-y-refutación" class="slide level2 medium">
 <h2>El método científico: prueba y refutación</h2>
 <ul>
-<li><p>Hay una verdad sutil pero fundamental en el método científico, y es que nunca se puede realmente probar una hipótesis con él, solo <code>refutar</code> la hipótesis.</p></li>
+<li><p>Hay una verdad sutil pero fundamental en el método científico, y es que nunca se puede realmente probar una hipótesis con él, solo <code>refutar</code> la hipótesis</p></li>
 <li><p>En palabras de Albert Einstein:</p></li>
 </ul>
 <blockquote>
 <p>“No amount of experimentation can ever prove me right; a single experiment can prove me wrong.”</p>
 </blockquote>
 <ul>
-<li><p>Por lo tanto, nunca decimos que la hipótesis nula es verdadera.</p></li>
+<li><p>Por lo tanto, nunca decimos que la hipótesis nula es verdadera</p></li>
 <li><p>Cuando la evidencia no es lo suficientemente fuerte como para rechazar la nula, no decimos “aceptamos la hipótesis nula”, sino que decimos “no podemos rechazar la hipótesis nula”</p></li>
 </ul>
 </section>
 <section id="fallar-al-rechazar-h_0-no-prueba-que-h_0-sea-cierta" class="slide level2 medium">
-<h2>Fallar al rechazar H_0 no prueba que H_0 sea cierta</h2>
+<h2>Fallar al rechazar <span class="math inline">\(H_0\)</span> no prueba que <span class="math inline">\(H_0\)</span> sea cierta</h2>
 <p>Un error común es concluir a partir de un p-value alto que la <span class="math inline">\(H_0\)</span> es probablemente verdadera.</p>
 <div>
 <ul>
-<li class="fragment">Un p-value bajo es evidencia de que <span class="math inline">\(H_0\)</span> no es verdadera.</li>
-<li class="fragment">Si nuestro p-value es alto, ¿podemos concluir que <span class="math inline">\(H_0\)</span> es verdadera?
-<ul>
-<li class="fragment">No, podríamos cometer un error de tipo II al no rechazar <span class="math inline">\(H_0\)</span>.</li>
-<li class="fragment">Además, la tasa de error de tipo II suele ser considerablemente más alta en comparación con la tasa de error de tipo I, la cual se mantiene controlada a un nivel bajo.</li>
-<li class="fragment">Es bastante común que <span class="math inline">\(H_0\)</span> no sea verdadera, pero los datos no la rechacen.</li>
-</ul></li>
-<li class="fragment">Cuando no rechazamos <span class="math inline">\(H_0\)</span>, a menudo significa que los datos no son capaces de distinguir entre <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_A\)</span> (porque los datos son demasiado ruidosos, etc.).</li>
+<li class="fragment"><p><strong>p-value bajo</strong>: evidencia en contra de <span class="math inline">\(H_0\)</span></p></li>
+<li class="fragment"><p><strong>p-value alto</strong>: no podemos concluir que <span class="math inline">\(H_0\)</span> es verdadera; podríamos cometer un error de tipo II</p></li>
+<li class="fragment"><p>La tasa de error de tipo II es mayor que la de tipo I, que se controla.</p></li>
+<li class="fragment"><p>Cuando no rechazamos <span class="math inline">\(H_0\)</span>, a menudo significa que los datos no son capaces de distinguir entre <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_A\)</span> (porque los datos son demasiado ruidosos, etc.).</p></li>
 </ul>
 </div>
 </section>
-<section id="ejemplo-de-la-vida-real" class="slide level2 medium">
-<h2>Ejemplo de la vida real</h2>
+<section id="ejemplo-dietas-y-cáncer" class="slide level2 medium">
+<h2>Ejemplo: Dietas y cáncer</h2>
 <div>
 <ul>
-<li class="fragment"><p>Women’s Health Initiative encontró que las dietas bajas en grasa reducen el riesgo de cáncer de seno con un p-value de <strong>0.07</strong>.</p></li>
-<li class="fragment"><p>El titular del New York Times: <a href="https://www.nytimes.com/2006/02/07/health/study-finds-lowfat-diet-wont-stop-cancer-or-heart-disease.html">“Estudio encuentra que las dietas bajas en grasa no detendrán el cáncer”</a>.</p></li>
-<li class="fragment"><p>El editorial principal afirmó que el estudio presentaba “evidencia sólida de que la guerra contra las grasas fue en vano” y añadió “este es el fin para la creencia de que reducir el porcentaje de grasa total en la dieta es importante para la salud”.</p></li>
-<li class="fragment"><p>No encontrar evidencia del efecto de las dietas bajas en grasa no significa que las dietas bajas en grasa no tengan ningún efecto.</p></li>
+<li class="fragment"><p>Women’s Health Initiative encontró que las dietas bajas en grasa reducen el riesgo de cáncer de seno con un p-value de <strong>0.07</strong></p></li>
+<li class="fragment"><p>El titular del New York Times: <a href="https://www.nytimes.com/2006/02/07/health/study-finds-lowfat-diet-wont-stop-cancer-or-heart-disease.html" target="_blank">“Estudio encuentra que las dietas bajas en grasa no detendrán el cáncer”</a></p></li>
+<li class="fragment"><p>El editorial principal afirmó que el estudio presentaba “evidencia sólida de que la guerra contra las grasas fue en vano” y añadió “este es el fin para la creencia de que reducir el porcentaje de grasa total en la dieta es importante para la salud”</p></li>
+<li class="fragment"><p>No encontrar evidencia del efecto no significa que las dietas bajas en grasa no tengan ningún efecto</p></li>
 </ul>
 </div>
 </section>
@@ -720,49 +747,64 @@ Es <span class="math inline">\({\color{green} \alpha}\)</span>!
 <h2>No tomen la significancia al 0.05 demasiado enserio</h2>
 <div>
 <ul>
-<li class="fragment"><p>Un p-value de 0.049 y un p-value de 0.051 ofrecen casi la misma evidencia contra <span class="math inline">\(H_0\)</span>.</p></li>
-<li class="fragment"><p>Por ejemplo, un estudio famoso de 2009 sobre una vacuna que podría proteger contra el VIH reportó un p-value a dos colas de 0.08, mientras que el p-value a una cola fue 0.04.</p></li>
-<li class="fragment"><p>Se desató mucho debate y controversia, en parte porque las dos formas de analizar los datos producen p-values a ambos lados de 0.05.</p></li>
-<li class="fragment"><p>Gran parte de este debate y controversia es bastante inútil; ambos p-values te dicen esencialmente lo mismo: que la vacuna tiene potencial, pero que los resultados aún no son concluyentes.</p></li>
+<li class="fragment"><p>Un p-value de 0.049 y un p-value de 0.051 ofrecen casi la misma evidencia contra <span class="math inline">\(H_0\)</span></p></li>
+<li class="fragment"><p>Por ejemplo, un estudio famoso de 2009 sobre una vacuna que podría proteger contra el VIH reportó un p-value a dos colas de 0.08, mientras que el p-value a una cola fue 0.04</p></li>
+<li class="fragment"><p>Se desató mucho debate y controversia, en parte porque las dos formas de analizar los datos producen p-values a ambos lados de 0.05</p></li>
+<li class="fragment"><p>Gran parte de este debate y controversia es bastante inútil; ambos p-values te dicen esencialmente lo mismo: que la vacuna tiene potencial, pero que los resultados aún no son concluyentes</p></li>
 </ul>
 </div>
 </section>
 <section id="las-pruebas-de-hipótesis-no-pueden-decirnos" class="slide level2 medium">
 <h2>Las pruebas de hipótesis no pueden decirnos…</h2>
-<p>Las pruebas de hipótesis no pueden decirnos:</p>
 <ul>
 <li>si el diseño de un estudio está defectuoso</li>
 <li>si los datos se han recolectado adecuadamente</li>
 </ul>
-<p>Por lo tanto, no podemos concluir a partir de un p-value pequeño si una variable tiene un efecto causal sobre otra variable o si la conclusión se puede generalizar a una población más grande.</p>
+<div class="fragment">
+<p>Por lo tanto, no podemos concluir a partir de un p-value pequeño si la conclusión se puede generalizar a una población más grande</p>
 <p><span class="math display">\[\text{Garbage In} \rightarrow \text{Garbage Out}\]</span></p>
+</div>
 </section>
 <section id="significancia-estadística-no-significa-importancia-práctica" class="slide level2 medium">
 <h2>Significancia estadística no significa importancia práctica</h2>
-<p>Otro error es leer demasiado en el término “estadísticamente significativo”.</p>
+<p>Otro error es leer demasiado en el término <strong>estadísticamente significativo</strong>.</p>
 <div>
 <ul>
 <li class="fragment"><p>Decir que los resultados son estadísticamente significativos informa al lector que los hallazgos son poco probables de ser resultado del azar.</p></li>
 <li class="fragment"><p>Sin embargo, no dice nada sobre la importancia práctica del hallazgo.</p></li>
 <li class="fragment"><p>E.g., rechazar <span class="math inline">\(H_0: \mu_1=\mu_2\)</span> solo nos dice que <span class="math inline">\(\mu_1\neq\mu_2\)</span>, pero no qué tan grande o importante es <span class="math inline">\(\mu_1-\mu_2\)</span>. Puede ser que la diferencia no sea relevante por ser muy pequeña a pesar de ser significativa.</p></li>
-<li class="fragment"><p>Remedio: <code>Reporten un intervalo de confianza</code> del parámetro para que la gente pueda decidir si la diferencia es lo suficientemente grande como para ser relevante.</p></li>
+<li class="fragment"><p>Solución: <code>Reporten un intervalo de confianza</code> del parámetro para que la gente pueda decidir si la diferencia es lo suficientemente grande como para ser relevante.</p></li>
 </ul>
 </div>
 </section>
-<section id="ejemplo" class="slide level2 medium">
-<h2>Ejemplo</h2>
-<p>Un IC al 95% del contenido promedio de alcohol en este lote de cervezas será:</p>
-<p><span class="math display">\[\bar{X}\pm1.96\dfrac{s}{\sqrt{n}}=4.6\pm1.96\dfrac{0.5}{\sqrt{106}}\approx4.6\pm0.04=(4.55, 4.65 )\]</span> del cual uno puede decidir si la diferencia con respecto al 4.5 es suficientemente grande para ser relevante.</p>
+<section id="ejemplo-cuál-es-la-diferencia-de-calidad-entre-el-café-colombiano-y-el-resto" class="slide level2 medium">
+<h2>Ejemplo: ¿Cuál es la diferencia de calidad entre el café colombiano y el resto?</h2>
+<p><span class="math display">\[H_0:\mu_{\text{Colombia}} -\mu_{\text{No Colombia}}=0\]</span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  total_cup_points by colombia
+t = -8.2894, df = 453.01, p-value = 1.304e-15
+alternative hypothesis: true difference in means between group FALSE and group TRUE is not equal to 0
+95 percent confidence interval:
+ -1.3659680 -0.8424154
+sample estimates:
+mean in group FALSE  mean in group TRUE 
+           82.00237            83.10656 </code></pre>
+</div>
+</div>
+<p>En este caso, rechazamos la <span class="math inline">\(H_0\)</span> de que sean iguales pero, ¿es la diferencia de calidad considerable?</p>
 </section>
 <section id="en-resumen" class="slide level2 medium">
 <h2>En resumen…</h2>
 <ul>
-<li><p>Rechazar <span class="math inline">\(H_0\)</span> no significa que estamos 100% seguros que <span class="math inline">\(H_0\)</span> es falsa. Podemos cometer errores Tipo I</p></li>
-<li><p>El p-value no es la probabilidad de que H0 sea verdadera.</p></li>
-<li><p>No rechazar <span class="math inline">\(H_0\)</span> no prueba que <span class="math inline">\(H_0\)</span> sea verdadera.</p></li>
+<li><p>Rechazar <span class="math inline">\(H_0\)</span> no significa que estamos 100% seguros que <span class="math inline">\(H_0\)</span> es falsa</p></li>
+<li><p>El p-value no es la probabilidad de que <span class="math inline">\(H_0\)</span> sea verdadera.</p></li>
 <li><p>No tomen el nivel de significancia de 0.05 demasiado en serio.</p></li>
 <li><p>Las pruebas de hipótesis no pueden decirnos si los datos se recolectaron adecuadamente o si el diseño de un estudio es malo.</p></li>
-<li><p>La significancia estadística no se traducen en importancia práctica.</p></li>
+<li><p>La significancia estadística no se traduce en importancia práctica</p></li>
 </ul>
 <div class="footer footer-default">
 
