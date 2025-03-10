@@ -31,7 +31,7 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
     - Lecturas: OIS 5.1 - 5.2
 6. Pruebas de hipótesis I \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/bc066a5ae91f79933db4b1ea52550f709940b4bd/diapositivas/06_hipotesis/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/bc066a5ae91f79933db4b1ea52550f709940b4bd/diapositivas/06_hipotesis/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/bc066a5ae91f79933db4b1ea52550f709940b4bd/diapositivas/06_hipotesis/index.qmd)\]
     - Lecturas: OIS 5.3
-7. Pruebas de hipótesis II
+7. Pruebas de hipótesis II \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/1eff702aef63f78e9802d5c1f3b8b8ad7cacbcad/diapositivas/07_hipotesis_ii/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/1eff702aef63f78e9802d5c1f3b8b8ad7cacbcad/diapositivas/07_hipotesis_ii/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/1eff702aef63f78e9802d5c1f3b8b8ad7cacbcad/diapositivas/07_hipotesis_ii/index.qmd)\]
     - Lecturas: OIS 5.3
 8. Muestreo y encuestas
     - Lecturas: IMS 2
