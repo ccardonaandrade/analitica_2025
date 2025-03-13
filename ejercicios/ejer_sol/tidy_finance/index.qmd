@@ -1,0 +1,473 @@
+---
+title: "Soluciones - Análisis de Precio de Acciones"
+
+lang: es
+
+format: 
+  closeread-html:
+   css: msaz.css
+   code-tools: false
+   fig-format: svg
+   toc: true
+   linkcolor: tomato
+---
+
+     
+## Ejercicio 1
+
+Abran un R Script, y utilizando la siguiente plantilla, carguen el paquete `tidyverse`, `tidyfinance` y `scales`. Instalen los dos últimos paquetes desde la consola ya que es la primera vez que los vamos a utilizar.
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+## ------------------------------
+## Análisis del Precio de Acciones
+##
+## Autor(es): 
+##
+## Fecha: 
+## ------------------------------
+
+
+## cargamos todos los paquetes que usaremos en la sesión:
+
+library(tidyverse)
+library(tidyfinance)
+library(scales)
+
+## ---------------------------
+
+### Ejercicio 1
+```
+
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+
+price_data <- download_data(
+  type = "stock_prices",
+  symbols = c("AMZN","META","NVDA","AAPL","TSLA","NFLX", "MSFT"),
+  start_date = "2000-01-01",
+  end_date = "2023-12-31"
+)
+```
+
+
+Observemos qué tienen nuestros datos:
+
+```{r}
+#| echo: true
+#| eval: true
+glimpse(price_data)
+```
+
+## Ejercicio 2
+
+
+Completen el código a la izquierda para obtener la gráfica de la derecha:
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| out-width: 100%
+price_data |>
+  ggplot(aes(x = date, y = adjusted_close, color = symbol)) +
+  geom_line() +
+  labs(
+    x = NULL,
+    y = NULL,
+    color = "Company",
+    title = "Stock prices between beginning of 2000 and end of 2023"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+price_data |>
+  ggplot(aes(x = date, y = adjusted_close, color = symbol)) +
+  geom_line() +
+  labs(
+    x = NULL,
+    y = NULL,
+    color = "Company",
+    title = "Stock prices between beginning of 2000 and end of 2023"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  theme_minimal()
+```
+
+
+:::
+:::
+
+- Netflix tiene el precio de acción más alto durante casi todo el período
+
+- El precio de la acción de Nvidia es el más bajo durante todo el período
+
+- El precio de la acción de Tesla es cercano a cero hasta el año 2020
+
+- El año 2020 (la pandemia) parece presentar un cambio estructural para todas las empresas, evidenciando un crecimiento del precio de las acciones comparado con los años anteriores
+
+
+
+## Ejercicio 3
+
+Es claro que muchos de los precios son cero antes del año 2015. Elijan una de las empresas a partir del año 2015 basándose en el siguiente código donde elijo a Netflix:
+
+
+```{r}
+#| echo: true
+netflix_data <-  price_data |>
+  filter(symbol=="NFLX" & year(date)>2014)
+```
+
+La variable `date` está en formato de fecha. Para poder usar el año, necesitamos la función `year()` como lo muestra el anterior código. Mis datos se ven así:
+
+```{r}
+#| echo: true
+netflix_data
+```
+
+
+
+## Ejercicio 4
+
+Basándose en el código del Ejercicio 2, grafiquemos nuevamente la evolución de los precios de las acciones para la compañía que ustedes escogieron. En el caso de Netflix, la gráfica se ve de la siguiente manera:
+
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| out-width: 100%
+#| fig-align: center
+netflix_data |>
+  ggplot(aes(x = date, y = adjusted_close)) +
+  geom_line(color="darkred") +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Netflix stock prices"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+#| fig-align: center
+netflix_data |>
+  ggplot(aes(x = date, y = adjusted_close)) +
+  geom_line(color="darkred") +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Netflix stock prices"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  theme_minimal()
+```
+
+
+:::
+:::
+
+
+
+Describan el comportamiento de los precios de su compañía con 3 hechos puntuales.
+
+Para el caso de Netflix:
+
+- Hay un crecimiento constante del precio de la acción hasta el año 2022, cuando hay una caída pronunciada
+
+- Así como lo mencionamos antes, el año 2020 aumentó considerablemente el precio de la acción
+
+- En el año 2023, se presentó una recuperación en el precio de la acción
+
+
+
+
+## Ejercicio 5
+
+Construyan el diagrama de caja y el histograma para el precio de las acciones de la empresa que escogieron. Para el caso de Netflix, los dos gráficos se ven así:
+
+
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| out-width: 100%
+#| fig-align: center
+netflix_data |>
+  ggplot(aes(x=adjusted_close)) +
+  geom_boxplot() + 
+  labs(x="Distribution of daily Netflix stock prices") + 
+  scale_x_continuous(labels = label_dollar()) +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+#| fig-align: center
+#| warning: false
+
+netflix_data |>
+  ggplot(aes(x=adjusted_close)) +
+  geom_boxplot() + 
+  labs(x="Distribution of daily Netflix stock prices") + 
+  scale_x_continuous(labels = label_dollar()) +
+  theme_minimal()
+```
+
+
+:::
+:::
+
+
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| out-width: 100%
+#| fig-align: center
+#| warning: false
+
+netflix_data |>
+  ggplot(aes(x=adjusted_close)) +
+  geom_histogram(fill="lightblue", color="darkblue") + 
+  labs(x="Distribution of daily Netflix stock prices",
+       y="Frequency") + 
+  scale_x_continuous(labels = label_dollar()) +
+  theme_minimal()
+```
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| out-width: 100%
+#| fig-align: center
+#| warning: false
+
+netflix_data |>
+  ggplot(aes(x=adjusted_close)) +
+  geom_histogram(fill="lightblue", color="darkblue") + 
+  labs(x="Distribution of daily Netflix stock prices",
+       y="Frequency") + 
+  scale_x_continuous(labels = label_dollar()) +
+  theme_minimal()
+```
+
+
+:::
+:::
+
+
+## Ejercicio 6
+
+Imaginen que no tenemos acceso a los datos de precios para todos los días. En este caso, solo disponemos de datos para 100 días y necesitamos estimar el precio promedio de la acción durante el período 2015-2023.
+
+La función `sample_n()` toma una muestra aleatoria de los precios de las acciones de Netflix. En este caso, especificamos que el tamaño de la muestra sea de 100 días. Hagan lo mismo para su compañía.
+
+```{r}
+#| echo: true
+#| eval: true
+#Establezcamos la semilla para elegir siempre la misma muestra:
+set.seed(123)
+
+netflix_sample <- sample_n(netflix_data, 100)  
+```
+
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| warning: false
+#| fig-align: center
+#| out-width: 90%
+
+library(patchwork)
+p1 <- netflix_data |>
+  ggplot(aes(x=adjusted_close)) +
+  geom_histogram(fill="lightblue", color="darkblue") + 
+  labs(x="Population",
+       y="Frequency") + 
+  scale_x_continuous(labels = label_dollar()) +
+  theme_minimal()
+
+
+p2 <- netflix_sample |>
+  ggplot(aes(x=adjusted_close)) +
+  geom_histogram(fill="lightblue", color="darkblue") + 
+  labs(x="Sample",
+       y="Frequency") + 
+  scale_x_continuous(labels = label_dollar()) +
+  theme_minimal()
+
+
+(p1 + p2) + plot_annotation(title = "Distribution of daily Netflix stock prices")
+```
+
+
+## Ejercicio 7
+
+Utilizando el comando `t.test()`, estimen un intervalo de confianza al 95% para el precio de las acciones de su compañía basado en la muestra de 100 días.
+
+En el caso de Netflix, el resultado de la función es:
+
+```{r}
+#| echo: true
+#| eval: true
+
+t.test(netflix_sample$adjusted_close, conf.level = 0.95)
+```
+
+El intervalo de confianza al 95% es:
+
+$$IC=[257.79, 312.49]$$
+
+¿Captura este intervalo el parámetro problacional (el precio promedio de las acciones)?
+
+```{r}
+#| echo: true
+#| eval: true
+
+mean(netflix_data$adjusted_close, na.rm = TRUE)
+```
+
+El precio promedio de las acciones es 298.63. Por lo tanto, para el caso de Netflix, el intervalo de confianza sí incluye el parámetro poblacional. 
+
+
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 100%
+
+library(scales)
+
+
+p1 <- netflix_data |>
+  ggplot(aes(x = date, y = adjusted_close)) +
+  geom_line(color="darkred") +
+  geom_hline(yintercept = mean(netflix_data$adjusted_close, na.rm = TRUE),
+             linetype = "dashed", color = "darkblue") + 
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Netflix stock prices"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  theme_minimal()
+
+
+# Get the limits from the original netflix_data plot
+x_limits <- range(netflix_data$date, na.rm = TRUE)
+y_limits <- range(netflix_data$adjusted_close, na.rm = TRUE)
+
+
+
+result <- t.test(netflix_sample$adjusted_close, conf.level = 0.95)
+ci <- result$conf.int
+
+p2 <- ggplot(netflix_sample, aes(x = date, y = adjusted_close)) +
+  geom_point(color = "darkgreen", alpha = 0.6) +  # Plot the 100 sampled points
+  # Add the confidence interval as a shaded ribbon
+  geom_ribbon(aes(x = date, ymin = ci[1], ymax = ci[2]), fill = "skyblue", alpha = 0.3, color = NA) +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "100 Sampled Days with 95% CI"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  scale_x_date(limits = x_limits) +  # Apply the same x-axis limits as the original plot
+  coord_cartesian(ylim = y_limits) +  # Apply the same y-axis limits as the original plot
+  theme_minimal()
+
+
+
+result2 <- t.test(netflix_sample$adjusted_close, conf.level = 0.90)
+ci2 <- result2$conf.int
+
+p3 <- ggplot(netflix_sample, aes(x = date, y = adjusted_close)) +
+  geom_point(color = "darkgreen", alpha = 0.6) +  # Plot the 100 sampled points
+  # Add the confidence interval as a shaded ribbon
+  geom_ribbon(aes(x = date,ymin = ci2[1], ymax = ci2[2]), fill = "skyblue", alpha = 0.3, color = NA) +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "100 Sampled Days with 90% CI"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  scale_x_date(limits = x_limits) +  # Apply the same x-axis limits as the original plot
+  coord_cartesian(ylim = y_limits) +  # Apply the same y-axis limits as the original plot
+  theme_minimal()
+
+
+p4 <- ggplot(netflix_sample, aes(x = date, y = adjusted_close)) +
+  geom_point(color = "darkgreen", alpha = 0.6) + 
+  geom_hline(yintercept = mean(netflix_sample$adjusted_close, na.rm = TRUE),
+             linetype = "dashed", color = "darkblue") +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "100 Sampled Days of Netflix Stock Prices"
+  ) + 
+  scale_y_continuous(labels = label_dollar()) +
+  scale_x_date(limits = x_limits) +  # Apply the same x-axis limits as the original plot
+  coord_cartesian(ylim = y_limits) +  # Apply the same y-axis limits as the original plot
+  theme_minimal()
+
+p1+p2
+
+```
+
+## Ejercicio 8
+
+Repitan el mismo análisis del punto anterior pero con un nivel de confianza del 90%.
+
+
+```{r}
+#| echo: true
+#| eval: true
+#| out-width: 100%
+
+t.test(netflix_sample$adjusted_close, conf.level = 0.90)
+```
+
+```{r}
+#| echo: false
+#| eval: true
+#| out-width: 100%
+p1+p3
+```
