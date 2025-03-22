@@ -25,6 +25,57 @@ format:
 ---
 
 
+```{r}
+#| eval: true
+#| echo: false
+library(pacman)
+p_load(broom, latex2exp, ggplot2, ggthemes, viridis, dplyr, magrittr, knitr, parallel,gtools)
+
+# Define pink color
+red_pink <- "#e64173"
+
+theme_empty <- theme_bw() + theme(
+  line = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  axis.text = element_blank(),
+  plot.title = element_blank(),
+  axis.title = element_blank(),
+  plot.margin = structure(c(0, 0, 0, 0), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+
+
+# Set population and sample sizes
+n_p <- 100
+n_s <- 30
+# Set the seed
+set.seed(12468)
+# Generate data
+pop_df <- tibble(
+  i = 3,
+  x = rnorm(n_p, mean = 5, sd = 1.5),
+  e = rnorm(n_p, mean = 0, sd = 1),
+  y = i + 0.5 * x + e,
+  row = rep(1:sqrt(n_p), times = sqrt(n_p)),
+  col = rep(1:sqrt(n_p), each = sqrt(n_p)),
+  s1 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s2 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s3 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s)))
+)
+# Regressions
+lm0 <- lm(y ~ x, data = pop_df)
+lm1 <- lm(y ~ x, data = filter(pop_df, s1 == T))
+lm2 <- lm(y ~ x, data = filter(pop_df, s2 == T))
+lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
+
+
+# Simulation
+
+```
+
+
+
 ## Plan para hoy
 
 1. [Correlación](#corr)
@@ -247,12 +298,46 @@ ggplot(hlines, aes(x=x, y=y))+
 
 # Regresión Lineal Simple {#lm}
 
+## ¿Por qué una regresión? {.medium}
+
+### Ejemplo
+
+El promedio en la universidad es resultado de la habilidad y las horas estudiadas. Por lo tanto, uno podría pensar en el siguiente modelo:
+
+$$Promedio=f(H,Saber11,PCA)$$
+Donde $H$ es la habilidad, $Saber11$ es el puntaje en la prueba Saber 11 y $PCA$ es el porcentaje de clases a las que el estudiante fue. Esperamos que el $Promedio$ aumente cada que alguna de esas 3 variables aumente.
+
+:::{.fragment}
+
+Sin embargo, no necesitamos esperar. Podemos evaluar esta hipótesis usando un **modelo de regresión!**
+
+:::
+
+## ¿Por qué una regresión? {.medium}
+
+**Modelo de Regresión:**
+
+$$Promedio_i=\beta_0 + \beta_1H_i + \beta_2Saber11_i+\beta_3PCT_i+\varepsilon_i$$
+Queremos estimar/evaluar la relación 
+$$Promedio=f(H,Saber11,PCA)$$
+
+. . .
+
+**Preguntas a responder:**
+
+- ¿Cómo se interpretan $\beta_0$, $\beta_1$, $\beta_2$ y $\beta_3$?
+
+- ¿Son los términos $\beta_k$ parámetros o son estimaciones muestrales?
+
+- ¿Qué es $\varepsilon_i$?
      
 ## Partes esenciales de una regresión {.medium}
 
+$$y_i=\beta_0+\beta_1x_i+e_i$$
+
 ::: columns
 ::: {.column width="50%"}
-### Y  {.text-orange-gold .center}
+### $y$  {.text-orange-gold .center}
 
 - Variable dependiente
 
@@ -264,7 +349,7 @@ ggplot(hlines, aes(x=x, y=y))+
 
 ::: {.column .fragment width="50%"}
 
-### X  {.text-orange-gold .center}
+### $x$  {.text-orange-gold .center}
 
 - Variable explicativa
 
@@ -277,7 +362,7 @@ ggplot(hlines, aes(x=x, y=y))+
 :::
 
 
-## ¿Por qué una regresión? {.medium}
+## Objetivos de una regresión {.medium}
 
 Usualmente ajustamos a una línea por dos razones:
 
@@ -298,9 +383,9 @@ Usualmente ajustamos a una línea por dos razones:
 - Netflix evaluando el efecto de la hora del día en la selección de una serie
 
 
-## ¿Cómo? {.medium}
+## ¿Cómo se estima la línea de regresión? {.medium}
 
-1. Graficar X y Y
+1. Graficar ambas variables $y$ y $x$
 
 2. Dibujar una recta que se aproxime a la relación observada (ojalá funcione para datos que no están en la muestra)
 
@@ -340,7 +425,7 @@ galletas |>
 
 :::
 
-## 
+## ¿Cómo se relacionan las galletas con la felicidad? {.medium}
 
 ```{r}
 #| echo: false
@@ -366,7 +451,7 @@ base_cookies
 
 
 
-## 
+## Trazando una curva que sigue los datos {.medium}
 
 ```{r}
 #| echo: false
@@ -379,7 +464,7 @@ base_cookies +
   geom_smooth(method = lm, color = "#0074D9", formula = y ~ splines::bs(x, 7), se = FALSE)
 ```
 
-## 
+## Otra línea que se adapta a los datos {.medium}
 
 ```{r}
 #| echo: false
@@ -392,7 +477,7 @@ base_cookies +
   geom_smooth(method = "loess", color = "#0074D9", se = FALSE)
 ```
 
-##
+## Ajuste con una línea recta (Regresión lineal) {.medium}
 
 ```{r}
 #| echo: false
@@ -405,7 +490,7 @@ base_cookies +
   geom_smooth(method = "lm", color = "#0074D9", se = FALSE)
 ```
 
-##
+## Errores de predicción {.medium}
 
 ```{r}
 #| echo: false
@@ -421,7 +506,7 @@ galletas_con_residuo <- base_cookies +
 galletas_con_residuo
 ```
 
-## 
+## Visualización de los residuos
 
 ```{r}
 #| echo: false
@@ -533,24 +618,24 @@ ggplot(data = tibble(x = 0:14), aes(x = x)) +
 ## Regresión lineal simple {.medium}
 
 $$
-Y = \beta_0 + \beta_1 X + \varepsilon
+y = \beta_0 + \beta_1 x + \varepsilon
 $$
 
--   $\beta_1$: la pendiente verdadera de la relación entre $X$ y $Y$
+-   $\beta_1$: la pendiente verdadera de la relación entre $x$ y $y$
 
--   $\beta_0$: el intercepto verdadero de la relación entre $X$ y $Y$
+-   $\beta_0$: el intercepto verdadero de la relación entre $x$ y $y$
 
 -   $\varepsilon$: el error
 
 ## Regresión lineal simple {.medium}
 
 $$
-\hat{Y} = \hat{\beta_0} + \hat{\beta_1} X 
+\hat{y} = \hat{\beta_0} + \hat{\beta_1} x 
 $$
 
--   $\hat{\beta_1}$: la pendiente estimado de la relación entre $X$ y $Y$
+-   $\hat{\beta_1}$: la pendiente estimada de la relación entre $x$ y $y$
 
--   $\hat{\beta_0}$: el intercepto estimado de la relación entre $X$ y $Y$
+-   $\hat{\beta_0}$: el intercepto estimada de la relación entre $x$ y $y$
 
 -   No hay error!!!
 
@@ -596,7 +681,7 @@ $$
 \text{Residuo} = \text{Observado} - \text{Predicho} = y - \hat{y}
 $$
 
-## La línea de los mínimos cuadrados {.medium}
+## La línea de los mínimos cuadrados ordinarios (MCO) {.medium}
 
 -   El residuo para la observación $i^{th}$ es:
 
@@ -604,7 +689,10 @@ $$e_i= \text{Observado} - \text{Predicho}=y_i - \hat{y_i}$$ - La **suma de los r
 
 $$e_1^2+e_2^2+e_3^2+..+e_n^2$$
 
--   La **línea de los mínimos cuadrados** es la que minimiza la suma de los residuos al cuadrado
+-   La **línea de los mínimos cuadrados ordinarios** es la que minimiza la suma de los residuos al cuadrado:
+
+$$ \min_{\hat{\beta}_0,\, \hat{\beta}_1} \sum e_i^2 $$
+
 
 ## 
 
@@ -617,21 +705,287 @@ knitr::include_graphics("img/meme.png")
 
 ```
 
+
+## MCO vs Otras líneas {.smaller}
+
+Volvamos a la relación felicidad y galletas...
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-width: 8
+#| fig-height: 4
+ggplot(data = pop_df, aes(x = x, y = y)) +
+geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
+theme_empty
+```
+
+
+## MCO vs Otras líneas {.smaller}
+
+Para cualquier línea $\hat{y}=\hat{\beta_0}+\hat{\beta_1}x$
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-width: 8
+#| fig-height: 4
+# Define a function
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+# Define line's parameters
+b0 <- 6
+b1 <- 0.2
+# The plot
+ggplot(data = pop_df, aes(x = x, y = y)) +
+# geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1)), size = 0.5, alpha = 0.2) +
+geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
+geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
+theme_empty
+```
+
+
+## MCO vs Otras líneas {.smaller}
+
+Para cualquier línea $\hat{y}=\hat{\beta_0}+\hat{\beta_1}x$, podemos calcular $e_i=y_i-\hat{y_i}$
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-width: 8
+#| fig-height: 4
+# Define a function
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+# Define line's parameters
+b0 <- 6
+b1 <- 0.2
+# The plot
+ggplot(data = pop_df, aes(x = x, y = y)) +
+geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1)), size = 0.5, alpha = 0.2) +
+geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
+geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
+theme_empty
+```
+
+
+## MCO vs Otras líneas {.smaller}
+
+Para cualquier línea $\hat{y}=\hat{\beta_0}+\hat{\beta_1}x$, podemos calcular $e_i=y_i-\hat{y_i}$
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-width: 8
+#| fig-height: 4
+# Define a function
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+# Define line's parameters
+b0 <- 3
+b1 <- 0.2
+# The plot
+ggplot(data = pop_df, aes(x = x, y = y)) +
+geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1)), size = 0.5, alpha = 0.2) +
+geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
+geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
+theme_empty
+```
+
+
+## MCO vs Otras líneas {.smaller}
+
+Para cualquier línea $\hat{y}=\hat{\beta_0}+\hat{\beta_1}x$, podemos calcular $e_i=y_i-\hat{y_i}$
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-width: 8
+#| fig-height: 4
+# Define a function
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+# Define line's parameters
+b0 <- 10
+b1 <- -0.8
+# The plot
+ggplot(data = pop_df, aes(x = x, y = y)) +
+geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1)), size = 0.5, alpha = 0.2) +
+geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
+geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
+theme_empty
+```
+
+
+## MCO vs Otras líneas {.smaller}
+
+$\sum e_i^2$ calcula el cuadrado de los errores: errores más grandes reciben una penalización mayor
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-width: 8
+#| fig-height: 4
+# Define a function
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+# Define line's parameters
+b0 <- 10
+b1 <- -0.8
+# The plot
+ggplot(data = pop_df, aes(x = x, y = y)) +
+geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1), color = (y - y_hat(x, b0, b1))^2), size = 0.5, alpha = 0.8) +
+geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
+geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
+scale_color_viridis(option = "cividis", direction = -1) +
+theme_empty
+```
+
+
+## MCO vs Otras líneas {.smaller}
+
+La línea de MCO es la combinación de $\hat{\beta_0}$ y $\hat{\beta_1}$ que minimizan $\sum e_i^2$
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-width: 8
+#| fig-height: 4
+# Define a function
+y_hat <- function(x, b0, b1) {b0 + b1 * x}
+# Define line's parameters
+b0 <- lm0$coefficients[1]
+b1 <- lm0$coefficients[2]
+# The plot
+ggplot(data = pop_df, aes(x = x, y = y)) +
+geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1), color = (y - y_hat(x, b0, b1))^2), size = 0.5, alpha = 0.8) +
+geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
+geom_abline(intercept = b0, slope = b1, color = red_pink, size = 2, alpha = 0.9) +
+scale_color_viridis(option = "cividis", direction = -1) +
+theme_empty
+```
+
+## ¿Cómo gráficar la línea de regresión? {.medium}
+
+`geom_smooth(method="lm")`es la función dentro de ggplot para gráficar la línea de regresión y su respectivo intervalo de confianza.
+
+::: columns
+::: {.column width="40%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| fig-width: 8
+#| fig-height: 4
+#| fig-align: center
+#| code-line-numbers: "5" 
+ggplot(galletas_datos, 
+       aes(x = galletas, 
+           y = felicidad)) +
+  geom_point() +
+  geom_smooth(method="lm") +
+  labs(x = "Galletas consumidas",
+       y = "Nivel de Felicidad") +
+  theme_minimal()
+
+```
+
+:::
+
+::: {.column width="60%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-width: 8
+#| fig-height: 4
+#| fig-align: center
+ggplot(galletas_datos, 
+       aes(x = galletas, 
+           y = felicidad)) +
+  geom_point() +
+  geom_smooth(method="lm") +
+  labs(x = "Galletas consumidas",
+       y = "Nivel de Felicidad") +
+  theme_minimal()
+
+```
+
+:::
+:::
+
+
+## ¿Cómo gráficar la línea de regresión? {.medium}
+
+La opción `se = FALSE` elimina los intervalos de confianza.
+
+::: columns
+::: {.column width="40%"}
+
+```{r}
+#| echo: true
+#| eval: false
+#| fig-width: 8
+#| fig-height: 4
+#| fig-align: center
+#| code-line-numbers: "5" 
+ggplot(galletas_datos, 
+       aes(x = galletas, 
+           y = felicidad)) +
+  geom_point() +
+  geom_smooth(method="lm", se = FALSE) +
+  labs(x = "Galletas consumidas",
+       y = "Nivel de Felicidad") +
+  theme_minimal()
+
+```
+
+:::
+
+::: {.column width="60%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-width: 8
+#| fig-height: 4
+#| fig-align: center
+#| code-line-numbers: "4" 
+ggplot(galletas_datos, 
+       aes(x = galletas, 
+           y = felicidad)) +
+  geom_point() +
+  geom_smooth(method="lm", se = FALSE) +
+  labs(x = "Galletas consumidas",
+       y = "Nivel de Felicidad") +
+  theme_minimal()
+
+```
+
+:::
+:::
+
+
+
+
 ## Construyendo modelos en R {.medium}
 
--   La sintáxis para los resultados del modelo es:
+-   El  siguiente código estima y reporta los resultados de la regresión:
 
 ```{r}
 #| eval: false
 #| echo: true
 
-name_of_model <- lm(Y ~ X, data = DATA)
+name_of_model <- lm(y ~ x, data = DATA)
 
 summary(name_of_model)  # Para ver los detalles del modelo
 ```
 
 ::: fragment
--   Otras opciones para evaluar el modelo son:
+
+-   La función `tidy` del paquete `broom` reporta  los resultados del modelo como un data frame para graficar:
 
 ```{r}
 #| eval: false
@@ -639,11 +993,7 @@ summary(name_of_model)  # Para ver los detalles del modelo
 
 library(broom)
 
-# Convierte los resultados del modelo a un data frame para graficar
 tidy(name_of_model)
-
-# Convierte los parámetros que evalúan el modelo a un data frame
-glance(name_of_model)
 ```
 :::
 
@@ -678,20 +1028,24 @@ base_cookies +
 
 ## Modelando Galletas y Felicidad {.medium}
 
-Podemos ver los coeficientes, error estándar, p-value e IC:
+La función `tidy` nos permite ver los:
+
+  - coeficientes
+  - errores estándar
+  - el estadístico $t$
+  - el p-value
+  - los IC
+  
+. . .
+  
+Para nuestro `modelo_felicidad`:
 
 ```{r}
 #| echo: true
 tidy(modelo_felicidad, conf.int = TRUE)
 ```
 
-::: fragment
-Para ver aspectos evaluando el ajuste del modelo:
-```{r}
-#| echo: true
-glance(modelo_felicidad)
-```
-:::
+
 
 ## Traduciendo los resultados a matemáticas {.medium}
 
@@ -760,105 +1114,32 @@ $$\widehat{Felicidad} = 1.1 + 0.16 \times Galletas$$
 :::
 
 
-## Volvamos a Hollywood Rules  {.medium}
+## 💪 Ejercicio 2  {.medium}
 
-- Según la sabiduría popular en Hollywood, el recaudo durante el primer fin de semana es un fuerte predictor del éxito comercial de una película
-- Grafiquemos la relación entre el recaudo en Estados Unidos y el recaudo en el primer fin de semana para evaluar esta creencia:
+Según la sabiduría popular en Hollywood, el recaudo durante el primer fin de semana es un fuerte predictor del éxito comercial de una película.
 
+1. Grafiquen la línea de regresión entre el recaudo total en Estados Unidos y el recaudo en el primer fin de semana para evaluar esta creencia.
 
+2. Estimen la siguiente regresión y llámenla `hollywood_model`:
 
+$$\widehat{\text{US Total Gross}} = \hat{\beta_0} + \hat{\beta_1} \times \text{Opening Gross}$$
+3. Usando la función `tidy` reporten los valores de los coeficientes.
 
-## Volvamos a Hollywood Rules  {.medium}
+4. ¿Cuál es la interpretación de $\hat{\beta_1}$ en este caso?¿Y de $\hat{\beta_0}$?
+ 
 
-
-```{r}
-#| echo: false
-#| eval: true
-#| fig-align: center
-
-ggplot(data = hollywood, aes(x = (opening_gross / 1000000), y = (us_gross / 1000000))) +
-    geom_point() +
-    labs(
-        x = "Opening Gross (in millions)",
-        y = "US Total Gross (in millions)"
-    ) +
-    theme_minimal()
-
-```
-
-
-
-## Volvamos a Hollywood Rules  {.medium}
-
-```{r}
-#| echo: true
-#| eval: true
-hollywood_model <- lm(us_gross ~ opening_gross, data=hollywood)
-tidy(hollywood_model, conf.int = TRUE)
-
-```
-
-:::{.fragment}
-
-Entonces nuestro modelo lineal es:
-
-$$\widehat{\text{US Total Gross}} = 5,108,220 + 3.12 \times \text{Opening Gross}$$
-
-:::
-
-:::{.fragment}
-¿Cuál es la interpretación de $\hat{\beta_1}$ en este caso?¿Y de $\hat{\beta_0}$?
-:::
-
-
-
-## ¿ Cómo graficar la línea de regresión? {.medium}
-
-`geom_smooth(method="lm")`es la función dentro de ggplot para gráficar la línea de regresión y su respectivo intervalo de confianza.
-
-
-```{r}
-#| echo: true
-#| eval: false
-#| fig-width: 8
-#| fig-height: 4
-#| fig-align: center
-#| code-line-numbers: "3"
-ggplot(data = hollywood, aes(x = (opening_gross / 1000000), y = (us_gross / 1000000))) +
-    geom_point() +
-    geom_smooth(method="lm") +
-    labs(
-        x = "Opening Gross (in millions)",
-        y = "US Total Gross (in millions)"
-    ) +
-    theme_minimal()
-
-```
-
-
-## ¿ Cómo graficar la línea de regresión? {.medium}
-
-
-```{r}
-#| echo: false
-#| eval: true
-#| fig-width: 8
-#| fig-height: 4
-#| fig-align: center
-
-ggplot(data = hollywood, aes(x = (opening_gross / 1000000), y = (us_gross / 1000000))) +
-    geom_point() +
-    geom_smooth(method="lm") +
-    labs(
-        x = "Opening Gross (in millions)",
-        y = "US Total Gross (in millions)"
-    ) +
-    theme_minimal()
-
-```
 
 
 ## Predicción  {.medium}
+
+```{r}
+#| echo: false
+#| eval: true
+hollywood_model <- lm(us_gross ~ opening_gross, data=hollywood)
+```
+
+$$\widehat{\text{US Total Gross}} = 5,108,220 + 3.12 \times \text{Opening Gross}$$
+
 
 Según nuestro modelo, ¿cuál sería el recaudo en US de una película cuyo recaudo en el primer fin de semana fue de \$50,000,000?
 
@@ -1006,7 +1287,6 @@ $$Z=\dfrac{3.12-0}{0.218}=14.3>Z_{\frac{\alpha}{2}}=1.96$$
 
 # Regresión Lineal Múltiple {#multiple}
 
-
 ## Regresión Múltiple {.medium}
 
 No estamos limitados a una sola variable explicativa!
@@ -1016,11 +1296,11 @@ $$
 $$
 
 :::{.fragment}
+Podríamos pensar que el verdadero modelo de felicidad es:
 
-```{r}
-#| echo: true
-hollywood_model <- lm(us_gross ~ opening_gross + budget + sequel, data=hollywood)
-```
+  $$\widehat{\text{Felicidad}}=\hat{\beta_0}+\hat{\beta_1}\times \text{Galletas}+\hat{\beta_2} \times \text{Estudiante}$$
+
+O que para predecir el recaudo de una película se necesita el siguiente modelo:
 
 $$
 \widehat{\text{US Gross}} = \hat{\beta_0} + \hat{\beta_1} \text{Opening Gross} + \hat{\beta_2} \text{Budget} + \hat{\beta_3} \text{Sequel}
@@ -1029,77 +1309,50 @@ $$
 :::
 
 
-## Regresión Múltiple {.medium}
+
+## ¿Cómo pensar la relación $y=f(x_1,x_2)+\varepsilon$? {.medium}
+
 
 ```{r}
-#| echo: true
-hollywood_model <- lm(us_gross ~ opening_gross + budget + sequel, data=hollywood)
-tidy(hollywood_model, conf.int = TRUE)
-```
-
-
-$$  
-  \begin{aligned}
-\widehat{\text{US Gross}} = &-8,785,254 + 2.99 \times \text{Opening Gross} + 0.356 \times \text{Budget} \\
-  & - 11,929,834 \times \text{Sequel}
-\end{aligned}
-$$
-
-
-## Predicción en Regresión Múltiple {.medium}
-
-Así como en el caso con una variable, usamos el comando `predict()` para predecir $\widehat{\text{US Gross}}$. En este caso, necesitamos al menos un valor para cada variable que está en la regresión.
-
-```{r}
-#| echo: true
 #| eval: true
-multiples_valores <- data.frame(opening_gross=50000000,
-                             budget=100000000,
-                             sequel=1)
-predict(hollywood_model, newdata = multiples_valores)
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/dots.png")
 
 ```
 
-## Predicción en Regresión Múltiple {.medium}
 
-Hagamos una predicción para una de las observaciones en nuestros datos. En este caso, para la película "The Holiday".
+## ¿Cómo pensar la "recta" en una regresión múltiple? {.medium}
+
 
 ```{r}
-#| echo: true
 #| eval: true
-# Seleccionemos las 3 variables dependientes para The Holiday
-the_holiday <- hollywood %>% 
-  filter(movie=="The Holiday") %>%
-  select(opening_gross, budget, sequel)
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/plane.png")
 
-# Usamos el comando predict nuevamente
-predicho <- predict(hollywood_model, newdata = the_holiday)
-predicho
 ```
 
 
-## Predicción en Regresión Múltiple {.medium}
 
+## Variables Categóricas vs Variables Continuas {.medium}
 
-- ¿Es precisa nuestra estimación?
+En los dos modelos antes explicados hay dos tipos de variables:
 
-```{r}
-#| echo: true
-#| eval: true
-# El valor observado
-observado <- hollywood %>%
-  filter(movie == "The Holiday") %>%
-  pull(us_gross)
-observado
-```
+### Variables Categóricas
 
-- El residuo para "The Holiday" será:
+- $\text{Estudiante}$
 
-```{r}
-#| echo: true
-#| eval: true
-observado-predicho
-```
+- $\text{Sequel}$
+
+### Variables Continuas
+
+- $\text{Galletas}$
+
+- $\text{Opening Gross}$
+
 
 
 ## Variables Categóricas vs Variables Continuas {.medium}
@@ -1126,7 +1379,7 @@ knitr::include_graphics("img/slider-switch-annotated-80.jpg")
 ```
 
 
-##
+## Ejemplo de felicidad y galletas
 
 ```{r}
 #| echo: false
@@ -1158,7 +1411,8 @@ ggplot(cookies_data, aes(x = cookies, y = happiness)) +
 
 ```
 
-##
+
+## ¿Qué pasa si diferenciamos entre profesores y estudiantes?
 
 ```{r}
 #| echo: false
@@ -1180,7 +1434,8 @@ ggplot(cookies_data, aes(x = cookies, y = happiness)) +
 
 ```
 
-##
+## Ambos grupos parecen tener pendientes diferentes...
+
 
 ```{r}
 #| echo: false
@@ -1204,15 +1459,104 @@ ggplot(cookies_data, aes(x = cookies, y = happiness, color = group)) +
 
 ## Variables Categóricas {.medium}
 
+¿Cómo interpretar el modelo si agregamos una variable categórica $Estudiante$ que sea igual a 1 si la observación es de un estudiante?
 
 $$\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \times Estudiante$$
 
-:::{.incremental}
+:::{.fragment}
 
 - EL intercepto para las observaciones de los profesores será $\hat{\beta_0}$ porque $Estudiante=0$
 
-- El intercepto para las observaciones de los estudiantes será $\hat{\beta_0}+\hat{\beta_2}$ porque $Estudiante=1$
+$$\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas$$
+
 :::
+
+
+## Variables Categóricas {.medium}
+
+¿Cómo interpretar el modelo si agregamos una variable categórica $Estudiante$ que sea igual a 1 si la observación es de un estudiante?
+
+$$\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \times Estudiante$$
+
+
+- El intercepto para las observaciones de los estudiantes será $\hat{\beta_0}+\hat{\beta_2}$ porque $Estudiante=1$
+
+$$\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2}$$
+
+
+## 💪 Ejercicio 3  {.medium}
+
+1. Estimen la siguiente regresión con el nombre `hollywood_model_2`:
+
+$$
+\widehat{\text{US Gross}} = \hat{\beta_0} + \hat{\beta_1} \text{Opening Gross} + \hat{\beta_2} \text{Budget} + \hat{\beta_3} \text{Sequel}
+$$
+
+2. Usando la función `tidy` respondan: ¿cuáles coeficientes son estadísticamente diferentes de cero?
+
+3. Completen el siguiente código para predecir el recaudo total para una secuela con recaudo del fin de semana promedio y presupuesto promedio:
+
+```{r}
+#| echo: true
+#| eval: false
+multiples_valores <- data.frame(opening_gross=_________,
+                             budget=__________,
+                             sequel=__)
+predict(hollywood_model_2, newdata = multiples_valores)
+
+```
+
+
+## Predicción en Regresión Múltiple {.medium}
+
+```{r}
+#| echo: false
+hollywood_model <- lm(us_gross ~ opening_gross + budget + sequel, data=hollywood)
+```
+
+Así como en el caso con una variable, usamos el comando `predict()` para predecir $\widehat{\text{US Gross}}$. En este caso, necesitamos al menos un valor para cada variable que está en la regresión.
+
+
+Hagamos una predicción para una de las observaciones en nuestros datos. En este caso, para la película "The Holiday".
+
+```{r}
+#| echo: true
+#| eval: true
+# Seleccionemos las 3 variables dependientes para The Holiday
+the_holiday <- hollywood |> 
+  filter(movie=="The Holiday") |>
+  select(opening_gross, budget, sequel)
+
+# Usamos el comando predict nuevamente
+predicho <- predict(hollywood_model, newdata = the_holiday)
+predicho
+```
+
+
+## Predicción en Regresión Múltiple {.medium}
+
+
+- ¿Es precisa nuestra estimación?
+
+```{r}
+#| echo: true
+#| eval: true
+# El valor observado
+observado <- hollywood |>
+  filter(movie == "The Holiday") |>
+  pull(us_gross)
+observado
+```
+
+- El residuo para "The Holiday" será:
+
+```{r}
+#| echo: true
+#| eval: true
+observado-predicho
+```
+
+
 
 
 ## Filtrar la variación {.medium}

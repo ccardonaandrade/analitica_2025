@@ -434,7 +434,7 @@ Carlos Cardona Andrade
 </details>
 
 </div>
-<img data-src="index_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-discovered-preview-image r-stretch quarto-figure-center" width="576"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-discovered-preview-image r-stretch quarto-figure-center" width="576"></section>
 <section id="la-correlación-en-r" class="slide level2 medium">
 <h2>La correlación en R</h2>
 <ul>
@@ -470,7 +470,7 @@ Carlos Cardona Andrade
 <section id="función-corrplot-1" class="slide level2 medium">
 <h2>Función <code>corrplot</code></h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="576" class="r-stretch quarto-figure-center"></section>
 <section id="la-correlación-no-es-suficiente" class="slide level2 medium">
 <h2>La correlación no es suficiente</h2>
 <div class="cell" data-layout-align="center">
@@ -482,7 +482,7 @@ Carlos Cardona Andrade
 </div>
 </div>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="672" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="la-correlación-no-es-suficiente-1" class="slide level2 medium">
 <h2>La correlación no es suficiente</h2>
 <div class="cell" data-layout-align="center">
@@ -494,7 +494,7 @@ Carlos Cardona Andrade
 </div>
 </div>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="672" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="la-correlación-no-es-suficiente-2" class="slide level2 medium">
 <h2>La correlación no es suficiente</h2>
 <div class="cell" data-layout-align="center">
@@ -506,17 +506,40 @@ Carlos Cardona Andrade
 </div>
 </div>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" width="576" class="r-stretch quarto-figure-center"></section></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" width="576" class="r-stretch quarto-figure-center"></section></section>
 <section>
 <section id="lm" class="title-slide slide level1 center">
 <h1>Regresión Lineal Simple</h1>
 
 </section>
+<section id="por-qué-una-regresión" class="slide level2 medium">
+<h2>¿Por qué una regresión?</h2>
+<h3 id="ejemplo">Ejemplo</h3>
+<p>El promedio en la universidad es resultado de la habilidad y las horas estudiadas. Por lo tanto, uno podría pensar en el siguiente modelo:</p>
+<p><span class="math display">\[Promedio=f(H,Saber11,PCA)\]</span> Donde <span class="math inline">\(H\)</span> es la habilidad, <span class="math inline">\(Saber11\)</span> es el puntaje en la prueba Saber 11 y <span class="math inline">\(PCA\)</span> es el porcentaje de clases a las que el estudiante fue. Esperamos que el <span class="math inline">\(Promedio\)</span> aumente cada que alguna de esas 3 variables aumente.</p>
+<div class="fragment">
+<p>Sin embargo, no necesitamos esperar. Podemos evaluar esta hipótesis usando un <strong>modelo de regresión!</strong></p>
+</div>
+</section>
+<section id="por-qué-una-regresión-1" class="slide level2 medium">
+<h2>¿Por qué una regresión?</h2>
+<p><strong>Modelo de Regresión:</strong></p>
+<p><span class="math display">\[Promedio_i=\beta_0 + \beta_1H_i + \beta_2Saber11_i+\beta_3PCT_i+\varepsilon_i\]</span> Queremos estimar/evaluar la relación <span class="math display">\[Promedio=f(H,Saber11,PCA)\]</span></p>
+<div class="fragment">
+<p><strong>Preguntas a responder:</strong></p>
+<ul>
+<li><p>¿Cómo se interpretan <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\beta_2\)</span> y <span class="math inline">\(\beta_3\)</span>?</p></li>
+<li><p>¿Son los términos <span class="math inline">\(\beta_k\)</span> parámetros o son estimaciones muestrales?</p></li>
+<li><p>¿Qué es <span class="math inline">\(\varepsilon_i\)</span>?</p></li>
+</ul>
+</div>
+</section>
 <section id="partes-esenciales-de-una-regresión" class="slide level2 medium">
 <h2>Partes esenciales de una regresión</h2>
+<p><span class="math display">\[y_i=\beta_0+\beta_1x_i+e_i\]</span></p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<h3 class="text-orange-gold center" id="y">Y</h3>
+<h3 class="text-orange-gold center" id="y"><span class="math inline">\(y\)</span></h3>
 <ul>
 <li><p>Variable dependiente</p></li>
 <li><p>Variable resultado</p></li>
@@ -524,7 +547,7 @@ Carlos Cardona Andrade
 </ul>
 </div><div class="column fragment" style="width:50%;">
 <!-- -->
-<h3 class="text-orange-gold center" id="x">X</h3>
+<h3 class="text-orange-gold center" id="x"><span class="math inline">\(x\)</span></h3>
 <ul>
 <li><p>Variable explicativa</p></li>
 <li><p>Predictor</p></li>
@@ -534,8 +557,8 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
-<section id="por-qué-una-regresión" class="slide level2 medium">
-<h2>¿Por qué una regresión?</h2>
+<section id="objetivos-de-una-regresión" class="slide level2 medium">
+<h2>Objetivos de una regresión</h2>
 <p>Usualmente ajustamos a una línea por dos razones:</p>
 <h3 id="predicción">Predicción</h3>
 <ul>
@@ -550,10 +573,10 @@ Carlos Cardona Andrade
 <li><p>Netflix evaluando el efecto de la hora del día en la selección de una serie</p></li>
 </ul>
 </section>
-<section id="cómo" class="slide level2 medium">
-<h2>¿Cómo?</h2>
+<section id="cómo-se-estima-la-línea-de-regresión" class="slide level2 medium">
+<h2>¿Cómo se estima la línea de regresión?</h2>
 <ol type="1">
-<li><p>Graficar X y Y</p></li>
+<li><p>Graficar ambas variables <span class="math inline">\(y\)</span> y <span class="math inline">\(x\)</span></p></li>
 <li><p>Dibujar una recta que se aproxime a la relación observada (ojalá funcione para datos que no están en la muestra)</p></li>
 <li><p>Estimar los números que componen esa recta</p></li>
 <li><p>Interpretar esos números</p></li>
@@ -620,34 +643,34 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
+<section id="cómo-se-relacionan-las-galletas-con-la-felicidad" class="slide level2 medium">
+<h2>¿Cómo se relacionan las galletas con la felicidad?</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="trazando-una-curva-que-sigue-los-datos" class="slide level2 medium">
+<h2>Trazando una curva que sigue los datos</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="otra-línea-que-se-adapta-a-los-datos" class="slide level2 medium">
+<h2>Otra línea que se adapta a los datos</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="ajuste-con-una-línea-recta-regresión-lineal" class="slide level2 medium">
+<h2>Ajuste con una línea recta (Regresión lineal)</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="errores-de-predicción" class="slide level2 medium">
+<h2>Errores de predicción</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="visualización-de-los-residuos" class="slide level2">
+<h2>Visualización de los residuos</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-20-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="section" class="slide level2">
 <h2></h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" width="768" class="r-stretch quarto-figure-center"></section>
-<section id="section-1" class="slide level2">
-<h2></h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="768" class="r-stretch quarto-figure-center"></section>
-<section id="section-2" class="slide level2">
-<h2></h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="768" class="r-stretch quarto-figure-center"></section>
-<section id="section-3" class="slide level2">
-<h2></h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="768" class="r-stretch quarto-figure-center"></section>
-<section id="section-4" class="slide level2">
-<h2></h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="768" class="r-stretch quarto-figure-center"></section>
-<section id="section-5" class="slide level2">
-<h2></h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" width="768" class="r-stretch quarto-figure-center"></section>
-<section id="section-6" class="slide level2">
-<h2></h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-20-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-21-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="pendiente-de-una-recta" class="slide level2 medium">
 <h2>Pendiente de una recta</h2>
 <p><span class="math display">\[
@@ -687,7 +710,7 @@ y = 2x - 1
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-21-1.png" width="460"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" width="460"></p>
 </figure>
 </div>
 </div>
@@ -700,7 +723,7 @@ y = -0.5x + 6
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" width="460"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="460"></p>
 </figure>
 </div>
 </div>
@@ -711,22 +734,22 @@ y = -0.5x + 6
 <section id="regresión-lineal-simple" class="slide level2 medium">
 <h2>Regresión lineal simple</h2>
 <p><span class="math display">\[
-Y = \beta_0 + \beta_1 X + \varepsilon
+y = \beta_0 + \beta_1 x + \varepsilon
 \]</span></p>
 <ul>
-<li><p><span class="math inline">\(\beta_1\)</span>: la pendiente verdadera de la relación entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span></p></li>
-<li><p><span class="math inline">\(\beta_0\)</span>: el intercepto verdadero de la relación entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span></p></li>
+<li><p><span class="math inline">\(\beta_1\)</span>: la pendiente verdadera de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
+<li><p><span class="math inline">\(\beta_0\)</span>: el intercepto verdadero de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
 <li><p><span class="math inline">\(\varepsilon\)</span>: el error</p></li>
 </ul>
 </section>
 <section id="regresión-lineal-simple-1" class="slide level2 medium">
 <h2>Regresión lineal simple</h2>
 <p><span class="math display">\[
-\hat{Y} = \hat{\beta_0} + \hat{\beta_1} X
+\hat{y} = \hat{\beta_0} + \hat{\beta_1} x
 \]</span></p>
 <ul>
-<li><p><span class="math inline">\(\hat{\beta_1}\)</span>: la pendiente estimado de la relación entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span></p></li>
-<li><p><span class="math inline">\(\hat{\beta_0}\)</span>: el intercepto estimado de la relación entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span></p></li>
+<li><p><span class="math inline">\(\hat{\beta_1}\)</span>: la pendiente estimada de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
+<li><p><span class="math inline">\(\hat{\beta_0}\)</span>: el intercepto estimada de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
 <li><p>No hay error!!!</p></li>
 </ul>
 </section>
@@ -745,7 +768,7 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-24-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -756,47 +779,135 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <section id="residuos" class="slide level2 medium">
 <h2>Residuos</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-24-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><p><span class="math display">\[
+<img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><p><span class="math display">\[
 \text{Residuo} = \text{Observado} - \text{Predicho} = y - \hat{y}
 \]</span></p>
 </section>
-<section id="la-línea-de-los-mínimos-cuadrados" class="slide level2 medium">
-<h2>La línea de los mínimos cuadrados</h2>
+<section id="la-línea-de-los-mínimos-cuadrados-ordinarios-mco" class="slide level2 medium">
+<h2>La línea de los mínimos cuadrados ordinarios (MCO)</h2>
 <ul>
 <li>El residuo para la observación <span class="math inline">\(i^{th}\)</span> es:</li>
 </ul>
 <p><span class="math display">\[e_i= \text{Observado} - \text{Predicho}=y_i - \hat{y_i}\]</span> - La <strong>suma de los residuos al cuadrado</strong> es:</p>
 <p><span class="math display">\[e_1^2+e_2^2+e_3^2+..+e_n^2\]</span></p>
 <ul>
-<li>La <strong>línea de los mínimos cuadrados</strong> es la que minimiza la suma de los residuos al cuadrado</li>
+<li>La <strong>línea de los mínimos cuadrados ordinarios</strong> es la que minimiza la suma de los residuos al cuadrado:</li>
 </ul>
+<p><span class="math display">\[ \min_{\hat{\beta}_0,\, \hat{\beta}_1} \sum e_i^2 \]</span></p>
 </section>
-<section id="section-7" class="slide level2">
+<section id="section-1" class="slide level2">
 <h2></h2>
 
 <img data-src="img/meme.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<section id="mco-vs-otras-líneas" class="slide level2 smaller">
+<h2>MCO vs Otras líneas</h2>
+<p>Volvamos a la relación felicidad y galletas…</p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="mco-vs-otras-líneas-1" class="slide level2 smaller">
+<h2>MCO vs Otras líneas</h2>
+<p>Para cualquier línea <span class="math inline">\(\hat{y}=\hat{\beta_0}+\hat{\beta_1}x\)</span></p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="mco-vs-otras-líneas-2" class="slide level2 smaller">
+<h2>MCO vs Otras líneas</h2>
+<p>Para cualquier línea <span class="math inline">\(\hat{y}=\hat{\beta_0}+\hat{\beta_1}x\)</span>, podemos calcular <span class="math inline">\(e_i=y_i-\hat{y_i}\)</span></p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-29-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="mco-vs-otras-líneas-3" class="slide level2 smaller">
+<h2>MCO vs Otras líneas</h2>
+<p>Para cualquier línea <span class="math inline">\(\hat{y}=\hat{\beta_0}+\hat{\beta_1}x\)</span>, podemos calcular <span class="math inline">\(e_i=y_i-\hat{y_i}\)</span></p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-30-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="mco-vs-otras-líneas-4" class="slide level2 smaller">
+<h2>MCO vs Otras líneas</h2>
+<p>Para cualquier línea <span class="math inline">\(\hat{y}=\hat{\beta_0}+\hat{\beta_1}x\)</span>, podemos calcular <span class="math inline">\(e_i=y_i-\hat{y_i}\)</span></p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-31-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="mco-vs-otras-líneas-5" class="slide level2 smaller">
+<h2>MCO vs Otras líneas</h2>
+<p><span class="math inline">\(\sum e_i^2\)</span> calcula el cuadrado de los errores: errores más grandes reciben una penalización mayor</p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-32-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="mco-vs-otras-líneas-6" class="slide level2 smaller">
+<h2>MCO vs Otras líneas</h2>
+<p>La línea de MCO es la combinación de <span class="math inline">\(\hat{\beta_0}\)</span> y <span class="math inline">\(\hat{\beta_1}\)</span> que minimizan <span class="math inline">\(\sum e_i^2\)</span></p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-33-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="cómo-gráficar-la-línea-de-regresión" class="slide level2 medium">
+<h2>¿Cómo gráficar la línea de regresión?</h2>
+<p><code>geom_smooth(method="lm")</code>es la función dentro de ggplot para gráficar la línea de regresión y su respectivo intervalo de confianza.</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(galletas_datos, </span>
+<span id="cb8-2"><a href="#cb8-2"></a>       <span class="fu">aes</span>(<span class="at">x =</span> galletas, </span>
+<span id="cb8-3"><a href="#cb8-3"></a>           <span class="at">y =</span> felicidad)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Galletas consumidas"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7"></a>       <span class="at">y =</span> <span class="st">"Nivel de Felicidad"</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-35-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="cómo-gráficar-la-línea-de-regresión-1" class="slide level2 medium">
+<h2>¿Cómo gráficar la línea de regresión?</h2>
+<p>La opción <code>se = FALSE</code> elimina los intervalos de confianza.</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggplot</span>(galletas_datos, </span>
+<span id="cb9-2"><a href="#cb9-2"></a>       <span class="fu">aes</span>(<span class="at">x =</span> galletas, </span>
+<span id="cb9-3"><a href="#cb9-3"></a>           <span class="at">y =</span> felicidad)) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Galletas consumidas"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7"></a>       <span class="at">y =</span> <span class="st">"Nivel de Felicidad"</span>) <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-37-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="construyendo-modelos-en-r" class="slide level2 medium">
 <h2>Construyendo modelos en R</h2>
 <ul>
-<li>La sintáxis para los resultados del modelo es:</li>
+<li>El siguiente código estima y reporta los resultados de la regresión:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>name_of_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X, <span class="at">data =</span> DATA)</span>
-<span id="cb8-2"><a href="#cb8-2"></a></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">summary</span>(name_of_model)  <span class="co"># Para ver los detalles del modelo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>name_of_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> DATA)</span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="fu">summary</span>(name_of_model)  <span class="co"># Para ver los detalles del modelo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <ul>
-<li>Otras opciones para evaluar el modelo son:</li>
+<li>La función <code>tidy</code> del paquete <code>broom</code> reporta los resultados del modelo como un data frame para graficar:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb9-2"><a href="#cb9-2"></a></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="co"># Convierte los resultados del modelo a un data frame para graficar</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="fu">tidy</span>(name_of_model)</span>
-<span id="cb9-5"><a href="#cb9-5"></a></span>
-<span id="cb9-6"><a href="#cb9-6"></a><span class="co"># Convierte los parámetros que evalúan el modelo a un data frame</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a><span class="fu">glance</span>(name_of_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="fu">tidy</span>(name_of_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -806,9 +917,9 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <div class="column" style="width:40%;">
 <p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>modelo_felicidad <span class="ot">&lt;-</span> </span>
-<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">lm</span>(felicidad <span class="sc">~</span> galletas,</span>
-<span id="cb10-3"><a href="#cb10-3"></a>     <span class="at">data =</span> galletas_datos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>modelo_felicidad <span class="ot">&lt;-</span> </span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">lm</span>(felicidad <span class="sc">~</span> galletas,</span>
+<span id="cb12-3"><a href="#cb12-3"></a>     <span class="at">data =</span> galletas_datos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:60%;">
 <div class="cell">
@@ -821,27 +932,24 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 </section>
 <section id="modelando-galletas-y-felicidad-1" class="slide level2 medium">
 <h2>Modelando Galletas y Felicidad</h2>
-<p>Podemos ver los coeficientes, error estándar, p-value e IC:</p>
+<p>La función <code>tidy</code> nos permite ver los:</p>
+<ul>
+<li>coeficientes</li>
+<li>errores estándar</li>
+<li>el estadístico <span class="math inline">\(t\)</span></li>
+<li>el p-value</li>
+<li>los IC</li>
+</ul>
+<div class="fragment">
+<p>Para nuestro <code>modelo_felicidad</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">tidy</span>(modelo_felicidad, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">tidy</span>(modelo_felicidad, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term        estimate std.error statistic p.value conf.low conf.high
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 1 (Intercept)    1.1      0.470       2.34  0.0475   0.0156     2.18 
 2 galletas       0.164    0.0758      2.16  0.0629  -0.0111     0.338</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>Para ver aspectos evaluando el ajuste del modelo:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">glance</span>(modelo_felicidad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 12
-  r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC
-      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1     0.368         0.289 0.688      4.66  0.0629     1  -9.34  24.7  25.6
-# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
 </div>
 </div>
 </div>
@@ -874,7 +982,7 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 </div><div class="column" style="width:60%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-33-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-44-1.png" width="576"></p>
 </div>
 </div>
 </div>
@@ -908,58 +1016,21 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 </ul>
 </div>
 </section>
-<section id="volvamos-a-hollywood-rules" class="slide level2 medium">
-<h2>Volvamos a Hollywood Rules</h2>
-<ul>
-<li>Según la sabiduría popular en Hollywood, el recaudo durante el primer fin de semana es un fuerte predictor del éxito comercial de una película</li>
-<li>Grafiquemos la relación entre el recaudo en Estados Unidos y el recaudo en el primer fin de semana para evaluar esta creencia:</li>
-</ul>
+<section id="ejercicio-2" class="slide level2 medium">
+<h2>💪 Ejercicio 2</h2>
+<p>Según la sabiduría popular en Hollywood, el recaudo durante el primer fin de semana es un fuerte predictor del éxito comercial de una película.</p>
+<ol type="1">
+<li><p>Grafiquen la línea de regresión entre el recaudo total en Estados Unidos y el recaudo en el primer fin de semana para evaluar esta creencia.</p></li>
+<li><p>Estimen la siguiente regresión y llámenla <code>hollywood_model</code>:</p></li>
+</ol>
+<p><span class="math display">\[\widehat{\text{US Total Gross}} = \hat{\beta_0} + \hat{\beta_1} \times \text{Opening Gross}\]</span> 3. Usando la función <code>tidy</code> reporten los valores de los coeficientes.</p>
+<ol start="4" type="1">
+<li>¿Cuál es la interpretación de <span class="math inline">\(\hat{\beta_1}\)</span> en este caso?¿Y de <span class="math inline">\(\hat{\beta_0}\)</span>?</li>
+</ol>
 </section>
-<section id="volvamos-a-hollywood-rules-1" class="slide level2 medium">
-<h2>Volvamos a Hollywood Rules</h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-34-1.png" width="576" class="r-stretch quarto-figure-center"></section>
-<section id="volvamos-a-hollywood-rules-2" class="slide level2 medium">
-<h2>Volvamos a Hollywood Rules</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>hollywood_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(us_gross <span class="sc">~</span> opening_gross, <span class="at">data=</span>hollywood)</span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">tidy</span>(hollywood_model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 7
-  term            estimate   std.error statistic  p.value    conf.low  conf.high
-  &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
-1 (Intercept)   5108220.   4502660.         1.13 2.60e- 1 -3865567.       1.41e7
-2 opening_gross       3.12       0.218     14.3  7.07e-23        2.69     3.56e0</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>Entonces nuestro modelo lineal es:</p>
-<p><span class="math display">\[\widehat{\text{US Total Gross}} = 5,108,220 + 3.12 \times \text{Opening Gross}\]</span></p>
-</div>
-<div class="fragment">
-<p>¿Cuál es la interpretación de <span class="math inline">\(\hat{\beta_1}\)</span> en este caso?¿Y de <span class="math inline">\(\hat{\beta_0}\)</span>?</p>
-</div>
-</section>
-<section id="cómo-graficar-la-línea-de-regresión" class="slide level2 medium">
-<h2>¿ Cómo graficar la línea de regresión?</h2>
-<p><code>geom_smooth(method="lm")</code>es la función dentro de ggplot para gráficar la línea de regresión y su respectivo intervalo de confianza.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb18" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> hollywood, <span class="fu">aes</span>(<span class="at">x =</span> (opening_gross <span class="sc">/</span> <span class="dv">1000000</span>), <span class="at">y =</span> (us_gross <span class="sc">/</span> <span class="dv">1000000</span>))) <span class="sc">+</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a>    <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>) <span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4"></a>    <span class="fu">labs</span>(</span>
-<span id="cb18-5"><a href="#cb18-5"></a>        <span class="at">x =</span> <span class="st">"Opening Gross (in millions)"</span>,</span>
-<span id="cb18-6"><a href="#cb18-6"></a>        <span class="at">y =</span> <span class="st">"US Total Gross (in millions)"</span></span>
-<span id="cb18-7"><a href="#cb18-7"></a>    ) <span class="sc">+</span></span>
-<span id="cb18-8"><a href="#cb18-8"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="cómo-graficar-la-línea-de-regresión-1" class="slide level2 medium">
-<h2>¿ Cómo graficar la línea de regresión?</h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-37-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="predicción-1" class="slide level2 medium">
 <h2>Predicción</h2>
+<p><span class="math display">\[\widehat{\text{US Total Gross}} = 5,108,220 + 3.12 \times \text{Opening Gross}\]</span></p>
 <p>Según nuestro modelo, ¿cuál sería el recaudo en US de una película cuyo recaudo en el primer fin de semana fue de $50,000,000?</p>
 <p><span class="math display">\[  
   \begin{aligned}
@@ -973,13 +1044,13 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <h2>Predicción con R</h2>
 <p>El comando <code>predict()</code> nos permite predecir <span class="math inline">\(\widehat{\text{US Gross}}\)</span> para uno o varios valores:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># Creamos los valores para los cuales queremos predecir</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>valores_opening <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">opening_gross =</span> <span class="fu">c</span>(<span class="dv">20000000</span>,<span class="dv">40000000</span>,<span class="dv">50000000</span>))</span>
-<span id="cb19-3"><a href="#cb19-3"></a></span>
-<span id="cb19-4"><a href="#cb19-4"></a></span>
-<span id="cb19-5"><a href="#cb19-5"></a><span class="co"># Predice los valores con los coeficientes estimados</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a><span class="co"># en hollywood_model</span></span>
-<span id="cb19-7"><a href="#cb19-7"></a><span class="fu">predict</span>(hollywood_model, <span class="at">newdata =</span> valores_opening)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Creamos los valores para los cuales queremos predecir</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>valores_opening <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">opening_gross =</span> <span class="fu">c</span>(<span class="dv">20000000</span>,<span class="dv">40000000</span>,<span class="dv">50000000</span>))</span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a></span>
+<span id="cb16-5"><a href="#cb16-5"></a><span class="co"># Predice los valores con los coeficientes estimados</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="co"># en hollywood_model</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="fu">predict</span>(hollywood_model, <span class="at">newdata =</span> valores_opening)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        1         2         3 
  67520606 129932991 161139184 </code></pre>
@@ -989,12 +1060,12 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <section id="predicción-2" class="slide level2 medium">
 <h2>Predicción</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-39-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-47-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="es-posible-la-extrapolación" class="slide level2 medium">
 <h2>¿Es posible la extrapolación?</h2>
 <p>Extrapolar es tratar de predecir Y fuera del rango de valores de X. Es posible pero no aconsejable.</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-40-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-48-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="inferencia-de-los-coeficientes" class="slide level2 medium">
 <h2>Inferencia de los coeficientes</h2>
 <p>Cuando trabajamos con distribuciones muestrales, la idea era que:</p>
@@ -1016,7 +1087,7 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">tidy</span>(hollywood_model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">tidy</span>(hollywood_model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term            estimate   std.error statistic  p.value    conf.low  conf.high
@@ -1050,79 +1121,125 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 \hat{y} = \hat{\beta_0}  + \hat{\beta_1} x_1 + \hat{\beta_2} x_2 + \cdots + \hat{\beta_n} x_n
 \]</span></p>
 <div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>hollywood_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(us_gross <span class="sc">~</span> opening_gross <span class="sc">+</span> budget <span class="sc">+</span> sequel, <span class="at">data=</span>hollywood)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>Podríamos pensar que el verdadero modelo de felicidad es:</p>
+<p><span class="math display">\[\widehat{\text{Felicidad}}=\hat{\beta_0}+\hat{\beta_1}\times \text{Galletas}+\hat{\beta_2} \times \text{Estudiante}\]</span></p>
+<p>O que para predecir el recaudo de una película se necesita el siguiente modelo:</p>
 <p><span class="math display">\[
 \widehat{\text{US Gross}} = \hat{\beta_0} + \hat{\beta_1} \text{Opening Gross} + \hat{\beta_2} \text{Budget} + \hat{\beta_3} \text{Sequel}
 \]</span></p>
 </div>
 </section>
-<section id="regresión-múltiple-1" class="slide level2 medium">
-<h2>Regresión Múltiple</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>hollywood_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(us_gross <span class="sc">~</span> opening_gross <span class="sc">+</span> budget <span class="sc">+</span> sequel, <span class="at">data=</span>hollywood)</span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="fu">tidy</span>(hollywood_model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 7
-  term               estimate   std.error statistic  p.value  conf.low conf.high
-  &lt;chr&gt;                 &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)    -8785254.    5438753.        -1.62 1.11e- 1  -1.96e+7   2.06e+6
-2 opening_gross         2.99        0.232     12.9  3.11e-20   2.52e+0   3.45e+0
-3 budget                0.356       0.101      3.52 7.53e- 4   1.54e-1   5.57e-1
-4 sequel        -11929834.    7788684.        -1.53 1.30e- 1  -2.75e+7   3.60e+6</code></pre>
+<section id="cómo-pensar-la-relación-yfx_1x_2varepsilon" class="slide level2 medium">
+<h2>¿Cómo pensar la relación <span class="math inline">\(y=f(x_1,x_2)+\varepsilon\)</span>?</h2>
+
+<img data-src="img/dots.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<section id="cómo-pensar-la-recta-en-una-regresión-múltiple" class="slide level2 medium">
+<h2>¿Cómo pensar la “recta” en una regresión múltiple?</h2>
+
+<img data-src="img/plane.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<section id="variables-categóricas-vs-variables-continuas" class="slide level2 medium">
+<h2>Variables Categóricas vs Variables Continuas</h2>
+<p>En los dos modelos antes explicados hay dos tipos de variables:</p>
+<h3 id="variables-categóricas">Variables Categóricas</h3>
+<ul>
+<li><p><span class="math inline">\(\text{Estudiante}\)</span></p></li>
+<li><p><span class="math inline">\(\text{Sequel}\)</span></p></li>
+</ul>
+<h3 id="variables-continuas">Variables Continuas</h3>
+<ul>
+<li><p><span class="math inline">\(\text{Galletas}\)</span></p></li>
+<li><p><span class="math inline">\(\text{Opening Gross}\)</span></p></li>
+</ul>
+</section>
+<section id="variables-categóricas-vs-variables-continuas-1" class="slide level2 medium">
+<h2>Variables Categóricas vs Variables Continuas</h2>
+
+<img data-src="img/slider-switch-plain-80.jpg" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<section id="variables-categóricas-vs-variables-continuas-2" class="slide level2 medium">
+<h2>Variables Categóricas vs Variables Continuas</h2>
+
+<img data-src="img/slider-switch-annotated-80.jpg" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<section id="ejemplo-de-felicidad-y-galletas" class="slide level2">
+<h2>Ejemplo de felicidad y galletas</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-54-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="qué-pasa-si-diferenciamos-entre-profesores-y-estudiantes" class="slide level2">
+<h2>¿Qué pasa si diferenciamos entre profesores y estudiantes?</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-55-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="ambos-grupos-parecen-tener-pendientes-diferentes" class="slide level2">
+<h2>Ambos grupos parecen tener pendientes diferentes…</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-56-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="variables-categóricas-1" class="slide level2 medium">
+<h2>Variables Categóricas</h2>
+<p>¿Cómo interpretar el modelo si agregamos una variable categórica <span class="math inline">\(Estudiante\)</span> que sea igual a 1 si la observación es de un estudiante?</p>
+<p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \times Estudiante\]</span></p>
+<div class="fragment">
+<ul>
+<li>EL intercepto para las observaciones de los profesores será <span class="math inline">\(\hat{\beta_0}\)</span> porque <span class="math inline">\(Estudiante=0\)</span></li>
+</ul>
+<p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas\]</span></p>
 </div>
-</div>
-<p><span class="math display">\[  
-  \begin{aligned}
-\widehat{\text{US Gross}} = &amp;-8,785,254 + 2.99 \times \text{Opening Gross} + 0.356 \times \text{Budget} \\
-  &amp; - 11,929,834 \times \text{Sequel}
-\end{aligned}
+</section>
+<section id="variables-categóricas-2" class="slide level2 medium">
+<h2>Variables Categóricas</h2>
+<p>¿Cómo interpretar el modelo si agregamos una variable categórica <span class="math inline">\(Estudiante\)</span> que sea igual a 1 si la observación es de un estudiante?</p>
+<p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \times Estudiante\]</span></p>
+<ul>
+<li>El intercepto para las observaciones de los estudiantes será <span class="math inline">\(\hat{\beta_0}+\hat{\beta_2}\)</span> porque <span class="math inline">\(Estudiante=1\)</span></li>
+</ul>
+<p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2}\]</span></p>
+</section>
+<section id="ejercicio-3" class="slide level2 medium">
+<h2>💪 Ejercicio 3</h2>
+<ol type="1">
+<li>Estimen la siguiente regresión con el nombre <code>hollywood_model_2</code>:</li>
+</ol>
+<p><span class="math display">\[
+\widehat{\text{US Gross}} = \hat{\beta_0} + \hat{\beta_1} \text{Opening Gross} + \hat{\beta_2} \text{Budget} + \hat{\beta_3} \text{Sequel}
 \]</span></p>
+<ol start="2" type="1">
+<li><p>Usando la función <code>tidy</code> respondan: ¿cuáles coeficientes son estadísticamente diferentes de cero?</p></li>
+<li><p>Completen el siguiente código para predecir el recaudo total para una secuela con recaudo del fin de semana promedio y presupuesto promedio:</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>multiples_valores <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">opening_gross=</span>_________,</span>
+<span id="cb20-2"><a href="#cb20-2"></a>                             <span class="at">budget=</span>__________,</span>
+<span id="cb20-3"><a href="#cb20-3"></a>                             <span class="at">sequel=</span>__)</span>
+<span id="cb20-4"><a href="#cb20-4"></a><span class="fu">predict</span>(hollywood_model_2, <span class="at">newdata =</span> multiples_valores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="predicción-en-regresión-múltiple" class="slide level2 medium">
 <h2>Predicción en Regresión Múltiple</h2>
 <p>Así como en el caso con una variable, usamos el comando <code>predict()</code> para predecir <span class="math inline">\(\widehat{\text{US Gross}}\)</span>. En este caso, necesitamos al menos un valor para cada variable que está en la regresión.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>multiples_valores <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">opening_gross=</span><span class="dv">50000000</span>,</span>
-<span id="cb26-2"><a href="#cb26-2"></a>                             <span class="at">budget=</span><span class="dv">100000000</span>,</span>
-<span id="cb26-3"><a href="#cb26-3"></a>                             <span class="at">sequel=</span><span class="dv">1</span>)</span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="fu">predict</span>(hollywood_model, <span class="at">newdata =</span> multiples_valores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>        1 
-164132342 </code></pre>
-</div>
-</div>
-</section>
-<section id="predicción-en-regresión-múltiple-1" class="slide level2 medium">
-<h2>Predicción en Regresión Múltiple</h2>
 <p>Hagamos una predicción para una de las observaciones en nuestros datos. En este caso, para la película “The Holiday”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># Seleccionemos las 3 variables dependientes para The Holiday</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>the_holiday <span class="ot">&lt;-</span> hollywood <span class="sc">%&gt;%</span> </span>
-<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">filter</span>(movie<span class="sc">==</span><span class="st">"The Holiday"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a>  <span class="fu">select</span>(opening_gross, budget, sequel)</span>
-<span id="cb28-5"><a href="#cb28-5"></a></span>
-<span id="cb28-6"><a href="#cb28-6"></a><span class="co"># Usamos el comando predict nuevamente</span></span>
-<span id="cb28-7"><a href="#cb28-7"></a>predicho <span class="ot">&lt;-</span> <span class="fu">predict</span>(hollywood_model, <span class="at">newdata =</span> the_holiday)</span>
-<span id="cb28-8"><a href="#cb28-8"></a>predicho</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># Seleccionemos las 3 variables dependientes para The Holiday</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>the_holiday <span class="ot">&lt;-</span> hollywood <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">filter</span>(movie<span class="sc">==</span><span class="st">"The Holiday"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-4"><a href="#cb21-4"></a>  <span class="fu">select</span>(opening_gross, budget, sequel)</span>
+<span id="cb21-5"><a href="#cb21-5"></a></span>
+<span id="cb21-6"><a href="#cb21-6"></a><span class="co"># Usamos el comando predict nuevamente</span></span>
+<span id="cb21-7"><a href="#cb21-7"></a>predicho <span class="ot">&lt;-</span> <span class="fu">predict</span>(hollywood_model, <span class="at">newdata =</span> the_holiday)</span>
+<span id="cb21-8"><a href="#cb21-8"></a>predicho</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
 59596928 </code></pre>
 </div>
 </div>
 </section>
-<section id="predicción-en-regresión-múltiple-2" class="slide level2 medium">
+<section id="predicción-en-regresión-múltiple-1" class="slide level2 medium">
 <h2>Predicción en Regresión Múltiple</h2>
 <ul>
 <li>¿Es precisa nuestra estimación?</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># El valor observado</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a>observado <span class="ot">&lt;-</span> hollywood <span class="sc">%&gt;%</span></span>
-<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">filter</span>(movie <span class="sc">==</span> <span class="st">"The Holiday"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb30-4"><a href="#cb30-4"></a>  <span class="fu">pull</span>(us_gross)</span>
-<span id="cb30-5"><a href="#cb30-5"></a>observado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># El valor observado</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>observado <span class="ot">&lt;-</span> hollywood <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">filter</span>(movie <span class="sc">==</span> <span class="st">"The Holiday"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">pull</span>(us_gross)</span>
+<span id="cb23-5"><a href="#cb23-5"></a>observado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 63224849</code></pre>
 </div>
@@ -1131,41 +1248,11 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <li>El residuo para “The Holiday” será:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>observado<span class="sc">-</span>predicho</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>observado<span class="sc">-</span>predicho</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      1 
 3627921 </code></pre>
 </div>
-</div>
-</section>
-<section id="variables-categóricas-vs-variables-continuas" class="slide level2 medium">
-<h2>Variables Categóricas vs Variables Continuas</h2>
-
-<img data-src="img/slider-switch-plain-80.jpg" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
-<section id="variables-categóricas-vs-variables-continuas-1" class="slide level2 medium">
-<h2>Variables Categóricas vs Variables Continuas</h2>
-
-<img data-src="img/slider-switch-annotated-80.jpg" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
-<section id="section-8" class="slide level2">
-<h2></h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-50-1.png" width="768" class="r-stretch quarto-figure-center"></section>
-<section id="section-9" class="slide level2">
-<h2></h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-51-1.png" width="768" class="r-stretch quarto-figure-center"></section>
-<section id="section-10" class="slide level2">
-<h2></h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-52-1.png" width="768" class="r-stretch quarto-figure-center"></section>
-<section id="variables-categóricas" class="slide level2 medium">
-<h2>Variables Categóricas</h2>
-<p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \times Estudiante\]</span></p>
-<div>
-<ul>
-<li class="fragment"><p>EL intercepto para las observaciones de los profesores será <span class="math inline">\(\hat{\beta_0}\)</span> porque <span class="math inline">\(Estudiante=0\)</span></p></li>
-<li class="fragment"><p>El intercepto para las observaciones de los estudiantes será <span class="math inline">\(\hat{\beta_0}+\hat{\beta_2}\)</span> porque <span class="math inline">\(Estudiante=1\)</span></p></li>
-</ul>
 </div>
 </section>
 <section id="filtrar-la-variación" class="slide level2 medium">
@@ -1243,7 +1330,7 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <h2>¿Qué tan bueno es el modelo?</h2>
 <p>Con la función <code>glance()</code> podemos ver diferentes aspectos que evalúan el modelo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="fu">glance</span>(hollywood_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">glance</span>(hollywood_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squared adj.r.squared     sigma statistic  p.value    df logLik   AIC   BIC
@@ -1255,7 +1342,7 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <div class="fragment">
 <p>Este modelo de regresión explica el 79% de la varianza del recaudo total en US</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>hollywood_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(us_gross <span class="sc">~</span> opening_gross <span class="sc">+</span> budget <span class="sc">+</span> sequel, <span class="at">data=</span>hollywood)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>hollywood_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(us_gross <span class="sc">~</span> opening_gross <span class="sc">+</span> budget <span class="sc">+</span> sequel, <span class="at">data=</span>hollywood)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="footer footer-default">
