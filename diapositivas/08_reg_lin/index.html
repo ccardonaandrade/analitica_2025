@@ -409,104 +409,319 @@ Carlos Cardona Andrade
 <section id="plan-para-hoy" class="slide level2">
 <h2>Plan para hoy</h2>
 <ol type="1">
-<li><p><a href="#/corr">Correlación</a></p></li>
+<li><p><a href="#/viz">Visualizar los Datos</a></p></li>
 <li><p><a href="#/lm">Regresión Lineal Simple</a></p></li>
 <li><p><a href="#/multiple">Regresión Lineal Múltiple</a></p></li>
 </ol>
 </section>
 <section>
-<section id="corr" class="title-slide slide level1 center">
-<h1>Correlación</h1>
+<section id="viz" class="title-slide slide level1 center">
+<h1>Visualizar los Datos</h1>
 
 </section>
-<section id="us-total-gross-vs-opening-gross" class="slide level2 medium">
-<h2>US Total Gross vs Opening Gross</h2>
-<div class="cell" data-layout-align="center">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> hollywood, <span class="fu">aes</span>(<span class="at">x =</span> (opening_gross <span class="sc">/</span> <span class="dv">1000000</span>), <span class="at">y =</span> (us_gross <span class="sc">/</span> <span class="dv">1000000</span>))) <span class="sc">+</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="fu">labs</span>(</span>
-<span id="cb1-4"><a href="#cb1-4"></a>        <span class="at">x =</span> <span class="st">"Opening Gross (in millions)"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5"></a>        <span class="at">y =</span> <span class="st">"US Total Gross (in millions)"</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>    ) <span class="sc">+</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>    <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<section id="por-qué-es-importante-graficar-los-datos" class="slide level2 medium">
+<h2>¿Por qué es importante graficar los datos?</h2>
 
-</div>
 <img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-discovered-preview-image r-stretch quarto-figure-center" width="576"></section>
-<section id="la-correlación-en-r" class="slide level2 medium">
-<h2>La correlación en R</h2>
+<section id="por-qué-es-importante-graficar-los-datos-1" class="slide level2 medium">
+<h2>¿Por qué es importante graficar los datos?</h2>
 <ul>
 <li><p>Podemos utilizar un diagrama de dispersión para realizar un primer análisis de la relación entre dos variables</p></li>
 <li><p>El coeficiente de correlación (lineal) es utilizado para medir la fuerza de la asociación (lineal) entre dos variables</p></li>
 <li><p>La correlación entre el recaudo en US y el recaudo el primer fin de semana:</p></li>
 </ul>
+</section>
+<section id="cuarteto-de-anscombe" class="slide level2">
+<h2>Cuarteto de Anscombe</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">cor</span>(hollywood<span class="sc">$</span>us_gross,hollywood<span class="sc">$</span>opening_gross)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8586015</code></pre>
+<div class="cell-output-display">
+<table class="lightable-classic" data-quarto-postprocess="true" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: right; empty-cells: hide; border-bottom: hidden;"></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+I
+</div></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+II
+</div></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+III
+</div></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+IV
+</div></th>
+</tr>
+<tr class="odd">
+<th style="text-align: right;" data-quarto-table-cell-role="th">Obs.</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">X</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Y</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">X</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Y</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">X</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Y</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">X</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">1</td>
+<td style="text-align: center;">10.00</td>
+<td style="text-align: center; border-right: 1px solid;">8.04</td>
+<td style="text-align: center;">10.00</td>
+<td style="text-align: center; border-right: 1px solid;">9.14</td>
+<td style="text-align: center;">10.00</td>
+<td style="text-align: center; border-right: 1px solid;">7.46</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center;">6.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">2</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center; border-right: 1px solid;">6.95</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center; border-right: 1px solid;">8.14</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center; border-right: 1px solid;">6.77</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center;">5.76</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">3</td>
+<td style="text-align: center;">13.00</td>
+<td style="text-align: center; border-right: 1px solid;">7.58</td>
+<td style="text-align: center;">13.00</td>
+<td style="text-align: center; border-right: 1px solid;">8.74</td>
+<td style="text-align: center;">13.00</td>
+<td style="text-align: center; border-right: 1px solid;">12.74</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center;">7.71</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">4</td>
+<td style="text-align: center;">9.00</td>
+<td style="text-align: center; border-right: 1px solid;">8.81</td>
+<td style="text-align: center;">9.00</td>
+<td style="text-align: center; border-right: 1px solid;">8.77</td>
+<td style="text-align: center;">9.00</td>
+<td style="text-align: center; border-right: 1px solid;">7.11</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center;">8.84</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">5</td>
+<td style="text-align: center;">11.00</td>
+<td style="text-align: center; border-right: 1px solid;">8.33</td>
+<td style="text-align: center;">11.00</td>
+<td style="text-align: center; border-right: 1px solid;">9.26</td>
+<td style="text-align: center;">11.00</td>
+<td style="text-align: center; border-right: 1px solid;">7.81</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center;">8.47</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">6</td>
+<td style="text-align: center;">14.00</td>
+<td style="text-align: center; border-right: 1px solid;">9.96</td>
+<td style="text-align: center;">14.00</td>
+<td style="text-align: center; border-right: 1px solid;">8.10</td>
+<td style="text-align: center;">14.00</td>
+<td style="text-align: center; border-right: 1px solid;">8.84</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center;">7.04</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">7</td>
+<td style="text-align: center;">6.00</td>
+<td style="text-align: center; border-right: 1px solid;">7.24</td>
+<td style="text-align: center;">6.00</td>
+<td style="text-align: center; border-right: 1px solid;">6.13</td>
+<td style="text-align: center;">6.00</td>
+<td style="text-align: center; border-right: 1px solid;">6.08</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center;">5.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">8</td>
+<td style="text-align: center;">4.00</td>
+<td style="text-align: center; border-right: 1px solid;">4.26</td>
+<td style="text-align: center;">4.00</td>
+<td style="text-align: center; border-right: 1px solid;">3.10</td>
+<td style="text-align: center;">4.00</td>
+<td style="text-align: center; border-right: 1px solid;">5.39</td>
+<td style="text-align: center;">19.00</td>
+<td style="text-align: center;">12.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">9</td>
+<td style="text-align: center;">12.00</td>
+<td style="text-align: center; border-right: 1px solid;">10.84</td>
+<td style="text-align: center;">12.00</td>
+<td style="text-align: center; border-right: 1px solid;">9.13</td>
+<td style="text-align: center;">12.00</td>
+<td style="text-align: center; border-right: 1px solid;">8.15</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center;">5.56</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">10</td>
+<td style="text-align: center;">7.00</td>
+<td style="text-align: center; border-right: 1px solid;">4.82</td>
+<td style="text-align: center;">7.00</td>
+<td style="text-align: center; border-right: 1px solid;">7.26</td>
+<td style="text-align: center;">7.00</td>
+<td style="text-align: center; border-right: 1px solid;">6.42</td>
+<td style="text-align: center;">8.00</td>
+<td style="text-align: center;">7.91</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold; border-right: 1px solid; border-bottom: 3px solid;">11</td>
+<td style="text-align: center; border-bottom: 3px solid;">5.00</td>
+<td style="text-align: center; border-right: 1px solid; border-bottom: 3px solid;">5.68</td>
+<td style="text-align: center; border-bottom: 3px solid;">5.00</td>
+<td style="text-align: center; border-right: 1px solid; border-bottom: 3px solid;">4.74</td>
+<td style="text-align: center; border-bottom: 3px solid;">5.00</td>
+<td style="text-align: center; border-right: 1px solid; border-bottom: 3px solid;">5.73</td>
+<td style="text-align: center; border-bottom: 3px solid;">8.00</td>
+<td style="text-align: center; border-bottom: 3px solid;">6.89</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">Mean</td>
+<td style="text-align: center;">9.00</td>
+<td style="text-align: center; border-right: 1px solid;">7.50</td>
+<td style="text-align: center;">9.00</td>
+<td style="text-align: center; border-right: 1px solid;">7.50</td>
+<td style="text-align: center;">9.00</td>
+<td style="text-align: center; border-right: 1px solid;">7.50</td>
+<td style="text-align: center;">9.00</td>
+<td style="text-align: center;">7.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">SD</td>
+<td style="text-align: center;">3.32</td>
+<td style="text-align: center; border-right: 1px solid;">2.03</td>
+<td style="text-align: center;">3.32</td>
+<td style="text-align: center; border-right: 1px solid;">2.03</td>
+<td style="text-align: center;">3.32</td>
+<td style="text-align: center; border-right: 1px solid;">2.03</td>
+<td style="text-align: center;">3.32</td>
+<td style="text-align: center;">2.03</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; font-weight: bold; border-right: 1px solid;">Corr</td>
+<td style="text-align: center;">0.82</td>
+<td style="text-align: center; border-right: 1px solid;">NA</td>
+<td style="text-align: center;">0.82</td>
+<td style="text-align: center; border-right: 1px solid;">NA</td>
+<td style="text-align: center;">0.82</td>
+<td style="text-align: center; border-right: 1px solid;">NA</td>
+<td style="text-align: center;">0.82</td>
+<td style="text-align: center;">NA</td>
+</tr>
+</tbody>
+</table>
+
+
 </div>
 </div>
 </section>
-<section id="función-corrplot" class="slide level2 medium">
-<h2>Función <code>corrplot</code></h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># RECUERDEN INSTALAR EL PAQUETE PRIMERO!!!</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># install.packages("corrplot")</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="co"># Cargamos el paquete</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb4-6"><a href="#cb4-6"></a></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co"># Creemos una base de datos temporal sólo con estas 4 variables</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a>hollywood_sub <span class="ot">&lt;-</span> hollywood <span class="sc">%&gt;%</span> <span class="fu">select</span>( us_gross, opening_gross, non_us_gross, budget) </span>
-<span id="cb4-9"><a href="#cb4-9"></a></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co"># Creemos la matriz de correlaciones</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="fu">corrplot</span>(<span class="fu">cor</span>(hollywood_sub ),</span>
-<span id="cb4-12"><a href="#cb4-12"></a>         <span class="at">method =</span> <span class="st">"number"</span>,</span>
-<span id="cb4-13"><a href="#cb4-13"></a>         <span class="at">type =</span> <span class="st">"upper"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="qué-aprendemos-cuando-graficamos-los-datos" class="slide level2">
+<h2>¿Qué aprendemos cuando graficamos los datos?</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="ven-correlación-acá" class="slide level2">
+<h2>¿Ven correlación acá?</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="768" class="r-stretch quarto-figure-center"><div class="fragment">
+<div class="columns">
+<div class="column" style="text-align:center;">
+<p><span class="secfont" style="font-size:1.5rem;color:#C32402;">Correlación: -0.07</span></p>
+</div><div class="column" style="text-align:center;">
+<p><span class="secfont" style="font-size:1.5rem;color:#0234C3;">Correlación: -0.07</span></p>
+</div>
+</div>
 </div>
 </section>
-<section id="función-corrplot-1" class="slide level2 medium">
-<h2>Función <code>corrplot</code></h2>
+<section id="iguales-pero-diferentes" class="slide level2">
+<h2>Iguales pero diferentes</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="576" class="r-stretch quarto-figure-center"></section>
-<section id="la-correlación-no-es-suficiente" class="slide level2 medium">
-<h2>La correlación no es suficiente</h2>
-<div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 5
-  mean_x mean_y std_dev_x std_dev_y corr_x_y
-   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1   54.3   47.8      16.8      26.9  -0.0645</code></pre>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="por-qué-es-importante-graficar-los-datos-2" class="slide level2 medium">
+<h2>¿Por qué es importante graficar los datos?</h2>
+<ul>
+<li><span class="hl hl-blue">Visualización de patrones</span>: Los gráficos permiten identificar tendencias, patrones y relaciones entre variables que pueden no ser evidentes solo con los números</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p><span class="hl hl-blue">Análisis visual vs.&nbsp;numérico</span>: Aunque las estadísticas (media, desviación estándar, correlación) pueden ser iguales entre los conjuntos de datos, los gráficos muestran que los datos pueden comportarse de manera muy diferente</p>
+<ul>
+<li>Ejemplo: Cuarteto de Ascombe</li>
+</ul></li>
+</ul>
 </div>
+<div class="fragment">
+<ul>
+<li>En conclusión, la visualización de datos no solo facilita la comprensión de la información, sino que también ayuda a evitar interpretaciones erróneas basadas únicamente en estadísticas numéricas</li>
+</ul>
 </div>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" width="672" class="r-stretch quarto-figure-center"></section>
-<section id="la-correlación-no-es-suficiente-1" class="slide level2 medium">
-<h2>La correlación no es suficiente</h2>
-<div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 5
-  mean_x mean_y std_dev_x std_dev_y corr_x_y
-   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1   54.3   47.8      16.8      26.9  -0.0630</code></pre>
+</section>
+<section id="ejercicio-1" class="slide level2 medium">
+<h2>💪 Ejercicio 1</h2>
+<ol type="1">
+<li><p>Carguen el paquete <code>tidyverse</code>, <code>janitor</code> y <code>corrplot</code> a R.</p></li>
+<li><p>Ejecuten el siguiente código para importar los datos del caso <em>Hollywood Rules</em>:</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>hollywood <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"KEL702-XLS-ENG.xls"</span>, <span class="at">sheet =</span> <span class="st">"Exhibit 1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<ol start="3" type="1">
+<li>Limpiemos los nombres con el paquete <code>janitor</code> para que sean legibles:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>hollywood <span class="ot">&lt;-</span> hollywood <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">clean_names</span>()</span>
+<span id="cb2-3"><a href="#cb2-3"></a>hollywood <span class="ot">&lt;-</span> hollywood <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">rename</span>(<span class="at">us_gross =</span> total_u_s_gross,</span>
+<span id="cb2-5"><a href="#cb2-5"></a>         <span class="at">non_us_gross =</span> total_non_u_s_gross)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" width="672" class="r-stretch quarto-figure-center"></section>
-<section id="la-correlación-no-es-suficiente-2" class="slide level2 medium">
-<h2>La correlación no es suficiente</h2>
-<div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 5
-  mean_x mean_y std_dev_x std_dev_y corr_x_y
-   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1   54.3   47.8      16.8      26.9  -0.0617</code></pre>
+</section>
+<section id="ejercicio-1-1" class="slide level2 medium">
+<h2>💪 Ejercicio 1</h2>
+<ol start="4" type="1">
+<li><p>Creen un nuevo conjunto de datos que se llame <code>hollywood_sub</code> que <em>sólo</em> contenga las variables de recaudo en USA, el recaudo en el estreno, el recaudo en el mercado internacional y el presupuesto en <strong>ese orden</strong></p></li>
+<li><p>Grafiquemos la matriz de correlación con el siguiente código:</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Matriz de correlaciones</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(hollywood_sub)</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># Renombrar columnas y filas en la matriz</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="fu">colnames</span>(cor_matrix) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"US Gross"</span>, <span class="st">"Opening Gross"</span>, <span class="st">"Non-US Gross"</span>, <span class="st">"Budget"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="fu">rownames</span>(cor_matrix) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"US Gross"</span>, <span class="st">"Opening Gross"</span>, <span class="st">"Non-US Gross"</span>, <span class="st">"Budget"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co"># Crear el gráfico de correlaciones</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="fu">corrplot</span>(cor_matrix, <span class="at">method =</span> <span class="st">"number"</span>, <span class="at">type =</span> <span class="st">"upper"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" width="576" class="r-stretch quarto-figure-center"></section></section>
+</section>
+<section id="ejercicio-1-2" class="slide level2 medium">
+<h2>💪 Ejercicio 1</h2>
+<ol start="6" type="1">
+<li><p>Analicen las dos variables que tengan la correlación más alta y las que tengan la correlación más baja.</p></li>
+<li><p>Creen el gráfico de dispersión entre el recaudo total y el recaudo en el día del estreno como en la diapositiva 1. ¿Es consistente el gráfico con el valor de la correlación?</p></li>
+</ol>
+</section></section>
 <section>
 <section id="lm" class="title-slide slide level1 center">
 <h1>Regresión Lineal Simple</h1>
@@ -552,7 +767,7 @@ Carlos Cardona Andrade
 <li><p>Variable explicativa</p></li>
 <li><p>Predictor</p></li>
 <li><p>Variable independiente</p></li>
-<li><p>Lo que usamos para predecir o explicar Y</p></li>
+<li><p>Lo que usamos para predecir o explicar <span class="math inline">\(y\)</span></p></li>
 </ul>
 </div>
 </div>
@@ -563,13 +778,13 @@ Carlos Cardona Andrade
 <h3 id="predicción">Predicción</h3>
 <ul>
 <li><p>Predecir el futuro</p></li>
-<li><p>Nos enfocamos en Y</p></li>
+<li><p>Nos enfocamos en <span class="math inline">\(y\)</span></p></li>
 <li><p>Netflix tratando de predecir la siguiente serie que veremos</p></li>
 </ul>
 <h3 id="explicación">Explicación</h3>
 <ul>
-<li><p>Explicar el efecto de X en Y</p></li>
-<li><p>Nos enfocamos en X</p></li>
+<li><p>Explicar el efecto de <span class="math inline">\(x\)</span> en <span class="math inline">\(y\)</span></p></li>
+<li><p>Nos enfocamos en <span class="math inline">\(x\)</span></p></li>
 <li><p>Netflix evaluando el efecto de la hora del día en la selección de una serie</p></li>
 </ul>
 </section>
@@ -646,61 +861,45 @@ Carlos Cardona Andrade
 <section id="cómo-se-relacionan-las-galletas-con-la-felicidad" class="slide level2 medium">
 <h2>¿Cómo se relacionan las galletas con la felicidad?</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="trazando-una-curva-que-sigue-los-datos" class="slide level2 medium">
 <h2>Trazando una curva que sigue los datos</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="otra-línea-que-se-adapta-a-los-datos" class="slide level2 medium">
 <h2>Otra línea que se adapta a los datos</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="ajuste-con-una-línea-recta-regresión-lineal" class="slide level2 medium">
 <h2>Ajuste con una línea recta (Regresión lineal)</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="errores-de-predicción" class="slide level2 medium">
 <h2>Errores de predicción</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" width="768" class="r-stretch quarto-figure-center"></section>
-<section id="visualización-de-los-residuos" class="slide level2">
-<h2>Visualización de los residuos</h2>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="visualización-de-los-errores" class="slide level2">
+<h2>Visualización de los errores</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-20-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="section" class="slide level2">
 <h2></h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-21-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-19-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="pendiente-de-una-recta" class="slide level2 medium">
 <h2>Pendiente de una recta</h2>
 <p><span class="math display">\[
 y = mx + b
 \]</span></p>
-<div class="tbl-classic tbl-larger center-text">
-<table>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(y\)</span></td>
-<td style="text-align: center;">Un número</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(x\)</span></td>
-<td style="text-align: center;">Un número</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(m\)</span></td>
-<td style="text-align: center;">La pendiente <span class="math inline">\(\frac{\Delta y}{\Delta x}\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(b\)</span></td>
-<td style="text-align: center;">El intercepto con <span class="math inline">\(y\)</span></td>
-</tr>
-</tbody>
-</table>
-</div>
+<ul>
+<li><p><span class="math inline">\(y\)</span> es un número</p></li>
+<li><p><span class="math inline">\(x\)</span> es un número</p></li>
+<li><p><span class="math inline">\(m\)</span> es la <span class="marker-hl">pendiente</span> <span class="math inline">\(\frac{\Delta y}{\Delta x}\)</span></p></li>
+<li><p><span class="math inline">\(b\)</span> es el <span class="marker-hl">intercepto</span> con <span class="math inline">\(y\)</span></p></li>
+</ul>
 </section>
-<section id="pendiente-de-una-recta-1" class="slide level2 medium">
-<h2>Pendiente de una recta</h2>
+<section id="pendiente-de-una-recta-ejemplos" class="slide level2 medium">
+<h2>Pendiente de una recta: Ejemplos</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><span class="math display">\[
@@ -710,7 +909,7 @@ y = 2x - 1
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" width="460"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-20-1.png" width="460"></p>
 </figure>
 </div>
 </div>
@@ -723,7 +922,7 @@ y = -0.5x + 6
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="460"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-21-1.png" width="460"></p>
 </figure>
 </div>
 </div>
@@ -731,27 +930,33 @@ y = -0.5x + 6
 </div>
 </div>
 </section>
-<section id="regresión-lineal-simple" class="slide level2 medium">
-<h2>Regresión lineal simple</h2>
+<section id="partes-esenciales-de-una-regresión-ii" class="slide level2 medium">
+<h2>Partes esenciales de una regresión II</h2>
 <p><span class="math display">\[
 y = \beta_0 + \beta_1 x + \varepsilon
 \]</span></p>
 <ul>
-<li><p><span class="math inline">\(\beta_1\)</span>: la pendiente verdadera de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
-<li><p><span class="math inline">\(\beta_0\)</span>: el intercepto verdadero de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
+<li><p><span class="math inline">\(\beta_1\)</span>: la pendiente <span class="marker-hl">verdadera</span> de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
+<li><p><span class="math inline">\(\beta_0\)</span>: el intercepto <span class="marker-hl">verdadero</span> de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
 <li><p><span class="math inline">\(\varepsilon\)</span>: el error</p></li>
 </ul>
 </section>
-<section id="regresión-lineal-simple-1" class="slide level2 medium">
-<h2>Regresión lineal simple</h2>
+<section id="partes-esenciales-de-una-regresión-ii-1" class="slide level2 medium">
+<h2>Partes esenciales de una regresión II</h2>
 <p><span class="math display">\[
 \hat{y} = \hat{\beta_0} + \hat{\beta_1} x
 \]</span></p>
 <ul>
-<li><p><span class="math inline">\(\hat{\beta_1}\)</span>: la pendiente estimada de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
-<li><p><span class="math inline">\(\hat{\beta_0}\)</span>: el intercepto estimada de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
+<li><p><span class="math inline">\(\hat{y}\)</span>: es la estimación de la variable dependiente dado nuestro modelo</p></li>
+<li><p><span class="math inline">\(\hat{\beta_1}\)</span>: la pendiente <span class="marker-hl">estimada</span> de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
+<li><p><span class="math inline">\(\hat{\beta_0}\)</span>: el intercepto <span class="marker-hl">estimada</span> de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
 <li><p>No hay error!!!</p></li>
 </ul>
+<div class="fragment">
+<ul>
+<li><span class="hl hl-dred">El símbolo <em>gorro</em> (<span class="math inline">\(\hat{\beta_k}\)</span> o <span class="math inline">\(\hat{y}\)</span>) significa que es una estimación y no un parámetro real</span></li>
+</ul>
+</div>
 </section>
 <section id="modelo-de-regresión" class="slide level2 medium">
 <h2>Modelo de Regresión</h2>
@@ -759,8 +964,8 @@ y = \beta_0 + \beta_1 x + \varepsilon
 <div class="column" style="width:40%;">
 <p><span class="math display">\[  
   \begin{aligned}
-Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
-  &amp;= \color{#0074D9}{f(X)} + \color{#FF851B}{\varepsilon}
+y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
+  &amp;= \color{#0074D9}{f(x)} + \color{#FF851B}{\varepsilon}
 \end{aligned}
 \]</span></p>
 </div><div class="column" style="width:60%;">
@@ -768,7 +973,7 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-24-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -776,17 +981,17 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 </div>
 </div>
 </section>
-<section id="residuos" class="slide level2 medium">
-<h2>Residuos</h2>
+<section id="los-errores" class="slide level2 medium">
+<h2>Los errores</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><p><span class="math display">\[
-\text{Residuo} = \text{Observado} - \text{Predicho} = y - \hat{y}
+<img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><p><span class="math display">\[
+\color{#FF851B}{\text{Error}} = \text{Observado} - \color{#0074D9}{\text{Predicho}} = y - \color{#0074D9}{\hat{y}}
 \]</span></p>
 </section>
 <section id="la-línea-de-los-mínimos-cuadrados-ordinarios-mco" class="slide level2 medium">
 <h2>La línea de los mínimos cuadrados ordinarios (MCO)</h2>
 <ul>
-<li>El residuo para la observación <span class="math inline">\(i^{th}\)</span> es:</li>
+<li>El error para la observación <span class="math inline">\(i\)</span> es:</li>
 </ul>
 <p><span class="math display">\[e_i= \text{Observado} - \text{Predicho}=y_i - \hat{y_i}\]</span> - La <strong>suma de los residuos al cuadrado</strong> es:</p>
 <p><span class="math display">\[e_1^2+e_2^2+e_3^2+..+e_n^2\]</span></p>
@@ -803,51 +1008,79 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <h2>MCO vs Otras líneas</h2>
 <p>Volvamos a la relación felicidad y galletas…</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="mco-vs-otras-líneas-1" class="slide level2 smaller">
 <h2>MCO vs Otras líneas</h2>
 <p>Para cualquier línea <span class="math inline">\(\hat{y}=\hat{\beta_0}+\hat{\beta_1}x\)</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-26-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="mco-vs-otras-líneas-2" class="slide level2 smaller">
 <h2>MCO vs Otras líneas</h2>
 <p>Para cualquier línea <span class="math inline">\(\hat{y}=\hat{\beta_0}+\hat{\beta_1}x\)</span>, podemos calcular <span class="math inline">\(e_i=y_i-\hat{y_i}\)</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-29-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="mco-vs-otras-líneas-3" class="slide level2 smaller">
 <h2>MCO vs Otras líneas</h2>
 <p>Para cualquier línea <span class="math inline">\(\hat{y}=\hat{\beta_0}+\hat{\beta_1}x\)</span>, podemos calcular <span class="math inline">\(e_i=y_i-\hat{y_i}\)</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-30-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="mco-vs-otras-líneas-4" class="slide level2 smaller">
 <h2>MCO vs Otras líneas</h2>
 <p>Para cualquier línea <span class="math inline">\(\hat{y}=\hat{\beta_0}+\hat{\beta_1}x\)</span>, podemos calcular <span class="math inline">\(e_i=y_i-\hat{y_i}\)</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-31-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-29-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="mco-vs-otras-líneas-5" class="slide level2 smaller">
 <h2>MCO vs Otras líneas</h2>
 <p><span class="math inline">\(\sum e_i^2\)</span> calcula el cuadrado de los errores: errores más grandes reciben una penalización mayor</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-32-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-30-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="mco-vs-otras-líneas-6" class="slide level2 smaller">
 <h2>MCO vs Otras líneas</h2>
 <p>La línea de MCO es la combinación de <span class="math inline">\(\hat{\beta_0}\)</span> y <span class="math inline">\(\hat{\beta_1}\)</span> que minimizan <span class="math inline">\(\sum e_i^2\)</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-33-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-31-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="cómo-gráficar-la-línea-de-regresión" class="slide level2 medium">
 <h2>¿Cómo gráficar la línea de regresión?</h2>
 <p><code>geom_smooth(method="lm")</code>es la función dentro de ggplot para gráficar la línea de regresión y su respectivo intervalo de confianza.</p>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb8" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(galletas_datos, </span>
-<span id="cb8-2"><a href="#cb8-2"></a>       <span class="fu">aes</span>(<span class="at">x =</span> galletas, </span>
-<span id="cb8-3"><a href="#cb8-3"></a>           <span class="at">y =</span> felicidad)) <span class="sc">+</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>) <span class="sc">+</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Galletas consumidas"</span>,</span>
-<span id="cb8-7"><a href="#cb8-7"></a>       <span class="at">y =</span> <span class="st">"Nivel de Felicidad"</span>) <span class="sc">+</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(galletas_datos, </span>
+<span id="cb4-2"><a href="#cb4-2"></a>       <span class="fu">aes</span>(<span class="at">x =</span> galletas, </span>
+<span id="cb4-3"><a href="#cb4-3"></a>           <span class="at">y =</span> felicidad)) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Galletas consumidas"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7"></a>       <span class="at">y =</span> <span class="st">"Nivel de Felicidad"</span>) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-33-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="cómo-gráficar-la-línea-de-regresión-1" class="slide level2 medium">
+<h2>¿Cómo gráficar la línea de regresión?</h2>
+<p>La opción <code>se = FALSE</code> elimina los intervalos de confianza.</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(galletas_datos, </span>
+<span id="cb5-2"><a href="#cb5-2"></a>       <span class="fu">aes</span>(<span class="at">x =</span> galletas, </span>
+<span id="cb5-3"><a href="#cb5-3"></a>           <span class="at">y =</span> felicidad)) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Galletas consumidas"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7"></a>       <span class="at">y =</span> <span class="st">"Nivel de Felicidad"</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:60%;">
 <div class="cell" data-layout-align="center">
@@ -862,52 +1095,24 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 </div>
 </div>
 </section>
-<section id="cómo-gráficar-la-línea-de-regresión-1" class="slide level2 medium">
-<h2>¿Cómo gráficar la línea de regresión?</h2>
-<p>La opción <code>se = FALSE</code> elimina los intervalos de confianza.</p>
-<div class="columns">
-<div class="column" style="width:40%;">
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggplot</span>(galletas_datos, </span>
-<span id="cb9-2"><a href="#cb9-2"></a>       <span class="fu">aes</span>(<span class="at">x =</span> galletas, </span>
-<span id="cb9-3"><a href="#cb9-3"></a>           <span class="at">y =</span> felicidad)) <span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Galletas consumidas"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7"></a>       <span class="at">y =</span> <span class="st">"Nivel de Felicidad"</span>) <span class="sc">+</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div><div class="column" style="width:60%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-37-1.png" width="768"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="construyendo-modelos-en-r" class="slide level2 medium">
-<h2>Construyendo modelos en R</h2>
+<section id="estimar-una-regresión-en-r" class="slide level2 medium">
+<h2>Estimar una regresión en R</h2>
 <ul>
-<li>El siguiente código estima y reporta los resultados de la regresión:</li>
+<li>La función <code>lm()</code> estima una regresión lineal y la función <code>summary()</code> reporta los resultados:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>name_of_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> DATA)</span>
-<span id="cb10-2"><a href="#cb10-2"></a></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="fu">summary</span>(name_of_model)  <span class="co"># Para ver los detalles del modelo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>name_of_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> DATA)</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">summary</span>(name_of_model)  <span class="co"># Para ver los detalles del modelo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <ul>
 <li>La función <code>tidy</code> del paquete <code>broom</code> reporta los resultados del modelo como un data frame para graficar:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb11-2"><a href="#cb11-2"></a></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="fu">tidy</span>(name_of_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">tidy</span>(name_of_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -917,9 +1122,9 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <div class="column" style="width:40%;">
 <p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>modelo_felicidad <span class="ot">&lt;-</span> </span>
-<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">lm</span>(felicidad <span class="sc">~</span> galletas,</span>
-<span id="cb12-3"><a href="#cb12-3"></a>     <span class="at">data =</span> galletas_datos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>modelo_felicidad <span class="ot">&lt;-</span> </span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">lm</span>(felicidad <span class="sc">~</span> galletas,</span>
+<span id="cb8-3"><a href="#cb8-3"></a>     <span class="at">data =</span> galletas_datos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:60%;">
 <div class="cell">
@@ -943,7 +1148,7 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <div class="fragment">
 <p>Para nuestro <code>modelo_felicidad</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">tidy</span>(modelo_felicidad, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">tidy</span>(modelo_felicidad, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term        estimate std.error statistic p.value conf.low conf.high
@@ -982,7 +1187,7 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 </div><div class="column" style="width:60%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-44-1.png" width="576"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-42-1.png" width="576"></p>
 </div>
 </div>
 </div>
@@ -1044,13 +1249,13 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <h2>Predicción con R</h2>
 <p>El comando <code>predict()</code> nos permite predecir <span class="math inline">\(\widehat{\text{US Gross}}\)</span> para uno o varios valores:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># Creamos los valores para los cuales queremos predecir</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>valores_opening <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">opening_gross =</span> <span class="fu">c</span>(<span class="dv">20000000</span>,<span class="dv">40000000</span>,<span class="dv">50000000</span>))</span>
-<span id="cb16-3"><a href="#cb16-3"></a></span>
-<span id="cb16-4"><a href="#cb16-4"></a></span>
-<span id="cb16-5"><a href="#cb16-5"></a><span class="co"># Predice los valores con los coeficientes estimados</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a><span class="co"># en hollywood_model</span></span>
-<span id="cb16-7"><a href="#cb16-7"></a><span class="fu">predict</span>(hollywood_model, <span class="at">newdata =</span> valores_opening)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Creamos los valores para los cuales queremos predecir</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>valores_opening <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">opening_gross =</span> <span class="fu">c</span>(<span class="dv">20000000</span>,<span class="dv">40000000</span>,<span class="dv">50000000</span>))</span>
+<span id="cb12-3"><a href="#cb12-3"></a></span>
+<span id="cb12-4"><a href="#cb12-4"></a></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="co"># Predice los valores con los coeficientes estimados</span></span>
+<span id="cb12-6"><a href="#cb12-6"></a><span class="co"># en hollywood_model</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a><span class="fu">predict</span>(hollywood_model, <span class="at">newdata =</span> valores_opening)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        1         2         3 
  67520606 129932991 161139184 </code></pre>
@@ -1060,12 +1265,12 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <section id="predicción-2" class="slide level2 medium">
 <h2>Predicción</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-47-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-45-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="es-posible-la-extrapolación" class="slide level2 medium">
 <h2>¿Es posible la extrapolación?</h2>
 <p>Extrapolar es tratar de predecir Y fuera del rango de valores de X. Es posible pero no aconsejable.</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-48-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-46-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="inferencia-de-los-coeficientes" class="slide level2 medium">
 <h2>Inferencia de los coeficientes</h2>
 <p>Cuando trabajamos con distribuciones muestrales, la idea era que:</p>
@@ -1087,7 +1292,7 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">tidy</span>(hollywood_model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">tidy</span>(hollywood_model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term            estimate   std.error statistic  p.value    conf.low  conf.high
@@ -1102,11 +1307,18 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <h2>Más pruebas de hipótesis</h2>
 <p><span class="math display">\[H_0:\beta_1=0\]</span> <span class="math display">\[H_1: \beta_1 \neq 0\]</span></p>
 <div class="fragment">
-<p><span class="math display">\[Z=\dfrac{3.12-0}{0.218}=14.3&gt;Z_{\frac{\alpha}{2}}=1.96\]</span></p>
+<p><span class="math display">\[t=\dfrac{3.12-0}{0.218}=14.3&gt;t_{\alpha=0.05}=1.96\]</span></p>
 <ul>
 <li><p>Rechazamos la <span class="math inline">\(H_0\)</span> a un nivel de significancia del 5%!</p></li>
-<li><p>El p-value es 7.07e-23 (en notación científica), el cual es mucho menor a 0.05.</p></li>
+<li><p>El p-value es menor a 0.05:</p></li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">tidy</span>(hollywood_model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)[<span class="dv">2</span>,<span class="dv">5</span>]<span class="sc">&lt;</span><span class="fl">0.05</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     p.value
+[1,]    TRUE</code></pre>
+</div>
+</div>
 </div>
 </section></section>
 <section>
@@ -1129,12 +1341,12 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 \]</span></p>
 </div>
 </section>
-<section id="cómo-pensar-la-relación-yfx_1x_2varepsilon" class="slide level2 medium">
-<h2>¿Cómo pensar la relación <span class="math inline">\(y=f(x_1,x_2)+\varepsilon\)</span>?</h2>
+<section id="cómo-pensar-visualmente-la-relación-yfx_1x_2varepsilon" class="slide level2 medium">
+<h2>¿Cómo pensar visualmente la relación <span class="math inline">\(y=f(x_1,x_2)+\varepsilon\)</span>?</h2>
 
 <img data-src="img/dots.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
-<section id="cómo-pensar-la-recta-en-una-regresión-múltiple" class="slide level2 medium">
-<h2>¿Cómo pensar la “recta” en una regresión múltiple?</h2>
+<section id="cómo-pensar-visualmente-la-recta-en-una-regresión-múltiple" class="slide level2 medium">
+<h2>¿Cómo pensar visualmente la “recta” en una regresión múltiple?</h2>
 
 <img data-src="img/plane.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
 <section id="variables-categóricas-vs-variables-continuas" class="slide level2 medium">
@@ -1162,24 +1374,24 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <section id="ejemplo-de-felicidad-y-galletas" class="slide level2">
 <h2>Ejemplo de felicidad y galletas</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-54-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-53-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="qué-pasa-si-diferenciamos-entre-profesores-y-estudiantes" class="slide level2">
 <h2>¿Qué pasa si diferenciamos entre profesores y estudiantes?</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-55-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-54-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="ambos-grupos-parecen-tener-pendientes-diferentes" class="slide level2">
 <h2>Ambos grupos parecen tener pendientes diferentes…</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-56-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-55-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="variables-categóricas-1" class="slide level2 medium">
 <h2>Variables Categóricas</h2>
 <p>¿Cómo interpretar el modelo si agregamos una variable categórica <span class="math inline">\(Estudiante\)</span> que sea igual a 1 si la observación es de un estudiante?</p>
 <p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \times Estudiante\]</span></p>
 <div class="fragment">
 <ul>
-<li>EL intercepto para las observaciones de los profesores será <span class="math inline">\(\hat{\beta_0}\)</span> porque <span class="math inline">\(Estudiante=0\)</span></li>
+<li>El intercepto para las observaciones de los profesores será <span class="math inline">\(\hat{\beta_0}\)</span> porque <span class="math inline">\(Estudiante=0\)</span></li>
 </ul>
-<p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas\]</span></p>
+<p><span class="math display">\[\widehat{Felicidad}=\color{#FF851B}{\hat{\beta_0}}+\hat{\beta_1}\times Galletas\]</span></p>
 </div>
 </section>
 <section id="variables-categóricas-2" class="slide level2 medium">
@@ -1189,7 +1401,18 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <ul>
 <li>El intercepto para las observaciones de los estudiantes será <span class="math inline">\(\hat{\beta_0}+\hat{\beta_2}\)</span> porque <span class="math inline">\(Estudiante=1\)</span></li>
 </ul>
-<p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2}\]</span></p>
+<p><span class="math display">\[\widehat{Felicidad}=\color{#FF851B}{\hat{\beta_0}}+\hat{\beta_1}\times Galletas+\color{#FF851B}{\hat{\beta_2}}\]</span></p>
+</section>
+<section id="estimar-una-regresión-múltiple-en-r" class="slide level2 medium">
+<h2>Estimar una regresión múltiple en R</h2>
+<ul>
+<li>Nuevamente usamos la función <code>lm()</code>, simplemente separamos las variables independientes con un <code>+</code>:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>name_of_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> DATA)</span>
+<span id="cb18-2"><a href="#cb18-2"></a></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="fu">tidy</span>(name_of_model)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="ejercicio-3" class="slide level2 medium">
 <h2>💪 Ejercicio 3</h2>
@@ -1204,25 +1427,25 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <li><p>Completen el siguiente código para predecir el recaudo total para una secuela con recaudo del fin de semana promedio y presupuesto promedio:</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>multiples_valores <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">opening_gross=</span>_________,</span>
-<span id="cb20-2"><a href="#cb20-2"></a>                             <span class="at">budget=</span>__________,</span>
-<span id="cb20-3"><a href="#cb20-3"></a>                             <span class="at">sequel=</span>__)</span>
-<span id="cb20-4"><a href="#cb20-4"></a><span class="fu">predict</span>(hollywood_model_2, <span class="at">newdata =</span> multiples_valores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>multiples_valores <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">opening_gross=</span>_________,</span>
+<span id="cb19-2"><a href="#cb19-2"></a>                             <span class="at">budget=</span>__________,</span>
+<span id="cb19-3"><a href="#cb19-3"></a>                             <span class="at">sequel=</span>__)</span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="fu">predict</span>(hollywood_model_2, <span class="at">newdata =</span> multiples_valores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="predicción-en-regresión-múltiple" class="slide level2 medium">
 <h2>Predicción en Regresión Múltiple</h2>
 <p>Así como en el caso con una variable, usamos el comando <code>predict()</code> para predecir <span class="math inline">\(\widehat{\text{US Gross}}\)</span>. En este caso, necesitamos al menos un valor para cada variable que está en la regresión.</p>
-<p>Hagamos una predicción para una de las observaciones en nuestros datos. En este caso, para la película “The Holiday”.</p>
+<p>Hagamos una predicción para una de las observaciones en nuestros datos. En este caso, para la película “The Holiday”:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># Seleccionemos las 3 variables dependientes para The Holiday</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a>the_holiday <span class="ot">&lt;-</span> hollywood <span class="sc">|&gt;</span> </span>
-<span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">filter</span>(movie<span class="sc">==</span><span class="st">"The Holiday"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a>  <span class="fu">select</span>(opening_gross, budget, sequel)</span>
-<span id="cb21-5"><a href="#cb21-5"></a></span>
-<span id="cb21-6"><a href="#cb21-6"></a><span class="co"># Usamos el comando predict nuevamente</span></span>
-<span id="cb21-7"><a href="#cb21-7"></a>predicho <span class="ot">&lt;-</span> <span class="fu">predict</span>(hollywood_model, <span class="at">newdata =</span> the_holiday)</span>
-<span id="cb21-8"><a href="#cb21-8"></a>predicho</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># Seleccionemos las 3 variables dependientes para The Holiday</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>the_holiday <span class="ot">&lt;-</span> hollywood <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">filter</span>(movie<span class="sc">==</span><span class="st">"The Holiday"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4"></a>  <span class="fu">select</span>(opening_gross, budget, sequel)</span>
+<span id="cb20-5"><a href="#cb20-5"></a></span>
+<span id="cb20-6"><a href="#cb20-6"></a><span class="co"># Usamos el comando predict nuevamente</span></span>
+<span id="cb20-7"><a href="#cb20-7"></a>y_gorro <span class="ot">&lt;-</span> <span class="fu">predict</span>(hollywood_model, <span class="at">newdata =</span> the_holiday)</span>
+<span id="cb20-8"><a href="#cb20-8"></a>y_gorro</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
 59596928 </code></pre>
@@ -1232,39 +1455,42 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <section id="predicción-en-regresión-múltiple-1" class="slide level2 medium">
 <h2>Predicción en Regresión Múltiple</h2>
 <ul>
-<li>¿Es precisa nuestra estimación?</li>
+<li>¿Es precisa nuestra estimación? Comparemos nuestro estimado con el recaudo real de la película:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># El valor observado</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a>observado <span class="ot">&lt;-</span> hollywood <span class="sc">|&gt;</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">filter</span>(movie <span class="sc">==</span> <span class="st">"The Holiday"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">pull</span>(us_gross)</span>
-<span id="cb23-5"><a href="#cb23-5"></a>observado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># El valor observado</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>y <span class="ot">&lt;-</span> hollywood <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">filter</span>(movie <span class="sc">==</span> <span class="st">"The Holiday"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">pull</span>(us_gross)</span>
+<span id="cb22-5"><a href="#cb22-5"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 63224849</code></pre>
 </div>
 </div>
+<div class="fragment">
 <ul>
-<li>El residuo para “The Holiday” será:</li>
+<li>El error para “The Holiday” será:</li>
 </ul>
+<p><span class="math display">\[e=y - \hat{y}\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>observado<span class="sc">-</span>predicho</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>y <span class="sc">-</span> y_gorro</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      1 
 3627921 </code></pre>
+</div>
 </div>
 </div>
 </section>
 <section id="filtrar-la-variación" class="slide level2 medium">
 <h2>Filtrar la variación</h2>
 <ul>
-<li><p>Cada <strong>X</strong> en el modelo explica una porción de la variación en <strong>Y</strong></p></li>
+<li><p>Cada <strong><span class="math inline">\(x\)</span></strong> en el modelo explica una porción de la variación en <strong><span class="math inline">\(y\)</span></strong></p></li>
 <li><p>La interpretación acá es más complicada que en el modelo de regresión simple porque sólo se puede mover una variable a la vez</p></li>
 </ul>
 </section>
 <section id="interpretación-para-variables-continuas" class="slide level2 medium">
 <h2>Interpretación para variables continuas</h2>
-<p>Manteniendo todo lo demás constante, un incremento de una unidad en <strong>X</strong> está asociado con un incremento/reducción promedio de <span class="math inline">\(\beta_n\)</span> en <strong>Y</strong></p>
+<p>Manteniendo todo lo demás constante, un incremento de una unidad en <strong><span class="math inline">\(x\)</span></strong> está asociado con un incremento/reducción promedio de <span class="math inline">\(\beta_k\)</span> en <strong><span class="math inline">\(y\)</span></strong></p>
 <p><span class="math display">\[  
   \begin{aligned}
 \widehat{\text{US Gross}} = &amp;-8,785,254 + 2.99 \times \text{Opening Gross} + 0.356 \times \text{Budget} \\
@@ -1277,7 +1503,7 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 </section>
 <section id="interpretación-para-variables-categóricas" class="slide level2 medium">
 <h2>Interpretación para variables categóricas</h2>
-<p>Manteniendo todo lo demás constante, <strong>Y</strong> es, en promedio, <span class="math inline">\(\beta_n\)</span> unidades mayor/menor para <strong>X</strong><sub>n</sub> comparado con <strong>X</strong><sub>omitida</sub></p>
+<p>Manteniendo todo lo demás constante, <strong><span class="math inline">\(y\)</span></strong> es, en promedio, <span class="math inline">\(\beta_k\)</span> unidades mayor/menor para <strong><span class="math inline">\(x\)</span></strong><sub>k</sub> comparado con <strong><span class="math inline">\(x\)</span></strong><sub>omitida</sub></p>
 <p><span class="math display">\[  
   \begin{aligned}
 \widehat{\text{US Gross}} = &amp;-8,785,254 + 2.99 \times \text{Opening Gross} + 0.356 \times \text{Budget} \\
@@ -1315,36 +1541,6 @@ Y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 \end{aligned}
 \]</span></p>
 <p>Manteniendo lo demás constante, estimamos que una trilogía tendrá, en promedio, un recaudo 15 millones de dólares menor que una primera entrega</p>
-</section>
-<section id="qué-tan-bueno-es-el-modelo" class="slide level2 medium">
-<h2>¿Qué tan bueno es el modelo?</h2>
-<h3 id="r-squared">R-Squared</h3>
-<p>El <span class="math inline">\(R^2\)</span> es el porcentaje de la varianza de la variable dependiente explicada por el modelo de regresión</p>
-<p><span class="math display">\[R^2=Corr(x,y)^2=Corr(y,\hat{y})\]</span></p>
-<ul>
-<li><p>Está entre 0 (nuestro modelo no predice nada) y 1 (predicción perfecta)</p></li>
-<li><p>No tiene unidad de medida</p></li>
-</ul>
-</section>
-<section id="qué-tan-bueno-es-el-modelo-1" class="slide level2 medium">
-<h2>¿Qué tan bueno es el modelo?</h2>
-<p>Con la función <code>glance()</code> podemos ver diferentes aspectos que evalúan el modelo:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">glance</span>(hollywood_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 12
-  r.squared adj.r.squared     sigma statistic  p.value    df logLik   AIC   BIC
-      &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1     0.790         0.782 18824686.      89.3 4.91e-24     3 -1361. 2731. 2743.
-# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>Este modelo de regresión explica el 79% de la varianza del recaudo total en US</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>hollywood_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(us_gross <span class="sc">~</span> opening_gross <span class="sc">+</span> budget <span class="sc">+</span> sequel, <span class="at">data=</span>hollywood)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
 <div class="footer footer-default">
 
 </div>

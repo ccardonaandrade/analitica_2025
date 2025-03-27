@@ -78,16 +78,16 @@ lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
 
 ## Plan para hoy
 
-1. [Correlación](#corr)
+1. [Visualizar los Datos](#viz)
 
 2. [Regresión Lineal Simple](#lm)
 
 3. [Regresión Lineal Múltiple](#multiple)
 
-# Correlación {#corr}
+# Visualizar los Datos {#viz}
 
 
-## US Total Gross vs Opening Gross {.medium}
+## ¿Por qué es importante graficar los datos? {.medium}
 
 ```{r}
 #| echo: false
@@ -108,10 +108,9 @@ hollywood <- hollywood %>% rename(non_us_gross = total_non_u_s_gross)
 ```
 
 ```{r}
-#| echo: true
+#| echo: false
 #| eval: true
 #| fig-align: center
-#| code-fold: true
 
 ggplot(data = hollywood, aes(x = (opening_gross / 1000000), y = (us_gross / 1000000))) +
     geom_point() +
@@ -123,7 +122,7 @@ ggplot(data = hollywood, aes(x = (opening_gross / 1000000), y = (us_gross / 1000
 
 ```
 
-## La correlación en R {.medium}
+## ¿Por qué es importante graficar los datos? {.medium}
 
 - Podemos utilizar un diagrama de dispersión para realizar un primer análisis de la relación entre dos variables
 
@@ -131,171 +130,194 @@ ggplot(data = hollywood, aes(x = (opening_gross / 1000000), y = (us_gross / 1000
 
 - La correlación entre el recaudo en US y el recaudo el primer fin de semana:
 
+
+
+
+
+## Cuarteto de Anscombe
+
 ```{r}
-#| echo: true
-cor(hollywood$us_gross,hollywood$opening_gross)
+#| echo: false
+
+library(datasauRus)
+library(knitr)
+library(kableExtra)
+anscombe_m <- data.frame()
+
+for(i in 1:4) {
+  anscombe_m <- rbind(anscombe_m, data.frame(x=anscombe[,i], y=anscombe[,i+4]))}
+  
+anscombe_m <- anscombe_m |> 
+  mutate(set = c(rep("I",11),rep("II",11),rep("III",11),rep("IV",11)))
+
+means <- anscombe |> 
+  select(x1,y1,x2,y2,x3,y3,x4,y4) |> 
+  summarise(across(everything(), mean))
+
+sd <- anscombe |> 
+  select(x1,y1,x2,y2,x3,y3,x4,y4) |> 
+  summarise(across(everything(), sd))
+
+cor <- anscombe |>
+  summarise(x1=cor(x1,y1), x2=cor(x2,y2), x3=cor(x3,y3), x4=cor(x4,y4))
+
+anscombe |> 
+  mutate(obs = as.character(1:n())) |> 
+  select(obs,x1,y1,x2,y2,x3,y3,x4,y4) |>
+  add_row(obs="Mean",round(means,2)) |>
+  add_row(obs="SD",round(sd,2)) |>
+  add_row(obs="Corr",round(cor,2)) |>
+  kbl(escape = FALSE, col.names = c("Obs.", rep(c("X","Y"),4)), align="rcccccccc") |>
+  column_spec(1, border_right = T, bold = T) |>
+  column_spec(seq(3,7,2), border_right = T) |>
+  row_spec(11, extra_css = "border-bottom: 3px solid") |>
+  add_header_above(c(" " = 1, "I" = 2, "II"=2, "III"=2, "IV"=2)) |>
+  kable_classic(full_width = F)
 ```
 
 
-## Función `corrplot` {.medium}
+## ¿Qué aprendemos cuando graficamos los datos?
+
+```{r}
+#| echo: false
+#| fig-align: center
+ggplot(anscombe_m, aes(x, y)) +  
+geom_text(aes(x = 15, y = 5, label=set), family = "Alfa Slab One", size=36, color = "gray95") + 
+geom_smooth(method="lm", fill=NA, fullrange=TRUE, color = "black", linewidth=0.5) + 
+geom_point(size=3.5, color="black", fill="red", alpha=0.8, shape=21) +
+facet_wrap(~set, ncol=2, scales = "free") +
+scale_x_continuous(limits = c(0,20)) +
+scale_y_continuous(limits = c(0,15)) +
+labs(x = NULL, y = NULL) +
+coord_cartesian(expand = F) +
+theme_minimal() +
+theme(strip.text = element_blank(),
+axis.text = element_blank(),
+panel.border = element_rect(linewidth = 0.1, fill = NA))
+```
+
+## ¿Ven correlación acá?
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 8
+datasaurus_dozen |>
+  filter(dataset %in% c("slant_down", "dino")) |>
+  mutate(dataset = ifelse(dataset == "dino", "B", "A")) |>
+  ggplot(aes(x = x, y = y, colour = dataset))+
+  geom_point() +
+  scale_color_manual(values = c("#C32402", "#0234C3")) +
+  facet_wrap(~dataset, ncol = 2) +
+  labs(x=NULL, y=NULL) +
+  theme_minimal() +
+  theme(legend.position = "none",
+  strip.text = element_blank(),
+  panel.border = element_rect(linewidth = 0.1, fill = NA))
+```
+
+. . .
+
+::: {.columns}
+::: {.column style="text-align:center;"}
+[Correlación: -0.07]{.secfont style="font-size:1.5rem;color:#C32402;"}
+:::
+::: {.column style="text-align:center;"}
+[Correlación: -0.07]{.secfont style="font-size:1.5rem;color:#0234C3;"}
+:::
+:::
+
+
+## Iguales pero diferentes
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 10
+datasaurus_dozen |>
+  filter(!dataset == "dino") |>
+  ggplot(aes(x = x, y = y, colour = dataset))+
+  geom_point() +
+  geom_text(aes(x = 50, y = -10, label = glue::glue("Cor.: {round(cor(x,y),2)}")), hjust = 0.5) +
+  facet_wrap(~dataset, nrow = 2) +
+  labs(x=NULL, y=NULL) +
+  theme_minimal() +
+  theme(legend.position = "none",
+  strip.text = element_blank(),
+  axis.text = element_blank(),
+  panel.border = element_rect(linewidth = 0.1, fill = NA))
+```
+
+
+## ¿Por qué es importante graficar los datos? {.medium}
+
+- [Visualización de patrones]{.hl .hl-blue}: Los gráficos permiten identificar tendencias, patrones y relaciones entre variables que pueden no ser evidentes solo con los números
+
+. . .
+
+- [Análisis visual vs. numérico]{.hl .hl-blue}: Aunque las estadísticas (media, desviación estándar, correlación) pueden ser iguales entre los conjuntos de datos, los gráficos muestran que los datos pueden comportarse de manera muy diferente
+
+  - Ejemplo: Cuarteto de Ascombe
+
+. . .
+  
+- En conclusión, la visualización de datos no solo facilita la comprensión de la información, sino que también ayuda a evitar interpretaciones erróneas basadas únicamente en estadísticas numéricas 
+
+
+## 💪 Ejercicio 1  {.medium}
+
+1. Carguen el paquete `tidyverse`, `janitor` y `corrplot` a R. 
+
+2. Ejecuten el siguiente código para importar los datos del caso *Hollywood Rules*:
 
 ```{r}
 #| echo: true
 #| eval: false
-#| fig-align: center
-
-# RECUERDEN INSTALAR EL PAQUETE PRIMERO!!!
-# install.packages("corrplot")
-
-# Cargamos el paquete
-library(corrplot)
-
-# Creemos una base de datos temporal sólo con estas 4 variables
-hollywood_sub <- hollywood %>% select( us_gross, opening_gross, non_us_gross, budget) 
-
-# Creemos la matriz de correlaciones
-corrplot(cor(hollywood_sub ),
-         method = "number",
-         type = "upper")
-
+hollywood <- read_excel("KEL702-XLS-ENG.xls", sheet = "Exhibit 1")
 ```
 
 
-
-## Función `corrplot` {.medium}
+3. Limpiemos los nombres con el paquete `janitor` para que sean legibles:
 
 ```{r}
-#| echo: false
-#| eval: true
-#| fig-align: center
-
-# RECUERDEN INSTALARLA PRIMERO!!!
-# install.packages("corrplot)
-
-# Cargamos el paquete
-library(corrplot)
-
-# Creemos una base de datos temporal sólo con estas 4 variables
-hollywood_sub <- hollywood %>% select( us_gross, opening_gross, non_us_gross, budget) 
-
-# Creemos la matriz de correlaciones
-corrplot(cor(hollywood_sub ),
-         method = "number",
-         type = "upper")
-
+#| echo: true
+#| eval: false
+hollywood <- hollywood |>
+  clean_names()
+hollywood <- hollywood |>
+  rename(us_gross = total_u_s_gross,
+         non_us_gross = total_non_u_s_gross)
 ```
 
 
+## 💪 Ejercicio 1  {.medium}
 
-## La correlación no es suficiente {.medium}
+4. Creen un nuevo conjunto de datos que se llame `hollywood_sub` que *sólo* contenga las variables de recaudo en USA, el recaudo en el estreno, el recaudo en el mercado internacional y el presupuesto en **ese orden**
 
+5. Grafiquemos la matriz de correlación con el siguiente código:
 
 ```{r}
-#| echo: false
-#| eval: true
-#| fig-align: center
+#| echo: true
+#| eval: false
+# Matriz de correlaciones
+cor_matrix <- cor(hollywood_sub)
 
-library(datasauRus)
-library(patchwork)
+# Renombrar columnas y filas en la matriz
+colnames(cor_matrix) <- c("US Gross", "Opening Gross", "Non-US Gross", "Budget")
+rownames(cor_matrix) <- c("US Gross", "Opening Gross", "Non-US Gross", "Budget")
 
-dino <- datasaurus_dozen %>%
-  filter(dataset == "dino")
-
-star <- datasaurus_dozen %>%
-  filter(dataset == "star")
-
-hlines <- datasaurus_dozen %>%
-  filter(dataset == "h_lines")
-
-dino %>%
-  summarize(
-      mean_x    = mean(x),
-      mean_y    = mean(y),
-      std_dev_x = sd(x),
-      std_dev_y = sd(y),
-      corr_x_y  = cor(x, y)
-  )
-
-
-
+# Crear el gráfico de correlaciones
+corrplot(cor_matrix, method = "number", type = "upper")
 ```
 
+## 💪 Ejercicio 1  {.medium}
 
+6. Analicen las dos variables que tengan la correlación más alta y las que tengan la correlación más baja.
 
-```{r}
-#| echo: false
-#| eval: true
-#| fig-align: center
-#| fig-width: 7
-#| fig-height: 3.5
+7. Creen el gráfico de dispersión entre el recaudo total y el recaudo en el día del estreno como en la diapositiva 1. ¿Es consistente el gráfico con el valor de la correlación?
 
-ggplot(dino, aes(x=x, y=y))+
-  geom_point(color = "darkred") + theme_minimal()
-```
-
-
-
-
-## La correlación no es suficiente {.medium}
-
-
-```{r}
-#| echo: false
-#| eval: true
-#| fig-align: center
-star %>%
-  summarize(
-      mean_x    = mean(x),
-      mean_y    = mean(y),
-      std_dev_x = sd(x),
-      std_dev_y = sd(y),
-      corr_x_y  = cor(x, y)
-  )
-```
-
-```{r}
-#| echo: false
-#| eval: true
-#| fig-align: center
-#| fig-width: 7
-#| fig-height: 3.5
-ggplot(star, aes(x=x, y=y))+
-  geom_point(color = "navy") + theme_minimal()
-
-```
-
-
-## La correlación no es suficiente {.medium}
-
-
-```{r}
-#| echo: false
-#| eval: true
-#| fig-align: center
-#| fig-width: 7
-#| fig-height: 3.5
-hlines %>%
-  summarize(
-      mean_x    = mean(x),
-      mean_y    = mean(y),
-      std_dev_x = sd(x),
-      std_dev_y = sd(y),
-      corr_x_y  = cor(x, y)
-  )
-```
-
-```{r}
-#| echo: false
-#| eval: true
-#| fig-align: center
-
-ggplot(hlines, aes(x=x, y=y))+
-  geom_point(color = "orange") + theme_minimal()
-
-```
-
-
-
+    
+    
 # Regresión Lineal Simple {#lm}
 
 ## ¿Por qué una regresión? {.medium}
@@ -357,7 +379,7 @@ $$y_i=\beta_0+\beta_1x_i+e_i$$
 
 - Variable independiente
 
-- Lo que usamos para predecir o explicar Y
+- Lo que usamos para predecir o explicar $y$
 :::
 :::
 
@@ -370,15 +392,15 @@ Usualmente ajustamos a una línea por dos razones:
 
 - Predecir el futuro
 
-- Nos enfocamos en Y
+- Nos enfocamos en $y$
 
 - Netflix tratando de predecir la siguiente serie que veremos
 
 ### Explicación
 
-- Explicar el efecto de X en Y
+- Explicar el efecto de $x$ en $y$
 
-- Nos enfocamos en X
+- Nos enfocamos en $x$
 
 - Netflix evaluando el efecto de la hora del día en la selección de una serie
 
@@ -506,7 +528,7 @@ galletas_con_residuo <- base_cookies +
 galletas_con_residuo
 ```
 
-## Visualización de los residuos
+## Visualización de los errores
 
 ```{r}
 #| echo: false
@@ -540,7 +562,7 @@ galletas_solo_residuo
 #| fig-height: 4
 
 (galletas_con_residuo + labs(title = "Galletas y Felicidad")) + 
-  (galletas_solo_residuo + labs(title = "Residuos"))
+  (galletas_solo_residuo + labs(title = "Errores"))
 ```
 
 ## Pendiente de una recta {.medium}
@@ -549,19 +571,16 @@ $$
 y = mx + b
 $$
 
-::: {.tbl-classic .tbl-larger .center-text}
 
+- $y$ es un número
 
-|     |                                          |
-|:---:|:----------------------------------------:|
-| $y$ |                Un número                 |
-| $x$ |                Un número                 |
-| $m$ | La pendiente $\frac{\Delta y}{\Delta x}$ |
-| $b$ |          El intercepto con $y$           |
+- $x$ es un número
 
-:::
+- $m$ es la [pendiente]{.marker-hl}  $\frac{\Delta y}{\Delta x}$
 
-## Pendiente de una recta {.medium}
+- $b$ es el [intercepto]{.marker-hl} con $y$
+
+## Pendiente de una recta: Ejemplos {.medium}
 
 ::: columns
 ::: {.column width="50%"}
@@ -615,29 +634,35 @@ ggplot(data = tibble(x = 0:14), aes(x = x)) +
 :::
 :::
 
-## Regresión lineal simple {.medium}
+## Partes esenciales de una regresión II {.medium}
 
 $$
 y = \beta_0 + \beta_1 x + \varepsilon
 $$
 
--   $\beta_1$: la pendiente verdadera de la relación entre $x$ y $y$
+-   $\beta_1$: la pendiente [verdadera]{.marker-hl}  de la relación entre $x$ y $y$
 
--   $\beta_0$: el intercepto verdadero de la relación entre $x$ y $y$
+-   $\beta_0$: el intercepto [verdadero]{.marker-hl}  de la relación entre $x$ y $y$
 
 -   $\varepsilon$: el error
 
-## Regresión lineal simple {.medium}
+## Partes esenciales de una regresión II {.medium}
 
 $$
 \hat{y} = \hat{\beta_0} + \hat{\beta_1} x 
 $$
 
--   $\hat{\beta_1}$: la pendiente estimada de la relación entre $x$ y $y$
+- $\hat{y}$: es la estimación de la variable dependiente dado nuestro modelo
 
--   $\hat{\beta_0}$: el intercepto estimada de la relación entre $x$ y $y$
+- $\hat{\beta_1}$: la pendiente [estimada]{.marker-hl}  de la relación entre $x$ y $y$
 
--   No hay error!!!
+- $\hat{\beta_0}$: el intercepto [estimada]{.marker-hl}  de la relación entre $x$ y $y$
+
+- No hay error!!!
+
+. . .
+
+- [El símbolo *gorro* ($\hat{\beta_k}$ o $\hat{y}$) significa que es una estimación y no un parámetro real]{.hl .hl-dred}
 
 ## Modelo de Regresión {.medium}
 
@@ -645,8 +670,8 @@ $$
 ::: {.column width="40%"}
 $$  
   \begin{aligned}
-Y &= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
-  &= \color{#0074D9}{f(X)} + \color{#FF851B}{\varepsilon}
+y &= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
+  &= \color{#0074D9}{f(x)} + \color{#FF851B}{\varepsilon}
 \end{aligned}
 $$
 :::
@@ -664,7 +689,7 @@ galletas_con_residuo
 :::
 :::
 
-## Residuos {.medium}
+## Los errores {.medium}
 
 ```{r}
 #| echo: false
@@ -678,12 +703,12 @@ galletas_con_residuo
 ```
 
 $$
-\text{Residuo} = \text{Observado} - \text{Predicho} = y - \hat{y}
+\color{#FF851B}{\text{Error}} = \text{Observado} - \color{#0074D9}{\text{Predicho}} = y - \color{#0074D9}{\hat{y}}
 $$
 
 ## La línea de los mínimos cuadrados ordinarios (MCO) {.medium}
 
--   El residuo para la observación $i^{th}$ es:
+-   El error para la observación $i$ es:
 
 $$e_i= \text{Observado} - \text{Predicho}=y_i - \hat{y_i}$$ - La **suma de los residuos al cuadrado** es:
 
@@ -970,9 +995,9 @@ ggplot(galletas_datos,
 
 
 
-## Construyendo modelos en R {.medium}
+## Estimar una regresión en R {.medium}
 
--   El  siguiente código estima y reporta los resultados de la regresión:
+-   La función `lm()` estima una regresión lineal y la función `summary()` reporta los resultados:
 
 ```{r}
 #| eval: false
@@ -1276,11 +1301,16 @@ $$H_1: \beta_1 \neq 0$$
 
 :::{.fragment}
 
-$$Z=\dfrac{3.12-0}{0.218}=14.3>Z_{\frac{\alpha}{2}}=1.96$$
+$$t=\dfrac{3.12-0}{0.218}=14.3>t_{\alpha=0.05}=1.96$$
 
 - Rechazamos la $H_0$ a un nivel de significancia del 5%! 
 
-- El p-value es 7.07e-23 (en notación científica), el cual es mucho menor a 0.05. 
+- El p-value es menor a 0.05:
+
+```{r}
+#| echo: true
+tidy(hollywood_model, conf.int = TRUE)[2,5]<0.05
+```
 
 :::
 
@@ -1310,7 +1340,7 @@ $$
 
 
 
-## ¿Cómo pensar la relación $y=f(x_1,x_2)+\varepsilon$? {.medium}
+## ¿Cómo pensar visualmente la relación $y=f(x_1,x_2)+\varepsilon$? {.medium}
 
 
 ```{r}
@@ -1323,7 +1353,7 @@ knitr::include_graphics("img/dots.png")
 ```
 
 
-## ¿Cómo pensar la "recta" en una regresión múltiple? {.medium}
+## ¿Cómo pensar visualmente la "recta" en una regresión múltiple? {.medium}
 
 
 ```{r}
@@ -1465,9 +1495,9 @@ $$\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \
 
 :::{.fragment}
 
-- EL intercepto para las observaciones de los profesores será $\hat{\beta_0}$ porque $Estudiante=0$
+- El intercepto para las observaciones de los profesores será $\hat{\beta_0}$ porque $Estudiante=0$
 
-$$\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas$$
+$$\widehat{Felicidad}=\color{#FF851B}{\hat{\beta_0}}+\hat{\beta_1}\times Galletas$$
 
 :::
 
@@ -1481,7 +1511,21 @@ $$\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \
 
 - El intercepto para las observaciones de los estudiantes será $\hat{\beta_0}+\hat{\beta_2}$ porque $Estudiante=1$
 
-$$\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2}$$
+$$\widehat{Felicidad}=\color{#FF851B}{\hat{\beta_0}}+\hat{\beta_1}\times Galletas+\color{#FF851B}{\hat{\beta_2}}$$
+
+
+## Estimar una regresión múltiple en R {.medium}
+
+-   Nuevamente usamos la función `lm()`, simplemente separamos las variables independientes con un `+`:
+
+```{r}
+#| eval: false
+#| echo: true
+
+name_of_model <- lm(y ~ x1 + x2 + x3, data = DATA)
+
+tidy(name_of_model)  
+```
 
 
 ## 💪 Ejercicio 3  {.medium}
@@ -1517,7 +1561,7 @@ hollywood_model <- lm(us_gross ~ opening_gross + budget + sequel, data=hollywood
 Así como en el caso con una variable, usamos el comando `predict()` para predecir $\widehat{\text{US Gross}}$. En este caso, necesitamos al menos un valor para cada variable que está en la regresión.
 
 
-Hagamos una predicción para una de las observaciones en nuestros datos. En este caso, para la película "The Holiday".
+Hagamos una predicción para una de las observaciones en nuestros datos. En este caso, para la película "The Holiday":
 
 ```{r}
 #| echo: true
@@ -1528,32 +1572,36 @@ the_holiday <- hollywood |>
   select(opening_gross, budget, sequel)
 
 # Usamos el comando predict nuevamente
-predicho <- predict(hollywood_model, newdata = the_holiday)
-predicho
+y_gorro <- predict(hollywood_model, newdata = the_holiday)
+y_gorro
 ```
 
 
 ## Predicción en Regresión Múltiple {.medium}
 
 
-- ¿Es precisa nuestra estimación?
+- ¿Es precisa nuestra estimación? Comparemos nuestro estimado con el recaudo real de la película:
 
 ```{r}
 #| echo: true
 #| eval: true
 # El valor observado
-observado <- hollywood |>
+y <- hollywood |>
   filter(movie == "The Holiday") |>
   pull(us_gross)
-observado
+y
 ```
 
-- El residuo para "The Holiday" será:
+. . .
+
+- El error para "The Holiday" será:
+
+$$e=y - \hat{y}$$
 
 ```{r}
 #| echo: true
 #| eval: true
-observado-predicho
+y - y_gorro
 ```
 
 
@@ -1561,14 +1609,14 @@ observado-predicho
 
 ## Filtrar la variación {.medium}
 
-- Cada **X** en el modelo explica una porción de la variación en **Y**
+- Cada **$x$** en el modelo explica una porción de la variación en **$y$**
 
 - La interpretación acá es más complicada que en el modelo de regresión simple porque sólo se puede mover una variable a la vez
 
 
 ## Interpretación para variables continuas {.medium}
 
-Manteniendo todo lo demás constante, un incremento de una unidad en **X** está asociado con un incremento/reducción promedio de $\beta_n$ en **Y**
+Manteniendo todo lo demás constante, un incremento de una unidad en **$x$** está asociado con un incremento/reducción promedio de $\beta_k$ en **$y$**
 
 $$  
   \begin{aligned}
@@ -1584,7 +1632,7 @@ Manteniendo todo lo demás constante, un incremento de un dólar en el recaudo d
 
 ## Interpretación para variables categóricas {.medium}
 
-Manteniendo todo lo demás constante, **Y** es, en promedio, $\beta_n$ unidades mayor/menor para **X**<sub>n</sub> comparado con **X**<sub>omitida</sub>
+Manteniendo todo lo demás constante, **$y$** es, en promedio, $\beta_k$ unidades mayor/menor para **$x$**<sub>k</sub> comparado con **$x$**<sub>omitida</sub>
 
 $$  
   \begin{aligned}
@@ -1635,39 +1683,5 @@ $$
 $$
 
 Manteniendo lo demás constante, estimamos que una trilogía tendrá, en promedio, un recaudo 15 millones de dólares menor que una primera entrega
-
-
-## ¿Qué tan bueno es el modelo? {.medium}
-
-### R-Squared
-
-El $R^2$ es el porcentaje de la varianza de la variable dependiente explicada por el modelo de regresión
-
-$$R^2=Corr(x,y)^2=Corr(y,\hat{y})$$
-
-- Está entre 0 (nuestro modelo no predice nada) y 1 (predicción perfecta)
-
-- No tiene unidad de medida
-
-
-
-## ¿Qué tan bueno es el modelo? {.medium}
-
-Con la función `glance()` podemos ver diferentes aspectos que evalúan el modelo:
-
-```{r}
-#| echo: true
-glance(hollywood_model)
-```
-
-:::{.fragment}
-Este modelo de regresión explica el 79% de la varianza del recaudo total en US
-
-```{r}
-#| echo: true
-hollywood_model <- lm(us_gross ~ opening_gross + budget + sequel, data=hollywood)
-```
-:::
-
 
 
