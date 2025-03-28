@@ -122,16 +122,6 @@ ggplot(data = hollywood, aes(x = (opening_gross / 1000000), y = (us_gross / 1000
 
 ```
 
-## ¿Por qué es importante graficar los datos? {.medium}
-
-- Podemos utilizar un diagrama de dispersión para realizar un primer análisis de la relación entre dos variables
-
-- El coeficiente de correlación (lineal) es utilizado para medir la fuerza de la asociación (lineal) entre dos variables
-
-- La correlación entre el recaudo en US y el recaudo el primer fin de semana:
-
-
-
 
 
 ## Cuarteto de Anscombe
@@ -314,7 +304,7 @@ corrplot(cor_matrix, method = "number", type = "upper")
 
 6. Analicen las dos variables que tengan la correlación más alta y las que tengan la correlación más baja.
 
-7. Creen el gráfico de dispersión entre el recaudo total y el recaudo en el día del estreno como en la diapositiva 1. ¿Es consistente el gráfico con el valor de la correlación?
+7. Creen el gráfico de dispersión entre el recaudo total y el recaudo en el día del estreno como en la diapositiva 4. ¿Es consistente el gráfico con el valor de la correlación?
 
     
     
@@ -339,7 +329,7 @@ Sin embargo, no necesitamos esperar. Podemos evaluar esta hipótesis usando un *
 
 **Modelo de Regresión:**
 
-$$Promedio_i=\beta_0 + \beta_1H_i + \beta_2Saber11_i+\beta_3PCT_i+\varepsilon_i$$
+$$Promedio_i=\beta_0 + \beta_1H_i + \beta_2Saber11_i+\beta_3PCT_i+e_i$$
 Queremos estimar/evaluar la relación 
 $$Promedio=f(H,Saber11,PCA)$$
 
@@ -351,7 +341,7 @@ $$Promedio=f(H,Saber11,PCA)$$
 
 - ¿Son los términos $\beta_k$ parámetros o son estimaciones muestrales?
 
-- ¿Qué es $\varepsilon_i$?
+- ¿Qué es $e_i$?
      
 ## Partes esenciales de una regresión {.medium}
 
@@ -637,14 +627,14 @@ ggplot(data = tibble(x = 0:14), aes(x = x)) +
 ## Partes esenciales de una regresión II {.medium}
 
 $$
-y = \beta_0 + \beta_1 x + \varepsilon
+y = \beta_0 + \beta_1 x + e
 $$
 
 -   $\beta_1$: la pendiente [verdadera]{.marker-hl}  de la relación entre $x$ y $y$
 
 -   $\beta_0$: el intercepto [verdadero]{.marker-hl}  de la relación entre $x$ y $y$
 
--   $\varepsilon$: el error
+-   $e$: el error
 
 ## Partes esenciales de una regresión II {.medium}
 
@@ -671,7 +661,7 @@ $$
 $$  
   \begin{aligned}
 y &= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
-  &= \color{#0074D9}{f(x)} + \color{#FF851B}{\varepsilon}
+  &= \color{#0074D9}{f(x)} + \color{#FF851B}{e}
 \end{aligned}
 $$
 :::
@@ -1045,7 +1035,7 @@ modelo_felicidad <-
 
 
 base_cookies +
-  geom_smooth(method = "lm", color = "#0074D9") +
+  geom_smooth(method = "lm", color = "#0074D9", se = FALSE) +
   coord_cartesian(xlim = c(0, 10), ylim = c(0, 4))
 ```
 :::
@@ -1101,7 +1091,7 @@ $$
 ```{r}
 #| echo: false
 base_cookies +
-  geom_smooth(method = "lm", color = "#0074D9") +
+  geom_smooth(method = "lm", color = "#0074D9", se = FALSE) +
   coord_cartesian(xlim = c(0, 10), ylim = c(0, 4))
 ```
 :::
@@ -1109,7 +1099,7 @@ base_cookies +
 
 ## Interpretación de los coeficientes {.medium}
 
-Un incremento en una unidad de $X$ está *asociado* con un incremento (o reducción) promedio de $\beta_1$ unidades en $Y$
+Un incremento en una unidad de $x$ está *asociado* con un incremento (o reducción) promedio de $\beta_1$ unidades en $y$
 
 $$\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas$$
 
@@ -1217,7 +1207,7 @@ predicted_y <- predict(model, newdata = data.frame(opening_gross = 50 * 1000000)
 # Plot
 ggplot(data = hollywood, aes(x = (opening_gross / 1000000), y = (us_gross / 1000000))) +
   geom_point() +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", se = FALSE) +
   geom_vline(xintercept = 50, linetype = "dashed", color = "blue") +   # Dashed vertical line at x = 50
   geom_hline(yintercept = predicted_y/ 1000000, linetype = "dashed", color = "blue") + # Dashed horizontal line at predicted y
   geom_point(aes(x = 50, y = predicted_y/ 1000000), color = "red", size = 3) + # Point at (50, predicted_y)
@@ -1234,7 +1224,7 @@ ggplot(data = hollywood, aes(x = (opening_gross / 1000000), y = (us_gross / 1000
 
 ## ¿Es posible la extrapolación? {.medium}
 
-Extrapolar es tratar de predecir Y fuera del rango de valores de X. Es posible pero no aconsejable.
+Extrapolar es tratar de predecir $y$ fuera del rango de valores de $x$. Es posible pero no aconsejable.
 
 ```{r}
 #| echo: false
@@ -1248,7 +1238,7 @@ predicted_y <- predict(model, newdata = data.frame(opening_gross = 80 * 1000000)
 # Plot
 ggplot(data = hollywood, aes(x = (opening_gross / 1000000), y = (us_gross / 1000000))) +
     geom_point() +
-    geom_smooth(method = "lm") +
+    geom_smooth(method = "lm", se = FALSE) +
     geom_vline(xintercept = 80, linetype = "dashed", color = "blue") +   # Dashed vertical line at x = 80
     geom_hline(yintercept = predicted_y/ 1000000, linetype = "dashed", color = "blue") + # Dashed horizontal line at predicted y
     geom_point(aes(x = 80, y = predicted_y/ 1000000), color = "red", size = 3) + # Point at (80, predicted_y)
@@ -1265,7 +1255,7 @@ ggplot(data = hollywood, aes(x = (opening_gross / 1000000), y = (us_gross / 1000
 Cuando trabajamos con distribuciones muestrales, la idea era que:
 
 $$
-\bar{X} \xrightarrow{\text{🤞 ojalá 🤞}} \mu
+\bar{x} \xrightarrow{\text{🤞 ojalá 🤞}} \mu
 $$
 
 :::{.fragment}
@@ -1340,7 +1330,7 @@ $$
 
 
 
-## ¿Cómo pensar visualmente la relación $y=f(x_1,x_2)+\varepsilon$? {.medium}
+## ¿Cómo visualizar la relación $y=f(x_1,x_2)+\varepsilon$? {.medium}
 
 
 ```{r}
@@ -1353,7 +1343,7 @@ knitr::include_graphics("img/dots.png")
 ```
 
 
-## ¿Cómo pensar visualmente la "recta" en una regresión múltiple? {.medium}
+## ¿Cómo visualizar la "recta" en una regresión múltiple? {.medium}
 
 
 ```{r}
@@ -1684,4 +1674,27 @@ $$
 
 Manteniendo lo demás constante, estimamos que una trilogía tendrá, en promedio, un recaudo 15 millones de dólares menor que una primera entrega
 
+## Volvamos a Anscombe... {.medium}
+
+Si estimamos $\hat{y}=\hat{\beta_0} + \hat{\beta_1} \times x$
+
+```{r}
+#| echo: false
+#| fig-align: center
+ggplot(anscombe_m, aes(x, y)) +  
+geom_text(aes(x = 15, y = 5, label=set), family = "Alfa Slab One", size=36, color = "gray95") + 
+geom_smooth(method="lm", fill=NA, fullrange=TRUE, color = "darkred", linewidth=0.5) + 
+geom_point(size=3.5, color="black", fill="red", alpha=0.8, shape=21) +
+facet_wrap(~set, ncol=2, scales = "free") +
+scale_x_continuous(limits = c(0,20)) +
+scale_y_continuous(limits = c(0,15)) +
+labs(x = NULL, y = NULL) +
+coord_cartesian(expand = F) +
+theme_minimal() +
+theme(strip.text = element_blank(),
+axis.text = element_blank(),
+panel.border = element_rect(linewidth = 0.1, fill = NA))
+```
+
+En cada regresión, $\hat{\beta_1}=0.5$
 

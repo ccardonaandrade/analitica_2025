@@ -1,0 +1,368 @@
+---
+title: Analítica de los Negocios
+author: Carlos Cardona Andrade
+subtitle: Quarto
+execute:
+  freeze: auto
+  echo: true
+  fig-width: 6
+  fig-height: 5
+format:
+  revealjs: 
+   theme: ../slides.scss
+   header-includes: |
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"/>
+   slide-number: true
+   show-slide-number: all
+   transition: fade
+   progress: true
+   multiplex: false
+   scrollable: false
+   preview-links: false
+   hide-inactive-cursor: true
+   highlight-style: printing
+   pause: true
+---
+
+
+## Quarto {.medium}
+
+::: columns
+::: {.column width="60%"}
+
+- Quarto es un entorno de trabajo que facilita estructurar un documento que reúna las salidas, tanto gráficas como de texto, junto con el código que las genera. 
+
+- El proceso involucra dos archivos: un **archivo fuente** y el **documento de salida** para la lectura.
+
+- Para referencias más elaboradas: [Quarto para R](https://quarto.org/docs/get-started/hello/rstudio.html) y [Guía de Quarto en Español](https://bookdown.org/gcorrea/Rpap/quarto.html)
+
+:::
+
+
+
+::: {.column .fragment width="40%"}
+
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+library(knitr)
+knitr::include_graphics("img/quarto_intro.png")
+
+```
+
+:::
+:::
+
+
+## Primer paso (super importante) {.medium}
+
+Para generar archivos pdf es necesario tener instalado un procesador de $\LaTeX$. Para esto, instalen el páquete `tinytex` y ejecuten la siguiente línea en la consola:
+
+```{r}
+#| eval: false
+#| echo: true
+library(tinytex)
+tinytex::install_tinytex()
+```
+
+. . .
+
+Hagan esto en su portátil también antes de usar Quarto por primera vez. Sólo tienen que ejecutar esto **una vez**.
+
+## Crear el documento en Quarto {.medium}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/quarto_1.png")
+
+```
+
+
+## Crear el documento en Quarto {.medium}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/quarto_2.png")
+
+```
+
+
+## Crear el documento en Quarto {.medium}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/quarto_3.png")
+
+```
+
+
+## Crear el documento en Quarto {.medium}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/quarto_4.png")
+
+```
+
+
+## Crear el documento en Quarto {.medium}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/quarto_5.png")
+
+```
+
+
+## Crear el documento en Quarto {.medium}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/quarto_6.png")
+
+```
+
+
+## Crear el documento en Quarto {.medium}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: "center"
+#| out-width: "100%"
+knitr::include_graphics("img/quarto_7.png")
+
+```
+
+## Componentes del documento {.medium}
+
+Los documentos de Quarto pueden estar conformados por tres tipos de contenidos:
+
+1. Un encabezado en formato YAML
+2. Fragmentos de código
+3. Texto
+
+## 1. Encabezado YAML {.medium}
+
+El encabezado en formato **YAML** (YAML Ain’t Markup Language) aparece al principio del documento de Quarto.
+
+Allí suelen incluirse:
+
+- metadatos (tales como título, autor y fecha)
+
+- opciones generales que determinan la edición y las salidas (tales como el modo de edición predeterminado, el formato de salida y el tamaño de las imágenes).
+
+
+## 1. Encabezado YAML {.medium}
+
+
+```{{r}}
+---
+title: "Hollywood Rules"
+author: "Carlos Cardona"
+format: pdf
+editor: visual
+---
+```
+
+## 2. Fragmentos de código {.medium}
+
+Tódo código debe ir dentro de ```` ```{r} ```` y ```` ``` ````:
+
+
+```{r}
+#| echo: fenced
+1 + 1
+```
+
+- Luego podemos ir agregándole opciones como `eval: false`:
+
+```{r}
+#| echo: fenced
+#| eval: false
+1 + 1
+```
+
+En este caso, la opción evita que el código se ejecute.
+
+
+
+## 2. Fragmentos de codigo {.medium}
+
+```{r}
+#| echo: fenced
+#| eval: true
+#| warning: true
+library(tidyverse)
+```
+
+:::{.fragment}
+¿Qué pasa si cambiamos la opción a `false`?
+
+```{r}
+#| echo: fenced
+#| eval: true
+#| warning: false
+library(tidyverse)
+```
+:::
+
+## 2. Fragmentos de código {.medium}
+
+
+- `eval: false` evita que el código se ejecute. (Y, obviamente, si el código no se ejecuta, no se generarán resultados). 
+
+- `include: false` ejecuta el código, pero no muestra ni el código ni los resultados en el documento final. 
+
+- `echo: false` oculta el código, pero no los resultados, en el archivo final. Úsalo cuando estés escribiendo informes para personas que no necesitan ver el código R subyacente.
+
+- `message: false` o `warning: false` evitan que los mensajes o advertencias aparezcan en el documento final.
+
+- `results: hide` oculta la salida impresa; `fig-show: hide` oculta las gráficas.
+
+- `error: true` permite que la renderización continúe incluso si el código genera un error.
+
+
+## 2. Fragmentos de código {.medium}
+
+::: {.tbl-classic .tbl-larger .center-text}
+
+
+| Option           | Run code | Show code | Output | Plots | Messages | Warnings |
+|------------------|:--------:|:---------:|:------:|:-----:|:--------:|:--------:|
+| `eval: false`    |    X     |           |   X    |   X   |    X     |    X     |
+| `include: false` |          |     X     |   X    |   X   |    X     |    X     |
+| `echo: false`    |          |     X     |        |       |          |          |
+| `results: hide`  |          |           |   X    |       |          |          |
+| `fig-show: hide` |          |           |        |   X   |          |          |
+| `message: false` |          |           |        |       |    X     |          |
+| `warning: false` |          |           |        |       |          |    X     |
+
+:::
+
+## 2. Fragmentos de código: Gráficas {.medium}
+
+```{r}
+#| echo: true
+library(gapminder)
+```
+
+Las opciones para las gráficas son:
+
+- `fig-align: center` para centrar la gráfica en el documento
+
+- `fig-width` y `fig-height` controlan el ancho y la altura de la gráfica. El ancho usual es `fig-width: 6` 
+
+- `out-width` ajusta el tamaño de la gráfica a un porcentaje del ancho documento de salida. Sugiero usar `out-width: "70%"`
+
+
+## 2. Fragmentos de código: Gráficas {.medium}
+
+```{r}
+#| echo: fenced
+#| fig-align: center
+ggplot(gapminder) +
+  geom_point(aes(x=gdpPercap, y=lifeExp)) +
+  theme_minimal()
+```
+
+
+## 2. Fragmentos de código: Gráficas {.medium}
+
+```{r}
+#| echo: fenced
+#| fig-align: center
+#| fig-width: 8
+ggplot(gapminder) +
+  geom_point(aes(x=gdpPercap, y=lifeExp)) +
+  theme_minimal()
+```
+
+
+
+## 3. Texto {.medium}
+
+### Títulos
+
+```{{r}}
+# TÍTULOS DE NIVEL 1
+
+## TÍTULOS DE NIVEL 2
+
+### TÍTULOS DE NIVEL 3
+
+```
+
+### Formato de Texto
+
+```{{r}}
+*itálica*
+
+**negrilla**
+
+***negrilla e itálica***
+
+~~tachado~~
+```
+
+
+## 3. Texto {.medium}
+
+### Listas
+
+```{{r}}
+-   Item 1
+
+-   Item 2
+
+    -   Item 2a
+
+    -   Item 2b
+
+1.  Item numerado 1
+
+2.  Item 2
+```
+
+
+## 3. Texto {.medium}
+
+### Imágenes
+
+```{{r}}
+![](img/quarto_intro.png){height="450" fig-align="center"}
+```
+
+![](img/quarto_intro.png){height="450" fig-align="center"}
+
+
+## 3. Texto {.medium}
+
+### Links
+
+```{{r}}
+[Página Principal de Wikipedia](http://wikipedia.com)
+```
+
+[Página Principal de Wikipedia](http://wikipedia.com)

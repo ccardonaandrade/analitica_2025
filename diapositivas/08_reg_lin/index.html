@@ -423,14 +423,6 @@ Carlos Cardona Andrade
 <h2>¿Por qué es importante graficar los datos?</h2>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-discovered-preview-image r-stretch quarto-figure-center" width="576"></section>
-<section id="por-qué-es-importante-graficar-los-datos-1" class="slide level2 medium">
-<h2>¿Por qué es importante graficar los datos?</h2>
-<ul>
-<li><p>Podemos utilizar un diagrama de dispersión para realizar un primer análisis de la relación entre dos variables</p></li>
-<li><p>El coeficiente de correlación (lineal) es utilizado para medir la fuerza de la asociación (lineal) entre dos variables</p></li>
-<li><p>La correlación entre el recaudo en US y el recaudo el primer fin de semana:</p></li>
-</ul>
-</section>
 <section id="cuarteto-de-anscombe" class="slide level2">
 <h2>Cuarteto de Anscombe</h2>
 <div class="cell">
@@ -658,7 +650,7 @@ IV
 <h2>Iguales pero diferentes</h2>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch quarto-figure-center"></section>
-<section id="por-qué-es-importante-graficar-los-datos-2" class="slide level2 medium">
+<section id="por-qué-es-importante-graficar-los-datos-1" class="slide level2 medium">
 <h2>¿Por qué es importante graficar los datos?</h2>
 <ul>
 <li><span class="hl hl-blue">Visualización de patrones</span>: Los gráficos permiten identificar tendencias, patrones y relaciones entre variables que pueden no ser evidentes solo con los números</li>
@@ -719,7 +711,7 @@ IV
 <h2>💪 Ejercicio 1</h2>
 <ol start="6" type="1">
 <li><p>Analicen las dos variables que tengan la correlación más alta y las que tengan la correlación más baja.</p></li>
-<li><p>Creen el gráfico de dispersión entre el recaudo total y el recaudo en el día del estreno como en la diapositiva 1. ¿Es consistente el gráfico con el valor de la correlación?</p></li>
+<li><p>Creen el gráfico de dispersión entre el recaudo total y el recaudo en el día del estreno como en la diapositiva 4. ¿Es consistente el gráfico con el valor de la correlación?</p></li>
 </ol>
 </section></section>
 <section>
@@ -739,13 +731,13 @@ IV
 <section id="por-qué-una-regresión-1" class="slide level2 medium">
 <h2>¿Por qué una regresión?</h2>
 <p><strong>Modelo de Regresión:</strong></p>
-<p><span class="math display">\[Promedio_i=\beta_0 + \beta_1H_i + \beta_2Saber11_i+\beta_3PCT_i+\varepsilon_i\]</span> Queremos estimar/evaluar la relación <span class="math display">\[Promedio=f(H,Saber11,PCA)\]</span></p>
+<p><span class="math display">\[Promedio_i=\beta_0 + \beta_1H_i + \beta_2Saber11_i+\beta_3PCT_i+e_i\]</span> Queremos estimar/evaluar la relación <span class="math display">\[Promedio=f(H,Saber11,PCA)\]</span></p>
 <div class="fragment">
 <p><strong>Preguntas a responder:</strong></p>
 <ul>
 <li><p>¿Cómo se interpretan <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\beta_2\)</span> y <span class="math inline">\(\beta_3\)</span>?</p></li>
 <li><p>¿Son los términos <span class="math inline">\(\beta_k\)</span> parámetros o son estimaciones muestrales?</p></li>
-<li><p>¿Qué es <span class="math inline">\(\varepsilon_i\)</span>?</p></li>
+<li><p>¿Qué es <span class="math inline">\(e_i\)</span>?</p></li>
 </ul>
 </div>
 </section>
@@ -933,12 +925,12 @@ y = -0.5x + 6
 <section id="partes-esenciales-de-una-regresión-ii" class="slide level2 medium">
 <h2>Partes esenciales de una regresión II</h2>
 <p><span class="math display">\[
-y = \beta_0 + \beta_1 x + \varepsilon
+y = \beta_0 + \beta_1 x + e
 \]</span></p>
 <ul>
 <li><p><span class="math inline">\(\beta_1\)</span>: la pendiente <span class="marker-hl">verdadera</span> de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
 <li><p><span class="math inline">\(\beta_0\)</span>: el intercepto <span class="marker-hl">verdadero</span> de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
-<li><p><span class="math inline">\(\varepsilon\)</span>: el error</p></li>
+<li><p><span class="math inline">\(e\)</span>: el error</p></li>
 </ul>
 </section>
 <section id="partes-esenciales-de-una-regresión-ii-1" class="slide level2 medium">
@@ -965,7 +957,7 @@ y = \beta_0 + \beta_1 x + \varepsilon
 <p><span class="math display">\[  
   \begin{aligned}
 y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
-  &amp;= \color{#0074D9}{f(x)} + \color{#FF851B}{\varepsilon}
+  &amp;= \color{#0074D9}{f(x)} + \color{#FF851B}{e}
 \end{aligned}
 \]</span></p>
 </div><div class="column" style="width:60%;">
@@ -1195,7 +1187,7 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 </section>
 <section id="interpretación-de-los-coeficientes" class="slide level2 medium">
 <h2>Interpretación de los coeficientes</h2>
-<p>Un incremento en una unidad de <span class="math inline">\(X\)</span> está <em>asociado</em> con un incremento (o reducción) promedio de <span class="math inline">\(\beta_1\)</span> unidades en <span class="math inline">\(Y\)</span></p>
+<p>Un incremento en una unidad de <span class="math inline">\(x\)</span> está <em>asociado</em> con un incremento (o reducción) promedio de <span class="math inline">\(\beta_1\)</span> unidades en <span class="math inline">\(y\)</span></p>
 <p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas\]</span></p>
 <p><span class="math display">\[\widehat{Felicidad} = 1.1 + 0.16 \times Galletas\]</span></p>
 <div>
@@ -1268,14 +1260,14 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <img data-src="index_files/figure-revealjs/unnamed-chunk-45-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="es-posible-la-extrapolación" class="slide level2 medium">
 <h2>¿Es posible la extrapolación?</h2>
-<p>Extrapolar es tratar de predecir Y fuera del rango de valores de X. Es posible pero no aconsejable.</p>
+<p>Extrapolar es tratar de predecir <span class="math inline">\(y\)</span> fuera del rango de valores de <span class="math inline">\(x\)</span>. Es posible pero no aconsejable.</p>
 
 <img data-src="index_files/figure-revealjs/unnamed-chunk-46-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="inferencia-de-los-coeficientes" class="slide level2 medium">
 <h2>Inferencia de los coeficientes</h2>
 <p>Cuando trabajamos con distribuciones muestrales, la idea era que:</p>
 <p><span class="math display">\[
-\bar{X} \xrightarrow{\text{🤞 ojalá 🤞}} \mu
+\bar{x} \xrightarrow{\text{🤞 ojalá 🤞}} \mu
 \]</span></p>
 <div class="fragment">
 <p>De igual manera, en el modelo de regresión queremos:</p>
@@ -1341,12 +1333,12 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 \]</span></p>
 </div>
 </section>
-<section id="cómo-pensar-visualmente-la-relación-yfx_1x_2varepsilon" class="slide level2 medium">
-<h2>¿Cómo pensar visualmente la relación <span class="math inline">\(y=f(x_1,x_2)+\varepsilon\)</span>?</h2>
+<section id="cómo-visualizar-la-relación-yfx_1x_2varepsilon" class="slide level2 medium">
+<h2>¿Cómo visualizar la relación <span class="math inline">\(y=f(x_1,x_2)+\varepsilon\)</span>?</h2>
 
 <img data-src="img/dots.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
-<section id="cómo-pensar-visualmente-la-recta-en-una-regresión-múltiple" class="slide level2 medium">
-<h2>¿Cómo pensar visualmente la “recta” en una regresión múltiple?</h2>
+<section id="cómo-visualizar-la-recta-en-una-regresión-múltiple" class="slide level2 medium">
+<h2>¿Cómo visualizar la “recta” en una regresión múltiple?</h2>
 
 <img data-src="img/plane.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
 <section id="variables-categóricas-vs-variables-continuas" class="slide level2 medium">
@@ -1541,6 +1533,12 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 \end{aligned}
 \]</span></p>
 <p>Manteniendo lo demás constante, estimamos que una trilogía tendrá, en promedio, un recaudo 15 millones de dólares menor que una primera entrega</p>
+</section>
+<section id="volvamos-a-anscombe" class="slide level2 medium">
+<h2>Volvamos a Anscombe…</h2>
+<p>Si estimamos <span class="math inline">\(\hat{y}=\hat{\beta_0} + \hat{\beta_1} \times x\)</span></p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-62-1.png" width="576" class="r-stretch quarto-figure-center"><p>En cada regresión, <span class="math inline">\(\hat{\beta_1}=0.5\)</span></p>
 <div class="footer footer-default">
 
 </div>
