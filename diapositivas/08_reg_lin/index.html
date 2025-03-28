@@ -1366,18 +1366,110 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <h2>Variables Categóricas vs Variables Continuas</h2>
 
 <img data-src="img/slider-switch-annotated-80.jpg" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
-<section id="ejemplo-de-felicidad-y-galletas" class="slide level2">
-<h2>Ejemplo de felicidad y galletas</h2>
+<section id="galletas-felicidad-estudiantes-y-profesores" class="slide level2 medium">
+<h2>Galletas, Felicidad, Estudiantes y Profesores</h2>
+<div class="tbl-classic tbl-larger center-text">
+<div class="cell">
+<div class="cell-output-display">
+<table class="table" data-quarto-postprocess="true" style="font-size: 25px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">galletas</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">felicidad</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">estudiante</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.5379049</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0.7539645</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.2617417</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.1141017</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1.2758575</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1.7430130</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1.6421832</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.3969878</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1.6626294</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.8608676</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2.3448164</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.3219628</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2.4801543</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2.5721365</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-53-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+
+</div>
+</div>
+</div>
+</section>
+<section id="galletas-y-felicidad-1" class="slide level2 medium">
+<h2>Galletas y Felicidad</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-54-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="qué-pasa-si-diferenciamos-entre-profesores-y-estudiantes" class="slide level2">
 <h2>¿Qué pasa si diferenciamos entre profesores y estudiantes?</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-54-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-55-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="ambos-grupos-parecen-tener-pendientes-diferentes" class="slide level2">
 <h2>Ambos grupos parecen tener pendientes diferentes…</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-55-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-56-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="variables-categóricas-1" class="slide level2 medium">
 <h2>Variables Categóricas</h2>
 <p>¿Cómo interpretar el modelo si agregamos una variable categórica <span class="math inline">\(Estudiante\)</span> que sea igual a 1 si la observación es de un estudiante?</p>
@@ -1393,6 +1485,9 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \times Estudiante\]</span></p>
 <p>El intercepto para las observaciones de los estudiantes será <span class="math inline">\(\hat{\beta_0}+\hat{\beta_2}\)</span> porque <span class="math inline">\(Estudiante=1\)</span></p>
 <p><span class="math display">\[\widehat{Felicidad}=\color{#FF851B}{\hat{\beta_0}}+\hat{\beta_1}\times Galletas+\color{#FF851B}{\hat{\beta_2}}\]</span></p>
+<div class="fragment">
+<p>En promedio, los estudiantes tienen un nivel de felicidad <span class="math inline">\(\hat{\beta_2}\)</span> más alto que los profesores (<span class="math inline">\(\hat{\beta_2}&gt;0\)</span> según la gráfica)</p>
+</div>
 </section>
 <section id="estimar-una-regresión-múltiple-en-r" class="slide level2 medium">
 <h2>Estimar una regresión múltiple en R</h2>
@@ -1537,7 +1632,7 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <h2>Volvamos a Anscombe…</h2>
 <p>Si estimamos <span class="math inline">\(\hat{y}=\hat{\beta_0} + \hat{\beta_1} \times x\)</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-62-1.png" width="576" class="r-stretch quarto-figure-center"><p>En cada regresión, <span class="math inline">\(\hat{\beta_1}=0.5\)</span>. <span class="hl hl-dred">Graficar los datos es crucial!</span></p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-63-1.png" width="576" class="r-stretch quarto-figure-center"><p>En cada regresión, <span class="math inline">\(\hat{\beta_1}=0.5\)</span>. <span class="hl hl-dred">Graficar los datos es crucial!</span></p>
 <div class="footer footer-default">
 
 </div>

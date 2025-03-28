@@ -1403,7 +1403,38 @@ knitr::include_graphics("img/slider-switch-annotated-80.jpg")
 ```
 
 
-## Ejemplo de felicidad y galletas
+## Galletas, Felicidad, Estudiantes y Profesores {.medium}
+
+::: {.tbl-classic .tbl-larger .center-text}
+
+
+```{r}
+#| echo: false
+#| eval: true
+
+set.seed(123)
+
+# Create a tibble with the same slope but different intercepts for professors and students, adding noise
+cookies_data <- tibble(
+  galletas = rep(1:7, 2),  # Galletas consumidas (1 through 7 for both groups)
+  grupo = rep(c("Profesores", "Estudiantes"), each = 7),  # Group variable
+  felicidad = c(0.5 + 0.15 * (1:7) + rnorm(7, sd = 0.2),  # Happiness for professors with noise
+                1.5 + 0.15 * (1:7) + rnorm(7, sd = 0.2))  # Happiness for students with noise
+)
+
+cookies_data2 <- cookies_data |>
+  mutate(estudiante=ifelse(grupo=="Estudiantes", 1, 0)) |>
+  select(galletas, felicidad, estudiante)
+
+cookies_data2 |> 
+  knitr::kable(format = "html") |> 
+  kableExtra::kable_styling(font_size = 25) # Adjust the font size as needed
+```
+
+:::
+
+
+## Galletas y Felicidad {.medium}
 
 ```{r}
 #| echo: false
@@ -1412,18 +1443,8 @@ knitr::include_graphics("img/slider-switch-annotated-80.jpg")
 #| fig-width: 8
 #| fig-height: 4
 
-set.seed(123)
 
-# Create a tibble with the same slope but different intercepts for professors and students, adding noise
-cookies_data <- tibble(
-  cookies = rep(1:7, 2),  # Galletas consumidas (1 through 7 for both groups)
-  group = rep(c("Profesores", "Estudiantes"), each = 7),  # Group variable
-  happiness = c(0.5 + 0.15 * (1:7) + rnorm(7, sd = 0.2),  # Happiness for professors with noise
-                1.5 + 0.15 * (1:7) + rnorm(7, sd = 0.2))  # Happiness for students with noise
-)
-
-
-ggplot(cookies_data, aes(x = cookies, y = happiness)) +
+ggplot(cookies_data, aes(x = galletas, y = felicidad)) +
   geom_point( size = 3) +  # Points still colored by group for clarity
   geom_smooth(method = "lm", se = FALSE, color = "#0074D9") +  # Single regression line for the entire dataset
   labs(x = "Galletas consumidas", y = "Nivel de Felicidad") +
@@ -1436,6 +1457,8 @@ ggplot(cookies_data, aes(x = cookies, y = happiness)) +
 ```
 
 
+
+
 ## ¿Qué pasa si diferenciamos entre profesores y estudiantes?
 
 ```{r}
@@ -1445,8 +1468,8 @@ ggplot(cookies_data, aes(x = cookies, y = happiness)) +
 #| fig-width: 8
 #| fig-height: 4
 
-ggplot(cookies_data, aes(x = cookies, y = happiness)) +
-  geom_point(aes(color = group), size = 3) +  # Points still colored by group for clarity
+ggplot(cookies_data, aes(x = galletas, y = felicidad)) +
+  geom_point(aes(color = grupo), size = 3) +  # Points still colored by group for clarity
   geom_smooth(method = "lm", se = FALSE, color = "#0074D9") +  # Single regression line for the entire dataset
   labs(x = "Galletas consumidas", y = "Nivel de Felicidad", color = "Grupo") +
   theme_minimal(base_size = 14) +
@@ -1468,7 +1491,7 @@ ggplot(cookies_data, aes(x = cookies, y = happiness)) +
 #| fig-width: 8
 #| fig-height: 4
 
-ggplot(cookies_data, aes(x = cookies, y = happiness, color = group)) +
+ggplot(cookies_data, aes(x = galletas, y = felicidad, color = grupo)) +
   geom_point(size = 3) +
   geom_smooth(method = "lm", se = FALSE) +  # Add linear regression lines
   labs(x = "Galletas consumidas", y = "Nivel de Felicidad", color = "Grupo") +
@@ -1506,6 +1529,10 @@ $$\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \
 El intercepto para las observaciones de los estudiantes será $\hat{\beta_0}+\hat{\beta_2}$ porque $Estudiante=1$
 
 $$\widehat{Felicidad}=\color{#FF851B}{\hat{\beta_0}}+\hat{\beta_1}\times Galletas+\color{#FF851B}{\hat{\beta_2}}$$
+
+:::{.fragment}
+En promedio, los estudiantes tienen un nivel de felicidad $\hat{\beta_2}$ más alto que los profesores ($\hat{\beta_2}>0$ según la gráfica)
+:::
 
 
 ## Estimar una regresión múltiple en R {.medium}
