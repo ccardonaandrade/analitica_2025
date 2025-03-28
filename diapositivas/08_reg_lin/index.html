@@ -925,7 +925,7 @@ y = -0.5x + 6
 <section id="partes-esenciales-de-una-regresión-ii" class="slide level2 medium">
 <h2>Partes esenciales de una regresión II</h2>
 <p><span class="math display">\[
-y = \beta_0 + \beta_1 x + e
+y_i = \beta_0 + \beta_1 x_i + e
 \]</span></p>
 <ul>
 <li><p><span class="math inline">\(\beta_1\)</span>: la pendiente <span class="marker-hl">verdadera</span> de la relación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span></p></li>
@@ -936,7 +936,7 @@ y = \beta_0 + \beta_1 x + e
 <section id="partes-esenciales-de-una-regresión-ii-1" class="slide level2 medium">
 <h2>Partes esenciales de una regresión II</h2>
 <p><span class="math display">\[
-\hat{y} = \hat{\beta_0} + \hat{\beta_1} x
+\hat{y}_i = \hat{\beta_0} + \hat{\beta_1} x_i
 \]</span></p>
 <ul>
 <li><p><span class="math inline">\(\hat{y}\)</span>: es la estimación de la variable dependiente dado nuestro modelo</p></li>
@@ -1192,7 +1192,7 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <p><span class="math display">\[\widehat{Felicidad} = 1.1 + 0.16 \times Galletas\]</span></p>
 <div>
 <ul>
-<li class="fragment"><p>En <em>promedio</em>, una galleta adicional está asociado a aumento en la felicidad de 0.16 unidades</p></li>
+<li class="fragment"><p>En <em>promedio</em>, una galleta adicional está asociado a un aumento en la felicidad de 0.16 unidades</p></li>
 <li class="fragment"><p>Si no hay consumo de galletas, esperamos que el puntaje de felicidad sea 1.1 unidades</p></li>
 </ul>
 </div>
@@ -1311,6 +1311,9 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 [1,]    TRUE</code></pre>
 </div>
 </div>
+<ul>
+<li>El intervalo de confianza al 95% no incluye el cero</li>
+</ul>
 </div>
 </section></section>
 <section>
@@ -1380,9 +1383,7 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <p>¿Cómo interpretar el modelo si agregamos una variable categórica <span class="math inline">\(Estudiante\)</span> que sea igual a 1 si la observación es de un estudiante?</p>
 <p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \times Estudiante\]</span></p>
 <div class="fragment">
-<ul>
-<li>El intercepto para las observaciones de los profesores será <span class="math inline">\(\hat{\beta_0}\)</span> porque <span class="math inline">\(Estudiante=0\)</span></li>
-</ul>
+<p>El intercepto para las observaciones de los profesores será <span class="math inline">\(\hat{\beta_0}\)</span> porque <span class="math inline">\(Estudiante=0\)</span></p>
 <p><span class="math display">\[\widehat{Felicidad}=\color{#FF851B}{\hat{\beta_0}}+\hat{\beta_1}\times Galletas\]</span></p>
 </div>
 </section>
@@ -1390,9 +1391,7 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <h2>Variables Categóricas</h2>
 <p>¿Cómo interpretar el modelo si agregamos una variable categórica <span class="math inline">\(Estudiante\)</span> que sea igual a 1 si la observación es de un estudiante?</p>
 <p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \times Estudiante\]</span></p>
-<ul>
-<li>El intercepto para las observaciones de los estudiantes será <span class="math inline">\(\hat{\beta_0}+\hat{\beta_2}\)</span> porque <span class="math inline">\(Estudiante=1\)</span></li>
-</ul>
+<p>El intercepto para las observaciones de los estudiantes será <span class="math inline">\(\hat{\beta_0}+\hat{\beta_2}\)</span> porque <span class="math inline">\(Estudiante=1\)</span></p>
 <p><span class="math display">\[\widehat{Felicidad}=\color{#FF851B}{\hat{\beta_0}}+\hat{\beta_1}\times Galletas+\color{#FF851B}{\hat{\beta_2}}\]</span></p>
 </section>
 <section id="estimar-una-regresión-múltiple-en-r" class="slide level2 medium">
@@ -1463,7 +1462,7 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <ul>
 <li>El error para “The Holiday” será:</li>
 </ul>
-<p><span class="math display">\[e=y - \hat{y}\]</span></p>
+<p><span class="math display">\[e=y - \hat{y}= \text{US Gross} - \widehat{\text{US Gross}}\]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>y <span class="sc">-</span> y_gorro</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1538,7 +1537,7 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <h2>Volvamos a Anscombe…</h2>
 <p>Si estimamos <span class="math inline">\(\hat{y}=\hat{\beta_0} + \hat{\beta_1} \times x\)</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-62-1.png" width="576" class="r-stretch quarto-figure-center"><p>En cada regresión, <span class="math inline">\(\hat{\beta_1}=0.5\)</span></p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-62-1.png" width="576" class="r-stretch quarto-figure-center"><p>En cada regresión, <span class="math inline">\(\hat{\beta_1}=0.5\)</span>. <span class="hl hl-dred">Graficar los datos es crucial!</span></p>
 <div class="footer footer-default">
 
 </div>
