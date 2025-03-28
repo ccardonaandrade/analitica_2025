@@ -34,7 +34,7 @@ format:
 
 - El proceso involucra dos archivos: un **archivo fuente** y el **documento de salida** para la lectura.
 
-- Para referencias más elaboradas: [Quarto para R](https://quarto.org/docs/get-started/hello/rstudio.html) y [Guía de Quarto en Español](https://bookdown.org/gcorrea/Rpap/quarto.html)
+- Para referencias más elaboradas: [Quarto para R](https://quarto.org/docs/get-started/hello/rstudio.html){target="_blank"}, [Quarto in R4DS](https://r4ds.hadley.nz/quarto.html){target="_blank"} y [Guía de Quarto en Español](https://bookdown.org/gcorrea/Rpap/quarto.html){target="_blank"}
 
 :::
 
@@ -56,10 +56,61 @@ knitr::include_graphics("img/quarto_intro.png")
 :::
 :::
 
+## Primer paso: Latex {.medium}
 
-## Primer paso (super importante) {.medium}
+$\LaTeX$ es una herramienta para la composición de documentos con apariencia profesional. Sin embargo, su manejo es bastante diferente al de muchas otras aplicaciones como Microsoft Word.
 
-Para generar archivos pdf es necesario tener instalado un procesador de $\LaTeX$. Para esto, instalen el páquete `tinytex` y ejecuten la siguiente línea en la consola:
+Uno puede escribir ecuaciones:
+
+::: columns
+::: {.column width="55%"}
+``` tex
+y_i = \beta_0 + \beta_1 x_i + e_i
+
+```
+:::
+
+::: {.column width="45%"}
+$y_i = \beta_0 + \beta_1 x_i + e_i$
+
+:::
+:::
+
+
+O sistemas de ecuaciones:
+
+::: columns
+::: {.column width="55%"}
+``` tex
+\begin{align}
+a_{11}& =b_{11}&
+  a_{12}& =b_{12}\\
+a_{21}& =b_{21}&
+  a_{22}& =b_{22}+c_{22}
+\end{align}
+```
+
+
+:::
+
+::: {.column width="45%"}
+$\begin{align}
+a_{11}& =b_{11}&
+  a_{12}& =b_{12}\\
+a_{21}& =b_{21}&
+  a_{22}& =b_{22}+c_{22}
+\end{align}$
+
+:::
+:::
+
+[Latex en 30 minutos](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes){target="_blank"} es un buen sitio para aprender rápido.
+
+
+
+## Primer paso: Latex en R {.medium}
+
+Para generar archivos pdf es necesario tener instalado un procesador de $\LaTeX$. Para esto, instalen el páquete `tinytex` y ejecuten las siguientes líneas de código en la consola:
 
 ```{r}
 #| eval: false
@@ -70,7 +121,11 @@ tinytex::install_tinytex()
 
 . . .
 
-Hagan esto en su portátil también antes de usar Quarto por primera vez. Sólo tienen que ejecutar esto **una vez**.
+Hagan esto en su portátil también antes de usar Quarto por primera vez. **Sólo tienen que ejecutar esto una vez**.
+
+
+
+
 
 ## Crear el documento en Quarto {.medium}
 
@@ -96,7 +151,7 @@ knitr::include_graphics("img/quarto_2.png")
 ```
 
 
-## Crear el documento en Quarto {.medium}
+## Crear el documento en Quarto: Source Editor {.medium}
 
 ```{r}
 #| eval: true
@@ -106,6 +161,8 @@ knitr::include_graphics("img/quarto_2.png")
 knitr::include_graphics("img/quarto_3.png")
 
 ```
+
+Mi recomendación es mantenerse en el editor fuente (**Source**)
 
 
 ## Crear el documento en Quarto {.medium}
@@ -120,7 +177,7 @@ knitr::include_graphics("img/quarto_4.png")
 ```
 
 
-## Crear el documento en Quarto {.medium}
+## Crear el documento en Quarto: formato .qmd {.medium}
 
 ```{r}
 #| eval: true
@@ -132,7 +189,7 @@ knitr::include_graphics("img/quarto_5.png")
 ```
 
 
-## Crear el documento en Quarto {.medium}
+## Crear el documento en Quarto: Render {.medium}
 
 ```{r}
 #| eval: true
@@ -144,7 +201,7 @@ knitr::include_graphics("img/quarto_6.png")
 ```
 
 
-## Crear el documento en Quarto {.medium}
+## Crear el documento en Quarto: Documento Salida {.medium}
 
 ```{r}
 #| eval: true
@@ -154,6 +211,11 @@ knitr::include_graphics("img/quarto_6.png")
 knitr::include_graphics("img/quarto_7.png")
 
 ```
+
+
+::: {.absolute bottom="10%" left="10%" width="800px" .textbox .fragment .fade-up style="font-size:1.7rem;padding:0.5rem 1rem;" .altlist}
+Deben cerrar el documento salida cada vez que van a renderizar
+:::
 
 ## Componentes del documento {.medium}
 
@@ -185,6 +247,29 @@ format: pdf
 editor: visual
 ---
 ```
+
+. . .
+
+Este encabezado es muy susceptible a los espacios. Por ejemplo:
+
+```{{r}}
+---
+title: "Análisis de Datos de Café"
+
+lang: es
+
+format: 
+  closeread-html:
+   css: msaz.css
+   code-tools: false
+   fig-format: svg
+   toc: true
+   linkcolor: tomato
+---
+```
+
+Si van a trabajar en español, les recomendaría añadir la opción `lang: es`.
+
 
 ## 2. Fragmentos de código {.medium}
 
@@ -228,7 +313,7 @@ library(tidyverse)
 ```
 :::
 
-## 2. Fragmentos de código {.medium}
+## 2. Fragmentos de código: Opciones {.medium}
 
 
 - `eval: false` evita que el código se ejecute. (Y, obviamente, si el código no se ejecuta, no se generarán resultados). 
@@ -246,6 +331,8 @@ library(tidyverse)
 
 ## 2. Fragmentos de código {.medium}
 
+La siguiente tabla resume qué tipos de salida suprime cada opción:
+
 ::: {.tbl-classic .tbl-larger .center-text}
 
 
@@ -261,7 +348,14 @@ library(tidyverse)
 
 :::
 
+. . .
+
+De estas opciones usualmente sólo utilizo `echo` y `eval`.
+
+
 ## 2. Fragmentos de código: Gráficas {.medium}
+
+Voy a utilizar el paquete `gapminder` para crear algunas gráficas:
 
 ```{r}
 #| echo: true
@@ -274,7 +368,16 @@ Las opciones para las gráficas son:
 
 - `fig-width` y `fig-height` controlan el ancho y la altura de la gráfica. El ancho usual es `fig-width: 6` 
 
-- `out-width` ajusta el tamaño de la gráfica a un porcentaje del ancho documento de salida. Sugiero usar `out-width: "70%"`
+- `out-width` ajusta el tamaño de la gráfica a un porcentaje del ancho documento de salida. Sugiero empezar usando `out-width: "70%"` y luego ustedes ajustan
+
+## 2. Fragmentos de código: Gráficas {.medium}
+
+```{r}
+#| echo: fenced
+ggplot(gapminder) +
+  geom_point(aes(x=gdpPercap, y=lifeExp)) +
+  theme_minimal()
+```
 
 
 ## 2. Fragmentos de código: Gráficas {.medium}
@@ -293,7 +396,7 @@ ggplot(gapminder) +
 ```{r}
 #| echo: fenced
 #| fig-align: center
-#| fig-width: 8
+#| fig-width: 10
 ggplot(gapminder) +
   geom_point(aes(x=gdpPercap, y=lifeExp)) +
   theme_minimal()
@@ -351,11 +454,21 @@ ggplot(gapminder) +
 ### Imágenes
 
 ```{{r}}
+![Imagen de Quarto](img/quarto_intro.png){height="450" fig-align="center"}
+```
+
+![Imagen de Quarto](img/quarto_intro.png){height="450" fig-align="center"}
+
+## 3. Texto {.medium}
+
+### Imágenes
+
+
+```{{r}}
 ![](img/quarto_intro.png){height="450" fig-align="center"}
 ```
 
 ![](img/quarto_intro.png){height="450" fig-align="center"}
-
 
 ## 3. Texto {.medium}
 
@@ -366,3 +479,12 @@ ggplot(gapminder) +
 ```
 
 [Página Principal de Wikipedia](http://wikipedia.com)
+
+- La opción `{target="_blank"}` abre una nueva ventana:
+
+
+```{{r}}
+[Página Principal de Wikipedia](http://wikipedia.com){target="_blank"}
+```
+
+[Página Principal de Wikipedia](http://wikipedia.com){target="_blank"}

@@ -410,7 +410,7 @@ Carlos Cardona Andrade
 <ul>
 <li><p>Quarto es un entorno de trabajo que facilita estructurar un documento que reúna las salidas, tanto gráficas como de texto, junto con el código que las genera.</p></li>
 <li><p>El proceso involucra dos archivos: un <strong>archivo fuente</strong> y el <strong>documento de salida</strong> para la lectura.</p></li>
-<li><p>Para referencias más elaboradas: <a href="https://quarto.org/docs/get-started/hello/rstudio.html">Quarto para R</a> y <a href="https://bookdown.org/gcorrea/Rpap/quarto.html">Guía de Quarto en Español</a></p></li>
+<li><p>Para referencias más elaboradas: <a href="https://quarto.org/docs/get-started/hello/rstudio.html" target="_blank">Quarto para R</a>, <a href="https://r4ds.hadley.nz/quarto.html" target="_blank">Quarto in R4DS</a> y <a href="https://bookdown.org/gcorrea/Rpap/quarto.html" target="_blank">Guía de Quarto en Español</a></p></li>
 </ul>
 </div><div class="column fragment" style="width:40%;">
 <div class="cell" data-layout-align="center">
@@ -425,15 +425,41 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
-<section id="primer-paso-super-importante" class="slide level2 medium">
-<h2>Primer paso (super importante)</h2>
-<p>Para generar archivos pdf es necesario tener instalado un procesador de <span class="math inline">\(\LaTeX\)</span>. Para esto, instalen el páquete <code>tinytex</code> y ejecuten la siguiente línea en la consola:</p>
+<section id="primer-paso-latex" class="slide level2 medium">
+<h2>Primer paso: Latex</h2>
+<p><span class="math inline">\(\LaTeX\)</span> es una herramienta para la composición de documentos con apariencia profesional. Sin embargo, su manejo es bastante diferente al de muchas otras aplicaciones como Microsoft Word.</p>
+<p>Uno puede escribir ecuaciones:</p>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1"></a>y_i = <span class="fu">\beta</span>_0 + <span class="fu">\beta</span>_1 x_i + e_i</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:45%;">
+<p><span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + e_i\)</span></p>
+</div>
+</div>
+<p>O sistemas de ecuaciones:</p>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource tex number-lines code-with-copy"><code class="sourceCode latex"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">\begin</span>{<span class="ex">align</span>}</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="ss">a_{11}&amp; =b_{11}&amp;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="ss">  a_{12}&amp; =b_{12}</span><span class="sc">\\</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="ss">a_{21}&amp; =b_{21}&amp;</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="ss">  a_{22}&amp; =b_{22}+c_{22}</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">\end</span>{<span class="ex">align</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:45%;">
+<p><span class="math inline">\(\begin{align} a_{11}&amp; =b_{11}&amp;  a_{12}&amp; =b_{12}\\ a_{21}&amp; =b_{21}&amp;  a_{22}&amp; =b_{22}+c_{22} \end{align}\)</span></p>
+</div>
+</div>
+<p><a href="https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes" target="_blank">Latex en 30 minutos</a> es un buen sitio para aprender rápido.</p>
+</section>
+<section id="primer-paso-latex-en-r" class="slide level2 medium">
+<h2>Primer paso: Latex en R</h2>
+<p>Para generar archivos pdf es necesario tener instalado un procesador de <span class="math inline">\(\LaTeX\)</span>. Para esto, instalen el páquete <code>tinytex</code> y ejecuten las siguientes líneas de código en la consola:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tinytex)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>tinytex<span class="sc">::</span><span class="fu">install_tinytex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(tinytex)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>tinytex<span class="sc">::</span><span class="fu">install_tinytex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<p>Hagan esto en su portátil también antes de usar Quarto por primera vez. Sólo tienen que ejecutar esto <strong>una vez</strong>.</p>
+<p>Hagan esto en su portátil también antes de usar Quarto por primera vez. <strong>Sólo tienen que ejecutar esto una vez</strong>.</p>
 </div>
 </section>
 <section id="crear-el-documento-en-quarto" class="slide level2 medium">
@@ -444,26 +470,30 @@ Carlos Cardona Andrade
 <h2>Crear el documento en Quarto</h2>
 
 <img data-src="img/quarto_2.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<section id="crear-el-documento-en-quarto-source-editor" class="slide level2 medium">
+<h2>Crear el documento en Quarto: Source Editor</h2>
+
+<img data-src="img/quarto_3.png" style="width:100.0%" class="r-stretch quarto-figure-center"><p>Mi recomendación es mantenerse en el editor fuente (<strong>Source</strong>)</p>
+</section>
 <section id="crear-el-documento-en-quarto-2" class="slide level2 medium">
 <h2>Crear el documento en Quarto</h2>
 
-<img data-src="img/quarto_3.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
-<section id="crear-el-documento-en-quarto-3" class="slide level2 medium">
-<h2>Crear el documento en Quarto</h2>
-
 <img data-src="img/quarto_4.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
-<section id="crear-el-documento-en-quarto-4" class="slide level2 medium">
-<h2>Crear el documento en Quarto</h2>
+<section id="crear-el-documento-en-quarto-formato-.qmd" class="slide level2 medium">
+<h2>Crear el documento en Quarto: formato .qmd</h2>
 
 <img data-src="img/quarto_5.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
-<section id="crear-el-documento-en-quarto-5" class="slide level2 medium">
-<h2>Crear el documento en Quarto</h2>
+<section id="crear-el-documento-en-quarto-render" class="slide level2 medium">
+<h2>Crear el documento en Quarto: Render</h2>
 
 <img data-src="img/quarto_6.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
-<section id="crear-el-documento-en-quarto-6" class="slide level2 medium">
-<h2>Crear el documento en Quarto</h2>
+<section id="crear-el-documento-en-quarto-documento-salida" class="slide level2 medium">
+<h2>Crear el documento en Quarto: Documento Salida</h2>
 
-<img data-src="img/quarto_7.png" style="width:100.0%" class="r-stretch quarto-figure-center"></section>
+<img data-src="img/quarto_7.png" style="width:100.0%" class="r-stretch quarto-figure-center"><div class="absolute textbox fragment fade-up altlist" style="font-size:1.7rem;padding:0.5rem 1rem;left: 10%; bottom: 10%; width: 800px; ">
+<p>Deben cerrar el documento salida cada vez que van a renderizar</p>
+</div>
+</section>
 <section id="componentes-del-documento" class="slide level2 medium">
 <h2>Componentes del documento</h2>
 <p>Los documentos de Quarto pueden estar conformados por tres tipos de contenidos:</p>
@@ -484,20 +514,37 @@ Carlos Cardona Andrade
 </section>
 <section id="encabezado-yaml-1" class="slide level2 medium">
 <h2>1. Encabezado YAML</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href="#cb2-1"></a>---</span>
-<span id="cb2-2"><a href="#cb2-2"></a>title: "Hollywood Rules"</span>
-<span id="cb2-3"><a href="#cb2-3"></a>author: "Carlos Cardona"</span>
-<span id="cb2-4"><a href="#cb2-4"></a>format: pdf</span>
-<span id="cb2-5"><a href="#cb2-5"></a>editor: visual</span>
-<span id="cb2-6"><a href="#cb2-6"></a>---</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>---</span>
+<span id="cb4-2"><a href="#cb4-2"></a>title: "Hollywood Rules"</span>
+<span id="cb4-3"><a href="#cb4-3"></a>author: "Carlos Cardona"</span>
+<span id="cb4-4"><a href="#cb4-4"></a>format: pdf</span>
+<span id="cb4-5"><a href="#cb4-5"></a>editor: visual</span>
+<span id="cb4-6"><a href="#cb4-6"></a>---</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p>Este encabezado es muy susceptible a los espacios. Por ejemplo:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href="#cb5-1"></a>---</span>
+<span id="cb5-2"><a href="#cb5-2"></a>title: "Análisis de Datos de Café"</span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a>lang: es</span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a>format: </span>
+<span id="cb5-7"><a href="#cb5-7"></a>  closeread-html:</span>
+<span id="cb5-8"><a href="#cb5-8"></a>   css: msaz.css</span>
+<span id="cb5-9"><a href="#cb5-9"></a>   code-tools: false</span>
+<span id="cb5-10"><a href="#cb5-10"></a>   fig-format: svg</span>
+<span id="cb5-11"><a href="#cb5-11"></a>   toc: true</span>
+<span id="cb5-12"><a href="#cb5-12"></a>   linkcolor: tomato</span>
+<span id="cb5-13"><a href="#cb5-13"></a>---</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Si van a trabajar en español, les recomendaría añadir la opción <code>lang: es</code>.</p>
+</div>
 </section>
 <section id="fragmentos-de-código" class="slide level2 medium">
 <h2>2. Fragmentos de código</h2>
 <p>Tódo código debe ir dentro de <code>```{r}</code> y <code>```</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
@@ -506,21 +553,21 @@ Carlos Cardona Andrade
 <li>Luego podemos ir agregándole opciones como <code>eval: false</code>:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#| eval: false</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="co">#| eval: false</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>En este caso, la opción evita que el código se ejecute.</p>
 </section>
 <section id="fragmentos-de-codigo" class="slide level2 medium">
 <h2>2. Fragmentos de codigo</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#| eval: true</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#| warning: true</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co">#| eval: true</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co">#| warning: true</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -537,16 +584,16 @@ Carlos Cardona Andrade
 <div class="fragment">
 <p>¿Qué pasa si cambiamos la opción a <code>false</code>?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a><span class="in">```{r}</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="co">#| eval: true</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#| warning: false</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co">#| eval: true</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co">#| warning: false</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
-<section id="fragmentos-de-código-1" class="slide level2 medium">
-<h2>2. Fragmentos de código</h2>
+<section id="fragmentos-de-código-opciones" class="slide level2 medium">
+<h2>2. Fragmentos de código: Opciones</h2>
 <ul>
 <li><p><code>eval: false</code> evita que el código se ejecute. (Y, obviamente, si el código no se ejecuta, no se generarán resultados).</p></li>
 <li><p><code>include: false</code> ejecuta el código, pero no muestra ni el código ni los resultados en el documento final.</p></li>
@@ -556,8 +603,9 @@ Carlos Cardona Andrade
 <li><p><code>error: true</code> permite que la renderización continúe incluso si el código genera un error.</p></li>
 </ul>
 </section>
-<section id="fragmentos-de-código-2" class="slide level2 medium">
+<section id="fragmentos-de-código-1" class="slide level2 medium">
 <h2>2. Fragmentos de código</h2>
+<p>La siguiente tabla resume qué tipos de salida suprime cada opción:</p>
 <div class="tbl-classic tbl-larger center-text">
 <table>
 <colgroup>
@@ -647,91 +695,122 @@ Carlos Cardona Andrade
 </tbody>
 </table>
 </div>
+<div class="fragment">
+<p>De estas opciones usualmente sólo utilizo <code>echo</code> y <code>eval</code>.</p>
+</div>
 </section>
 <section id="fragmentos-de-código-gráficas" class="slide level2 medium">
 <h2>2. Fragmentos de código: Gráficas</h2>
+<p>Voy a utilizar el paquete <code>gapminder</code> para crear algunas gráficas:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">library</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Las opciones para las gráficas son:</p>
 <ul>
 <li><p><code>fig-align: center</code> para centrar la gráfica en el documento</p></li>
 <li><p><code>fig-width</code> y <code>fig-height</code> controlan el ancho y la altura de la gráfica. El ancho usual es <code>fig-width: 6</code></p></li>
-<li><p><code>out-width</code> ajusta el tamaño de la gráfica a un porcentaje del ancho documento de salida. Sugiero usar <code>out-width: "70%"</code></p></li>
+<li><p><code>out-width</code> ajusta el tamaño de la gráfica a un porcentaje del ancho documento de salida. Sugiero empezar usando <code>out-width: "70%"</code> y luego ustedes ajustan</p></li>
 </ul>
 </section>
 <section id="fragmentos-de-código-gráficas-1" class="slide level2 medium">
 <h2>2. Fragmentos de código: Gráficas</h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#| fig-align: center</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>gdpPercap, <span class="at">y=</span>lifeExp)) <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>gdpPercap, <span class="at">y=</span>lifeExp)) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="576" class="r-stretch"></section>
 <section id="fragmentos-de-código-gráficas-2" class="slide level2 medium">
 <h2>2. Fragmentos de código: Gráficas</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1"></a><span class="in">```{r}</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="co">#| fig-align: center</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="co">#| fig-width: 8</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>gdpPercap, <span class="at">y=</span>lifeExp)) <span class="sc">+</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb11-7"><a href="#cb11-7"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>gdpPercap, <span class="at">y=</span>lifeExp)) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="fragmentos-de-código-gráficas-3" class="slide level2 medium">
+<h2>2. Fragmentos de código: Gráficas</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1"></a><span class="in">```{r}</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#| fig-align: center</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>gdpPercap, <span class="at">y=</span>lifeExp)) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="texto" class="slide level2 medium">
 <h2>3. Texto</h2>
 <h3 id="títulos">Títulos</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb12-1"><a href="#cb12-1"></a># TÍTULOS DE NIVEL 1</span>
-<span id="cb12-2"><a href="#cb12-2"></a></span>
-<span id="cb12-3"><a href="#cb12-3"></a>## TÍTULOS DE NIVEL 2</span>
-<span id="cb12-4"><a href="#cb12-4"></a></span>
-<span id="cb12-5"><a href="#cb12-5"></a>### TÍTULOS DE NIVEL 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb16-1"><a href="#cb16-1"></a># TÍTULOS DE NIVEL 1</span>
+<span id="cb16-2"><a href="#cb16-2"></a></span>
+<span id="cb16-3"><a href="#cb16-3"></a>## TÍTULOS DE NIVEL 2</span>
+<span id="cb16-4"><a href="#cb16-4"></a></span>
+<span id="cb16-5"><a href="#cb16-5"></a>### TÍTULOS DE NIVEL 3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <h3 id="formato-de-texto">Formato de Texto</h3>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb13-1"><a href="#cb13-1"></a>*itálica*</span>
-<span id="cb13-2"><a href="#cb13-2"></a></span>
-<span id="cb13-3"><a href="#cb13-3"></a>**negrilla**</span>
-<span id="cb13-4"><a href="#cb13-4"></a></span>
-<span id="cb13-5"><a href="#cb13-5"></a>***negrilla e itálica***</span>
-<span id="cb13-6"><a href="#cb13-6"></a></span>
-<span id="cb13-7"><a href="#cb13-7"></a>~~tachado~~</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb17-1"><a href="#cb17-1"></a>*itálica*</span>
+<span id="cb17-2"><a href="#cb17-2"></a></span>
+<span id="cb17-3"><a href="#cb17-3"></a>**negrilla**</span>
+<span id="cb17-4"><a href="#cb17-4"></a></span>
+<span id="cb17-5"><a href="#cb17-5"></a>***negrilla e itálica***</span>
+<span id="cb17-6"><a href="#cb17-6"></a></span>
+<span id="cb17-7"><a href="#cb17-7"></a>~~tachado~~</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="texto-1" class="slide level2 medium">
 <h2>3. Texto</h2>
 <h3 id="listas">Listas</h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb14-1"><a href="#cb14-1"></a>-   Item 1</span>
-<span id="cb14-2"><a href="#cb14-2"></a></span>
-<span id="cb14-3"><a href="#cb14-3"></a>-   Item 2</span>
-<span id="cb14-4"><a href="#cb14-4"></a></span>
-<span id="cb14-5"><a href="#cb14-5"></a>    -   Item 2a</span>
-<span id="cb14-6"><a href="#cb14-6"></a></span>
-<span id="cb14-7"><a href="#cb14-7"></a>    -   Item 2b</span>
-<span id="cb14-8"><a href="#cb14-8"></a></span>
-<span id="cb14-9"><a href="#cb14-9"></a>1.  Item numerado 1</span>
-<span id="cb14-10"><a href="#cb14-10"></a></span>
-<span id="cb14-11"><a href="#cb14-11"></a>2.  Item 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb18-1"><a href="#cb18-1"></a>-   Item 1</span>
+<span id="cb18-2"><a href="#cb18-2"></a></span>
+<span id="cb18-3"><a href="#cb18-3"></a>-   Item 2</span>
+<span id="cb18-4"><a href="#cb18-4"></a></span>
+<span id="cb18-5"><a href="#cb18-5"></a>    -   Item 2a</span>
+<span id="cb18-6"><a href="#cb18-6"></a></span>
+<span id="cb18-7"><a href="#cb18-7"></a>    -   Item 2b</span>
+<span id="cb18-8"><a href="#cb18-8"></a></span>
+<span id="cb18-9"><a href="#cb18-9"></a>1.  Item numerado 1</span>
+<span id="cb18-10"><a href="#cb18-10"></a></span>
+<span id="cb18-11"><a href="#cb18-11"></a>2.  Item 2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="texto-2" class="slide level2 medium">
 <h2>3. Texto</h2>
 <h3 id="imágenes">Imágenes</h3>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb15-1"><a href="#cb15-1"></a>![](img/quarto_intro.png){height="450" fig-align="center"}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb19-1"><a href="#cb19-1"></a>![Imagen de Quarto](img/quarto_intro.png){height="450" fig-align="center"}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/quarto_intro.png" height="450"></p>
+<p></p><figcaption>Imagen de Quarto</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="texto-3" class="slide level2 medium">
+<h2>3. Texto</h2>
+<h3 id="imágenes-1">Imágenes</h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb20-1"><a href="#cb20-1"></a>![](img/quarto_intro.png){height="450" fig-align="center"}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="img/quarto_intro.png" height="450"></p>
 </figure>
 </div>
 </section>
-<section id="texto-3" class="slide level2 medium">
+<section id="texto-4" class="slide level2 medium">
 <h2>3. Texto</h2>
 <h3 id="links">Links</h3>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb16-1"><a href="#cb16-1"></a>[Página Principal de Wikipedia](http://wikipedia.com)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb21-1"><a href="#cb21-1"></a>[Página Principal de Wikipedia](http://wikipedia.com)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><a href="http://wikipedia.com">Página Principal de Wikipedia</a></p>
+<ul>
+<li>La opción <code>{target="_blank"}</code> abre una nueva ventana:</li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource {{r}} number-lines code-with-copy"><code class="sourceCode"><span id="cb22-1"><a href="#cb22-1"></a>[Página Principal de Wikipedia](http://wikipedia.com){target="_blank"}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><a href="http://wikipedia.com" target="_blank">Página Principal de Wikipedia</a></p>
 <div class="footer footer-default">
 
 </div>
