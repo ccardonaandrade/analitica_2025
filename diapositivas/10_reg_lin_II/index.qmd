@@ -1,0 +1,48 @@
+---
+title: Analítica de los Negocios
+author: Carlos Cardona Andrade
+subtitle: Más en Regresión Lineal 
+execute:
+  freeze: auto
+  echo: true
+  fig-width: 6
+  fig-height: 5
+format:
+  revealjs: 
+   theme: ../slides.scss
+   header-includes: |
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"/>
+   slide-number: true
+   show-slide-number: all
+   transition: fade
+   progress: true
+   multiplex: false
+   scrollable: false
+   preview-links: false
+   hide-inactive-cursor: true
+   highlight-style: printing
+   pause: true
+---
+
+
+## Plan para hoy
+
+1. [Visualizar los Datos](#viz)
+
+2. [Regresión Lineal Simple](#lm)
+
+3. [Regresión Lineal Múltiple](#multiple)
+
+# Visualizar los Datos {#viz}
+
+
+## ¿Por qué es importante graficar los datos? {.medium}
+
+Hola
+
+---
+
+## ¿Por qué es importante graficar los datos? {.medium}
+::: {.incremental}
+### Dos
+:::

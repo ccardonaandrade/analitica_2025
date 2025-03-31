@@ -1000,37 +1000,37 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <h2>MCO vs Otras líneas</h2>
 <p>Volvamos a la relación felicidad y galletas…</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="mco-vs-otras-líneas-1" class="slide level2 smaller">
 <h2>MCO vs Otras líneas</h2>
 <p>Para cualquier línea <span class="math inline">\(\hat{y}=\hat{\beta_0}+\hat{\beta_1}x\)</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-26-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-26-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="mco-vs-otras-líneas-2" class="slide level2 smaller">
 <h2>MCO vs Otras líneas</h2>
 <p>Para cualquier línea <span class="math inline">\(\hat{y}=\hat{\beta_0}+\hat{\beta_1}x\)</span>, podemos calcular <span class="math inline">\(e_i=y_i-\hat{y_i}\)</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-27-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="mco-vs-otras-líneas-3" class="slide level2 smaller">
 <h2>MCO vs Otras líneas</h2>
 <p>Para cualquier línea <span class="math inline">\(\hat{y}=\hat{\beta_0}+\hat{\beta_1}x\)</span>, podemos calcular <span class="math inline">\(e_i=y_i-\hat{y_i}\)</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="mco-vs-otras-líneas-4" class="slide level2 smaller">
 <h2>MCO vs Otras líneas</h2>
 <p>Para cualquier línea <span class="math inline">\(\hat{y}=\hat{\beta_0}+\hat{\beta_1}x\)</span>, podemos calcular <span class="math inline">\(e_i=y_i-\hat{y_i}\)</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-29-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-29-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="mco-vs-otras-líneas-5" class="slide level2 smaller">
 <h2>MCO vs Otras líneas</h2>
 <p><span class="math inline">\(\sum e_i^2\)</span> calcula el cuadrado de los errores: errores más grandes reciben una penalización mayor</p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-30-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-30-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="mco-vs-otras-líneas-6" class="slide level2 smaller">
 <h2>MCO vs Otras líneas</h2>
 <p>La línea de MCO es la combinación de <span class="math inline">\(\hat{\beta_0}\)</span> y <span class="math inline">\(\hat{\beta_1}\)</span> que minimizan <span class="math inline">\(\sum e_i^2\)</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-31-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-31-1.png" width="672" class="r-stretch quarto-figure-center"></section>
 <section id="cómo-gráficar-la-línea-de-regresión" class="slide level2 medium">
 <h2>¿Cómo gráficar la línea de regresión?</h2>
 <p><code>geom_smooth(method="lm")</code>es la función dentro de ggplot para gráficar la línea de regresión y su respectivo intervalo de confianza.</p>
@@ -1489,6 +1489,21 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <p>En promedio, los estudiantes tienen un nivel de felicidad <span class="math inline">\(\hat{\beta_2}\)</span> más alto que los profesores (<span class="math inline">\(\hat{\beta_2}&gt;0\)</span> según la gráfica)</p>
 </div>
 </section>
+<section id="otra-manera-de-visualizar-la-variable-categórica" class="slide level2 medium">
+<h2>Otra manera de visualizar la variable categórica:</h2>
+<p>El intercepto y <span class="math inline">\(Estudiante\)</span> controlan por las medias de ambos grupos:</p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-57-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="otra-manera-de-visualizar-la-variable-categórica-1" class="slide level2 medium">
+<h2>Otra manera de visualizar la variable categórica:</h2>
+<p>Luego de remover las medias de ambos grupos:</p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-58-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="otra-manera-de-visualizar-la-variable-categórica-2" class="slide level2 medium">
+<h2>Otra manera de visualizar la variable categórica:</h2>
+<p><span class="math inline">\(\hat{\beta_1}\)</span> estima la relación de interés luego de controlar por <span class="math inline">\(Estudiante\)</span>:</p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-59-1.png" width="768" class="r-stretch quarto-figure-center"></section>
 <section id="estimar-una-regresión-múltiple-en-r" class="slide level2 medium">
 <h2>Estimar una regresión múltiple en R</h2>
 <ul>
@@ -1632,7 +1647,7 @@ y &amp;= \color{#0074D9}{\text{Modelo}} + \color{#FF851B}{\text{Error}} \\
 <h2>Volvamos a Anscombe…</h2>
 <p>Si estimamos <span class="math inline">\(\hat{y}=\hat{\beta_0} + \hat{\beta_1} \times x\)</span></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-63-1.png" width="576" class="r-stretch quarto-figure-center"><p>En cada regresión, <span class="math inline">\(\hat{\beta_1}=0.5\)</span>. <span class="hl hl-dred">Graficar los datos es crucial!</span></p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-66-1.png" width="576" class="r-stretch quarto-figure-center"><p>En cada regresión, <span class="math inline">\(\hat{\beta_1}=0.5\)</span>. <span class="hl hl-dred">Graficar los datos es crucial!</span></p>
 <div class="footer footer-default">
 
 </div>

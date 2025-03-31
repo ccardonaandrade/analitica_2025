@@ -729,8 +729,8 @@ Volvamos a la relación felicidad y galletas...
 #| echo: false
 #| eval: true
 #| fig-align: "center"
-#| fig-width: 8
-#| fig-height: 4
+#| fig-width: 7
+#| fig-height: 3
 ggplot(data = pop_df, aes(x = x, y = y)) +
 geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
 theme_empty
@@ -745,8 +745,8 @@ Para cualquier línea $\hat{y}=\hat{\beta_0}+\hat{\beta_1}x$
 #| echo: false
 #| eval: true
 #| fig-align: "center"
-#| fig-width: 8
-#| fig-height: 4
+#| fig-width: 7
+#| fig-height: 3
 # Define a function
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 # Define line's parameters
@@ -761,6 +761,7 @@ theme_empty
 ```
 
 
+
 ## MCO vs Otras líneas {.smaller}
 
 Para cualquier línea $\hat{y}=\hat{\beta_0}+\hat{\beta_1}x$, podemos calcular $e_i=y_i-\hat{y_i}$
@@ -769,8 +770,8 @@ Para cualquier línea $\hat{y}=\hat{\beta_0}+\hat{\beta_1}x$, podemos calcular $
 #| echo: false
 #| eval: true
 #| fig-align: "center"
-#| fig-width: 8
-#| fig-height: 4
+#| fig-width: 7
+#| fig-height: 3
 # Define a function
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 # Define line's parameters
@@ -793,8 +794,8 @@ Para cualquier línea $\hat{y}=\hat{\beta_0}+\hat{\beta_1}x$, podemos calcular $
 #| echo: false
 #| eval: true
 #| fig-align: "center"
-#| fig-width: 8
-#| fig-height: 4
+#| fig-width: 7
+#| fig-height: 3
 # Define a function
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 # Define line's parameters
@@ -817,8 +818,8 @@ Para cualquier línea $\hat{y}=\hat{\beta_0}+\hat{\beta_1}x$, podemos calcular $
 #| echo: false
 #| eval: true
 #| fig-align: "center"
-#| fig-width: 8
-#| fig-height: 4
+#| fig-width: 7
+#| fig-height: 3
 # Define a function
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 # Define line's parameters
@@ -841,8 +842,8 @@ $\sum e_i^2$ calcula el cuadrado de los errores: errores más grandes reciben un
 #| echo: false
 #| eval: true
 #| fig-align: "center"
-#| fig-width: 8
-#| fig-height: 4
+#| fig-width: 7
+#| fig-height: 3
 # Define a function
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 # Define line's parameters
@@ -866,8 +867,8 @@ La línea de MCO es la combinación de $\hat{\beta_0}$ y $\hat{\beta_1}$ que min
 #| echo: false
 #| eval: true
 #| fig-align: "center"
-#| fig-width: 8
-#| fig-height: 4
+#| fig-width: 7
+#| fig-height: 3
 # Define a function
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 # Define line's parameters
@@ -1533,6 +1534,97 @@ $$\widehat{Felicidad}=\color{#FF851B}{\hat{\beta_0}}+\hat{\beta_1}\times Galleta
 :::{.fragment}
 En promedio, los estudiantes tienen un nivel de felicidad $\hat{\beta_2}$ más alto que los profesores ($\hat{\beta_2}>0$ según la gráfica)
 :::
+
+
+
+## Otra manera de visualizar la variable categórica: {.medium}
+
+El intercepto y $Estudiante$ controlan por las medias de ambos grupos:
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-width: 8
+#| fig-height: 4
+
+mean_a <- filter(cookies_data, grupo == "Estudiantes")$felicidad %>% mean()
+mean_b <- filter(cookies_data, grupo == "Profesores")$felicidad %>% mean()
+cookies_data2 <- cookies_data2 |>
+  mutate(y_dm = felicidad - mean_a * (estudiante == 1) - mean_b * (estudiante == 0))
+
+ggplot(cookies_data, aes(x = galletas, y = felicidad, color = grupo, shape = grupo)) +
+  geom_point(size = 4)  +
+  geom_hline(yintercept = mean_a, color = "darkred", alpha = 1.5, size = 1) +
+  geom_hline(yintercept = mean_b, color = "navy", alpha = 0.5, size = 1) +  
+  labs(x = "Galletas consumidas", y = "Nivel de Felicidad", color = "Grupo", shape = "Grupo") +  # Make sure both labels match
+  theme_minimal(base_size = 14) +
+  coord_cartesian(xlim = c(0, 8), ylim = c(-2, 3)) +
+  scale_color_manual(values = c("Profesores" = "navy", "Estudiantes" = "darkred")) +
+  scale_shape_manual(values = c("Profesores" = 1, "Estudiantes" = 2)) +  # Keep both mapped to the same variable
+  scale_x_continuous(breaks = 0:8) +
+  theme(panel.grid.minor = element_blank())
+
+```
+
+
+
+## Otra manera de visualizar la variable categórica: {.medium}
+
+Luego de remover las medias de ambos grupos:
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-width: 8
+#| fig-height: 4
+
+ggplot(cookies_data2 |> 
+         mutate(felicidad = felicidad - 1 * estudiante, 
+                estudiante = factor(estudiante, levels = c(1, 0), labels = c("Estudiantes", "Profesores"))), 
+       aes(x = galletas, y = y_dm, color = estudiante, shape=estudiante)) +
+  geom_point(size = 4) +
+  labs(x = "Galletas consumidas", y = "Nivel de Felicidad", color = "Grupo", shape = "Grupo") +  # Make sure both labels match
+  theme_minimal(base_size = 14) +
+  coord_cartesian(xlim = c(0, 8), ylim = c(-2, 3)) +
+  scale_color_manual(values = c("Profesores" = "navy", "Estudiantes" = "darkred")) +
+  scale_shape_manual(values = c("Profesores" = 1, "Estudiantes" = 2)) +  # Keep both mapped to the same variable
+  scale_x_continuous(breaks = 0:8) +
+  theme(panel.grid.minor = element_blank())
+
+```
+
+
+## Otra manera de visualizar la variable categórica: {.medium}
+
+$\hat{\beta_1}$ estima la relación de interés luego de controlar por $Estudiante$:
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-width: 8
+#| fig-height: 4
+
+ggplot(cookies_data2 |> 
+         mutate(felicidad = felicidad - 1 * estudiante, 
+                estudiante = factor(estudiante, levels = c(1, 0), labels = c("Estudiantes", "Profesores"))), 
+       aes(x = galletas, y = y_dm, color = estudiante, shape=estudiante)) +
+  geom_smooth(method = lm, se = F, color = "orange") +
+  geom_point(size = 4) +
+  labs(x = "Galletas consumidas", y = "Nivel de Felicidad", color = "Grupo", shape = "Grupo") +  # Make sure both labels match
+  theme_minimal(base_size = 14) +
+  coord_cartesian(xlim = c(0, 8), ylim = c(-2, 3)) +
+  scale_color_manual(values = c("Profesores" = "navy", "Estudiantes" = "darkred")) +
+  scale_shape_manual(values = c("Profesores" = 1, "Estudiantes" = 2)) +  # Keep both mapped to the same variable
+  scale_x_continuous(breaks = 0:8) +
+  theme(panel.grid.minor = element_blank())
+
+```
 
 
 ## Estimar una regresión múltiple en R {.medium}
