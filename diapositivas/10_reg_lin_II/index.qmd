@@ -38,11 +38,12 @@ format:
 
 ## ¿Por qué es importante graficar los datos? {.medium}
 
+---
+
 Hola
 
 ---
 
-## ¿Por qué es importante graficar los datos? {.medium}
-::: {.incremental}
-### Dos
-:::
+
+
+
