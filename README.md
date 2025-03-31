@@ -33,13 +33,14 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
     - Lecturas: OIS 5.3
 7. Pruebas de hipótesis II \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/1eff702aef63f78e9802d5c1f3b8b8ad7cacbcad/diapositivas/07_hipotesis_ii/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/1eff702aef63f78e9802d5c1f3b8b8ad7cacbcad/diapositivas/07_hipotesis_ii/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/1eff702aef63f78e9802d5c1f3b8b8ad7cacbcad/diapositivas/07_hipotesis_ii/index.qmd)\]
     - Lecturas: OIS 5.3
-8. Muestreo y encuestas
-    - Lecturas: IMS 2
-9. Intro al Modelo de Regresión Lineal
-    - Lecturaas: IMS 7; OIS 8
-10. Más sobre Regresión Lineal
+8. Intro al Modelo de Regresión Lineal \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/71da8799e234524d8d36a43a75fc858c1869f91d/diapositivas/08_reg_lin/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/71da8799e234524d8d36a43a75fc858c1869f91d/diapositivas/08_reg_lin/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/71da8799e234524d8d36a43a75fc858c1869f91d/diapositivas/08_reg_lin/index.qmd)\]
+    - Lecturas: IMS 7; OIS 8
+    - [Quarto](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/71da8799e234524d8d36a43a75fc858c1869f91d/diapositivas/09_quarto/index.html)
+9. Más sobre Regresión Lineal
     - Lecturas: IMS 8; OIS 9.1-9.4
-11. Experimentos
+10. Experimentos
+11. Muestreo y encuestas
+    - Lecturas: IMS 2
 12. Regresión Logística
     - Lecturas: IMS 9; OIS 9.5
 13. Análisis de Texto
