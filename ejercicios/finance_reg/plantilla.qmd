@@ -1,0 +1,123 @@
+---
+title: "Análisis de Regresión - Precio de Acciones"
+author: "Nombre Apellido"
+format: pdf
+editor: visual
+---
+
+
+```{r}
+#| echo: false
+#| warning: false
+
+# Cargo los paquetes para esta sesión
+# Acostumbrense a cargar todos los paquetes que van a usar luego del encabezado
+library(tidyverse)
+library(broom)
+
+# Importo los datos
+# Recuerden, el archivo debe estar en la misma carpeta o deben importarlo usando el directorio
+# stock_data <- read.csv("C:/Users/OneDrive/Documents/stock_data.csv")
+
+stock_data <- read.csv("stock_data.csv")
+
+# Selecciono a Uber. Ustedes elijan otra de su interés
+
+uber_data <- stock_data |>
+  filter(symbol == "UBER")
+
+# La opción echo: false indica que no queremos ver este código en el documento salida
+# La opción warning: false indica que no queremos ver mensajes en el documento salida
+# Borren estos comentarios en la versión final. Simplemente son de explicación :D
+```
+  
+## Ejercicio 1
+
+### Análisis Gráfico
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+# fig-align: center indica que queremos la gráfica en el centro del documento
+
+# Acá incluyan el gráfico de dispersión para su empresa
+ggplot(uber_data,aes(x=volume, y=adjusted_close )) +
+  geom_point() +
+  geom_smooth(method = "lm", se =FALSE) +
+  labs(y="Stock Price (dollars)",
+       x="Volume (in millions)",
+       title="Uber Data") +
+  theme_minimal()
+```
+
+Basados en el gráfico y en la correlación:
+
+```{r}
+#| echo: true
+#| warning: false
+# La opción echo: true en este caso indica que queremos ver el código en el documento salida
+
+cor(uber_data$adjusted_close, uber_data$volume, use = "complete.obs")
+```
+
+Acá va la explicación...
+
+### Regresión
+
+```{r}
+#| echo: true
+#| warning: false
+
+uber_model <- lm(adjusted_close ~ volume, data = uber_data)
+tidy(uber_model)
+```
+
+Acá va la explicación...
+
+## Ejercicio 2
+
+### Análisis Gráfico
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+# Acá incluyan el gráfico de dispersión para su empresa
+ggplot(uber_data,aes(x=volume_lag, y=volume)) +
+  geom_point() +
+  geom_smooth(method = "lm", se =FALSE) +
+  labs(y="Volume",
+       x="Volume Day Before",
+       title="Uber Data") +
+  theme_minimal()
+```
+
+Basados en el gráfico y en la correlación:
+
+```{r}
+#| echo: true
+#| warning: false
+cor(uber_data$volume, uber_data$volume_lag, use = "complete.obs")
+```
+
+Acá va la explicación...
+
+
+### Regresión
+
+```{r}
+#| echo: true
+#| warning: false
+
+uber_model_2 <- lm(volume ~ volume_lag, data = uber_data)
+tidy(uber_model_2)
+```
+
+Acá va la explicación...
+
+## Ejercicio 3
+
+Acá va la respuesta...

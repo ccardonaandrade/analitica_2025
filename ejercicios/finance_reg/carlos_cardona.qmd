@@ -1,0 +1,116 @@
+---
+title: "Análisis de Regresión - Precio de Acciones"
+author: "Carlos Cardona"
+format: pdf
+editor: visual
+---
+  
+## Ejercicio 1
+  
+### Análisis Gráfico
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+library(tidyfinance)
+library(tidyverse)
+library(broom)
+uber_data <- download_data(
+  type = "stock_prices",
+  symbols = "UBER",
+  start_date = "2020-01-01",
+  end_date = "2023-12-31"
+)
+
+uber_data <- uber_data |>
+  mutate(volume=volume/1000000)
+
+
+uber_data <- uber_data |>
+  arrange(date) |>
+  mutate(volume_lag = lag(volume))
+
+ggplot(uber_data,aes(x=volume, y=adjusted_close )) +
+  geom_point() +
+  geom_smooth(method = "lm", se =FALSE) +
+  labs(y="Stock Price (dollars)",
+       x="Volume (in millions)",
+       title="Uber Data") +
+  theme_minimal()
+```
+
+Basados en el gráfico y en la correlación:
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+cor(uber_data$adjusted_close, uber_data$volume, use = "complete.obs")
+```
+
+Podemos decir que existe una relación negativa entre el precio ajustado de la acción (`adjusted_close`) y el volumen de acciones (`volume`), pero no es fuerte, ya que el coeficiente de correlación es -0.126, un valor cercano a 0.
+
+
+### Regresión
+
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+
+uber_model <- lm(adjusted_close ~ volume, data = uber_data)
+tidy(uber_model)
+```
+
+La interpretación sería que, en promedio, un millón de acciones más vendidas está asociado con una reducción de 0.071 dólares en el precio ajustado de la acción de Uber.
+
+
+## Ejercicio 2
+
+### Análisis Gráfico
+
+```{r}
+#| eval: true
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+ggplot(uber_data,aes(x=volume_lag, y=volume)) +
+  geom_point() +
+  geom_smooth(method = "lm", se =FALSE) +
+  labs(y="Volume",
+       x="Volume Day Before",
+       title="Uber Data") +
+  theme_minimal()
+```
+
+Basados en el gráfico y en la correlación:
+
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+cor(uber_data$volume, uber_data$volume_lag, use = "complete.obs")
+```
+
+Podemos decir que existe una relación positiva entre el volumen de acciones (`volume`) y el volumen de acciones del día anterior (`volume_lag`), pero no es fuerte, ya que el coeficiente de correlación es 0.377, un valor cercano a 0.
+
+### Regresión
+
+
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+
+uber_model_2 <- lm(volume ~ volume_lag, data = uber_data)
+tidy(uber_model_2)
+```
+
+
+La regresión lineal indica que, en promedio, un aumento de 1 millón de acciones vendidas el día anterior está asociado con un aumento de 0.377 millones de acciones en el volumen de hoy.
