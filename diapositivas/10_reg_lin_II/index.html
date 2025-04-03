@@ -29,6 +29,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #000000; background-color: #ffffff; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #000000; } /* Normal */
+    code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } /* Alert */
+    code span.an { color: #ca60ca; } /* Annotation */
+    code span.at { color: #0057ae; } /* Attribute */
+    code span.bn { color: #b08000; } /* BaseN */
+    code span.bu { color: #644a9b; } /* BuiltIn */
+    code span.cf { color: #000000; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #924c9d; } /* Char */
+    code span.cn { color: #aa5500; } /* Constant */
+    code span.co { color: #898887; } /* Comment */
+    code span.cv { color: #0095ff; } /* CommentVar */
+    code span.do { color: #607880; } /* Documentation */
+    code span.dt { color: #0057ae; } /* DataType */
+    code span.dv { color: #b08000; } /* DecVal */
+    code span.er { color: #bf0303; text-decoration: underline; } /* Error */
+    code span.ex { color: #0095ff; font-weight: bold; } /* Extension */
+    code span.fl { color: #b08000; } /* Float */
+    code span.fu { color: #644a9b; } /* Function */
+    code span.im { color: #644a9b; } /* Import */
+    code span.in { color: #b08000; } /* Information */
+    code span.kw { color: #000000; font-weight: bold; } /* Keyword */
+    code span.op { color: #000000; } /* Operator */
+    code span.ot { color: #006e28; } /* Other */
+    code span.pp { color: #006e28; } /* Preprocessor */
+    code span.re { color: #0057ae; background-color: #e0e9f8; } /* RegionMarker */
+    code span.sc { color: #ff5500; } /* SpecialChar */
+    code span.ss { color: #ff5500; } /* SpecialString */
+    code span.st { color: #bf0303; } /* String */
+    code span.va { color: #0057ae; } /* Variable */
+    code span.vs { color: #bf0303; } /* VerbatimString */
+    code span.wa { color: #bf0303; } /* Warning */
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -341,26 +406,179 @@ Carlos Cardona Andrade
 <section id="plan-para-hoy" class="slide level2">
 <h2>Plan para hoy</h2>
 <ol type="1">
-<li><p><a href="#/viz">Visualizar los Datos</a></p></li>
-<li><p><a href="#/lm">Regresión Lineal Simple</a></p></li>
-<li><p><a href="#/multiple">Regresión Lineal Múltiple</a></p></li>
+<li><p><a href="#/condic">Condiciones del modelo</a></p></li>
+<li><p><a href="#/regresion">Consideraciones para una Regresión</a></p></li>
+<li><p><a href="#/log">Transformación Logarítmica</a></p></li>
 </ol>
 </section>
 <section>
-<section id="viz" class="title-slide slide level1 center">
-<h1>Visualizar los Datos</h1>
+<section id="condic" class="title-slide slide level1 center">
+<h1>Condiciones del modelo</h1>
 
+</section>
+<section id="condiciones-del-modelo" class="slide level2 medium">
+<h2>Condiciones del modelo</h2>
+<div>
+<ol type="1">
+<li class="fragment"><p><code>Linealidad:</code> hay una relación lineal entre la variable dependiente y la variable explicativa</p></li>
+<li class="fragment"><p><code>Varianza Constante:</code> la variabilidad de los errores es igual para todos los valores de la variable explicativa</p></li>
+<li class="fragment"><p><code>Normalidad:</code> los errores siguen una distribución normal</p></li>
+<li class="fragment"><p><code>Independencia:</code> los errores son independientes entre ellos</p></li>
+</ol>
+</div>
 </section>
 <section id="por-qué-es-importante-graficar-los-datos" class="slide level2 medium">
 <h2>¿Por qué es importante graficar los datos?</h2>
+<div class="cell" data-layout-align="center">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 7
+  term        estimate std.error statistic   p.value conf.low conf.high
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)    2.97     0.111       26.7 8.40e-119    2.75      3.18 
+2 x              0.503    0.0211      23.8 1.09e- 99    0.461     0.544</code></pre>
+</div>
+</div>
 </section>
-<section class="slide level2">
+<section id="son-lineales-los-residuos" class="slide level2 medium">
+<h2>¿Son lineales los residuos?</h2>
 
-<p>Hola</p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-discovered-preview-image r-stretch quarto-figure-center" width="576"><p>✅Los residuos no siguen un patrón o estructura clara. Parecen aleatoriamente distribuidos</p>
 </section>
-<section class="slide level2">
+<section id="claro-patrón-en-los-residuos" class="slide level2 medium">
+<h2>❌ Claro patrón en los residuos</h2>
 
-<div class="footer footer-default">
+<img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="son-lineales-los-residuos-1" class="slide level2 medium">
+<h2>¿Son lineales los residuos?</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" width="576" class="r-stretch quarto-figure-center"><p>✅La dispersión vertical de los residuos es relativamente constante en la gráfica</p>
+</section>
+<section id="la-varianza-no-es-constante" class="slide level2 medium">
+<h2>❌ La varianza no es constante</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="son-normales" class="slide level2">
+<h2>Son normales</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="576" class="r-stretch quarto-figure-center"><p>✅La distribución de los errores se parece a una distribución normal</p>
+</section>
+<section id="son-normales-1" class="slide level2">
+<h2>Son normales</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="independencia" class="slide level2 medium">
+<h2>Independencia</h2>
+<div>
+<ul>
+<li class="fragment"><p>Podemos verificar el supuesto de independencia a menudo basándonos en el contexto de los datos y en cómo se recolectaron las observaciones.</p></li>
+<li class="fragment"><p>Si los datos se recolectaron en un orden particular, examina un diagrama de dispersión de los residuos versus el orden en que se recolectaron los datos.</p></li>
+</ul>
+</div>
+<div class="fragment">
+<p>✅ Basado en la información disponible, el error de una película no nos dice nada sobre el error de otra película.</p>
+</div>
+</section>
+<section id="en-la-práctica.." class="slide level2 medium">
+<h2>En la práctica..</h2>
+<p>Al verificar las condiciones del modelo, preguntense si alguna desviación de estas condiciones es tan grande que:</p>
+<ol type="1">
+<li><p>Se deba proponer un modelo diferente.</p></li>
+<li><p>Las conclusiones extraídas del modelo deban usarse con precaución.</p></li>
+</ol>
+<div class="fragment">
+<p>Si no es así, las condiciones se cumplen suficientemente y podemos proceder con el modelo actual.</p>
+</div>
+</section></section>
+<section>
+<section id="regresion" class="title-slide slide level1 center">
+<h1>Consideraciones adicionales para una Regresión</h1>
+
+</section>
+<section id="relaciones-no-lineales" class="slide level2 medium">
+<h2>Relaciones no lineales</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="relaciones-no-lineales-1" class="slide level2 medium">
+<h2>Relaciones no lineales</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="relaciones-no-lineales-2" class="slide level2 medium">
+<h2>Relaciones no lineales</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="relaciones-no-lineales-3" class="slide level2 medium">
+<h2>Relaciones no lineales</h2>
+<p>Para agregar el término cuadrático a la regresión, se incluye el término <code>I(x^2)</code> en el código:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>modelo_felicidad <span class="ot">&lt;-</span> <span class="fu">lm</span>(felicidad <span class="sc">~</span> galletas <span class="sc">+</span> <span class="fu">I</span>(galletas<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> galletas)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">tidy</span>(modelo_felicidad, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 7
+  term          estimate std.error statistic   p.value conf.low conf.high
+  &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)     2.00     0.378        5.30 0.0000588   1.21      2.80  
+2 galletas        0.334    0.0828       4.03 0.000871    0.159     0.509 
+3 I(galletas^2)  -0.0220   0.00383     -5.74 0.0000241  -0.0301   -0.0139</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Nuestro modelo estimado entonces es:</p>
+<p><span class="math display">\[\widehat{Felicidad}=2+0.33\times Galletas-0.02 \times Galletas^2\]</span></p>
+</div>
+</section>
+<section id="existe-la-relación-cuadrática-que-vemos-en-la-gráfica" class="slide level2 medium">
+<h2>¿Existe la relación cuadrática que vemos en la gráfica?</h2>
+<p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas +\hat{\beta_2}\times Galletas^2 \]</span></p>
+<div class="fragment">
+<p>Evaluamos con una prueba de hipótesis:</p>
+<p><span class="math display">\[H_0:\hat{\beta_2}=0\]</span> <span class="math display">\[H_1: \hat{\beta_2} \neq 0\]</span></p>
+</div>
+</section>
+<section id="qué-hacer-con-una-observación-atípica-outlier" class="slide level2 medium">
+<h2>¿Qué hacer con una observación atípica (outlier)?</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="qué-hacer-con-una-observación-atípica-outlier-1" class="slide level2 medium">
+<h2>¿Qué hacer con una observación atípica (outlier)?</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="efecto-interacción" class="slide level2 medium">
+<h2>Efecto interacción</h2>
+<p>Hasta ahora hemos asumido que el efecto de una variable es independiente de otra:</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + e
+\]</span> El efecto del incremento en una unidad de <span class="math inline">\(x_1\)</span> en <span class="math inline">\(y\)</span>, es siempre <span class="math inline">\(\beta_1\)</span> e independiente de <span class="math inline">\(x_2\)</span></p>
+<div class="fragment">
+<p>Por ejemplo:</p>
+<p><span class="math display">\[\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \times Estudiante \]</span></p>
+</div>
+</section>
+<section id="efecto-interacción-1" class="slide level2 medium">
+<h2>Efecto interacción</h2>
+<p>Si pensamos que el efecto de <span class="math inline">\(X_1\)</span> depende del valor de <span class="math inline">\(X_2\)</span>, entonces debemos agregar una tercera variable de interacción al modelo:</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1x_2+ e
+\]</span> El termino de interacción es <span class="math inline">\(x_1x_2\)</span></p>
+<div class="fragment">
+<p>Por ejemplo:</p>
+<p><span class="math display">\[  
+  \begin{aligned}
+\widehat{Felicidad}=&amp;\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \times Estudiante \\
+  &amp; + \hat{\beta_3}\times Galletas*Estudiante
+\end{aligned}
+\]</span></p>
+</div>
+</section>
+<section id="interacciones" class="slide level2 medium">
+<h2>Interacciones</h2>
+<p>El modelo donde las galletas tienen el mismo efecto para <font color="#000080">profesores</font> y <font color="#8B0000">estudiantes</font></p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="interacciones-1" class="slide level2 medium">
+<h2>Interacciones</h2>
+<p>El modelo donde el efecto de las galletas puede diferir para <font color="#000080">profesores</font> y <font color="#8B0000">estudiantes</font></p>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch quarto-figure-center"><div class="footer footer-default">
 
 </div>
 </section></section>
@@ -575,6 +793,44 @@ Carlos Cardona Andrade
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
