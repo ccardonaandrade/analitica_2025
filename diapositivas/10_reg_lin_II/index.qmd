@@ -30,7 +30,7 @@ format:
 #| eval: true
 #| echo: false
 library(pacman)
-p_load(broom, latex2exp, ggplot2, ggthemes, viridis, dplyr, magrittr, knitr, parallel,gtools)
+p_load(broom, latex2exp, ggplot2, ggthemes, viridis, dplyr, magrittr, knitr, parallel,gtools, readxl)
 
 # Define pink color
 red_pink <- "#e64173"
@@ -86,6 +86,7 @@ lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
 3. [Transformación Logarítmica](#log)
 
 
+
 # Condiciones del modelo {#condic}
 
 ## Condiciones del modelo {.medium}
@@ -103,8 +104,7 @@ lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
 :::
 
 
-## ¿Por qué es importante graficar los datos? {.medium}
-
+## ¿Cómo graficar la variación de los errores en R? {.medium}
 
 ```{r}
 #| echo: false
@@ -123,10 +123,23 @@ sim_norm <- tibble(
 
 
 ols_model <- lm(y ~ x, data=sim_norm)
-tidy(ols_model, conf.int = TRUE)
 ```
 
-## ¿Son lineales los residuos? {.medium}
+```{r}
+#| echo: true
+#| eval: false
+#| fig-align: center
+
+ols_model <- lm(y ~ x, data=DATA)
+
+augment(ols_model) |>
+  ggplot(aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  labs(x = "Valores predichos", y = "Errores") +
+  theme_minimal()
+```
+
+## ¿Son lineales los Errores? {.medium}
 
 ```{r}
 #| echo: false
@@ -139,14 +152,14 @@ augment(ols_model) |>
   ggplot(aes(x = .fitted, y = .resid)) +
   geom_point() +
   geom_hline(yintercept=0, color="darkred", size=1.2)+
-  labs(x = "Valores predichos", y = "Residuos") +
+  labs(x = "Valores predichos", y = "Errores") +
   theme_minimal()
 ```
 
-✅Los residuos no siguen un patrón o estructura clara. Parecen aleatoriamente distribuidos
+✅Los errores no siguen un patrón o estructura clara. Parecen aleatoriamente distribuidos
 
 
-## ❌  Claro patrón en los residuos {.medium}
+## ❌  Claro patrón en los Errores {.medium}
 
 
 ```{r}
@@ -172,13 +185,13 @@ augment(ols_model2) |>
   ggplot(aes(x = .fitted, y = .resid)) +
   geom_point() +
   geom_hline(yintercept=0, color="darkred", size=1.2)+
-  labs(x = "Valores predichos", y = "Residuos") +
+  labs(x = "Valores predichos", y = "Errores") +
   theme_minimal()
 ```
 
 
 
-## ¿Son lineales los residuos? {.medium}
+## ¿La varianza de los errores es constante? {.medium}
 
 ```{r}
 #| echo: false
@@ -193,11 +206,11 @@ augment(ols_model) |>
   geom_hline(yintercept=0, color="darkred", size=1.2)+
   geom_hline(yintercept=-2, color="orange", size=1.2, linetype ="dashed")+
   geom_hline(yintercept=2, color="orange", size=1.2, linetype ="dashed")+
-  labs(x = "Valores predichos", y = "Residuos") +
+  labs(x = "Valores predichos", y = "Errores") +
   theme_minimal()
 ```
 
-✅La dispersión vertical de los residuos es relativamente constante en la gráfica
+✅La dispersión vertical de los errores es relativamente constante en la gráfica
 
 
 ## ❌ La varianza no es constante  {.medium}
@@ -228,12 +241,12 @@ augment(ols_model) |>
   geom_hline(yintercept=0, color="darkred", size=1.2)+
   geom_hline(yintercept=-5, color="orange", size=1.2, linetype ="dashed")+
   geom_hline(yintercept=5, color="orange", size=1.2, linetype ="dashed")+
-  labs(x = "Valores predichos", y = "Residuos") +
+  labs(x = "Valores predichos", y = "Errores") +
   theme_minimal()
 ```
 
 
-## Son normales
+## ¿Los errores se distribuyen normalmente? {.medium}
 
 
 ```{r}
@@ -244,9 +257,9 @@ augment(ols_model) |>
 augment(ols_model) |>
   ggplot(aes(x = .resid)) +
   geom_histogram(fill="lightblue", color="darkblue") +
-  labs(title = "Distribución de los residuos",
-       x = "Residuos",
-       y = "Frequency") +
+  labs(title = "Distribución de los Errores",
+       x = "Errores",
+       y = "Frecuencia") +
   theme_minimal()
 ```
 
@@ -254,7 +267,7 @@ augment(ols_model) |>
 
 
 
-## Son normales
+## ❌  Los errores no se distribuyen como una normal
 
 ```{r}
 #| echo: false
@@ -270,12 +283,28 @@ ols_model_h <- lm(y ~ x)
 augment(ols_model_h) |> 
   ggplot(aes(x = .resid)) +
   geom_histogram(fill = "lightblue", color = "darkblue", bins = 30) +
-  labs(title = "Distribución de los residuos (Sesgados)",
-       x = "Residuos",
+  labs(title = "Distribución de los Errores (Sesgados)",
+       x = "Errores",
        y = "Frecuencia") +
   theme_minimal()
 ```
 
+
+## ¿Cómo graficar la distribución de los errores en R? {.medium}
+
+```{r}
+#| echo: true
+#| eval: false
+#| fig-align: center
+
+augment(ols_model) |> 
+  ggplot(aes(x = .resid)) +
+  geom_histogram(fill = "lightblue", color = "darkblue", bins = 30) +
+  labs(title = "Distribución de los Errores",
+       x = "Errores",
+       y = "Frecuencia") +
+  theme_minimal()
+```
 
 ## Independencia {.medium}
 
@@ -284,7 +313,7 @@ augment(ols_model_h) |>
 
 - Podemos verificar el supuesto de independencia a menudo basándonos en el contexto de los datos y en cómo se recolectaron las observaciones.
 
-- Si los datos se recolectaron en un orden particular, examina un diagrama de dispersión de los residuos versus el orden en que se recolectaron los datos.
+- Si los datos se recolectaron en un orden particular, examina un diagrama de dispersión de los Errores versus el orden en que se recolectaron los datos.
 
 :::
 
@@ -309,8 +338,64 @@ Si no es así, las condiciones se cumplen suficientemente y podemos proceder con
 :::
 
 
+## ¿Qué tan bueno es el modelo? {.medium}
+
+### R-Squared
+
+El $R^2$ es el porcentaje de la varianza de la variable dependiente explicada por el modelo de regresión
+
+$$R^2=Corr(x,y)^2=Corr(y,\hat{y})$$
+
+- Está entre 0 (nuestro modelo no predice nada) y 1 (predicción perfecta)
+
+- No tiene unidad de medida
+
+
+
+## ¿Qué tan bueno es el modelo? {.medium}
+
+```{r}
+#| echo: false
+hollywood <- read_excel("hollywood_data.xlsx", sheet = "Sheet1")
+```
+
+Con la función `glance()` podemos ver diferentes aspectos que evalúan el modelo:
+
+```{r}
+#| echo: true
+hollywood_model <- lm(us_gross ~ opening_gross + budget + sequel, data=hollywood)
+glance(hollywood_model)
+```
+
+:::{.fragment}
+
+según la primera columna, este modelo de regresión:
+
+$$
+\widehat{\text{US Gross}} = \hat{\beta_0} + \hat{\beta_1} \text{Opening Gross} + \hat{\beta_2} \text{Budget} + \hat{\beta_3} \text{Sequel}
+$$
+
+explica el 79% de la varianza del recaudo total en US
+
+:::
+
+## 💪 Ejercicio 1  {.medium}
+
+1. Usando los datos `hollywood_data.xlsx`, evalúen si los errores del siquiente modelo de regresión son lineales, su varianza es constante y si se distribuyen normalmente:
+
+$$\widehat{\text{US Total Gross}} = \hat{\beta_0} + \hat{\beta_1} \times \text{Opening Gross}$$
+
+
+2. ¿Cuál es el $R^2$ del modelo en el punto 1? 
+
+3. Comparen el $R^2$ del punto 2 con el $R^2$ de la diapositiva anterior. ¿Cuál explica más la varianza del recaudo total en US?¿Por qué creen que es así?
+
+
+
+
 
 # Consideraciones adicionales para una Regresión {#regresion}
+
 
 ## Relaciones no lineales {.medium}
 
@@ -485,7 +570,7 @@ $$\widehat{Felicidad}=\hat{\beta_0}+\hat{\beta_1}\times Galletas+\hat{\beta_2} \
 
 ## Efecto interacción {.medium}
 
-Si pensamos que el efecto de $X_1$ depende del valor de $X_2$, entonces debemos agregar una tercera variable de interacción al modelo:
+Si pensamos que el efecto de $x_1$ depende del valor de $x_2$, entonces debemos agregar una tercera variable de interacción al modelo:
 
 $$
 y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1x_2+ e
@@ -605,3 +690,128 @@ theme(
 scale_color_manual("", values = c("navy", "darkred"), labels = c("Female", "Male")) +
 scale_shape_manual("", values = c(16, 1), labels = c("Female", "Male"))
 ```
+
+
+## 💪 Ejercicio 2  {.medium}
+
+1. Usando los datos `hollywood_data.xlsx`, creen una variable `comedy` que sea igual a 1 si el género de la película es "Comedy" y 0 en caso contrario.
+
+2. Algunos productores de Hollywood creen que los retornos al recaudo el día del estreno son más altos para las películas de comedia. Comprueben esto Estimando la siquiente regresión:
+
+$$  
+  \begin{aligned}
+\widehat{\text{US Total Gross}}=&\hat{\beta_0} + \hat{\beta_1} \times \text{Opening Gross} + \hat{\beta_2} \times \text{Comedy} \\
+  & + \hat{\beta_3}\times \text{Opening Gross}*\text{Comedy}
+\end{aligned}
+$$
+
+
+¿Tienen razón los productores de Hollywood? (Pista: $\hat{\beta_3}$ debe ser positivo y estadísticamente diferente de 0)
+
+
+
+# Transformación Logarítmica {#log}
+
+## Transformación logarítmica {.medium}
+
+Podemos considerar una transformación logarítmica de las variables de nuestro modelo (tanto variable dependiente e independientes) cuando:
+
+::: incremental
+
+- Exista una relación no-lineal (exponencial) entre la variable dependiente y la explicativa.
+
+- Alguna de las variables tenga una distribución sesgada (muy distinta a la normal).
+:::
+
+
+## Transformación logarítmica {.medium}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: center
+#| fig-width: 9
+
+ggplot(data = hollywood, aes(x = us_gross/1000000)) +
+    geom_density() +
+    labs(
+        x = "US Gross (in millions)",
+    ) +
+    theme_minimal()
+```
+
+
+## Transformación logarítmica {.medium}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: center
+#| fig-width: 9
+ggplot(data = hollywood, aes(x = log(us_gross/1000000))) +
+    geom_density() +
+    labs(
+        x = "log(US Gross (in millions))",
+    ) +
+    theme_minimal()
+```
+
+
+## Transformación logarítmica {.medium}
+
+
+```{r}
+#| echo: true
+#| eval: true
+
+hollywood_model <- lm(us_gross ~ opening_gross, data=hollywood)
+tidy(hollywood_model, conf.int = TRUE)
+```
+
+La regresión lineal estimada es:
+
+$$\widehat{\text{US Total Gross}} = 5,108,220 + 3.12 \times \text{Opening Gross}$$
+
+
+## Transformación logarítmica {.medium}
+
+¿Cómo cambian los resultados si estimamos una regresión con ambias variables como logarítmos?
+
+```{r}
+#| echo: true
+#| eval: true
+hollywood <- hollywood |> 
+  mutate(log_opening_gross=log(opening_gross),
+         log_us_gross=log(us_gross))
+
+hollywood_model_logs <- lm(log_us_gross ~ log_opening_gross, data=hollywood)
+tidy(hollywood_model_logs, conf.int = TRUE)
+```
+
+
+La regresión lineal estimada es:
+
+
+$$\widehat{\text{log(US Total Gross})} = 1.58 + 0.97 \times \text{log(Opening Gross)}$$
+
+
+
+## Regresión Nivel-Nivel {.medium}
+
+$$y=\beta_0+\beta_1x+e$$
+Interpretación: un cambio de una unidad en $x$, está asociado a un cambio en $\beta_1$ unidades en $y$.
+
+## Regresión Nivel-Log {.medium}
+
+$$y=\beta_0+\beta_1log(x)+e$$
+Interpretación: un aumento de 1% en $x$, es asociado a un cambio en $\beta_1/100$ unidades a $y$.
+
+## Regresión Log-Nivel {.medium}
+
+$$log(y)=\beta_0+\beta_1x+e$$
+Interpretación: un incremento de una unidad en $x$, está asociado a un cambio de $(\beta_1\times 100)\%$ en $y$.
+
+## Regresión Log-Log {.medium}
+
+$$log(y)=\beta_0+\beta_1log(x)+e$$
+Interpretación: un aumento de 1% en $x$, está asociado a un cambio de $\beta_1\%$  en $y$.
