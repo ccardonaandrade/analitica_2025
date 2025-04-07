@@ -1,7 +1,7 @@
 ---
 title: Analítica de los Negocios
 author: Carlos Cardona Andrade
-subtitle: Más en Regresión Lineal 
+subtitle: Más sobre Regresión Lineal 
 execute:
   freeze: auto
   echo: true
