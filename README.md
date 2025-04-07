@@ -36,7 +36,7 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
 8. Intro al Modelo de Regresión Lineal \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/71da8799e234524d8d36a43a75fc858c1869f91d/diapositivas/08_reg_lin/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/71da8799e234524d8d36a43a75fc858c1869f91d/diapositivas/08_reg_lin/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/71da8799e234524d8d36a43a75fc858c1869f91d/diapositivas/08_reg_lin/index.qmd)\]
     - Lecturas: IMS 7; OIS 8
     - [Quarto](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/71da8799e234524d8d36a43a75fc858c1869f91d/diapositivas/09_quarto/index.html)
-9. Más sobre Regresión Lineal
+9. Más sobre Regresión Lineal \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/315e5e122812b73eba34102e827a154e0a16d880/diapositivas/10_reg_lin_II/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/315e5e122812b73eba34102e827a154e0a16d880/diapositivas/10_reg_lin_II/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/315e5e122812b73eba34102e827a154e0a16d880/diapositivas/10_reg_lin_II/index.qmd)\]
     - Lecturas: IMS 8; OIS 9.1-9.4
 10. Experimentos
 11. Muestreo y encuestas
