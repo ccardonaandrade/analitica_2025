@@ -406,11 +406,147 @@ Carlos Cardona Andrade
 <section id="plan-para-hoy" class="slide level2">
 <h2>Plan para hoy</h2>
 <ol type="1">
+<li><p><a href="#/pobreg">Población, Muestra y Regresión</a></p></li>
 <li><p><a href="#/condic">Condiciones del modelo</a></p></li>
 <li><p><a href="#/regresion">Consideraciones para una Regresión</a></p></li>
 <li><p><a href="#/log">Transformación Logarítmica</a></p></li>
 </ol>
 </section>
+<section>
+<section id="pobreg" class="title-slide slide level1 center">
+<h1>Población, Muestra y Regresión</h1>
+
+</section>
+<section id="regresión-poblacional---ejemplo" class="slide level2 medium">
+<h2>Regresión Poblacional - Ejemplo</h2>
+<ul>
+<li><p>100 estudiantes están tomando Analítica de los Negocios y queremos saber el efecto de comer galletas en la felicidad para todos ellos. Asumamos que tenemos los datos para todos los estudiantes.</p></li>
+<li><p>Luego tomemos muestras de 30 estudiantes y miremos cómo los coeficientes de la siguiente regresión varían de acuerdo a la muestra:</p></li>
+</ul>
+<p><span class="math display">\[ felicidad_i = \beta_0 + \beta_1 galletas_i + e_i \]</span></p>
+</section>
+<section id="regresión-poblacional" class="slide level2 medium">
+<h2>Regresión Poblacional</h2>
+<p><span class="math display">\[ felicidad_i = 2.53 + 0.57 galletas_i + e_i \]</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-discovered-preview-image" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column fragment" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="regresión-para-la-muestra-1" class="slide level2 medium">
+<h2>Regresión para la Muestra 1</h2>
+<p><span class="math display">\[ felicidad_i = 2.53 + 0.57 galletas_i + e_i \]</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column fragment" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\(\widehat{felicidad}_i = 2.36 + 0.61 galletas_i\)</span></p>
+</div>
+</div>
+</section>
+<section id="regresión-para-la-muestra-2" class="slide level2 medium">
+<h2>Regresión para la Muestra 2</h2>
+<p><span class="math display">\[ felicidad_i = 2.53 + 0.57 galletas_i + e_i \]</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column fragment" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\(\widehat{felicidad}_i = 2.79 + 0.56 galletas_i\)</span></p>
+</div>
+</div>
+</section>
+<section id="regresión-para-la-muestra-3" class="slide level2 medium">
+<h2>Regresión para la Muestra 3</h2>
+<p><span class="math display">\[ felicidad_i = 2.53 + 0.57 galletas_i + e_i \]</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column fragment" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\(\widehat{felicidad}_i = 3.21 + 0.45 galletas_i\)</span></p>
+</div>
+</div>
+</section>
+<section id="la-incertidumbre-importa" class="slide level2 medium">
+<h2>La incertidumbre importa!</h2>
+<p>Como no sabemos si tenemos una buena o mala muestra, y queremos:</p>
+<p><span class="math display">\[
+\hat{\beta} \xrightarrow{\text{🤞 ojalá 🤞}} \beta
+\]</span></p>
+<p>usamos <span class="math inline">\(\hat{\beta}\)</span> para acercarnos al verdadero efecto <span class="math inline">\(\beta\)</span>.</p>
+<div class="fragment">
+<p><span class="hl hl-blue">Por eso, utilizamos intervalos de confianza y pruebas de hipótesis para cuantificar la incertidumbre en nuestras estimaciones</span></p>
+</div>
+</section></section>
 <section>
 <section id="condic" class="title-slide slide level1 center">
 <h1>Condiciones del modelo</h1>
@@ -420,10 +556,10 @@ Carlos Cardona Andrade
 <h2>Condiciones del modelo</h2>
 <div>
 <ol type="1">
-<li class="fragment"><p><code>Linealidad:</code> hay una relación lineal entre la variable dependiente y la variable explicativa</p></li>
-<li class="fragment"><p><code>Varianza Constante:</code> la variabilidad de los errores es igual para todos los valores de la variable explicativa</p></li>
-<li class="fragment"><p><code>Normalidad:</code> los errores siguen una distribución normal</p></li>
-<li class="fragment"><p><code>Independencia:</code> los errores son independientes entre ellos</p></li>
+<li class="fragment"><p><span class="hl hl-blue">Linealidad</span>: hay una relación lineal entre la variable dependiente y la variable explicativa</p></li>
+<li class="fragment"><p><span class="hl hl-blue">Varianza Constante</span>: la variabilidad de los errores es igual para todos los valores de la variable explicativa</p></li>
+<li class="fragment"><p><span class="hl hl-blue">Normalidad</span>: los errores siguen una distribución normal</p></li>
+<li class="fragment"><p><span class="hl hl-blue">Independencia</span>: los errores son independientes entre ellos</p></li>
 </ol>
 </div>
 </section>
@@ -442,30 +578,30 @@ Carlos Cardona Andrade
 <section id="son-lineales-los-errores" class="slide level2 medium">
 <h2>¿Son lineales los Errores?</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-discovered-preview-image r-stretch quarto-figure-center" width="576"><p>✅Los errores no siguen un patrón o estructura clara. Parecen aleatoriamente distribuidos</p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" width="576" class="r-stretch quarto-figure-center"><p>✅Los errores no siguen un patrón o estructura clara. Parecen aleatoriamente distribuidos</p>
 </section>
 <section id="claro-patrón-en-los-errores" class="slide level2 medium">
 <h2>❌ Claro patrón en los Errores</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" width="576" class="r-stretch quarto-figure-center"></section>
 <section id="la-varianza-de-los-errores-es-constante" class="slide level2 medium">
 <h2>¿La varianza de los errores es constante?</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" width="576" class="r-stretch quarto-figure-center"><p>✅La dispersión vertical de los errores es relativamente constante en la gráfica</p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" width="576" class="r-stretch quarto-figure-center"><p>✅La dispersión vertical de los errores es relativamente constante en la gráfica</p>
 </section>
 <section id="la-varianza-no-es-constante" class="slide level2 medium">
 <h2>❌ La varianza no es constante</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="576" class="r-stretch quarto-figure-center"></section>
 <section id="los-errores-se-distribuyen-normalmente" class="slide level2 medium">
 <h2>¿Los errores se distribuyen normalmente?</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" width="576" class="r-stretch quarto-figure-center"><p>✅La distribución de los errores se parece a una distribución normal</p>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" width="576" class="r-stretch quarto-figure-center"><p>✅La distribución de los errores se parece a una distribución normal</p>
 </section>
 <section id="los-errores-no-se-distribuyen-como-una-normal" class="slide level2">
 <h2>❌ Los errores no se distribuyen como una normal</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="576" class="r-stretch quarto-figure-center"></section>
 <section id="cómo-graficar-la-distribución-de-los-errores-en-r" class="slide level2 medium">
 <h2>¿Cómo graficar la distribución de los errores en R?</h2>
 <div class="cell" data-layout-align="center">
@@ -483,11 +619,8 @@ Carlos Cardona Andrade
 <div>
 <ul>
 <li class="fragment"><p>Podemos verificar el supuesto de independencia a menudo basándonos en el contexto de los datos y en cómo se recolectaron las observaciones.</p></li>
-<li class="fragment"><p>Si los datos se recolectaron en un orden particular, examina un diagrama de dispersión de los Errores versus el orden en que se recolectaron los datos.</p></li>
+<li class="fragment"><p>Si los datos se recolectaron en un orden particular, examina un diagrama de dispersión de los errores versus el orden en que se recolectaron los datos.</p></li>
 </ul>
-</div>
-<div class="fragment">
-<p>✅ Basado en la información disponible, el error de una película no nos dice nada sobre el error de otra película.</p>
 </div>
 </section>
 <section id="en-la-práctica.." class="slide level2 medium">
@@ -503,7 +636,7 @@ Carlos Cardona Andrade
 </section>
 <section id="qué-tan-bueno-es-el-modelo" class="slide level2 medium">
 <h2>¿Qué tan bueno es el modelo?</h2>
-<h3 id="r-squared">R-Squared</h3>
+<h3 id="el-r-cuadrado">El R cuadrado</h3>
 <p>El <span class="math inline">\(R^2\)</span> es el porcentaje de la varianza de la variable dependiente explicada por el modelo de regresión</p>
 <p><span class="math display">\[R^2=Corr(x,y)^2=Corr(y,\hat{y})\]</span></p>
 <ul>
@@ -552,17 +685,17 @@ Carlos Cardona Andrade
 <section id="relaciones-no-lineales" class="slide level2 medium">
 <h2>Relaciones no lineales</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-21-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="relaciones-no-lineales-1" class="slide level2 medium">
 <h2>Relaciones no lineales</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="relaciones-no-lineales-2" class="slide level2 medium">
 <h2>Relaciones no lineales</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch quarto-figure-center"></section>
-<section id="relaciones-no-lineales-3" class="slide level2 medium">
-<h2>Relaciones no lineales</h2>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="relaciones-no-lineales-en-r" class="slide level2 medium">
+<h2>Relaciones no lineales en R</h2>
 <p>Para agregar el término cuadrático a la regresión, se incluye el término <code>I(x^2)</code> en el código:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>modelo_felicidad <span class="ot">&lt;-</span> <span class="fu">lm</span>(felicidad <span class="sc">~</span> galletas <span class="sc">+</span> <span class="fu">I</span>(galletas<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> galletas)</span>
@@ -592,11 +725,14 @@ Carlos Cardona Andrade
 <section id="qué-hacer-con-una-observación-atípica-outlier" class="slide level2 medium">
 <h2>¿Qué hacer con una observación atípica (outlier)?</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-25-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="qué-hacer-con-una-observación-atípica-outlier-1" class="slide level2 medium">
 <h2>¿Qué hacer con una observación atípica (outlier)?</h2>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-26-1.png" width="960" class="r-stretch quarto-figure-center"><div class="fragment">
+<p>Como se menciono antes, es importante analizar la causa de los valores atípicos antes de eliminarlos, ya que pueden contener información valiosa.</p>
+</div>
+</section>
 <section id="efecto-interacción" class="slide level2 medium">
 <h2>Efecto interacción</h2>
 <p>Hasta ahora hemos asumido que el efecto de una variable es independiente de otra:</p>
@@ -624,16 +760,16 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1x_2+ e
 \]</span></p>
 </div>
 </section>
-<section id="interacciones" class="slide level2 medium">
-<h2>Interacciones</h2>
+<section id="interacciones---análisis-visual" class="slide level2 medium">
+<h2>Interacciones - Análisis Visual</h2>
 <p>El modelo donde las galletas tienen el mismo efecto para <font color="#000080">profesores</font> y <font color="#8B0000">estudiantes</font></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-20-1.png" width="960" class="r-stretch quarto-figure-center"></section>
-<section id="interacciones-1" class="slide level2 medium">
-<h2>Interacciones</h2>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-28-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="interacciones---análisis-visual-1" class="slide level2 medium">
+<h2>Interacciones - Análisis Visual</h2>
 <p>El modelo donde el efecto de las galletas puede diferir para <font color="#000080">profesores</font> y <font color="#8B0000">estudiantes</font></p>
 
-<img data-src="index_files/figure-revealjs/unnamed-chunk-21-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<img data-src="index_files/figure-revealjs/unnamed-chunk-29-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="ejercicio-2" class="slide level2 medium">
 <h2>💪 Ejercicio 2</h2>
 <ol type="1">
@@ -663,15 +799,18 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1x_2+ e
 </ul>
 </div>
 </section>
+<section id="es-la-distribución-del-recaudo-normal" class="slide level2 medium">
+<h2>¿Es la distribución del recaudo normal?</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-30-1.png" width="864" class="r-stretch quarto-figure-center"></section>
+<section id="es-la-distribución-del-logaritmo-del-recaudo-normal" class="slide level2 medium">
+<h2>¿Es la distribución del logaritmo del recaudo normal?</h2>
+
+<img data-src="index_files/figure-revealjs/unnamed-chunk-31-1.png" width="864" class="r-stretch quarto-figure-center"><div class="absolute textbox fragment fade-up altlist" style="font-size:1.7rem;padding:0.5rem 1rem;top: 10%; left: 5%; width: 450px; ">
+<p>En este caso, la variable <em>us_gross</em> se distribuye log-normal</p>
+</div>
+</section>
 <section id="transformación-logarítmica-1" class="slide level2 medium">
-<h2>Transformación logarítmica</h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-22-1.png" width="864" class="r-stretch quarto-figure-center"></section>
-<section id="transformación-logarítmica-2" class="slide level2 medium">
-<h2>Transformación logarítmica</h2>
-
-<img data-src="index_files/figure-revealjs/unnamed-chunk-23-1.png" width="864" class="r-stretch quarto-figure-center"></section>
-<section id="transformación-logarítmica-3" class="slide level2 medium">
 <h2>Transformación logarítmica</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>hollywood_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(us_gross <span class="sc">~</span> opening_gross, <span class="at">data=</span>hollywood)</span>
@@ -687,7 +826,7 @@ y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_1x_2+ e
 <p>La regresión lineal estimada es:</p>
 <p><span class="math display">\[\widehat{\text{US Total Gross}} = 5,108,220 + 3.12 \times \text{Opening Gross}\]</span></p>
 </section>
-<section id="transformación-logarítmica-4" class="slide level2 medium">
+<section id="transformación-logarítmica-2" class="slide level2 medium">
 <h2>Transformación logarítmica</h2>
 <p>¿Cómo cambian los resultados si estimamos una regresión con ambias variables como logarítmos?</p>
 <div class="cell">

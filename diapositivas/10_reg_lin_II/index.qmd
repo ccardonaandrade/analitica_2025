@@ -79,11 +79,243 @@ lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
 
 ## Plan para hoy
 
-1. [Condiciones del modelo](#condic)
+1. [Población, Muestra y Regresión](#pobreg)
 
-2. [Consideraciones para una Regresión](#regresion)
+2. [Condiciones del modelo](#condic)
 
-3. [Transformación Logarítmica](#log)
+3. [Consideraciones para una Regresión](#regresion)
+
+4. [Transformación Logarítmica](#log)
+
+
+# Población, Muestra y Regresión {#pobreg}
+
+## Regresión Poblacional - Ejemplo {.medium}
+
+- 100 estudiantes están tomando Analítica de los Negocios y queremos saber el efecto de comer galletas en la felicidad para todos ellos. Asumamos que tenemos los datos para todos los estudiantes.
+
+- Luego tomemos muestras de 30 estudiantes y miremos cómo los coeficientes de la siguiente regresión varían de acuerdo a la muestra:
+
+$$ felicidad_i = \beta_0 + \beta_1 galletas_i + e_i $$
+
+## Regresión Poblacional {.medium}
+
+
+$$ felicidad_i = `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` galletas_i + e_i $$
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: center
+ggplot(data = pop_df, aes(x = row, y = col)) +
+geom_point(color = "darkslategray", size = 10) +
+theme_empty
+```
+
+::::
+
+:::: {.column .fragment width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: center
+ggplot(data = pop_df, aes(x = x, y = y)) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = red_pink, size = 3
+) +
+geom_point(color = "darkslategray", size = 6) +
+theme_empty
+```
+
+
+::::
+
+:::::
+
+
+
+## Regresión para la Muestra 1 {.medium}
+
+
+$$ felicidad_i = `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` galletas_i + e_i $$
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: center
+ggplot(data = pop_df, aes(x = row, y = col, shape = s1)) +
+geom_point(color = "darkslategray", size = 10) +
+scale_shape_manual(values = c(1, 19)) +
+theme_empty
+```
+
+::::
+
+:::: {.column .fragment width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: center
+ggplot(data = pop_df, aes(x = x, y = y)) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = red_pink, size = 3, alpha = 0.3
+) +
+geom_point(aes(shape = s1), color = "darkslategray", size = 6) +
+geom_abline(
+  intercept = lm1$coefficients[1], slope = lm1$coefficients[2],
+  size = 2, linetype = 2, color = "black"
+) +
+scale_shape_manual(values = c(1, 19)) +
+theme_empty
+```
+
+$\widehat{felicidad}_i = `r round(lm1$coefficients[1], 2)` + `r round(lm1$coefficients[2], 2)` galletas_i$
+
+
+::::
+
+:::::
+
+
+
+## Regresión para la Muestra 2 {.medium}
+
+
+$$ felicidad_i = `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` galletas_i + e_i $$
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: center
+ggplot(data = pop_df, aes(x = row, y = col, shape = s2)) +
+geom_point(color = "darkslategray", size = 10) +
+scale_shape_manual(values = c(1, 19)) +
+theme_empty
+```
+
+
+
+::::
+
+:::: {.column .fragment width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: center
+ggplot(data = pop_df, aes(x = x, y = y)) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = red_pink, size = 3, alpha = 0.3
+) +
+geom_point(aes(shape = s2), color = "darkslategray", size = 6) +
+geom_abline(
+  intercept = lm1$coefficients[1], slope = lm1$coefficients[2],
+  size = 2, linetype = 2, color = "black", alpha = 0.3
+) +
+geom_abline(
+  intercept = lm2$coefficients[1], slope = lm2$coefficients[2],
+  size = 2, linetype = 2, color = "black"
+) +
+scale_shape_manual(values = c(1, 19)) +
+theme_empty
+```
+
+$\widehat{felicidad}_i = `r round(lm2$coefficients[1], 2)` + `r round(lm2$coefficients[2], 2)` galletas_i$
+
+
+::::
+
+:::::
+
+
+## Regresión para la Muestra 3 {.medium}
+
+
+$$ felicidad_i = `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` galletas_i + e_i $$
+
+::::: {.columns}
+
+:::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: center
+ggplot(data = pop_df, aes(x = row, y = col, shape = s3)) +
+geom_point(color = "darkslategray", size = 10) +
+scale_shape_manual(values = c(1, 19)) +
+theme_empty
+```
+
+
+::::
+
+:::: {.column .fragment width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-align: center
+ggplot(data = pop_df, aes(x = x, y = y)) +
+geom_abline(
+  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
+  color = red_pink, size = 3, alpha = 0.3
+) +
+geom_point(aes(shape = s3), color = "darkslategray", size = 6) +
+geom_abline(
+  intercept = lm1$coefficients[1], slope = lm1$coefficients[2],
+  size = 2, linetype = 2, color = "black", alpha = 0.3
+) +
+geom_abline(
+  intercept = lm2$coefficients[1], slope = lm2$coefficients[2],
+  size = 2, linetype = 2, color = "black", alpha = 0.3
+) +
+geom_abline(
+  intercept = lm3$coefficients[1], slope = lm3$coefficients[2],
+  size = 2, linetype = 2, color = "black"
+) +
+scale_shape_manual(values = c(1, 19)) +
+theme_empty
+```
+
+
+$\widehat{felicidad}_i = `r round(lm3$coefficients[1], 2)` + `r round(lm3$coefficients[2], 2)` galletas_i$
+
+
+::::
+
+:::::
+
+## La incertidumbre importa! {.medium}
+
+Como no sabemos si tenemos una buena o mala muestra, y queremos:
+
+$$
+\hat{\beta} \xrightarrow{\text{🤞 ojalá 🤞}} \beta
+$$
+
+usamos $\hat{\beta}$ para acercarnos al verdadero efecto $\beta$.
+
+. . .
+
+[Por eso, utilizamos intervalos de confianza y pruebas de hipótesis para cuantificar la incertidumbre en nuestras estimaciones]{.hl .hl-blue}
 
 
 
@@ -93,13 +325,13 @@ lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
 
 ::: incremental
 
-1. `Linealidad:` hay una relación lineal entre la variable dependiente y la variable explicativa
+1. [Linealidad]{.hl .hl-blue}: hay una relación lineal entre la variable dependiente y la variable explicativa
 
-2. `Varianza Constante:` la variabilidad de los errores es igual para todos los valores de la variable explicativa
+2. [Varianza Constante]{.hl .hl-blue}: la variabilidad de los errores es igual para todos los valores de la variable explicativa
 
-3. `Normalidad:` los errores siguen una distribución normal
+3. [Normalidad]{.hl .hl-blue}: los errores siguen una distribución normal
 
-4. `Independencia:` los errores son independientes entre ellos
+4. [Independencia]{.hl .hl-blue}: los errores son independientes entre ellos
 
 :::
 
@@ -313,15 +545,11 @@ augment(ols_model) |>
 
 - Podemos verificar el supuesto de independencia a menudo basándonos en el contexto de los datos y en cómo se recolectaron las observaciones.
 
-- Si los datos se recolectaron en un orden particular, examina un diagrama de dispersión de los Errores versus el orden en que se recolectaron los datos.
+- Si los datos se recolectaron en un orden particular, examina un diagrama de dispersión de los errores versus el orden en que se recolectaron los datos.
 
 :::
 
-:::{.fragment}
 
-✅ Basado en la información disponible, el error de una película no nos dice nada sobre el error de otra película.
-
-:::
 
 
 ## En la práctica.. {.medium}
@@ -340,7 +568,7 @@ Si no es así, las condiciones se cumplen suficientemente y podemos proceder con
 
 ## ¿Qué tan bueno es el modelo? {.medium}
 
-### R-Squared
+### El R cuadrado
 
 El $R^2$ es el porcentaje de la varianza de la variable dependiente explicada por el modelo de regresión
 
@@ -453,7 +681,7 @@ base_cookies +
 ```
 
 
-## Relaciones no lineales {.medium}
+## Relaciones no lineales en R {.medium}
 
 Para agregar el término cuadrático a la regresión, se incluye el término `I(x^2)` en el código: 
 
@@ -549,6 +777,9 @@ base_cookies +
 
 ```
 
+. . .
+
+Como se menciono antes, es importante analizar la causa de los valores atípicos antes de eliminarlos, ya que pueden contener información valiosa.
 
 ## Efecto interacción {.medium}
 
@@ -590,7 +821,7 @@ $$
 $$
 
 
-## Interacciones {.medium}
+## Interacciones - Análisis Visual {.medium}
 
 El modelo donde las galletas tienen el mismo efecto para <font color="#000080">profesores</font> y <font color="#8B0000">estudiantes</font>
 
@@ -645,7 +876,7 @@ scale_shape_manual("", values = c(16, 1), labels = c("Female", "Male"))
 ```
 
 
-## Interacciones {.medium}
+## Interacciones - Análisis Visual {.medium}
 
 El modelo donde el efecto de las galletas puede diferir para <font color="#000080">profesores</font> y <font color="#8B0000">estudiantes</font>
 
@@ -724,7 +955,7 @@ Podemos considerar una transformación logarítmica de las variables de nuestro 
 :::
 
 
-## Transformación logarítmica {.medium}
+## ¿Es la distribución del recaudo normal? {.medium}
 
 ```{r}
 #| echo: false
@@ -741,7 +972,7 @@ ggplot(data = hollywood, aes(x = us_gross/1000000)) +
 ```
 
 
-## Transformación logarítmica {.medium}
+## ¿Es la distribución del logaritmo del recaudo normal? {.medium}
 
 ```{r}
 #| echo: false
@@ -755,6 +986,10 @@ ggplot(data = hollywood, aes(x = log(us_gross/1000000))) +
     ) +
     theme_minimal()
 ```
+
+::: {.absolute top="10%" left="5%" width="450px" .textbox .fragment .fade-up style="font-size:1.7rem;padding:0.5rem 1rem;" .altlist}
+En este caso, la variable *us_gross* se distribuye log-normal
+:::
 
 
 ## Transformación logarítmica {.medium}
