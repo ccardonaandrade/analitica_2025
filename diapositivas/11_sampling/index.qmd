@@ -1,0 +1,451 @@
+---
+title: Analítica de los Negocios
+author: Carlos Cardona Andrade
+subtitle: Datos y Muestreo
+execute:
+  freeze: auto
+  echo: true
+  fig-width: 6
+  fig-height: 5
+format:
+  revealjs: 
+   theme: ../slides.scss
+   header-includes: |
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"/>
+   slide-number: true
+   show-slide-number: all
+   transition: fade
+   progress: true
+   multiplex: false
+   scrollable: false
+   preview-links: false
+   hide-inactive-cursor: true
+   highlight-style: printing
+   pause: true
+---
+
+
+
+```{r}
+#| eval: true
+#| echo: false
+library(pacman)
+p_load(broom, latex2exp, ggplot2, ggthemes, viridis, dplyr, magrittr, knitr, parallel,gtools, readxl)
+
+# Define pink color
+red_pink <- "#e64173"
+
+theme_empty <- theme_bw() + theme(
+  line = element_blank(),
+  rect = element_blank(),
+  strip.text = element_blank(),
+  axis.text = element_blank(),
+  plot.title = element_blank(),
+  axis.title = element_blank(),
+  plot.margin = structure(c(0, 0, 0, 0), unit = "lines", valid.unit = 3L, class = "unit"),
+  legend.position = "none"
+)
+
+
+# Set population and sample sizes
+n_p <- 100
+n_s <- 30
+# Set the seed
+set.seed(12468)
+# Generate data
+pop_df <- tibble(
+  i = 3,
+  x = rnorm(n_p, mean = 5, sd = 1.5),
+  e = rnorm(n_p, mean = 0, sd = 1),
+  y = i + 0.5 * x + e,
+  row = rep(1:sqrt(n_p), times = sqrt(n_p)),
+  col = rep(1:sqrt(n_p), each = sqrt(n_p)),
+  s1 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s2 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
+  s3 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s)))
+)
+# Regressions
+lm0 <- lm(y ~ x, data = pop_df)
+lm1 <- lm(y ~ x, data = filter(pop_df, s1 == T))
+lm2 <- lm(y ~ x, data = filter(pop_df, s2 == T))
+lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
+
+
+# Simulation
+
+```
+
+
+
+## Plan para hoy
+
+1. [Datos](#data)
+
+2. [Muestreo](#sampling)
+
+
+
+# Datos {#data}
+
+
+
+# Muestreo {#sampling}
+
+## Poblacipon y Muestras {.medium}
+
+![](img/muestra.png){.absolute top="100" left="250" width=60% height=70%}
+  
+## Muestras {.medium}
+
+- Toma `menos tiempo` que seleccionar a cada ente de la población. 
+
+- Es `menos costoso` que seleccionar cada ente de la población. 
+
+- Es `imposible` recolectar datos de toda la población
+
+## Tipos de muestras {.medium}
+
+- No probabilística
+    1. Muestreo por conveniencia
+    2. Muestreo de respuesta voluntaria
+
+- Probabilística
+    1. Muestreo simple
+    2. Muestre estratificado
+    3. Muestreo por conglomerado
+    4. Muestre en múltiples etapas
+  
+## Malos ejemplos de muestreo {.medium}
+  
+- Muestreo por conveniencia: consiste en tomar muestras de aquellos que son fácilmente accesibles.
+   - Ejemplo: encuesta al "hombre en la calle" (barata, conveniente, popular en el "periodismo" televisivo).
+   - Problema: los resultados pueden variar significativamente según el "cuándo y dónde" se realice la encuesta; falta de representatividad.
+   
+## Malos ejemplos de muestreo {.medium}
+   
+- Muestreo de respuesta voluntaria:
+    - Ejemplo: encuestas en internet, encuestas telefónicas.
+    - Solo las personas que visiten el sitio web o vean el programa serán muestreadas.
+    - Las personas con opiniones fuertes son más propensas a participar.
+    
+## Muestreo Simple {.medium}
+
+<div style="margin-top: 100px;"></div>
+
+::: columns
+::: {.column width="50%"}
+![](img/simple_sampling.jpg){width=70% height=70% fig-align="center"}
+:::
+
+::: {.column width="50%"}
+- Idea básica: colocar los nombres en una caja, agitar bien y sacar nombres al azar de la caja.
+
+- Se necesita una lista de nombres de todos los sujetos de la población, llamada marco muestral.
+
+- Todos los sujetos tienen la misma probabilidad de ser elegidos.
+:::
+:::
+  
+## Muestreo Simple {.medium}
+
+- Pros: La composición de la muestra reflejará la composición de la población (edad/género/raza/ingresos...).
+
+- Contras: La necesidad de un marco muestral lo hace poco práctico para poblaciones grandes
+
+
+## Muestreo Simple en R {.medium}
+
+```{r}
+#| echo: true
+#| eval: false
+#| error: true
+
+library(tidyverse)
+sample(x, size, replace = FALSE, prob = NULL)
+
+
+```
+
+
+- x - vector or a data set.
+- size - sample size.
+- replace - with or without replacement of values.
+- prob - probability weights
+
+ 
+## Muestreo Simple en R {.medium}
+
+```{r}
+#| echo: true
+#| eval: true
+#| error: true
+
+# la muestra esta entre 1 y 5. El numero de muestras es 3
+x<- sample(1:5, 3)
+# veamos las 3 muestras
+x
+
+# la muestra esta entre 1 y 5. El numero de muestras es 6
+x<- sample(1:5, 6)
+x
+
+#especificar replace=TRUE o T permitirá repeticiones de valores para que se puedan generar las 6 muestras
+x<- sample(1:5, 6, replace=T)
+x
+```
+
+
+
+## Muestreo Simple en R {.medium}
+
+```{r}
+#| echo: true
+#| eval: true
+#| error: true
+
+# establezcamos la semilla
+set.seed(5)
+#tomemos la muestra aleatoria con reemplazo
+sample(1:5, 4, replace=T)
+
+# cambiemos la semilla
+set.seed(4)
+sample(1:5, 4, replace=T)
+
+set.seed(5)
+sample(1:5, 4, replace=T)
+
+```
+
+
+## Muestreo Simple en R {.medium}
+
+```{r}
+#| echo: true
+#| eval: true
+#| error: true
+
+# creemos una lista de nombres y seleccionemos 1 al azar
+sample(c('laura','diego','daniel','danna','manuela','ivan'),1)
+
+# Otro nombre
+sample(c('laura','diego','daniel','danna','manuela','ivan'),1)
+
+# Otro nombre
+sample(c('laura','diego','daniel','danna','manuela','ivan'),1)
+
+# Otro nombre
+sample(c('laura','diego','daniel','danna','manuela','ivan'),1)
+
+```
+
+
+## Muestreo Simple en R {.medium}
+
+```{r}
+#| echo: true
+#| eval: true
+#| error: true
+
+# creamos una probabilidad de 80% para Bueno y 20% para malo.
+sample (c('Bueno','Malo'), size=10, replace=T, prob=c(.80,.20))
+
+# Establezcamos otras probabilidades 
+sample (c('Bueno','Malo'), size=10, replace=T, prob=c(.60,.40))
+
+
+```
+
+
+## Muestreo Estratificado {.medium}
+
+::: columns
+::: {.column width="50%"}
+![](img/strat_sampling.jpg){width=70% height=70% fig-align="center"}
+:::
+
+::: {.column width="50%"}
+La población se divide en grupos llamados **estratos**, y luego se elige una muestra aleatoria simple en cada estrato.
+:::
+:::
+
+- Funciona mejor cuando los casos dentro de un estrato son similares, pero existen grandes diferencias entre los estratos.
+
+- Inconvenientes: Se necesita un marco muestral para cada estrato, lo cual no es práctico para poblaciones grandes.
+
+
+## Muestreo Estratificado en R {.medium}
+
+
+```{r}
+#| echo: true
+#| eval: true
+#| error: true
+library(tidyverse)
+
+# Creemos la población
+data <- data.frame(grupo= rep(c('Profesores', 'Estudiantes', 'Admin', 'Invitados'), each=150), gpa = rnorm(600, mean=90, sd=3))
+head(data)
+
+# Obtengamos la muestra estratificada
+estrat_muestra <- data |>
+  group_by(grupo) |>
+  sample_n(size=15)
+
+table(estrat_muestra$grupo)
+
+```
+
+
+## Muestreo Estratificado en R {.medium}
+
+```{r}
+#| echo: true
+#| eval: true
+#| error: true
+
+# Obtengamos la muestra estratificada por proporción
+
+estrat_muestra <- data |>
+                  group_by(grupo) |>
+                  sample_frac(size=.20)
+
+# Veamos la frencuencia de personas para cada grupo
+table(estrat_muestra$grupo)
+
+```
+
+
+
+## Muestreo por conglomerados {.medium}
+
+::: columns
+::: {.column width="50%"}
+![](img/cluster_sampling.jpg){width=70% height=70% fig-align="center"}
+:::
+
+::: {.column width="50%"}
+La población se divide en grupos, llamados **conglomerados**. Se elige una muestra de conglomerados. Todos los sujetos en los conglomerados seleccionados son muestreados.
+:::
+:::
+
+- Por ejemplo, Éxito puede seleccionar un número de tiendas y entrevistar a todos los empleados en las tiendas seleccionadas. Aquí, un conglomerado es una tienda.
+
+- El muestreo por conglomerados funciona mejor cuando hay poca variación entre conglomerados, pero una gran variación dentro de los conglomerados.
+
+
+## Muestreo por conglomerados en R {.medium}
+
+```{r}
+#| echo: true
+#| eval: true
+#| error: true
+
+# Generemos la muestra
+set.seed(123)
+poblacion <- data.frame(
+  supermercado = paste("Supermercado", 1:1000, sep = "_"),
+  SatisfaccionCliente = rnorm(1000, mean = 75, sd = 10)
+)
+
+# Muestreo por conglomerado
+supermercados_elegidos <- sample(poblacion$supermercado, size = 10, replace = FALSE)
+muestra <- poblacion[poblacion$supermercado %in% supermercados_elegidos, ]
+
+# Veamos la muestra
+head(muestra)
+```
+
+
+## Muestreo en múltiples etapas {.medium}
+
+::: columns
+::: {.column width="50%"}
+![](img/multi_sampling.jpg){width=70% height=70% fig-align="center"}
+:::
+
+::: {.column width="50%"}
+- Primera etapa: la población se divide en grupos, llamados **conglomerados**, y se elige una muestra de grupos.
+- Segunda etapa: los grupos seleccionados se dividen a su vez en subgrupos, y se elige una muestra de subgrupos en cada grupo seleccionado.
+- (Tercera etapa: ...)
+- (Cuarta etapa: ...)
+:::
+:::
+
+## Muestreo en múltiples etapas {.medium}
+
+Muchas encuestas nacionales (como la Encuesta General Social) utilizan muestreo en cuatro etapas.
+
+- departamentos $\rightarrow$ ciudades $\rightarrow$ barrios $\rightarrow$ hogares
+
+
+Ventaja:
+
+- Los sujetos seleccionados vivirán todos en las ciudades seleccionadas, y no estarán dispersos por todo el país, lo que puede reducir significativamente los costos de viaje de los entrevistadores.
+- No es necesario elaborar un marco muestral para los subgrupos no seleccionados.
+
+## Muestreo en múltiples etapas en R {.medium}
+
+```{r}
+#| echo: true
+#| eval: true
+#| error: true
+# Sample Data Generation
+set.seed(123)
+region <- data.frame(
+  Barrio = paste("Barrio", 1:500, sep = "_"),
+  IngresoMedio = rnorm(500, mean = 50000, sd = 10000)
+)
+hogares <- data.frame(
+  Barrio = rep(sample(region$Barrio, size = 500, replace = TRUE), 
+                     each = 20),
+  IDhogar = rep(1:20, times = 500),
+  TipoEmpleo = sample(c("Ocupado", "Desempleado"), size = 10000, replace = TRUE)
+)
+
+# Two-Stage Cluster Sampling
+barrios_elegidos <- sample(region$Barrio, size = 5, replace = FALSE)
+hogares_muestra <- hogares[hogares$Barrio %in% barrios_elegidos, ]
+
+# Display Sampled Data
+head(hogares_muestra)
+```
+
+
+## Problemas de muestreo - Sesgo de selección {.smaller .medium}
+
+Una tendencia sistemática por parte del procedimiento de muestreo a excluir un tipo de persona u otro de la muestra se llama sesgo de selección.
+
+- Las personas sin dirección permanente son excluidas por las encuestas por correo.
+- Aproximadamente 1/3 de los teléfonos residenciales no están listados. Muestrear números de teléfono de las páginas blancas perdería esos números no listados. Los ricos y los pobres tienen más probabilidades de tener números no listados, por lo que el directorio telefónico tiende hacia la clase media.
+- Se ha encontrado que las mujeres tienen más probabilidades de contestar el teléfono que los hombres. Las encuestas telefónicas a menudo incluyen más mujeres que hombres.
+- Cuando un procedimiento de selección está sesgado, tomar una muestra grande no ayuda. Esto es solo repetir el mismo errror a una mayor escala.
+
+## Problemas de muestreo - Sesgo de no respuesta {.smaller .medium}
+
+El sesgo de no respuesta causa problemas porque los que no responden pueden ser muy diferentes de los que sí responden.
+
+- Los que no responden pueden tener largas horas de trabajo, vivir solos con más probabilidad, o no molestarse en responder, etc.
+- Ejemplo: en las últimas décadas, Gallup ha encontrado que los republicanos tenían más probabilidades de responder que los demócratas.
+- Cuando la tasa de respuesta es baja, no se puede tomar una nueva muestra para reemplazar a quienes no responden.
+- Se debe intentar contactar a los que no responden, haciendo más llamadas/visitas, ofreciendo recompensas, etc.
+- Siempre verifique la tasa de respuesta. Si es baja, el resultado de la encuesta podría no ser confiable.
+
+## Problemas de muestreo - Sesgo de respuesta {.medium}
+
+El sesgo de respuesta significa que las respuestas de los encuestados están influenciadas, en cierta medida, por la formulación de las preguntas e incluso por el tono o la actitud del entrevistador.
+
+Solución: control del entrevistador y diseño adecuado de los cuestionarios.
+
+## Sesgo de muestreo {.medium}
+
+![](img/sampling_bias.jpg){.absolute top="100" left="250" width=60% height=70%}
+
+## Sesgo de supervivencia {.medium}
+
+![](img/survivor_bias.jpg){.absolute top="100" left="250" width=60% height=70%}
+
+## Sesgo de supervivencia {.medium}
+
+![](img/survivor_bias_2.jpg){.absolute top="100" left="250" width=60% height=70%}
+
