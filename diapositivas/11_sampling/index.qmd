@@ -87,11 +87,46 @@ lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
 
 # Datos {#data}
 
+## Los límites de los datos {.medium}
+
+::: {.columns}
+::: {.column width=30%}
+![](img/bias.png)
+:::
+::: {.column width=70%}
+- ¡Los datos nunca son un reflejo perfecto del mundo!  
+- Es solo un subconjunto: no es el crimen, sino el [crimen reportado]{.hl .hl-dred}  
+- La información es recopilada por humanos y procesada por máquinas: ¡las imprecisiones y errores son [inevitables]{.hl .hl-blue}!  
+- ¡Sé consciente de los posibles sesgos (cognitivos y estadísticos)!
+:::
+:::
+
+
+## Invisible women
+
+## Mujeres invisibles
+
+::: {.tbl-larger .recommended-lit}
+|   |   |
+|---|---|
+| ![](img/perez.jpg) | **Caroline Criado Perez** <br> *Exponiendo el sesgo de datos en un mundo diseñado para los hombres* <br> Random House UK <br> ISBN: 978-1-78470-628-9 <br><br> El mundo en el que vivimos está construido en torno a datos, preferencias y suposiciones masculinas. Hay numerosos ejemplos de cómo la [brecha de datos de género]{.hl .hl-dred} ha llevado a que las mujeres sean ignoradas y subvaloradas en áreas que van desde la medicina hasta la planificación urbana. Para crear una sociedad más justa e igualitaria, necesitamos tener en cuenta las diferentes experiencias y necesidades de las mujeres y otros grupos marginados en nuestros procesos de recolección de datos y toma de decisiones. |
+: {tbl-colwidths="[20,80]"}
+:::
+
+
+## Ricos invisibles {.smaller}
+
+::: {.tbl-larger .recommended-lit}
+|   |   |
+|---|---|
+| ![](img/rlmap_col.png) | Los datos de encuestas se basan en muestras representativas extraídas de la población total. Sin embargo, la probabilidad de incluir a uno de los pocos hogares muy ricos en la muestra es infinitesimal. Además, la participación en encuestas es mayoritariamente voluntaria y la tasa de rechazo es más alta en la parte superior de la distribución. Esta [pobre cobertura de la cima]{.hl .hl-dred} en las encuestas de riqueza e ingresos oculta la magnitud de la desigualdad. <br><br> La figura muestra la brecha entre la observación más rica en los datos de encuestas de riqueza (HFCS) y la observación "más pobre" en listas nacionales de ricos elaboradas por revistas. |
+: {tbl-colwidths="[50,50]"}
+:::
 
 
 # Muestreo {#sampling}
 
-## Poblacipon y Muestras {.medium}
+## Población y Muestras {.medium}
 
 ![](img/muestra.png){.absolute top="100" left="250" width=60% height=70%}
   
@@ -167,10 +202,10 @@ sample(x, size, replace = FALSE, prob = NULL)
 ```
 
 
-- x - vector or a data set.
-- size - sample size.
-- replace - with or without replacement of values.
-- prob - probability weights
+- `x` - vector o conjunto de datos.
+- `size` - tamaño de la muestra.
+- `replace` - con o sin reemplazo de valores.
+- `prob` - pesos probabilísticos
 
  
 ## Muestreo Simple en R {.medium}
@@ -181,22 +216,39 @@ sample(x, size, replace = FALSE, prob = NULL)
 #| error: true
 
 # la muestra esta entre 1 y 5. El numero de muestras es 3
-x<- sample(1:5, 3)
+x <- sample(1:5, 3)
 # veamos las 3 muestras
 x
+```
+
+. . .
+
+
+```{r}
+#| echo: true
+#| eval: true
+#| error: true
 
 # la muestra esta entre 1 y 5. El numero de muestras es 6
-x<- sample(1:5, 6)
+x <- sample(1:5, 6)
 x
+```
 
+. . .
+
+
+```{r}
+#| echo: true
+#| eval: true
+#| error: true
 #especificar replace=TRUE o T permitirá repeticiones de valores para que se puedan generar las 6 muestras
-x<- sample(1:5, 6, replace=T)
+x <- sample(1:5, 6, replace=T)
 x
 ```
 
 
 
-## Muestreo Simple en R {.medium}
+## Muestreo Simple en R - La Semilla {.medium}
 
 ```{r}
 #| echo: true
@@ -240,7 +292,7 @@ sample(c('laura','diego','daniel','danna','manuela','ivan'),1)
 ```
 
 
-## Muestreo Simple en R {.medium}
+## Muestreo Simple en R - Los pesos {.medium}
 
 ```{r}
 #| echo: true
@@ -274,7 +326,7 @@ La población se divide en grupos llamados **estratos**, y luego se elige una mu
 - Inconvenientes: Se necesita un marco muestral para cada estrato, lo cual no es práctico para poblaciones grandes.
 
 
-## Muestreo Estratificado en R {.medium}
+## Muestreo Estratificado en R - Por tamaño {.medium}
 
 
 ```{r}
@@ -284,9 +336,16 @@ La población se divide en grupos llamados **estratos**, y luego se elige una mu
 library(tidyverse)
 
 # Creemos la población
-data <- data.frame(grupo= rep(c('Profesores', 'Estudiantes', 'Admin', 'Invitados'), each=150), gpa = rnorm(600, mean=90, sd=3))
+data <- data.frame(grupo= rep(c('Profesores', 'Estudiantes', 'Admin', 'Invitados'), each=150), felicidad = rnorm(600, mean=90, sd=3))
 head(data)
+```
 
+
+```{r}
+#| echo: true
+#| eval: true
+#| error: true
+#| code-line-numbers: 4|1,2,3,4,5,6
 # Obtengamos la muestra estratificada
 estrat_muestra <- data |>
   group_by(grupo) |>
@@ -297,15 +356,15 @@ table(estrat_muestra$grupo)
 ```
 
 
-## Muestreo Estratificado en R {.medium}
+## Muestreo Estratificado en R - Por proporción {.medium}
 
 ```{r}
 #| echo: true
 #| eval: true
 #| error: true
+#| code-line-numbers: 4|1,2,3,4,5,6,7
 
 # Obtengamos la muestra estratificada por proporción
-
 estrat_muestra <- data |>
                   group_by(grupo) |>
                   sample_frac(size=.20)
@@ -350,8 +409,9 @@ poblacion <- data.frame(
 
 # Muestreo por conglomerado
 supermercados_elegidos <- sample(poblacion$supermercado, size = 10, replace = FALSE)
-muestra <- poblacion[poblacion$supermercado %in% supermercados_elegidos, ]
-
+muestra <- poblacion |>
+  filter(supermercado %in% supermercados_elegidos)
+  
 # Veamos la muestra
 head(muestra)
 ```
@@ -390,43 +450,58 @@ Ventaja:
 #| echo: true
 #| eval: true
 #| error: true
-# Sample Data Generation
+# Generación de los datos
 set.seed(123)
-region <- data.frame(
-  Barrio = paste("Barrio", 1:500, sep = "_"),
+barrios <- data.frame(
+  barrio = paste("Barrio", 1:500, sep = "_"),
   IngresoMedio = rnorm(500, mean = 50000, sd = 10000)
 )
+
 hogares <- data.frame(
-  Barrio = rep(sample(region$Barrio, size = 500, replace = TRUE), 
+  barrio = rep(sample(barrios$barrio, size = 500, replace = TRUE), 
                      each = 20),
   IDhogar = rep(1:20, times = 500),
   TipoEmpleo = sample(c("Ocupado", "Desempleado"), size = 10000, replace = TRUE)
 )
 
-# Two-Stage Cluster Sampling
-barrios_elegidos <- sample(region$Barrio, size = 5, replace = FALSE)
-hogares_muestra <- hogares[hogares$Barrio %in% barrios_elegidos, ]
+head(hogares)
 
-# Display Sampled Data
-head(hogares_muestra)
 ```
 
+
+
+## Muestreo en múltiples etapas en R {.medium}
+
+```{r}
+#| echo: true
+#| eval: true
+#| error: true
+
+# Acá viene el muestreo por etapas
+barrios_elegidos <- sample(barrios$barrio, size = 5, replace = FALSE)
+hogares_muestra <- hogares |>
+  filter(barrio %in% barrios_elegidos) |>
+  group_by(barrio) |>
+  sample_n(10) |> 
+  ungroup()
+ 
+head(hogares_muestra)
+```
 
 ## Problemas de muestreo - Sesgo de selección {.smaller .medium}
 
 Una tendencia sistemática por parte del procedimiento de muestreo a excluir un tipo de persona u otro de la muestra se llama sesgo de selección.
 
 - Las personas sin dirección permanente son excluidas por las encuestas por correo.
-- Aproximadamente 1/3 de los teléfonos residenciales no están listados. Muestrear números de teléfono de las páginas blancas perdería esos números no listados. Los ricos y los pobres tienen más probabilidades de tener números no listados, por lo que el directorio telefónico tiende hacia la clase media.
+- Aproximadamente 1/3 de los teléfonos residenciales no están listados. Los ricos y los pobres tienen más probabilidades de tener números no listados, por lo que el directorio telefónico tiende hacia la clase media.
 - Se ha encontrado que las mujeres tienen más probabilidades de contestar el teléfono que los hombres. Las encuestas telefónicas a menudo incluyen más mujeres que hombres.
-- Cuando un procedimiento de selección está sesgado, tomar una muestra grande no ayuda. Esto es solo repetir el mismo errror a una mayor escala.
+- Cuando un procedimiento de selección está sesgado, tomar una muestra grande no ayuda. Esto es solo repetir el mismo error a una mayor escala.
 
 ## Problemas de muestreo - Sesgo de no respuesta {.smaller .medium}
 
 El sesgo de no respuesta causa problemas porque los que no responden pueden ser muy diferentes de los que sí responden.
 
 - Los que no responden pueden tener largas horas de trabajo, vivir solos con más probabilidad, o no molestarse en responder, etc.
-- Ejemplo: en las últimas décadas, Gallup ha encontrado que los republicanos tenían más probabilidades de responder que los demócratas.
 - Cuando la tasa de respuesta es baja, no se puede tomar una nueva muestra para reemplazar a quienes no responden.
 - Se debe intentar contactar a los que no responden, haciendo más llamadas/visitas, ofreciendo recompensas, etc.
 - Siempre verifique la tasa de respuesta. Si es baja, el resultado de la encuesta podría no ser confiable.

@@ -410,19 +410,74 @@ Carlos Cardona Andrade
 <li><p><a href="#/sampling">Muestreo</a></p></li>
 </ol>
 </section>
+<section>
 <section id="data" class="title-slide slide level1 center">
 <h1>Datos</h1>
 
 </section>
-
+<section id="los-límites-de-los-datos" class="slide level2 medium">
+<h2>Los límites de los datos</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><img data-src="img/bias.png" class="quarto-discovered-preview-image"></p>
+</div><div class="column" style="width:70%;">
+<ul>
+<li>¡Los datos nunca son un reflejo perfecto del mundo!<br>
+</li>
+<li>Es solo un subconjunto: no es el crimen, sino el <span class="hl hl-dred">crimen reportado</span><br>
+</li>
+<li>La información es recopilada por humanos y procesada por máquinas: ¡las imprecisiones y errores son <span class="hl hl-blue">inevitables</span>!<br>
+</li>
+<li>¡Sé consciente de los posibles sesgos (cognitivos y estadísticos)!</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="invisible-women" class="slide level2">
+<h2>Invisible women</h2>
+</section>
+<section id="mujeres-invisibles" class="slide level2">
+<h2>Mujeres invisibles</h2>
+<div class="tbl-larger recommended-lit">
+<table>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 80%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><img data-src="img/perez.jpg"></td>
+<td><strong>Caroline Criado Perez</strong> <br> <em>Exponiendo el sesgo de datos en un mundo diseñado para los hombres</em> <br> Random House UK <br> ISBN: 978-1-78470-628-9 <br><br> El mundo en el que vivimos está construido en torno a datos, preferencias y suposiciones masculinas. Hay numerosos ejemplos de cómo la <span class="hl hl-dred">brecha de datos de género</span> ha llevado a que las mujeres sean ignoradas y subvaloradas en áreas que van desde la medicina hasta la planificación urbana. Para crear una sociedad más justa e igualitaria, necesitamos tener en cuenta las diferentes experiencias y necesidades de las mujeres y otros grupos marginados en nuestros procesos de recolección de datos y toma de decisiones.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="ricos-invisibles" class="slide level2 smaller">
+<h2>Ricos invisibles</h2>
+<div class="tbl-larger recommended-lit">
+<table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><img data-src="img/rlmap_col.png"></td>
+<td>Los datos de encuestas se basan en muestras representativas extraídas de la población total. Sin embargo, la probabilidad de incluir a uno de los pocos hogares muy ricos en la muestra es infinitesimal. Además, la participación en encuestas es mayoritariamente voluntaria y la tasa de rechazo es más alta en la parte superior de la distribución. Esta <span class="hl hl-dred">pobre cobertura de la cima</span> en las encuestas de riqueza e ingresos oculta la magnitud de la desigualdad. <br><br> La figura muestra la brecha entre la observación más rica en los datos de encuestas de riqueza (HFCS) y la observación “más pobre” en listas nacionales de ricos elaboradas por revistas.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section></section>
 <section>
 <section id="sampling" class="title-slide slide level1 center">
 <h1>Muestreo</h1>
 
 </section>
-<section id="poblacipon-y-muestras" class="slide level2 medium">
-<h2>Poblacipon y Muestras</h2>
-<p><img data-src="img/muestra.png" class="absolute quarto-discovered-preview-image" style="top: 100px; left: 250px; width: 60%; height: 70%; "></p>
+<section id="población-y-muestras" class="slide level2 medium">
+<h2>Población y Muestras</h2>
+<p><img data-src="img/muestra.png" class="absolute" style="top: 100px; left: 250px; width: 60%; height: 70%; "></p>
 </section>
 <section id="muestras" class="slide level2 medium">
 <h2>Muestras</h2>
@@ -505,24 +560,27 @@ Carlos Cardona Andrade
 <span id="cb1-2"><a href="#cb1-2"></a><span class="fu">sample</span>(x, size, <span class="at">replace =</span> <span class="cn">FALSE</span>, <span class="at">prob =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li>x - vector or a data set.</li>
-<li>size - sample size.</li>
-<li>replace - with or without replacement of values.</li>
-<li>prob - probability weights</li>
+<li><code>x</code> - vector o conjunto de datos.</li>
+<li><code>size</code> - tamaño de la muestra.</li>
+<li><code>replace</code> - con o sin reemplazo de valores.</li>
+<li><code>prob</code> - pesos probabilísticos</li>
 </ul>
 </section>
 <section id="muestreo-simple-en-r-1" class="slide level2 medium">
 <h2>Muestreo Simple en R</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># la muestra esta entre 1 y 5. El numero de muestras es 3</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>x<span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">3</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">3</span>)</span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="co"># veamos las 3 muestras</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4 1 2</code></pre>
 </div>
+</div>
+<div class="fragment">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># la muestra esta entre 1 y 5. El numero de muestras es 6</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>x<span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'</code></pre>
 </div>
@@ -530,16 +588,21 @@ Carlos Cardona Andrade
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4 1 2</code></pre>
 </div>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#especificar replace=TRUE o T permitirá repeticiones de valores para que se puedan generar las 6 muestras</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>x<span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">6</span>, <span class="at">replace=</span>T)</span>
+<span id="cb8-2"><a href="#cb8-2"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">6</span>, <span class="at">replace=</span>T)</span>
 <span id="cb8-3"><a href="#cb8-3"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1 1 3 1 3 4</code></pre>
 </div>
 </div>
+</div>
 </section>
-<section id="muestreo-simple-en-r-2" class="slide level2 medium">
-<h2>Muestreo Simple en R</h2>
+<section id="muestreo-simple-en-r---la-semilla" class="slide level2 medium">
+<h2>Muestreo Simple en R - La Semilla</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># establezcamos la semilla</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="fu">set.seed</span>(<span class="dv">5</span>)</span>
@@ -561,7 +624,7 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
-<section id="muestreo-simple-en-r-3" class="slide level2 medium">
+<section id="muestreo-simple-en-r-2" class="slide level2 medium">
 <h2>Muestreo Simple en R</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># creemos una lista de nombres y seleccionemos 1 al azar</span></span>
@@ -586,8 +649,8 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
-<section id="muestreo-simple-en-r-4" class="slide level2 medium">
-<h2>Muestreo Simple en R</h2>
+<section id="muestreo-simple-en-r---los-pesos" class="slide level2 medium">
+<h2>Muestreo Simple en R - Los pesos</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># creamos una probabilidad de 80% para Bueno y 20% para malo.</span></span>
 <span id="cb24-2"><a href="#cb24-2"></a><span class="fu">sample</span> (<span class="fu">c</span>(<span class="st">'Bueno'</span>,<span class="st">'Malo'</span>), <span class="at">size=</span><span class="dv">10</span>, <span class="at">replace=</span>T, <span class="at">prob=</span><span class="fu">c</span>(.<span class="dv">80</span>,.<span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -621,24 +684,26 @@ Carlos Cardona Andrade
 <li><p>Inconvenientes: Se necesita un marco muestral para cada estrato, lo cual no es práctico para poblaciones grandes.</p></li>
 </ul>
 </section>
-<section id="muestreo-estratificado-en-r" class="slide level2 medium">
-<h2>Muestreo Estratificado en R</h2>
+<section id="muestreo-estratificado-en-r---por-tamaño" class="slide level2 medium">
+<h2>Muestreo Estratificado en R - Por tamaño</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb28-2"><a href="#cb28-2"></a></span>
 <span id="cb28-3"><a href="#cb28-3"></a><span class="co"># Creemos la población</span></span>
-<span id="cb28-4"><a href="#cb28-4"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">grupo=</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">'Profesores'</span>, <span class="st">'Estudiantes'</span>, <span class="st">'Admin'</span>, <span class="st">'Invitados'</span>), <span class="at">each=</span><span class="dv">150</span>), <span class="at">gpa =</span> <span class="fu">rnorm</span>(<span class="dv">600</span>, <span class="at">mean=</span><span class="dv">90</span>, <span class="at">sd=</span><span class="dv">3</span>))</span>
+<span id="cb28-4"><a href="#cb28-4"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">grupo=</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">'Profesores'</span>, <span class="st">'Estudiantes'</span>, <span class="st">'Admin'</span>, <span class="st">'Invitados'</span>), <span class="at">each=</span><span class="dv">150</span>), <span class="at">felicidad =</span> <span class="fu">rnorm</span>(<span class="dv">600</span>, <span class="at">mean=</span><span class="dv">90</span>, <span class="at">sd=</span><span class="dv">3</span>))</span>
 <span id="cb28-5"><a href="#cb28-5"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       grupo      gpa
-1 Profesores 95.08553
-2 Profesores 85.31956
-3 Profesores 84.40746
-4 Profesores 89.90350
-5 Profesores 90.74338
-6 Profesores 89.21532</code></pre>
+<pre><code>       grupo felicidad
+1 Profesores  95.08553
+2 Profesores  85.31956
+3 Profesores  84.40746
+4 Profesores  89.90350
+5 Profesores  90.74338
+6 Profesores  89.21532</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># Obtengamos la muestra estratificada</span></span>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30" data-code-line-numbers="4|1,2,3,4,5,6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># Obtengamos la muestra estratificada</span></span>
 <span id="cb30-2"><a href="#cb30-2"></a>estrat_muestra <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
 <span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">group_by</span>(grupo) <span class="sc">|&gt;</span></span>
 <span id="cb30-4"><a href="#cb30-4"></a>  <span class="fu">sample_n</span>(<span class="at">size=</span><span class="dv">15</span>)</span>
@@ -651,17 +716,16 @@ Carlos Cardona Andrade
 </div>
 </div>
 </section>
-<section id="muestreo-estratificado-en-r-1" class="slide level2 medium">
-<h2>Muestreo Estratificado en R</h2>
+<section id="muestreo-estratificado-en-r---por-proporción" class="slide level2 medium">
+<h2>Muestreo Estratificado en R - Por proporción</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># Obtengamos la muestra estratificada por proporción</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a></span>
-<span id="cb32-3"><a href="#cb32-3"></a>estrat_muestra <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
-<span id="cb32-4"><a href="#cb32-4"></a>                  <span class="fu">group_by</span>(grupo) <span class="sc">|&gt;</span></span>
-<span id="cb32-5"><a href="#cb32-5"></a>                  <span class="fu">sample_frac</span>(<span class="at">size=</span>.<span class="dv">20</span>)</span>
-<span id="cb32-6"><a href="#cb32-6"></a></span>
-<span id="cb32-7"><a href="#cb32-7"></a><span class="co"># Veamos la frencuencia de personas para cada grupo</span></span>
-<span id="cb32-8"><a href="#cb32-8"></a><span class="fu">table</span>(estrat_muestra<span class="sc">$</span>grupo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32" data-code-line-numbers="4|1,2,3,4,5,6,7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># Obtengamos la muestra estratificada por proporción</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>estrat_muestra <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a>                  <span class="fu">group_by</span>(grupo) <span class="sc">|&gt;</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a>                  <span class="fu">sample_frac</span>(<span class="at">size=</span>.<span class="dv">20</span>)</span>
+<span id="cb32-5"><a href="#cb32-5"></a></span>
+<span id="cb32-6"><a href="#cb32-6"></a><span class="co"># Veamos la frencuencia de personas para cada grupo</span></span>
+<span id="cb32-7"><a href="#cb32-7"></a><span class="fu">table</span>(estrat_muestra<span class="sc">$</span>grupo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
       Admin Estudiantes   Invitados  Profesores 
@@ -699,18 +763,19 @@ Carlos Cardona Andrade
 <span id="cb34-7"><a href="#cb34-7"></a></span>
 <span id="cb34-8"><a href="#cb34-8"></a><span class="co"># Muestreo por conglomerado</span></span>
 <span id="cb34-9"><a href="#cb34-9"></a>supermercados_elegidos <span class="ot">&lt;-</span> <span class="fu">sample</span>(poblacion<span class="sc">$</span>supermercado, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb34-10"><a href="#cb34-10"></a>muestra <span class="ot">&lt;-</span> poblacion[poblacion<span class="sc">$</span>supermercado <span class="sc">%in%</span> supermercados_elegidos, ]</span>
-<span id="cb34-11"><a href="#cb34-11"></a></span>
-<span id="cb34-12"><a href="#cb34-12"></a><span class="co"># Veamos la muestra</span></span>
-<span id="cb34-13"><a href="#cb34-13"></a><span class="fu">head</span>(muestra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-10"><a href="#cb34-10"></a>muestra <span class="ot">&lt;-</span> poblacion <span class="sc">|&gt;</span></span>
+<span id="cb34-11"><a href="#cb34-11"></a>  <span class="fu">filter</span>(supermercado <span class="sc">%in%</span> supermercados_elegidos)</span>
+<span id="cb34-12"><a href="#cb34-12"></a>  </span>
+<span id="cb34-13"><a href="#cb34-13"></a><span class="co"># Veamos la muestra</span></span>
+<span id="cb34-14"><a href="#cb34-14"></a><span class="fu">head</span>(muestra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        supermercado SatisfaccionCliente
-203 Supermercado_203            72.34855
-225 Supermercado_225            71.36343
-255 Supermercado_255            90.98509
-354 Supermercado_354            76.16637
-457 Supermercado_457            86.10277
-554 Supermercado_554            77.49825</code></pre>
+<pre><code>      supermercado SatisfaccionCliente
+1 Supermercado_203            72.34855
+2 Supermercado_225            71.36343
+3 Supermercado_255            90.98509
+4 Supermercado_354            76.16637
+5 Supermercado_457            86.10277
+6 Supermercado_554            77.49825</code></pre>
 </div>
 </div>
 </section>
@@ -748,33 +813,54 @@ Carlos Cardona Andrade
 <section id="muestreo-en-múltiples-etapas-en-r" class="slide level2 medium">
 <h2>Muestreo en múltiples etapas en R</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># Sample Data Generation</span></span>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># Generación de los datos</span></span>
 <span id="cb36-2"><a href="#cb36-2"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb36-3"><a href="#cb36-3"></a>region <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb36-4"><a href="#cb36-4"></a>  <span class="at">Barrio =</span> <span class="fu">paste</span>(<span class="st">"Barrio"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="at">sep =</span> <span class="st">"_"</span>),</span>
+<span id="cb36-3"><a href="#cb36-3"></a>barrios <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb36-4"><a href="#cb36-4"></a>  <span class="at">barrio =</span> <span class="fu">paste</span>(<span class="st">"Barrio"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="at">sep =</span> <span class="st">"_"</span>),</span>
 <span id="cb36-5"><a href="#cb36-5"></a>  <span class="at">IngresoMedio =</span> <span class="fu">rnorm</span>(<span class="dv">500</span>, <span class="at">mean =</span> <span class="dv">50000</span>, <span class="at">sd =</span> <span class="dv">10000</span>)</span>
 <span id="cb36-6"><a href="#cb36-6"></a>)</span>
-<span id="cb36-7"><a href="#cb36-7"></a>hogares <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb36-8"><a href="#cb36-8"></a>  <span class="at">Barrio =</span> <span class="fu">rep</span>(<span class="fu">sample</span>(region<span class="sc">$</span>Barrio, <span class="at">size =</span> <span class="dv">500</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb36-9"><a href="#cb36-9"></a>                     <span class="at">each =</span> <span class="dv">20</span>),</span>
-<span id="cb36-10"><a href="#cb36-10"></a>  <span class="at">IDhogar =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">times =</span> <span class="dv">500</span>),</span>
-<span id="cb36-11"><a href="#cb36-11"></a>  <span class="at">TipoEmpleo =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Ocupado"</span>, <span class="st">"Desempleado"</span>), <span class="at">size =</span> <span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb36-12"><a href="#cb36-12"></a>)</span>
-<span id="cb36-13"><a href="#cb36-13"></a></span>
-<span id="cb36-14"><a href="#cb36-14"></a><span class="co"># Two-Stage Cluster Sampling</span></span>
-<span id="cb36-15"><a href="#cb36-15"></a>barrios_elegidos <span class="ot">&lt;-</span> <span class="fu">sample</span>(region<span class="sc">$</span>Barrio, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb36-16"><a href="#cb36-16"></a>hogares_muestra <span class="ot">&lt;-</span> hogares[hogares<span class="sc">$</span>Barrio <span class="sc">%in%</span> barrios_elegidos, ]</span>
-<span id="cb36-17"><a href="#cb36-17"></a></span>
-<span id="cb36-18"><a href="#cb36-18"></a><span class="co"># Display Sampled Data</span></span>
-<span id="cb36-19"><a href="#cb36-19"></a><span class="fu">head</span>(hogares_muestra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb36-7"><a href="#cb36-7"></a></span>
+<span id="cb36-8"><a href="#cb36-8"></a>hogares <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb36-9"><a href="#cb36-9"></a>  <span class="at">barrio =</span> <span class="fu">rep</span>(<span class="fu">sample</span>(barrios<span class="sc">$</span>barrio, <span class="at">size =</span> <span class="dv">500</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb36-10"><a href="#cb36-10"></a>                     <span class="at">each =</span> <span class="dv">20</span>),</span>
+<span id="cb36-11"><a href="#cb36-11"></a>  <span class="at">IDhogar =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">times =</span> <span class="dv">500</span>),</span>
+<span id="cb36-12"><a href="#cb36-12"></a>  <span class="at">TipoEmpleo =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"Ocupado"</span>, <span class="st">"Desempleado"</span>), <span class="at">size =</span> <span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-13"><a href="#cb36-13"></a>)</span>
+<span id="cb36-14"><a href="#cb36-14"></a></span>
+<span id="cb36-15"><a href="#cb36-15"></a><span class="fu">head</span>(hogares)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         Barrio IDhogar  TipoEmpleo
-1981 Barrio_302       1 Desempleado
-1982 Barrio_302       2     Ocupado
-1983 Barrio_302       3     Ocupado
-1984 Barrio_302       4     Ocupado
-1985 Barrio_302       5 Desempleado
-1986 Barrio_302       6 Desempleado</code></pre>
+<pre><code>     barrio IDhogar  TipoEmpleo
+1 Barrio_13       1 Desempleado
+2 Barrio_13       2     Ocupado
+3 Barrio_13       3     Ocupado
+4 Barrio_13       4 Desempleado
+5 Barrio_13       5     Ocupado
+6 Barrio_13       6     Ocupado</code></pre>
+</div>
+</div>
+</section>
+<section id="muestreo-en-múltiples-etapas-en-r-1" class="slide level2 medium">
+<h2>Muestreo en múltiples etapas en R</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a><span class="co"># Acá viene el muestreo por etapas</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a>barrios_elegidos <span class="ot">&lt;-</span> <span class="fu">sample</span>(barrios<span class="sc">$</span>barrio, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb38-3"><a href="#cb38-3"></a>hogares_muestra <span class="ot">&lt;-</span> hogares <span class="sc">|&gt;</span></span>
+<span id="cb38-4"><a href="#cb38-4"></a>  <span class="fu">filter</span>(barrio <span class="sc">%in%</span> barrios_elegidos) <span class="sc">|&gt;</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a>  <span class="fu">group_by</span>(barrio) <span class="sc">|&gt;</span></span>
+<span id="cb38-6"><a href="#cb38-6"></a>  <span class="fu">sample_n</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb38-7"><a href="#cb38-7"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb38-8"><a href="#cb38-8"></a> </span>
+<span id="cb38-9"><a href="#cb38-9"></a><span class="fu">head</span>(hogares_muestra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  barrio     IDhogar TipoEmpleo 
+  &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;      
+1 Barrio_196      11 Desempleado
+2 Barrio_196      10 Desempleado
+3 Barrio_196      12 Desempleado
+4 Barrio_196      13 Ocupado    
+5 Barrio_196      17 Ocupado    
+6 Barrio_196      16 Desempleado</code></pre>
 </div>
 </div>
 </section>
@@ -783,9 +869,9 @@ Carlos Cardona Andrade
 <p>Una tendencia sistemática por parte del procedimiento de muestreo a excluir un tipo de persona u otro de la muestra se llama sesgo de selección.</p>
 <ul>
 <li>Las personas sin dirección permanente son excluidas por las encuestas por correo.</li>
-<li>Aproximadamente 1/3 de los teléfonos residenciales no están listados. Muestrear números de teléfono de las páginas blancas perdería esos números no listados. Los ricos y los pobres tienen más probabilidades de tener números no listados, por lo que el directorio telefónico tiende hacia la clase media.</li>
+<li>Aproximadamente 1/3 de los teléfonos residenciales no están listados. Los ricos y los pobres tienen más probabilidades de tener números no listados, por lo que el directorio telefónico tiende hacia la clase media.</li>
 <li>Se ha encontrado que las mujeres tienen más probabilidades de contestar el teléfono que los hombres. Las encuestas telefónicas a menudo incluyen más mujeres que hombres.</li>
-<li>Cuando un procedimiento de selección está sesgado, tomar una muestra grande no ayuda. Esto es solo repetir el mismo errror a una mayor escala.</li>
+<li>Cuando un procedimiento de selección está sesgado, tomar una muestra grande no ayuda. Esto es solo repetir el mismo error a una mayor escala.</li>
 </ul>
 </section>
 <section id="problemas-de-muestreo---sesgo-de-no-respuesta" class="slide level2 smaller medium">
@@ -793,7 +879,6 @@ Carlos Cardona Andrade
 <p>El sesgo de no respuesta causa problemas porque los que no responden pueden ser muy diferentes de los que sí responden.</p>
 <ul>
 <li>Los que no responden pueden tener largas horas de trabajo, vivir solos con más probabilidad, o no molestarse en responder, etc.</li>
-<li>Ejemplo: en las últimas décadas, Gallup ha encontrado que los republicanos tenían más probabilidades de responder que los demócratas.</li>
 <li>Cuando la tasa de respuesta es baja, no se puede tomar una nueva muestra para reemplazar a quienes no responden.</li>
 <li>Se debe intentar contactar a los que no responden, haciendo más llamadas/visitas, ofreciendo recompensas, etc.</li>
 <li>Siempre verifique la tasa de respuesta. Si es baja, el resultado de la encuesta podría no ser confiable.</li>
