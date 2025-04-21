@@ -38,8 +38,8 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
     - [Quarto](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/71da8799e234524d8d36a43a75fc858c1869f91d/diapositivas/09_quarto/index.html)
 9. Más sobre Regresión Lineal \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/315e5e122812b73eba34102e827a154e0a16d880/diapositivas/10_reg_lin_II/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/315e5e122812b73eba34102e827a154e0a16d880/diapositivas/10_reg_lin_II/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/315e5e122812b73eba34102e827a154e0a16d880/diapositivas/10_reg_lin_II/index.qmd)\]
     - Lecturas: IMS 8; OIS 9.1-9.4
-10. Experimentos
-11. Muestreo y encuestas
+10. Datos y Muestreo \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/01c0ace0b2b731b69635526ede3a11b7c83bef47/diapositivas/11_sampling/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/01c0ace0b2b731b69635526ede3a11b7c83bef47/diapositivas/11_sampling/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/01c0ace0b2b731b69635526ede3a11b7c83bef47/diapositivas/11_sampling/index.qmd)\]
+11. Experimentos
     - Lecturas: IMS 2
 12. Regresión Logística
     - Lecturas: IMS 9; OIS 9.5
