@@ -79,13 +79,35 @@ lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
 
 ## Plan para hoy
 
-1. [Datos](#data)
+1. [¿Qué son los datos?](#data)
 
 2. [Muestreo](#sampling)
 
 
 
-# Datos {#data}
+# ¿Qué son los datos?  {#data}
+
+## ¿Qué son los datos? {.medium}
+
+- Los datos representan **hechos sobre el mundo**, pero no son la **realidad misma**, sino una **forma de representación e interpretación**.
+
+- Hoy llamamos "datos" a muchos elementos que antes no se consideraban como tal (nombres, fotos, videos, hábitos diarios).
+
+- Los datos requieren **contexto** para ser significativos: vocabulario común, relaciones y convenciones interpretativas (es decir, metadatos).
+
+- Existen múltiples formas de representar un mismo concepto, lo que hace necesaria una buena **arquitectura y gestión de datos**.
+
+## Datos vs Información {.medium}
+
+El modelo DIKW (Datos → Información → Conocimiento → Sabiduría) es común, pero presenta limitaciones:
+
+- 📌 Asume que los datos existen por sí solos, cuando en realidad **los datos deben ser creados**.
+
+- 🔄 Plantea una secuencia lineal, sin considerar que se necesita conocimiento para generar datos.
+
+- 🔗 Separa datos e información, aunque están interrelacionados — los datos son una forma de información, y viceversa.
+
+✅ Gestionar bien los datos requiere entender la relación compleja y cíclica entre datos, información y conocimiento.
 
 ## Los límites de los datos {.medium}
 
@@ -94,22 +116,20 @@ lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
 ![](img/bias.png)
 :::
 ::: {.column width=70%}
-- ¡Los datos nunca son un reflejo perfecto del mundo!  
+- ¡Los datos **nunca** son un reflejo perfecto del mundo!  
 - Es solo un subconjunto: no es el crimen, sino el [crimen reportado]{.hl .hl-dred}  
 - La información es recopilada por humanos y procesada por máquinas: ¡las imprecisiones y errores son [inevitables]{.hl .hl-blue}!  
-- ¡Sé consciente de los posibles sesgos (cognitivos y estadísticos)!
+- Sean consciente de los posibles sesgos (cognitivos y estadísticos)!
 :::
 :::
 
-
-## Invisible women
 
 ## Mujeres invisibles
 
 ::: {.tbl-larger .recommended-lit}
 |   |   |
 |---|---|
-| ![](img/perez.jpg) | **Caroline Criado Perez** <br> *Exponiendo el sesgo de datos en un mundo diseñado para los hombres* <br> Random House UK <br> ISBN: 978-1-78470-628-9 <br><br> El mundo en el que vivimos está construido en torno a datos, preferencias y suposiciones masculinas. Hay numerosos ejemplos de cómo la [brecha de datos de género]{.hl .hl-dred} ha llevado a que las mujeres sean ignoradas y subvaloradas en áreas que van desde la medicina hasta la planificación urbana. Para crear una sociedad más justa e igualitaria, necesitamos tener en cuenta las diferentes experiencias y necesidades de las mujeres y otros grupos marginados en nuestros procesos de recolección de datos y toma de decisiones. |
+| ![](img/perez.jpg) | **Caroline Criado Perez** <br> *Exponiendo el sesgo de datos en un mundo diseñado para los hombres* <br> Random House UK <br> ISBN: 978-1-78470-628-9 <br><br> Diversas investigaciones, como las presentadas en el libro "Invisible Women" de Caroline Criado Perez, muestran cómo muchos de los datos utilizados en la toma de decisiones han sido históricamente recopilados sin considerar plenamente las diferencias de género. Esta [brecha de datos de género]{.hl .hl-dred} puede tener implicaciones importantes en áreas como la medicina, el transporte o la planificación urbana. Para mejorar la equidad y la efectividad en las políticas públicas y el diseño de servicios, es fundamental incluir una mayor diversidad de perspectivas en los procesos de recolección y análisis de datos.|
 : {tbl-colwidths="[20,80]"}
 :::
 
@@ -126,11 +146,17 @@ lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
 
 # Muestreo {#sampling}
 
-## Población y Muestras {.medium}
+## ¿Por qué es importante el muestreo? {.medium}
 
 ![](img/muestra.png){.absolute top="100" left="250" width=60% height=70%}
+
+## La incertidumbre importa!! {.medium}
+
+![](img/muestra.png){.absolute top="100" left="250" width=60% height=70%}
+
+
   
-## Muestras {.medium}
+## ¿Por qué son útiles las muestras? {.medium}
 
 - Toma `menos tiempo` que seleccionar a cada ente de la población. 
 
