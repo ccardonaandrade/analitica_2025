@@ -1,0 +1,108 @@
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amssymb}
+\usepackage{tabularx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{amsfonts}
+\usepackage{graphics}
+\usepackage{graphpap}
+\usepackage{latexsym}
+\usepackage{makeidx}
+\usepackage{enumerate}
+\usepackage{rotating}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{indentfirst}
+%\usepackage[nofiglist,notablist,tablesfirst,nomarkers]{endfloat} % figuras al final
+\usepackage[margin=3cm]{geometry}
+\usepackage[colorlinks=true]{hyperref}
+
+\usepackage{multicol} % Paquete necesario para las columnas
+
+
+	
+
+\date{\vspace{-5ex}}
+\begin{document}
+
+\title{{\bf Pre-Parcial}} 
+\author{Analítica de los Negocios \\
+	Pontificia Universidad Javeriana}
+\date{}
+
+\maketitle 
+
+
+El conjunto de datos para este ejercicio proviene de la base de datos \hyperlink{https://github.com/jldbc/coffee-quality-database}{Coffee Quality} y fue obtenido del repositorio de GitHub de \hyperlink{https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md}{TidyTuesday}. Contiene datos detallados de más de 1000 variedades de café, incluyendo su procedencia, productor, características específicas y evaluación de calidad.
+
+\medskip
+
+Realicen los siguientes ejercicios en orden, siguiendo cada paso cuidadosamente. Incluyan nombres en los ejes y un título informativo para todos los gráficos. Escriban todas las interpretaciones en el contexto de los datos.
+
+\section{Ejercicios}
+
+\begin{enumerate}
+
+\item Carguen los datos `coffee\_ratings.csv' a R.
+
+\item Eliminen las observaciones para las cuales total\_cup\_points==0
+
+
+
+\item Estimen la regresión lineal:
+
+ $\widehat{\text{Total Cup Points}}=\hat{\beta_0}+\hat{\beta_1}\times Aroma$
+ 
+ Interpreten la pendiente en el contexto de los datos.
+ 
+ \item ¿Tiene sentido interpretar el intercepto? Si es así, escriban la interpretación en el contexto de los datos.
+ 
+ \item ¿Tomarían una taza de café representada por el intercepto? Grafiquen la densidad de la variable dependiente y una línea punteada señalando la ubicación del intercepto en la gráfica.
+ 
+ \item Ahora evaluemos las condiciones del modelo. Verifiquen las condiciones de linealidad, varianza constante y normalidad. Para cada condición, indiquen si se cumple junto con una breve explicación de su conclusión. Incluyan los gráficos y/o estadísticas descriptivas que utilizaron para justificar su respuesta.
+ 
+ 
+ \item Ahora realicen la prueba de hipótesis para la pendiente. En su respuesta, enuncien las hipótesis nula y alternativa en palabras, y expongan la conclusión en el contexto de los datos.
+ 
+ \item Interpreten el $R^2$
+ 
+ \item Creen una variable dummy llamada $colombia$ que sea igual a 1 si el país de origen es Colombia. ¿Qué porcentaje de los cafés en la muestra provienen de Colombia?
+ 
+ \item Estimen la regresión lineal:
+ 
+ 
+ $\widehat{\text{Total Cup Points}}=\hat{\beta_0}+\hat{\beta_1}\times Aroma + \hat{\beta_2}\times Colombia$
+ 
+ Interpreten $\hat{\beta_2}$ en el contexto de los datos.
+ 
+ \item ¿Cómo cambia el $R^2$ con respecto al de la regresión en el punto 6?¿Qué nos dice esto sobre la variable $colombia$?
+ 
+ 
+ \item Estimen la regresión lineal:
+ 
+ $\widehat{\text{Total Cup Points}}=\hat{\beta_0}+\hat{\beta_1}\times Flavor$
+ 
+ Interpreten el $R^2$. Al comparar con el punto 11, ¿qué pueden decir sobre las variables $aroma$ y $flavour$ y su relación con total\_cup\_points?
+ 
+ \item Imaginen que tienen que hablar con un caficultor que está en el dilema entre mejorar el aroma o el sabor del café que produce. Basado en estos datos y en la regresión:
+ 
+  $\widehat{\text{Total Cup Points}}=\hat{\beta_0}+\hat{\beta_1}\times Aroma + \hat{\beta_2}\times Flavor$
+  
+  ¿Qué le recomendarían?
+  
+ \item Elijan una de las características del punto 6 y estimen la regresión:
+  
+  $\widehat{\text{log(Total Cup Points)}}=\hat{\beta_0}+\hat{\beta_1}\times \text{log(Característica)}$
+  
+  Interpreten la pendiente en el contexto de los datos. 
+  
+  
+\end{enumerate}
+
+
+\end{document}
