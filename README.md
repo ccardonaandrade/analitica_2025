@@ -41,9 +41,8 @@ Consulten el [syllabus](https://rawcdn.githack.com/ccardonaandrade/analitica_202
 10. Datos y Muestreo \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/01c0ace0b2b731b69635526ede3a11b7c83bef47/diapositivas/11_sampling/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/01c0ace0b2b731b69635526ede3a11b7c83bef47/diapositivas/11_sampling/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/01c0ace0b2b731b69635526ede3a11b7c83bef47/diapositivas/11_sampling/index.qmd)\]
 11. Experimentos \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/a515cac119b1d89b58ea61f2332d60de4ef9dc76/diapositivas/12_experiments/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/a515cac119b1d89b58ea61f2332d60de4ef9dc76/diapositivas/12_experiments/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/a515cac119b1d89b58ea61f2332d60de4ef9dc76/diapositivas/12_experiments/index.qmd)\]
     - Lecturas: IMS 2
-12. Regresión Logística
+12. Regresión Logística \[[**.html**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/8bc80fd0e98076c5301f52f0dec16b4da7903e81/diapositivas/13_logit/index.html) | [**.pdf**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/8bc80fd0e98076c5301f52f0dec16b4da7903e81/diapositivas/13_logit/index.pdf) | [**.qmd**](https://rawcdn.githack.com/ccardonaandrade/analitica_2025/8bc80fd0e98076c5301f52f0dec16b4da7903e81/diapositivas/13_logit/index.qmd)\]
     - Lecturas: IMS 9; OIS 9.5
-13. Análisis de Texto
 
 ## Proyecto Final 
 
